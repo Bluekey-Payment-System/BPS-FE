@@ -9,13 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "classnames": "^2.3.2",
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.2",
-    "react-query": "^3.39.3"
+    "react-query": "^3.39.3",
+    "react-redux": "^8.1.2"
   },
   "devDependencies": {
     "@types/classnames": "^2.3.1",
