@@ -9,6 +9,7 @@ const Document = () => {
       <body>
         <Main />
         <NextScript />
+        <div id="toast-root" />
       </body>
     </Html>
   );
