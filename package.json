@@ -6,10 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --watch --passWithNoTests",
+    "test:ci": "jest --ci --passWithNoTests"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
+    "@testing-library/jest-dom": "^5.17.0",
     "axios": "^1.4.0",
     "classnames": "^2.3.2",
     "next": "13.4.12",
@@ -20,6 +23,10 @@
     "react-redux": "^8.1.2"
   },
   "devDependencies": {
+    "@testing-library/dom": "^9.3.1",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.4.3",
     "@types/classnames": "^2.3.1",
     "@types/node": "^20.4.7",
     "@types/react": "^18.2.18",
@@ -35,10 +42,12 @@
     "eslint-plugin-react": "^7.33.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "jest": "^29.6.2",
+    "jest-environment-jsdom": "^29.6.2",
     "sass": "^1.64.2",
     "stylelint": "^15.10.2",
     "stylelint-config-property-sort-order-smacss": "^9.1.0",
     "stylelint-config-standard-scss": "^10.0.0",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"
   }
 }
