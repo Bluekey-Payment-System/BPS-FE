@@ -1,8 +1,8 @@
 import { render } from "@testing-library/react";
 
-import Home from "@/pages";
+import Home from "@/pages/index.page";
 
-describe("index.tsx test", () => {
+describe("index.page.tsx test", () => {
   it("renders Home Page", () => {
     const { container } = render(<Home />);
 

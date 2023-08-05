@@ -3,7 +3,8 @@
     // 이 설정은 전역 변수를 정의합니다.
     "browser": true, // 브라우저 전역 변수 (예: window, document 등)를 사용할 수 있음을 나타냅니다.
     "es2021": true, // ES2021에 도입된 ECMAScript 전역 변수와 문법을 사용할 수 있음을 나타냅니다.
-    "node": true // Node.js 전역 변수와 Node.js scoping을 사용할 수 있음을 나타냅니다.
+    "node": true, // Node.js 전역 변수와 Node.js scoping을 사용할 수 있음을 나타냅니다.
+    "jest": true
   },
   "extends": [
     //  이 설정은 기존의 다른 설정을 확장하고, 덮어쓰거나 추가 설정을 할 수 있도록 해줍니다.
