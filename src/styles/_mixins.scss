@@ -1,0 +1,26 @@
+@mixin fixed($top, $left, $right: null, $bottom: null) {
+  position: fixed;
+  top: $top;
+  left: $left;
+
+  @if $right {
+    right: $right;
+  }
+
+  @if $bottom {
+    bottom: $bottom;
+  }
+}
+
+@mixin flexbox($direction, $justify: false, $align: false) {
+  display: flex;
+  flex-direction: $direction;
+
+  @if $justify {
+    justify-content: $justify;
+  }
+
+  @if $align {
+    align-items: $align;
+  }
+}
