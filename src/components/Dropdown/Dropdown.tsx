@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { useQuery } from "react-query";
 
 import useOutsideClick from "@/hooks/useOutsideClick";
 
@@ -10,8 +9,8 @@ interface DropdownProps {
   theme: "black" | "white",
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Dropdown = ({ url, theme = "white" }: DropdownProps) => {
-  // const { date, isloading }: { date: string[], isLoading: boolean } = useQuery(url, fetchData);
   const [toggle, setToggle] = useState<boolean>(false);
   const dropdownListWrapperRef = useRef<HTMLDivElement>(null);
 
