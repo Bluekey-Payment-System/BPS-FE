@@ -4,10 +4,10 @@ import styles from "./Dropdown.module.scss";
 
 interface DropdownListProps {
   dropdownData: string[],
-  handleInputValue: () => void
+  onClick: () => void
 }
 
-const DropdownList = ({ dropdownData, handleInputValue }: DropdownListProps) => {
+const DropdownList = ({ dropdownData, onClick }: DropdownListProps) => {
   return (
     <div>
       {dropdownData.map((dropdownItem) => {
@@ -18,7 +18,7 @@ const DropdownList = ({ dropdownData, handleInputValue }: DropdownListProps) => 
               type="radio"
               value={dropdownItem}
               className={styles.content}
-              onChange={handleInputValue}
+              onClick={onClick}
             />
             <label htmlFor={dropdownItem}>
               {dropdownItem}
