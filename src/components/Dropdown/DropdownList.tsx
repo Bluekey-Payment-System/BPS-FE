@@ -4,10 +4,10 @@ import styles from "./Dropdown.module.scss";
 
 interface DropdownListProps {
   dropdownData: string[],
-  onClick: () => void
+  onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>
 }
 
-const DropdownList = ({ dropdownData, onClick }: DropdownListProps) => {
+const DropdownList = ({ dropdownData, onClickDropdownItem }: DropdownListProps) => {
   return (
     <div>
       {dropdownData.map((dropdownItem) => {
@@ -18,7 +18,7 @@ const DropdownList = ({ dropdownData, onClick }: DropdownListProps) => {
               type="radio"
               value={dropdownItem}
               className={styles.content}
-              onClick={onClick}
+              onClick={onClickDropdownItem}
             />
             <label htmlFor={dropdownItem}>
               {dropdownItem}

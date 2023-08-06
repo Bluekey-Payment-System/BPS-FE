@@ -1,47 +1,27 @@
-import { SetStateAction, useRef } from "react";
+import React from "react";
 
 import Image from "next/image";
-
-import useOutsideClick from "@/hooks/useOutsideClick";
 
 import styles from "./Dropdown.module.scss";
 import DropdownList from "./DropdownList";
 
 interface DropdownProps {
   selectedDropdownValue: string,
-  setSelectedDropdownValue: React.Dispatch<SetStateAction<string>>,
   toggle: boolean,
-  setToggle: React.Dispatch<SetStateAction<boolean>>,
-  fetchData: string[]
+  fetchData: string[],
+  handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLDivElement>,
+  onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>
 }
 
 const DropdownUI = ({
   selectedDropdownValue,
-  setSelectedDropdownValue,
   toggle,
-  setToggle,
   fetchData,
-}: DropdownProps) => {
-  const dropdownContainerRef = useRef<HTMLDivElement>(null);
-  const dropdownListWrapperRef = useRef<HTMLDivElement>(null);
-
-  const handleToggle = (e: React.MouseEvent<HTMLImageElement>) => {
-    e.preventDefault();
-    setToggle(!toggle);
-  };
-
-  const handleCloseList = () => {
-    setToggle(false);
-  };
-
-  const handleClickDropdownItem = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedDropdownValue(event.target.value);
-  };
-
-  useOutsideClick(dropdownListWrapperRef, handleCloseList);
-
+  handleToggle,
+  onClickDropdownItem,
+}: DropdownProps, dropdownListWrapperRef: React.ForwardedRef<HTMLDivElement>) => {
   return (
-    <div className={styles.dropdownContainer} ref={dropdownContainerRef} onClick={handleToggle} role="presentation">
+    <div className={styles.dropdownContainer} onClick={handleToggle} role="presentation">
       <div
         className={styles.userInput}
       >
@@ -59,10 +39,15 @@ const DropdownUI = ({
       <div
         ref={dropdownListWrapperRef}
       >
-        {toggle && <DropdownList dropdownData={fetchData} onClick={handleClickDropdownItem} />}
+        {toggle && (
+          <DropdownList
+            dropdownData={fetchData}
+            onClickDropdownItem={onClickDropdownItem}
+          />
+        )}
       </div>
     </div>
   );
 };
 
-export default DropdownUI;
+export default React.forwardRef(DropdownUI);
