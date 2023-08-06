@@ -7,10 +7,19 @@
     box-sizing: border-box;
     width: 100%;
     height: 4rem;
-    padding: 1.1rem 1.2rem;
+    padding: 1.1rem 1.6rem 1.1rem 1.2rem;
+    overflow: hidden;
     border: 0.1rem solid $sub-color3;
     border-radius: 0.8rem;
-    outline: none
+    outline: none;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
+  }
+
+  .userInput.blackTheme {
+    background-color: $primary-black;
+    color: $primary-white
   }
 
   .toggle {
@@ -23,11 +32,9 @@
     cursor: pointer;
   }
 
-  .wrapper {
+  .dropdownWrapper {
     position: relative;
     z-index: 1;
-    max-height: 23rem;
-    margin-top: 0.8rem;
     overflow-x: hidden;
     overflow-y: scroll;
     border-radius: 0.6rem;
@@ -54,7 +61,6 @@
       margin: 0;
       opacity: 0;
       cursor: pointer;
-      
     }
     
     .select label{

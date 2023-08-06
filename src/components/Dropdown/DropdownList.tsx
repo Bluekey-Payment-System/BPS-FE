@@ -9,7 +9,7 @@ interface DropdownListProps {
 
 const DropdownList = ({ dropdownData, onClickDropdownItem }: DropdownListProps) => {
   return (
-    <div>
+    <>
       {dropdownData.map((dropdownItem) => {
         return (
           <div className={styles.select} key={dropdownItem}>
@@ -26,7 +26,7 @@ const DropdownList = ({ dropdownData, onClickDropdownItem }: DropdownListProps) 
           </div>
         );
       })}
-    </div>
+    </>
   );
 };
 

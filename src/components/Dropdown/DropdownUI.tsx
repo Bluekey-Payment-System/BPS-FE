@@ -1,16 +1,20 @@
 import React from "react";
 
+import classNames from "classnames";
 import Image from "next/image";
 
 import styles from "./Dropdown.module.scss";
 import DropdownList from "./DropdownList";
+
+const cn = classNames.bind(styles);
 
 interface DropdownProps {
   selectedDropdownValue: string,
   toggle: boolean,
   fetchData: string[],
   handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLDivElement>,
-  onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>
+  onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>,
+  theme: "black" | "white"
 }
 
 const DropdownUI = ({
@@ -19,11 +23,12 @@ const DropdownUI = ({
   fetchData,
   handleToggle,
   onClickDropdownItem,
+  theme,
 }: DropdownProps, dropdownListWrapperRef: React.ForwardedRef<HTMLDivElement>) => {
   return (
     <div className={styles.dropdownContainer} onClick={handleToggle} role="presentation">
       <div
-        className={styles.userInput}
+        className={cn(styles.userInput, theme === "black" && styles.blackTheme)}
       >
         {selectedDropdownValue}
       </div>
@@ -37,6 +42,7 @@ const DropdownUI = ({
         id="toggle"
       />
       <div
+        className={styles.dropdownWrapper}
         ref={dropdownListWrapperRef}
       >
         {toggle && (
