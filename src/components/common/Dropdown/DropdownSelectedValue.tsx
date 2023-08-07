@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 interface DropdownSelectedValueProps {
   selectedDropdownValue: string,
   toggle: boolean,
-  handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLDivElement>,
+  handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLButtonElement>,
   theme?: "black" | "white"
 }
 
@@ -16,7 +16,7 @@ const DropdownSelectedValue = ({
   selectedDropdownValue, toggle, handleToggle, theme,
 }: DropdownSelectedValueProps) => {
   return (
-    <>
+    <button onClick={handleToggle} type="button">
       <div
         className={cx("userInput", theme === "black" && "blackTheme")}
       >
@@ -31,7 +31,7 @@ const DropdownSelectedValue = ({
         onClick={handleToggle}
         id="toggle"
       />
-    </>
+    </button>
   );
 };
 
