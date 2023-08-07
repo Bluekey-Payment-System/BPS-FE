@@ -1,20 +1,26 @@
-import React from "react";
-
 import classNames from "classnames/bind";
 
 import styles from "./DropdownUI.module.scss";
+import DropdownListWithInput from "./DropdownWithInput/DropdownListWithInput";
 
 const cx = classNames.bind(styles);
 
 interface DropdownListProps {
   dropdownListData: string[],
-  onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>
+  onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>,
+  withInput: boolean
 }
 
-const DropdownList = ({ dropdownListData, onClickDropdownItem }: DropdownListProps) => {
+const DropdownList = ({ dropdownListData, onClickDropdownItem, withInput }: DropdownListProps) => {
   return (
     <>
-      {dropdownListData.map((dropdownItem) => {
+      {withInput && (
+        <DropdownListWithInput
+          dropdownListData={dropdownListData}
+          onClickDropdownItem={onClickDropdownItem}
+        />
+      )}
+      {!withInput && dropdownListData.map((dropdownItem) => {
         return (
           <div className={cx("select")} key={dropdownItem}>
             <input
