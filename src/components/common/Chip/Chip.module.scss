@@ -2,8 +2,10 @@
   @include typo(12);
 
   display: inline-block;
+  min-width: 54px;
   padding: 3px 8px;
   border-radius: 100px;
+  text-align: center;
 }
 
 .increase {
