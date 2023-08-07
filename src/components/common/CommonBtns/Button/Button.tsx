@@ -14,7 +14,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /**
- * @author 연우킴
+ * @author 연우킴 https://github.com/drizzle96
  * @param {string} size - 버튼의 크기를 지정합니다. "small", "medium", "large" 중 하나의 값이어야 합니다.
  * @param {string} theme - 버튼의 테마를 지정합니다. "dark", "bright" 중 하나의 값이어야 합니다.
  * @param {Function} onClick - 버튼 클릭 시 실행되는 콜백 함수입니다.
