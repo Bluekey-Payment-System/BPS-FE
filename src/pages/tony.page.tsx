@@ -1,5 +1,4 @@
 import CustomLegend from "@/components/common/Dropdown/CustomLegend/CustomLegend";
-import Dropdown from "@/components/common/Dropdown/Dropdown";
 
 const TonyPage = () => {
   return (
