@@ -25,7 +25,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  *
  * @example
  * <Button size="large" theme="bright" isTextEmphasis onClick={onClick}>수록곡 추가</Button>
- * <Button size="large" theme="dark" disabled onSubmit={onSubmit}>가입하기</Button>
+ * <Button size="large" theme="dark" disabled onSubmit={onSubmit} type="submit">가입하기</Button>
  *
  */
 const Button = ({
