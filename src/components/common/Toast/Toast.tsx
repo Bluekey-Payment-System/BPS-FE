@@ -7,10 +7,6 @@ import styles from "./Toast.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface ToastProps {
-  message: string;
-}
-
 /**
  * 토스트 컴포넌트
  * @author [SeyoungCho](https://github.com/seyoungcho)
@@ -23,9 +19,7 @@ interface ToastProps {
  * </ToastPortal>
  *```
  */
-const Toast = ({
-  message,
-}: ToastProps) => {
+const Toast = ({ message }: { message: string }) => {
   const [isShowing, setIsShowing] = useState(true);
 
   useEffect(() => {
@@ -46,7 +40,7 @@ const Toast = ({
         }
     >
       <div className={cx(styles.iconBox)}>
-        <Image src="/images/lightening.png" alt="번개 아이콘" fill />
+        <Image src="/images/lightening.png" alt="번개 아이콘" sizes="64vw" fill />
       </div>
       <span>{message}</span>
     </div>
