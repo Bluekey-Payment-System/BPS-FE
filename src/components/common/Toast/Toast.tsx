@@ -45,7 +45,7 @@ const Toast = ({
           })
         }
     >
-      <div className={styles.iconBox}>
+      <div className={cx(styles.iconBox)}>
         <Image src="/images/lightening.png" alt="번개 아이콘" fill />
       </div>
       <span>{message}</span>
