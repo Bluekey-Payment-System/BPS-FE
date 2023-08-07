@@ -5,16 +5,25 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import DropdownUI from "./DropdownUI";
 
 interface DropdownProps {
-  url: string,
+
+  dropdownListData: string[],
   theme: "black" | "white",
 }
 
+/**
+ * @author 임병욱
+ * @공통 드롭다운 컴포넌트
+ * @흰색 테마:공통 대시보드에서 사용할 드롭다운, 앨범상세 곡별
+ * @검은색 테마: 앨범 상세 트랙 별 정산액 추이 차트
+ * @dropdownListData 드롭다운을 사용하는 컴포넌트에서 드롭다운 리스트에 넣어줄 데이터입니다. ex)["곡 명", "앨범 명"] 혹은 api 데이터
+ * @theme 검은색과 흰색 드롭다운 테마 설정
+*/
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Dropdown = ({ url, theme = "white" }: DropdownProps) => {
+const Dropdown = ({ dropdownListData, theme = "white" }: DropdownProps) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const dropdownListWrapperRef = useRef<HTMLDivElement>(null);
 
-  const [selectedDropdownValue, setSelectedDropdownValue] = useState<string>("곡 명");
+  const [selectedDropdownValue, setSelectedDropdownValue] = useState<string>(dropdownListData[0]);
 
   const handleToggle = (e: React.MouseEvent<HTMLImageElement | HTMLDivElement>) => {
     e.preventDefault();
@@ -37,7 +46,7 @@ const Dropdown = ({ url, theme = "white" }: DropdownProps) => {
       ref={dropdownListWrapperRef}
       selectedDropdownValue={selectedDropdownValue}
       toggle={toggle}
-      dropdownListData={["곡 명", "앨범 명", "동해물과 백두산이 마르고 닮도록 하나님이"]}
+      dropdownListData={dropdownListData}
       handleToggle={handleToggle}
       onClickDropdownItem={handleClickDropdownItem}
       theme={theme}
