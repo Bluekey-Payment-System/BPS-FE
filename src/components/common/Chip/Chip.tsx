@@ -6,6 +6,10 @@ type Fluctuation = "increase" | "decrease" | "same";
 
 const cx = classNames.bind(styles);
 
+/**
+ * @param percentage 백분율 값
+ * @returns 백분율을 나타내는 Chip 컴포넌트
+ */
 const Chip = ({ percentage }: { percentage: number }) => {
   let fluctuation: Fluctuation;
 
