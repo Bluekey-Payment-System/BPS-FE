@@ -1,11 +1,15 @@
+import classNames from "classnames";
+
 import styles from "./ProgressBar.module.scss";
+
+const cx = classNames.bind(styles);
 
 const ProgressBar = ({ value }: { value: number }) => {
   return (
-    <div className={styles.progressBar}>
+    <div className={cx("progressBar")}>
       <p>{`${value}%`}</p>
-      <div className={styles.barWrapper}>
-        <div className={styles.bar} style={{ width: `${value}%` }} />
+      <div className={cx("barWrapper")}>
+        <div className={cx("bar")} style={{ width: `${value}%` }} />
       </div>
     </div>
   );
