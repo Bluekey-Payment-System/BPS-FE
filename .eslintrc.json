@@ -104,6 +104,7 @@
       }
     ], // console.log의 사용을 금지하지만 console.warn와 console.error는 허용합니다.
     "linebreak-style": "off", // 줄 바꿈 스타일을 강제하는 규칙을 비활성화
+    "react/require-default-props": "off", // React 컴포넌트에서 default props를 강제하는 규칙을 비활성화
     "react/button-has-type": "off", // button 요소에 type 속성을 강제하는 규칙을 비활성화
     "react/jsx-props-no-spreading": "off", // JSX 문법에서 spread 연산자를 통한 props 넘김을 제한하는 규칙을 비활성화
     "import/prefer-default-export": "off", // 모듈에서 하나의 이름이 지정된 export만 있을 때, 기본 export를 사용하도록 하는 규칙을 비활성화합니다.
