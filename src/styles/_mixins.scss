@@ -24,3 +24,13 @@
     align-items: $align;
   }
 }
+
+@mixin typo($size, $weight: regular) {
+  font-size: #{$size}px;
+
+  @if $weight == "regular" {
+    font-weight: 400;
+  } @else if $weight == "bold" {
+    font-weight: 600;
+  }
+}
