@@ -7,7 +7,7 @@ import DropdownUI from "./DropdownUI";
 interface DropdownProps {
 
   dropdownListData: string[],
-  theme: "black" | "white",
+  theme?: "black" | "white",
 }
 
 /**
@@ -16,7 +16,7 @@ interface DropdownProps {
  * @흰색 테마:공통 대시보드에서 사용할 드롭다운, 앨범상세 곡별
  * @검은색 테마: 앨범 상세 트랙 별 정산액 추이 차트
  * @dropdownListData 드롭다운을 사용하는 컴포넌트에서 드롭다운 리스트에 넣어줄 데이터입니다. ex)["곡 명", "앨범 명"] 혹은 api 데이터
- * @theme 검은색과 흰색 드롭다운 테마 설정
+ * @theme 기본 테마는 흰색입니다 검은 테마를 사용하시려면 "black"을 입력해주세요
 */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Dropdown = ({ dropdownListData, theme = "white" }: DropdownProps) => {
