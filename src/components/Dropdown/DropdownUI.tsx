@@ -1,17 +1,17 @@
 import React from "react";
 
-import classNames from "classnames";
+import classNames from "classnames/bind";
 import Image from "next/image";
 
-import styles from "./Dropdown.module.scss";
 import DropdownList from "./DropdownList";
+import styles from "./DropdownUI.module.scss";
 
-const cn = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
-interface DropdownProps {
+interface DropdownUIProps {
   selectedDropdownValue: string,
   toggle: boolean,
-  fetchData: string[],
+  dropdownListData: string[],
   handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLDivElement>,
   onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>,
   theme: "black" | "white"
@@ -20,15 +20,15 @@ interface DropdownProps {
 const DropdownUI = ({
   selectedDropdownValue,
   toggle,
-  fetchData,
+  dropdownListData,
   handleToggle,
   onClickDropdownItem,
   theme,
-}: DropdownProps, dropdownListWrapperRef: React.ForwardedRef<HTMLDivElement>) => {
+}: DropdownUIProps, dropdownListWrapperRef: React.ForwardedRef<HTMLDivElement>) => {
   return (
-    <div className={styles.dropdownContainer} onClick={handleToggle} role="presentation">
+    <div className={cx("dropdownContainer")} onClick={handleToggle} role="presentation">
       <div
-        className={cn(styles.userInput, theme === "black" && styles.blackTheme)}
+        className={cx("userInput", theme === "black" && "blackTheme")}
       >
         {selectedDropdownValue}
       </div>
@@ -42,12 +42,12 @@ const DropdownUI = ({
         id="toggle"
       />
       <div
-        className={styles.dropdownWrapper}
+        className={cx("dropdownWrapper")}
         ref={dropdownListWrapperRef}
       >
         {toggle && (
           <DropdownList
-            dropdownData={fetchData}
+            dropdownListData={dropdownListData}
             onClickDropdownItem={onClickDropdownItem}
           />
         )}

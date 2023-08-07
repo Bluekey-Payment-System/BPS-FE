@@ -37,7 +37,7 @@ const Dropdown = ({ url, theme = "white" }: DropdownProps) => {
       ref={dropdownListWrapperRef}
       selectedDropdownValue={selectedDropdownValue}
       toggle={toggle}
-      fetchData={["곡 명", "앨범 명", "동해물과 백두산이 마르고 닮도록 하나님이"]}
+      dropdownListData={["곡 명", "앨범 명", "동해물과 백두산이 마르고 닮도록 하나님이"]}
       handleToggle={handleToggle}
       onClickDropdownItem={handleClickDropdownItem}
       theme={theme}

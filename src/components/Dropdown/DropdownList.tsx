@@ -1,23 +1,27 @@
 import React from "react";
 
-import styles from "./Dropdown.module.scss";
+import classNames from "classnames/bind";
+
+import styles from "./DropdownUI.module.scss";
+
+const cx = classNames.bind(styles);
 
 interface DropdownListProps {
-  dropdownData: string[],
+  dropdownListData: string[],
   onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>
 }
 
-const DropdownList = ({ dropdownData, onClickDropdownItem }: DropdownListProps) => {
+const DropdownList = ({ dropdownListData, onClickDropdownItem }: DropdownListProps) => {
   return (
     <>
-      {dropdownData.map((dropdownItem) => {
+      {dropdownListData.map((dropdownItem) => {
         return (
-          <div className={styles.select} key={dropdownItem}>
+          <div className={cx("select")} key={dropdownItem}>
             <input
               id={dropdownItem}
               type="radio"
               value={dropdownItem}
-              className={styles.content}
+              className={cx("content")}
               onClick={onClickDropdownItem}
             />
             <label htmlFor={dropdownItem}>
