@@ -7,16 +7,29 @@ import TooltipPortal from "./TooltipPortal";
 interface PortalRootProps {
   children: React.ReactNode;
   message: string;
-  gap?: number;
 }
 
-const PortalRoot = ({ children, message, gap }: PortalRootProps) => {
+/**
+ * @param message 툴팁 메시지
+ * @param children hover 대상 요소
+ * @example
+ * ```
+ * <div className={cx("priceBox")}>
+    <PortalRoot message="이름이 긴 아티스트">
+      <p className={cx("price")}>이름이 긴 아...</p>
+    </PortalRoot>
+    <Chip percentage={2.5} />
+ * </div>
+ * ```
+ * @returns hover 대상 요소 하단에 툴팁 노출
+ */
+const PortalRoot = ({ children, message }: PortalRootProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const pos = useRef<PosType | null>(null);
 
   const handleMouseOver = () => {
-    pos.current = getPosition(ref, gap);
+    pos.current = getPosition(ref);
     setIsVisible(true);
   };
 
