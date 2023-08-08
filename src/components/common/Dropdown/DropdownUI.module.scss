@@ -55,6 +55,13 @@
     color: $primary-white;
   }
 
+  .dropdownValueContainer.withSearchBar {
+    width: 100%;
+    max-width: 89px;
+    border: 1px solid $sub-color1;
+    border-radius: 8px 0 0 8px;
+  }
+
   .dropdownWrapper {
     position: relative;
     z-index: 1;
