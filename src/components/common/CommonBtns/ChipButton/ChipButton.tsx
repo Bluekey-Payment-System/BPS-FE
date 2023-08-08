@@ -5,6 +5,7 @@ import styles from "./ChipButton.module.scss";
 const cx = classNames.bind(styles);
 
 interface ChipButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  size?: "small" | "large";
   onClick?: () => void;
   onSubmit?: () => void;
   children: React.ReactNode;
@@ -21,10 +22,10 @@ interface ChipButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
  * <ChipButton onSubmit={onSubmit} type="submit">수정 완료</ChipButton>
  */
 const ChipButton = ({
-  onClick, onSubmit, children, ...props
+  size = "small", onClick, onSubmit, children, ...props
 }: ChipButtonProps) => {
   return (
-    <button className={cx("button")} onClick={onClick} onSubmit={onSubmit} type="button" {...props}>{children}</button>
+    <button className={cx("button", { [size]: size })} onClick={onClick} onSubmit={onSubmit} type="button" {...props}>{children}</button>
   );
 };
 

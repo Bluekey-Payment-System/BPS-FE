@@ -6,6 +6,8 @@ const Ian = () => {
     <div>
       <Button size="large" theme="bright" type="button">text</Button>
       <ChipButton>비밀번호 재발급</ChipButton>
+      <ChipButton size="large">아티스트 추가</ChipButton>
+      <ChipButton size="large">수록곡 추가</ChipButton>
     </div>
   );
 };
