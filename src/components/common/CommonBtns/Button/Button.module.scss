@@ -1,0 +1,41 @@
+.button {
+  // 사이즈 별
+  &.large {
+    width: 348px;
+  }
+
+  &.medium {
+    width: 218px;
+  }
+
+  &.small {
+    width: 125px;
+  }
+
+  // 테마 별
+  &.bright {
+    border: 1px solid $sub-color2;
+    background-color: $sub-color1;
+    color: $primary-black;
+
+    &.isTextEmphasis {
+      color: $point-color-blue4;
+    }
+  }
+
+  &.dark {
+    background-color: $primary-black;
+    color: $primary-white;
+  }
+
+  // 공통
+  @include typo(16);
+
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-radius: 6px;
+
+  &:disabled {
+    cursor: default;
+  }
+}
