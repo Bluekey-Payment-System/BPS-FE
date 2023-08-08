@@ -6,12 +6,9 @@ import Image from "next/image";
 import styles from "./SearchBar.module.scss";
 
 const cx = classNames.bind(styles);
-interface SearchBarProps {
-  placeholder: string
-}
 
 const SearchBar = (
-  { placeholder }: SearchBarProps,
+  { placeholder }: { placeholder: string },
   inputRef: React.ForwardedRef<HTMLInputElement>,
 ) => {
   return (
