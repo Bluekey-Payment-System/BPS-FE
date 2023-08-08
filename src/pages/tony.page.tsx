@@ -1,8 +1,11 @@
-import Dropdown from "@/components/common/Dropdown/Dropdown";
+import CustomLegend from "@/components/common/CustomLegend/CustomLegend";
 
 const TonyPage = () => {
   return (
-    <Dropdown dropdownListData={["혁기", "아이유", "볼빨간사춘기", "할아버지"]} hasSearchBar />
+    <>
+      <CustomLegend color="#4e51ef" value="아이유아이유아이유아이유아이유아이유" type="bar" />
+      <CustomLegend color="#4e5" value="아이유아이유아이유아이유아이유아이유아이유아이유아이유아이유" type="doughnut" />
+    </>
   );
 };
 
