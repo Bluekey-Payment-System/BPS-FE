@@ -7,8 +7,8 @@ import DropdownUI from "./DropdownUI";
 interface DropdownProps {
 
   dropdownListData: string[],
-  theme?: "bright" | "dark",
   hasSearchBar?: boolean
+  theme?: "bright" | "dark" | "withSearchBar",
 }
 
 /**
@@ -17,8 +17,8 @@ interface DropdownProps {
  * @흰색 테마:공통 대시보드에서 사용할 드롭다운, 앨범상세 곡별
  * @검은색 테마: 앨범 상세 트랙 별 정산액 추이 차트
  * @dropdownListData 드롭다운을 사용하는 컴포넌트에서 드롭다운 리스트에 넣어줄 데이터입니다. ex)["곡 명", "앨범 명"] 혹은 api 데이터
- * @theme 기본 테마는 흰색입니다 검은 테마를 사용하시려면 "black"을 입력해주세요
  * @hasSearchBar 드롭다운 리스트에 검색창이 필요하다면 이 속성을 true로 설정해주세요
+ * @theme 기본 테마는 흰색입니다 검은 테마를 사용하시려면 "black", 검색바와 같이 사용할 때는 "withSearchBar"를 사용하시면 됩니다
 */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Dropdown = ({ dropdownListData, theme = "bright", hasSearchBar = false }: DropdownProps) => {
@@ -41,7 +41,6 @@ const Dropdown = ({ dropdownListData, theme = "bright", hasSearchBar = false }: 
     setSelectedDropdownValue(event.currentTarget.value);
     // 추후에 api가 추가되면 데이터를 이용하여 쿼리스트링을 변경하는 코드 추가 예정
   };
-
   useOutsideClick(dropdownListWrapperRef, handleCloseList);
 
   return (

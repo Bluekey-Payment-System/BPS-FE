@@ -14,7 +14,7 @@ interface DropdownUIProps {
   dropdownListData: string[],
   handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLButtonElement>,
   onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>,
-  theme?: "bright" | "dark",
+  theme?: "bright" | "dark" | "withSearchBar",
   hasSearchBar: boolean,
 }
 

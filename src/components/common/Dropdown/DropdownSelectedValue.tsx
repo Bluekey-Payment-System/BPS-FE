@@ -9,7 +9,7 @@ interface DropdownSelectedValueProps {
   selectedDropdownValue: string,
   toggle: boolean,
   handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLButtonElement>,
-  theme?: "bright" | "dark"
+  theme?: "bright" | "dark" | "withSearchBar",
 }
 
 const DropdownSelectedValue = ({

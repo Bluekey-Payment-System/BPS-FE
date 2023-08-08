@@ -24,12 +24,15 @@
     text-overflow: ellipsis;
     word-break: break-all;
     white-space: nowrap;
-
   }
 
   .userInput.blackTheme {
     background-color: $primary-black;
-    color: $primary-white
+    color: $primary-white;
+  }
+
+  .userInput.withSearchBar {
+    border-radius: 8px 0 0 8px;
   }
 
   .toggle {
@@ -60,10 +63,33 @@
     &:hover {
       background-color: $point-color-blue1;
       color: $point-color-blue3;
-     }
-  }
+    }
 
-  .select input[type="radio"]{
+    .select label {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 13px 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      white-space: nowrap;
+      cursor: pointer;
+
+      @include typo(12);
+    }
+
+    .searchDropdownList {
+      width: 100%;
+      height: 30px;
+      padding: 11px 16px 11px 12px;
+
+      @include typo(12);
+
+      background-color: $point-color-blue1;
+    }
+
+    .select input[type="radio"] {
       position: absolute;
       z-index: 1;
       width: 100%;
@@ -72,31 +98,5 @@
       opacity: 0;
       cursor: pointer;
     }
-    
-    .select label{
-     position: absolute;
-     width: 100%;
-     height: 100%;
-     padding: 13px 10px;
-     overflow: hidden;
-     text-overflow: ellipsis;
-     word-break: break-all;
-     white-space: nowrap;
-     cursor: pointer;
-
-    @include typo(12);
-
   }
-
-  .searchDropdownList {
-    width: 100%;
-    height: 30px;
-    padding: 11px 16px 11px 12px;
-
-    @include typo(12);
-
-    background-color: $point-color-blue1;
-  }
-
 }
-
