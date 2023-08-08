@@ -1,13 +1,7 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-interface ToastPortalProps {
-  children: React.ReactNode;
-}
-
-const ToastPortal = ({
-  children,
-}: ToastPortalProps) => {
+const ToastPortal = ({ children }: { children: ReactNode }) => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
