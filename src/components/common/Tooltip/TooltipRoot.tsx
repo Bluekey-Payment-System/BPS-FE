@@ -4,7 +4,7 @@ import { getPosition, PosType } from "./getPosition";
 import Tooltip from "./Tooltip";
 import TooltipPortal from "./TooltipPortal";
 
-interface PortalRootProps {
+interface TooltipRootProps {
   children: React.ReactNode;
   message: string;
 }
@@ -15,15 +15,15 @@ interface PortalRootProps {
  * @example
  * ```
  * <div className={cx("priceBox")}>
-    <PortalRoot message="이름이 긴 아티스트">
+    <TooltipRoot message="이름이 긴 아티스트">
       <p className={cx("price")}>이름이 긴 아...</p>
-    </PortalRoot>
+    </TooltipRoot>
     <Chip percentage={2.5} />
  * </div>
  * ```
  * @returns hover 대상 요소 하단에 툴팁 노출
  */
-const PortalRoot = ({ children, message }: PortalRootProps) => {
+const TooltipRoot = ({ children, message }: TooltipRootProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const pos = useRef<PosType | null>(null);
@@ -52,4 +52,4 @@ const PortalRoot = ({ children, message }: PortalRootProps) => {
   );
 };
 
-export default PortalRoot;
+export default TooltipRoot;
