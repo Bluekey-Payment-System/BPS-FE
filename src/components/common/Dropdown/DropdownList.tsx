@@ -1,20 +1,30 @@
-import React from "react";
-
 import classNames from "classnames/bind";
 
 import styles from "./DropdownUI.module.scss";
+import DropdownListWithInput from "./DropdownWithInput/DropdownListWithInput";
 
 const cx = classNames.bind(styles);
 
 interface DropdownListProps {
   dropdownListData: string[],
-  onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>
+  onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>,
+  hasSearchBar: boolean
 }
 
-const DropdownList = ({ dropdownListData, onClickDropdownItem }: DropdownListProps) => {
+const DropdownList = ({
+  dropdownListData,
+  onClickDropdownItem,
+  hasSearchBar,
+}: DropdownListProps) => {
   return (
     <>
-      {dropdownListData.map((dropdownItem) => {
+      {hasSearchBar && (
+        <DropdownListWithInput
+          dropdownListData={dropdownListData}
+          onClickDropdownItem={onClickDropdownItem}
+        />
+      )}
+      {!hasSearchBar && dropdownListData.map((dropdownItem) => {
         return (
           <div className={cx("select")} key={dropdownItem}>
             <input
