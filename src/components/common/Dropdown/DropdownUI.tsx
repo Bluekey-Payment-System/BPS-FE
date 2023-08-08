@@ -24,7 +24,7 @@ const DropdownUI = ({
   dropdownListData,
   handleToggle,
   onClickDropdownItem,
-  theme,
+  theme = "bright",
   hasSearchBar,
 }: DropdownUIProps, dropdownListWrapperRef: React.ForwardedRef<HTMLDivElement>) => {
   return (
@@ -37,7 +37,7 @@ const DropdownUI = ({
       />
       {toggle && (
         <div
-          className={cx("dropdownWrapper")}
+          className={cx("dropdownWrapper", { [theme]: theme })}
           ref={dropdownListWrapperRef}
         >
           <DropdownList

@@ -9,6 +9,9 @@
   .dropdownValueContainer {
     position: relative;
     width: 89px;
+    border: 1px solid $sub-color3;
+    border-radius: 8px;
+    outline: none;
 
     .userInput {
       display: block;
@@ -18,9 +21,6 @@
       max-height: 40px;
       padding: 11px 16px 11px 12px;
       overflow: hidden;
-      border: 1px solid $sub-color3;
-      border-radius: 8px;
-      outline: none;
       text-align: start;
 
       @include typo(12);
@@ -28,13 +28,6 @@
       text-overflow: ellipsis;
       word-break: break-all;
       white-space: nowrap;
-    }
-
-    .userInput.blackTheme {
-      width: 100%;
-      max-width: 139px;
-      background-color: $primary-black;
-      color: $primary-white;
     }
 
     .userInput.withSearchBar {
@@ -53,6 +46,13 @@
       fill: $sub-color3;
       cursor: pointer;
     }
+  }
+
+  .dropdownValueContainer.dark {
+    width: 100%;
+    max-width: 139px;
+    background-color: $primary-black;
+    color: $primary-white;
   }
 
   .dropdownWrapper {
@@ -109,6 +109,19 @@
       @include typo(12);
 
       background-color: $point-color-blue1;
+    }
+  }
+
+  .dropdownWrapper.dark {
+    width: 100%;
+    max-width: 171px;
+    height: 196px;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 }
