@@ -1,0 +1,18 @@
+.wrapper {
+  @include flexbox(row, false, center);
+
+  gap: 20px;
+  width: fit-content;
+
+  .number {
+    color: $sub-color3;
+
+    @include typo(14);
+
+    &.isActive {
+      color: $primary-black;
+
+      @include typo(14, bold);
+    }
+  }
+}
