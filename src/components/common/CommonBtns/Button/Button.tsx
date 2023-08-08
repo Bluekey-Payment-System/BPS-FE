@@ -14,7 +14,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /**
- * @author 연우킴 https://github.com/drizzle96
+ * @author 연우킴(drizzle96) [Github](https://github.com/drizzle96)
  * @param {string} size - 버튼의 크기를 지정합니다. "small", "medium", "large" 중 하나의 값이어야 합니다.
  * @param {string} theme - 버튼의 테마를 지정합니다. "dark", "bright" 중 하나의 값이어야 합니다.
  * @param {Function} onClick - 버튼 클릭 시 실행되는 콜백 함수입니다.
@@ -24,9 +24,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * @param {...any} props - 기타 버튼 요소로써 추가적으로 전달되는 속성들입니다. (예시: type, disabled)
  *
  * @example
+ * ```
  * <Button size="large" theme="bright" isTextEmphasis onClick={onClick}>수록곡 추가</Button>
  * <Button size="large" theme="dark" disabled onSubmit={onSubmit} type="submit">가입하기</Button>
- *
+ *```
  */
 const Button = ({
   size, theme, onClick, onSubmit, isTextEmphasis = false, children, ...props
