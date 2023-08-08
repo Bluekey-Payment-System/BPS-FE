@@ -33,7 +33,7 @@ const Button = ({
   size, theme, onClick, onSubmit, isTextEmphasis = false, children, ...props
 }: ButtonProps) => {
   return (
-    <button className={cx("button", { [size]: size, [theme]: theme, isTextEmphasis })} onClick={onClick} onSubmit={onSubmit} type="button" {...props}>{children}</button>
+    <button className={cx("button", size, theme, { isTextEmphasis })} onClick={onClick} onSubmit={onSubmit} type="button" {...props}>{children}</button>
   );
 };
 

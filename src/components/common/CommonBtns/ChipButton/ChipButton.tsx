@@ -29,7 +29,7 @@ const ChipButton = ({
   size = "small", onClick, onSubmit, children, ...props
 }: ChipButtonProps) => {
   return (
-    <button className={cx("button", { [size]: size })} onClick={onClick} onSubmit={onSubmit} type="button" {...props}>{children}</button>
+    <button className={cx("button", size)} onClick={onClick} onSubmit={onSubmit} type="button" {...props}>{children}</button>
   );
 };
 
