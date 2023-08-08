@@ -1,68 +1,90 @@
 .dropdownContainer {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
 
-  & > button {
-    width: 100%;
-  }
+  .dropdownValueContainer {
+    position: relative;
+    width: 89px;
 
-  .userInput {
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    max-height: 40px;
-    padding: 11px 16px 11px 12px;
-    overflow: hidden;
-    border: 1px solid $sub-color3;
-    border-radius: 8px;
-    outline: none;
-    text-align: start;
+    .userInput {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      max-height: 40px;
+      padding: 11px 16px 11px 12px;
+      overflow: hidden;
+      border: 1px solid $sub-color3;
+      border-radius: 8px;
+      outline: none;
+      text-align: start;
 
-    @include typo(12);
+      @include typo(12);
 
-    text-overflow: ellipsis;
-    word-break: break-all;
-    white-space: nowrap;
-  }
+      text-overflow: ellipsis;
+      word-break: break-all;
+      white-space: nowrap;
+    }
 
-  .userInput.blackTheme {
-    background-color: $primary-black;
-    color: $primary-white;
-  }
+    .userInput.blackTheme {
+      width: 100%;
+      max-width: 139px;
+      background-color: $primary-black;
+      color: $primary-white;
+    }
 
-  .userInput.withSearchBar {
-    border-radius: 8px 0 0 8px;
-  }
+    .userInput.withSearchBar {
+      width: 89px;
+      max-width: 89px;
+      height: 40px;
+      border-radius: 8px 0 0 8px;
+    }
 
-  .toggle {
-    @include fixed(15px, null, 5px, null);
+    .toggle {
+      @include fixed(15px, null, 5px, null);
 
-    position: absolute;
-    width: 15px;
-    height: 8px;
-    fill: $sub-color3;
-    cursor: pointer;
+      position: absolute;
+      width: 15px;
+      height: 8px;
+      fill: $sub-color3;
+      cursor: pointer;
+    }
   }
 
   .dropdownWrapper {
     position: relative;
     z-index: 1;
-    margin-top: 2px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-  }
+    width: 127px;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 11%);
 
-  .select {
-    position: relative;
-    width: 100%;
-    height: 44px;
-    border-radius: 8px;
-    background-color: $primary-white;
+    .select {
+      position: relative;
+      width: 100%;
+      height: 44px;
+      border-radius: 8px;
+      background-color: $primary-white;
 
-    &:hover {
-      background-color: $point-color-blue1;
-      color: $point-color-blue3;
+      &:hover {
+        background-color: $point-color-blue1;
+        color: $point-color-blue3;
+      }
+    }
+
+    .select input[type="radio"] {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
     }
 
     .select label {
@@ -87,16 +109,6 @@
       @include typo(12);
 
       background-color: $point-color-blue1;
-    }
-
-    .select input[type="radio"] {
-      position: absolute;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      opacity: 0;
-      cursor: pointer;
     }
   }
 }

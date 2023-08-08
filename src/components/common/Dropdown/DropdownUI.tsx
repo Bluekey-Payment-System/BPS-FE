@@ -35,18 +35,18 @@ const DropdownUI = ({
         handleToggle={handleToggle}
         theme={theme}
       />
-      <div
-        className={cx("dropdownWrapper")}
-        ref={dropdownListWrapperRef}
-      >
-        {toggle && (
+      {toggle && (
+        <div
+          className={cx("dropdownWrapper")}
+          ref={dropdownListWrapperRef}
+        >
           <DropdownList
             dropdownListData={dropdownListData}
             onClickDropdownItem={onClickDropdownItem}
             hasSearchBar={hasSearchBar}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

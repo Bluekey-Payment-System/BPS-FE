@@ -16,9 +16,9 @@ const DropdownSelectedValue = ({
   selectedDropdownValue, toggle, handleToggle, theme = "bright",
 }: DropdownSelectedValueProps) => {
   return (
-    <button onClick={handleToggle} type="button">
+    <button onClick={handleToggle} type="button" className={cx("dropdownValueContainer", { [theme]: theme })}>
       <div
-        className={cx("userInput", { [theme]: theme })}
+        className={cx("userInput")}
       >
         {selectedDropdownValue}
       </div>

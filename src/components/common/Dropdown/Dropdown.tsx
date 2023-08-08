@@ -5,7 +5,6 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 import DropdownUI from "./DropdownUI";
 
 interface DropdownProps {
-
   dropdownListData: string[],
   hasSearchBar?: boolean
   theme?: "bright" | "dark" | "withSearchBar",
