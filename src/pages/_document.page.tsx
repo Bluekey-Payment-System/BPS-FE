@@ -4,12 +4,13 @@ import {
 
 const Document = () => {
   return (
-    <Html lang="en">
+    <Html lang="ko">
       <Head />
       <body>
         <Main />
         <NextScript />
         <div id="tooltip-root" />
+        <div id="toast-root" />
       </body>
     </Html>
   );
