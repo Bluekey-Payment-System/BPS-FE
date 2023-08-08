@@ -38,9 +38,9 @@
     }
 
     .toggle {
-      @include fixed(15px, null, 5px, null);
-
       position: absolute;
+      top: 15px;
+      right: 5px;
       width: 15px;
       height: 8px;
       fill: $sub-color3;
@@ -57,7 +57,9 @@
 
   .dropdownValueContainer.withSearchBar {
     width: 100%;
-    max-width: 89px;
+    max-width: 348px;
+    height: 100%;
+    max-height: 47px;
     border: 1px solid $sub-color1;
     border-radius: 8px 0 0 8px;
   }
@@ -108,14 +110,26 @@
       @include typo(12);
     }
 
-    .searchDropdownList {
-      width: 100%;
-      height: 30px;
-      padding: 11px 16px 11px 12px;
+    .searchBarContainer {
+      position: relative;
+      margin-bottom: 9px;
 
-      @include typo(12);
+      .searchDropdownSearchInput {
+        width: 100%;
+        height: 30px;
+        padding: 11px 25px 11px 12px;
 
-      background-color: $point-color-blue1;
+        @include typo(12);
+
+        border: 1px solid $sub-color1;
+        border-radius: 6px;
+      }
+
+      .searchDropdownSearchImage {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+      }
     }
   }
 
@@ -123,6 +137,19 @@
     width: 100%;
     max-width: 171px;
     height: 196px;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .dropdownWrapper.withSearchBar {
+    width: 100%;
+    max-width: 347px;
+    height: 251px;
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
