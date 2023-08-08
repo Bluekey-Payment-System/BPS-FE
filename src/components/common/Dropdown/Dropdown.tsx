@@ -7,8 +7,8 @@ import DropdownUI from "./DropdownUI";
 interface DropdownProps {
 
   dropdownListData: string[],
-  theme?: "black" | "white",
-  withInput?: boolean
+  theme?: "bright" | "dark",
+  hasSearchBar?: boolean
 }
 
 /**
@@ -18,10 +18,10 @@ interface DropdownProps {
  * @검은색 테마: 앨범 상세 트랙 별 정산액 추이 차트
  * @dropdownListData 드롭다운을 사용하는 컴포넌트에서 드롭다운 리스트에 넣어줄 데이터입니다. ex)["곡 명", "앨범 명"] 혹은 api 데이터
  * @theme 기본 테마는 흰색입니다 검은 테마를 사용하시려면 "black"을 입력해주세요
- * @withInput 드롭다운 리스트에 input창이 필요하다면 이 속성을 true로 설정해주세요
+ * @hasSearchBar 드롭다운 리스트에 검색창이 필요하다면 이 속성을 true로 설정해주세요
 */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Dropdown = ({ dropdownListData, theme = "white", withInput = false }: DropdownProps) => {
+const Dropdown = ({ dropdownListData, theme = "bright", hasSearchBar = false }: DropdownProps) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const dropdownListWrapperRef = useRef<HTMLDivElement>(null);
 
@@ -53,7 +53,7 @@ const Dropdown = ({ dropdownListData, theme = "white", withInput = false }: Drop
       handleToggle={handleToggle}
       onClickDropdownItem={handleClickDropdownItem}
       theme={theme}
-      withInput={withInput}
+      hasSearchBar={hasSearchBar}
     />
   );
 };

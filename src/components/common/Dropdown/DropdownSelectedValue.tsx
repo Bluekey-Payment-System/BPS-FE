@@ -9,16 +9,16 @@ interface DropdownSelectedValueProps {
   selectedDropdownValue: string,
   toggle: boolean,
   handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLButtonElement>,
-  theme?: "black" | "white"
+  theme?: "bright" | "dark"
 }
 
 const DropdownSelectedValue = ({
-  selectedDropdownValue, toggle, handleToggle, theme,
+  selectedDropdownValue, toggle, handleToggle, theme = "bright",
 }: DropdownSelectedValueProps) => {
   return (
     <button onClick={handleToggle} type="button">
       <div
-        className={cx("userInput", theme === "black" && "blackTheme")}
+        className={cx("userInput", { [theme]: theme })}
       >
         {selectedDropdownValue}
       </div>
@@ -29,7 +29,6 @@ const DropdownSelectedValue = ({
         width={20}
         height={20}
         onClick={handleToggle}
-        id="toggle"
       />
     </button>
   );

@@ -12,14 +12,15 @@ interface DropdownListProps {
 }
 
 const DropdownListWithInput = ({ dropdownListData, onClickDropdownItem }: DropdownListProps) => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<string>("");
 
   const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
-  // eslint-disable-next-line max-len
-  const filteredDropDownList = dropdownListData.filter((dropdownItem) => { return dropdownItem.includes(inputValue); });
+  const filteredDropDownList = dropdownListData.filter((dropdownItem) => {
+    return dropdownItem.includes(inputValue);
+  });
 
   return (
     <>

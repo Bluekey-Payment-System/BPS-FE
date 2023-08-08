@@ -8,19 +8,23 @@ const cx = classNames.bind(styles);
 interface DropdownListProps {
   dropdownListData: string[],
   onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>,
-  withInput: boolean
+  hasSearchBar: boolean
 }
 
-const DropdownList = ({ dropdownListData, onClickDropdownItem, withInput }: DropdownListProps) => {
+const DropdownList = ({
+  dropdownListData,
+  onClickDropdownItem,
+  hasSearchBar,
+}: DropdownListProps) => {
   return (
     <>
-      {withInput && (
+      {hasSearchBar && (
         <DropdownListWithInput
           dropdownListData={dropdownListData}
           onClickDropdownItem={onClickDropdownItem}
         />
       )}
-      {!withInput && dropdownListData.map((dropdownItem) => {
+      {!hasSearchBar && dropdownListData.map((dropdownItem) => {
         return (
           <div className={cx("select")} key={dropdownItem}>
             <input
