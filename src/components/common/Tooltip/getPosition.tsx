@@ -1,5 +1,5 @@
 interface PosType {
-  style: { left: number, top: number };
+  style: { x: number, y: number };
 }
 
 const getPosition = (ref: React.RefObject<HTMLElement>, gap = 10): PosType => {
@@ -9,7 +9,7 @@ const getPosition = (ref: React.RefObject<HTMLElement>, gap = 10): PosType => {
 
   return {
     style: {
-      left: rect.left + (rect.width / 2), top: rect.top + rect.height + gap,
+      x: rect.left + (rect.width / 2), y: rect.top + rect.height + gap,
     },
   };
 };

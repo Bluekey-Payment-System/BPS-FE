@@ -5,7 +5,7 @@ import Tooltip from "./Tooltip";
 import TooltipPortal from "./TooltipPortal";
 
 interface PortalRootProps {
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode;
   message: string;
   gap?: number;
 }
