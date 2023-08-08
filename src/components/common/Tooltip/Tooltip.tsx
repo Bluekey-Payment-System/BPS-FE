@@ -18,7 +18,3 @@ const Tooltip = ({ message, style }: TooltipProps) => {
 };
 
 export default Tooltip;
-
-// padding
-// 7 16 <- min-width 설정해야 될 듯. min-width: 117px
-// 7 10
