@@ -4,9 +4,14 @@
   @include typo(14);
 
   &.small {
+    width: fit-content;
     padding: 5px 10px;
     border-radius: 100px;
     color: $primary-black;
+
+    &:disabled {
+      color: $sub-color3;
+    }
   }
 
   &.large {
