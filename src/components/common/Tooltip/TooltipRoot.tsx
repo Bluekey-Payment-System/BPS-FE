@@ -10,6 +10,7 @@ interface TooltipRootProps {
 }
 
 /**
+ * @author [hayoung-99](https://github.com/hayoung-99)
  * @param message 툴팁 메시지
  * @param children hover 대상 요소
  * @example
