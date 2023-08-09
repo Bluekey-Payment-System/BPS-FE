@@ -11,20 +11,20 @@ import { ParsedUrlQuery } from "querystring";
  * @param {string | number} newValue - 지정된 파라미터에 설정할 새 값입니다.
  * @returns {string} 수정된 파라미터가 포함된 업데이트된 쿼리 문자열입니다.
  * @example
- * case1) URL: /artists?page=1&sort=2
  * ```
- * // page 파람의 값을 변경하고 싶을 때
+ * // case1) URL: /artists?page=1&sort=2
+ * // URL에 존재하는 파람의 값을 변경하고 싶을 때
  * const router = useRouter();
  * const {query} = router;
- * utilUpdateQueryParam(query, "page", 5) // ?page=5&sort=2
+ * utilUpdateQueryParam(query, "page", 5) // 리턴값: ?page=5&sort=2
  * ```
  * @example
- * case2) URL: /artists?sort=2
  * ```
- * // 변경하고 싶은 파람이 아직 URL에 들어가있지 않을 때
+ * // case2) URL: /artists?sort=2
+ * // 아직 URL에 들어있지 않은 파람의 값을 변경하고 싶을 때
  * const router = useRouter();
  * const {query} = router;
- * utilUpdateQueryParam(query, "page", 5) // ?sort=2&page=5
+ * utilUpdateQueryParam(query, "page", 5) // 리턴값: ?sort=2&page=5
  * ```
  *
  */
