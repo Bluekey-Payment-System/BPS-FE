@@ -4,7 +4,7 @@ import styles from "./Tooltip.module.scss";
 
 interface TooltipProps {
   message: string,
-  style: { x: number, y: number } | undefined,
+  style?: { x: number, y: number },
 }
 
 const cx = classNames.bind(styles);
