@@ -7,6 +7,7 @@ const useOutsideClick = (
   callback: CallbackFunction,
 ) => {
   const handleClick = (e: MouseEvent) => {
+    e.stopPropagation();
     if (ref.current && !ref.current.contains(e.target as Node)) {
       callback();
     }
@@ -15,7 +16,7 @@ const useOutsideClick = (
   useEffect(() => {
     document.addEventListener("click", handleClick, { capture: true });
     return () => {
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener("click", handleClick, { capture: true });
     };
   });
 };
