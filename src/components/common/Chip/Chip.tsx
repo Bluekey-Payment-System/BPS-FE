@@ -7,6 +7,7 @@ type Fluctuation = "increase" | "decrease" | "same";
 const cx = classNames.bind(styles);
 
 /**
+ * @author [hayoung-99](https://github.com/hayoung-99)
  * @param percentage 백분율 값
  * @returns 백분율을 나타내는 Chip 컴포넌트
  */
