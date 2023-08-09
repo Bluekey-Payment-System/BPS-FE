@@ -1,15 +1,21 @@
-// import Tooltip from "@/components/common/Tooltip/Tooltip";
-import PortalRoot from "@/components/common/Tooltip/TooltipRoot";
-
-// import Chip from "@/components/common/Chip/Chip";
+/**
+ * EmptyData 컴포넌트 사용 예시
+ *
+ * - EmptyData를 감싸는 컨테이너 요소에 flex 속성 부여해서 "alignItems: center"로 세로 정렬해야 합니다.
+ */
+import EmptyData from "@/components/common/EmptyData/EmptyData";
 
 const Home = () => {
   return (
-    <PortalRoot
-      message="이름이 매우 긴 아티스트입니다"
-    >
-      <div style={{ width: 100, height: 100 }}>호버해보세요</div>
-    </PortalRoot>
+    <div style={{ backgroundColor: "lightgray", padding: "50px" }}>
+
+      <div style={{
+        backgroundColor: "white", height: 800, display: "flex", alignItems: "center",
+      }}
+      >
+        <EmptyData type="no-search-result" />
+      </div>
+    </div>
   );
 };
 
