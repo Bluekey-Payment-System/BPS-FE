@@ -4,6 +4,17 @@
   gap: 20px;
   width: fit-content;
 
+  .button {
+    &:hover span {
+      color: $primary-black;
+    }
+
+    &.disabled {
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+
   .number {
     color: $sub-color3;
 
