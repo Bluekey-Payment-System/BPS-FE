@@ -1,12 +1,14 @@
 import { ResponsiveBar } from "@nivo/bar";
 
+import utilFormatMoney from "@/utils/utilFormatMoney";
+
 import { BarItem } from "./BarItem";
 
-const BarChart = ({ data /* see data tab */ }) => {
+const BarChart = ({ barChartData /* see data tab */ }) => {
   let maxValue = 0;
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].companyProfit > maxValue || data[i].salesRevenue > maxValue) {
-      maxValue = Math.max(data[i].companyProfit, data[i].salesRevenue);
+  for (let i = 0; i < barChartData.length; i++) {
+    if (barChartData[i].settlement > maxValue || barChartData[i].revenue > maxValue) {
+      maxValue = Math.max(barChartData[i].settlement, barChartData[i].revenue);
     }
   }
   return (
@@ -20,12 +22,13 @@ const BarChart = ({ data /* see data tab */ }) => {
           },
         },
       }}
+      maxValue={maxValue * 1.2}
       barComponent={BarItem}
       borderRadius={7}
-      data={data}
+      data={barChartData}
       keys={[
-        "companyProfit",
-        "salesRevenue",
+        "settlement",
+        "revenue",
       ]}
       indexBy="month"
       margin={{
@@ -41,18 +44,15 @@ const BarChart = ({ data /* see data tab */ }) => {
       axisTop={null}
       axisRight={null}
       axisBottom={{
-        tickSize: 5,
+        tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        legendPosition: "middle",
-        legendOffset: 32,
       }}
       axisLeft={{
-        tickSize: 5,
+        tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        legendPosition: "middle",
-        legendOffset: 0,
+        format: (item) => { return utilFormatMoney(item, "doughnut"); },
       }}
       enableGridY
       enableLabel={false}
@@ -69,7 +69,7 @@ const BarChart = ({ data /* see data tab */ }) => {
       legends={[]}
       role="application"
       ariaLabel="Nivo bar chart demo"
-      barAriaLabel={(e) => { return `${e.id}: ${e.formattedValue} in country: ${e.indexValue}`; }}
+    // barAriaLabel={(e) => { return `${e.id}: ${e.formattedValue} in country: ${e.indexValue}`; }}
     />
   );
 };
