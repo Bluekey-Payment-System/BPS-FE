@@ -1,17 +1,19 @@
-import PaginationUI from "./PaginationUI";
+import { PAGES_PER_PAGINATION } from "@/constants/pagination";
 
-const PAGES_PER_PAGINATION = 6;
+import PaginationUI from "./PaginationUI";
 
 interface PaginationProps {
   page: number
   totalItems: number
   itemsPerPage: number
+  queryParamName?: string
 }
 
 const Pagination = ({
   page,
   totalItems,
   itemsPerPage,
+  queryParamName = "page",
 }: PaginationProps) => {
   const paginationNum = Math.floor((page - 1) / PAGES_PER_PAGINATION) + 1;
   const endPage = Math.floor((totalItems - 1) / itemsPerPage) + 1;
@@ -31,6 +33,7 @@ const Pagination = ({
       endPage={endPage}
       hasNext={paginationNum < endPaginationNum}
       hasPrev={paginationNum > 1}
+      queryParamName={queryParamName}
     />
   );
 };
