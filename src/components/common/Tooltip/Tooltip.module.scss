@@ -1,0 +1,28 @@
+.content {
+  position: fixed;
+  width: fit-content;
+  transform: translate(-50%);
+}
+
+.tooltip {
+  @include typo(14);
+
+  padding: 7px 10px;
+  border-radius: 6px;
+  background-color: $primary-black;
+  color: $primary-white;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 50%;
+    width: 0;
+    transform: translateX(-50%);
+    border-width: 0 6px 6px;
+    border-style: solid;
+    border-color: $primary-black transparent;
+  }
+}
