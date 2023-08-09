@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 
-import { getPosition, PosType } from "./getPosition";
 import Tooltip from "./Tooltip";
+import { getPosition, PosType } from "./Tooltip.utils";
 import TooltipPortal from "./TooltipPortal";
 
 interface TooltipRootProps {
