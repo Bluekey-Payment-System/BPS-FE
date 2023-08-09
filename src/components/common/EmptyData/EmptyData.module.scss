@@ -1,13 +1,11 @@
 .container {
-  display: flex;
+  @include flexbox($direction: column, $align: center);
+
   gap: 32px;
-  flex-direction: column;
-  align-items: center;
 
   .imageBox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flexbox(row, center, center);
+
     width: 319px;
     height: 319px;
     border-radius: 20px;
