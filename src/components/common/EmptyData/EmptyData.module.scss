@@ -1,0 +1,20 @@
+.container {
+  @include flexbox($direction: column, $align: center);
+
+  gap: 32px;
+
+  .imageBox {
+    @include flexbox(row, center, center);
+
+    width: 319px;
+    height: 319px;
+    border-radius: 20px;
+    background-color: $sub-color1;
+  }
+
+  .description {
+    @include typo(16);
+
+    color: $sub-color3;
+  }
+}
