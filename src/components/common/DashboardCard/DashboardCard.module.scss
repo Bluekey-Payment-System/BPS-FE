@@ -1,0 +1,29 @@
+.wrapper {
+  @include flexbox(column, space-between);
+
+  gap: 18px;
+  width: 286px;
+  height: 126px;
+  padding: 30px;
+  border: 1px solid $sub-color1;
+  border-radius: 8px;
+  background-color: $primary-white;
+
+  .title {
+    @include typo(16);
+
+    color: $sub-color3;
+  }
+
+  .contentWrapper {
+    @include flexbox(row, space-between);
+
+    gap: 25px;
+
+    .content {
+      @include typo(24, bold);
+
+      color: $primary-black;
+    }
+  }
+}
