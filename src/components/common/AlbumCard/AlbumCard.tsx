@@ -5,7 +5,7 @@ import styles from "./AlbumCard.module.scss";
 
 interface AlbumCardProps {
   imageUrl?: string,
-  albumId: string
+  albumId: number
   title: string
   accessAdmin?: boolean
 }
