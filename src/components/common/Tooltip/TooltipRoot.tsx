@@ -33,7 +33,7 @@ const TooltipRoot = ({ children, message }: TooltipRootProps) => {
 
   const handleMouseOver = (e: MouseEvent<HTMLDivElement>) => {
     pos.current = getPosition(ref);
-    const visible = checkTextOverflow(e.currentTarget.children[0]);
+    const visible = checkTextOverflow(e.currentTarget?.children[0]);
     setIsVisible(visible);
   };
 
