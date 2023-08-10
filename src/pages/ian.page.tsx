@@ -1,14 +1,9 @@
-import Button from "@/components/common/CommonBtns/Button/Button";
-import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
+import Pagination from "@/components/common/Pagination/Pagination";
 
 const Ian = () => {
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <Button size="large" theme="bright" type="button">text</Button>
-      <ChipButton>비밀번호 재발급</ChipButton>
-      <ChipButton size="large">아티스트 추가</ChipButton>
-      <ChipButton size="large">수록곡 추가</ChipButton>
-      <ChipButton disabled>삭제</ChipButton>
+    <div>
+      <Pagination activePage={17} totalItems={120} itemsPerPage={6} />
     </div>
   );
 };
