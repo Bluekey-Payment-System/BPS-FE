@@ -9,7 +9,12 @@ import { BarItem } from "./BarItem";
 
 const cx = classNames.bind(styles);
 
-const customTooltip = ({ id, value }: { id: string, value: number }) => {
+interface CustomTooltipProps {
+  id: string,
+  value: number
+}
+
+const customTooltip = ({ id, value }: CustomTooltipProps) => {
   let tooltipText = "";
 
   switch (id) {
