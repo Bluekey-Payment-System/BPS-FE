@@ -21,9 +21,11 @@
 
   .imageContent {
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
     height: 100%;
+    overflow: hidden;
     border-radius: 8px;
     background-color: $primary-white;
   }

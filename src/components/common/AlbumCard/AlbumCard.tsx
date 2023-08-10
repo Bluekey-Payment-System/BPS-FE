@@ -20,10 +20,17 @@ const AlbumCard = ({
     <div className={cx("albumContainer")}>
       <div className={cx("imageBox")}>
         <div className={cx("imageContent")}>
-          <Image
+          {/* <Image
             src={imageUrl}
             width={65}
             height={110}
+            alt="앨범 아트"
+          /> */}
+          <Image
+            src={imageUrl}
+            fill
+            objectFit="cover"
+            objectPosition="center"
             alt="앨범 아트"
           />
         </div>
