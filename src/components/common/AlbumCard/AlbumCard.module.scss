@@ -5,12 +5,17 @@
   border: 1px solid $sub-color1;
   border-radius: 8px;
   background-color: $primary-white;
+  cursor: pointer;
 
   .albumContent {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 34px 10px 33px 20px;
+
+    .albumTitle {
+      @include typo(14, "bold");
+    }
   }
 }
 

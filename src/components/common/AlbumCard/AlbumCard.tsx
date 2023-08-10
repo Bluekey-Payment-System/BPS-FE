@@ -36,7 +36,7 @@ const AlbumCard = ({
         </div>
       </div>
       <div className={cx("albumContent")}>
-        <p className={cx("albumTitle")}>{title}</p>
+        <h3 className={cx("albumTitle")}>{title}</h3>
         {accessAdmin
           && (
             <button type="button">
