@@ -37,7 +37,7 @@ const DropdownUI = ({
       />
       {toggle && (
         <div
-          className={cx("dropdownWrapper", { [theme]: theme })}
+          className={cx("dropdownWrapper", theme)}
           ref={dropdownListWrapperRef}
         >
           <DropdownList
