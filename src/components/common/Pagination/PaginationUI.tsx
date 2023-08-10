@@ -12,7 +12,7 @@ import styles from "./PaginationUI.module.scss";
 const cx = classnames.bind(styles);
 
 interface PaginationUIProps {
-  page: number
+  activePage: number
   shownPages: number[]
   endPage: number
   hasNext: boolean
@@ -21,7 +21,7 @@ interface PaginationUIProps {
 }
 
 const PaginationUI = ({
-  page,
+  activePage,
   shownPages,
   endPage,
   hasNext,
@@ -53,8 +53,8 @@ const PaginationUI = ({
       )}
       {shownPages.map((num) => {
         return (
-          <Link className={cx("button", { disabled: page === num })} href={utilUpdateQueryParam(query, queryParamName, num)} key={num}>
-            <span className={cx("number", { active: page === num })}>
+          <Link className={cx("button", { disabled: activePage === num })} href={utilUpdateQueryParam(query, queryParamName, num)} key={num}>
+            <span className={cx("number", { active: activePage === num })}>
               {num}
             </span>
           </Link>
