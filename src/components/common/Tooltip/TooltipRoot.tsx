@@ -3,7 +3,7 @@ import {
 } from "react";
 
 import Tooltip from "./Tooltip";
-import { checkTextOverflow, getPosition, PosType } from "./Tooltip.utils";
+import { utilCheckTextOverflow, utilGetPosition, PosType } from "./Tooltip.utils";
 import TooltipPortal from "./TooltipPortal";
 
 interface TooltipRootProps {
@@ -32,8 +32,8 @@ const TooltipRoot = ({ children, message }: TooltipRootProps) => {
   const pos = useRef<PosType | null>(null);
 
   const handleMouseOver = (e: MouseEvent<HTMLDivElement>) => {
-    pos.current = getPosition(ref);
-    const visible = checkTextOverflow(e.currentTarget?.children[0]);
+    pos.current = utilGetPosition(ref);
+    const visible = utilCheckTextOverflow(e.currentTarget?.children[0]);
     setIsVisible(visible);
   };
 
