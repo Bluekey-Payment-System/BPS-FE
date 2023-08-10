@@ -9,12 +9,10 @@
   }
 
   .description {
-    overflow: hidden;
     color: $sub-color3;
     font-size: 12px;
-    text-overflow: ellipsis;
-    word-break: break-all;
-    white-space: nowrap;
+
+    @include ellipsis;
   }
 
   .bar {
