@@ -30,12 +30,14 @@ const formatLargeNum = (num: number, unit: number) => {
 
 /**
  * @author 연우킴 https://github.com/drizzle96
- * @param money 금액
+ * @param money 포맷팅할 금액입니다. number | null 타입의 값이 들어올 수 있습니다.
  * @param formatType 금액 포맷 타입을 지정합니다. "card", "doughnut", "table" 중 하나의 값이어야 합니다.
  * @returns 타입에 맞게 포맷된 string 형태의 금액
  */
-const utilFormatMoney = (money: number, formatType: "card" | "doughnut" | "table") => {
-  if (!money && money !== 0) return "-";
+const utilFormatMoney = (money: number | null, formatType: "card" | "doughnut" | "table") => {
+  if (money === null) {
+    return formatType === "card" ? "- 원" : "-";
+  }
   const unit = 100000000;
   switch (formatType) {
     case "card":
