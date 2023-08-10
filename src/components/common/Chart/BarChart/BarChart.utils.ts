@@ -4,35 +4,26 @@ export interface ChartDataProps {
   revenue: number,
 }
 
+const monthNames: { [key: number]: string } = {
+  1: "Jan",
+  2: "Feb",
+  3: "Mar",
+  4: "Apr",
+  5: "May",
+  6: "Jun",
+  7: "Jul",
+  8: "Aug",
+  9: "Sep",
+  10: "Oct",
+  11: "Nov",
+  12: "Dec",
+};
+
 export const getMonthName = (num: number): string => {
-  switch (num) {
-    case 1:
-      return "Jan";
-    case 2:
-      return "Feb";
-    case 3:
-      return "Mar";
-    case 4:
-      return "Apr";
-    case 5:
-      return "May";
-    case 6:
-      return "Jun";
-    case 7:
-      return "Jul";
-    case 8:
-      return "Aug";
-    case 9:
-      return "Sep";
-    case 10:
-      return "Oct";
-    case 11:
-      return "Nov";
-    case 12:
-      return "Dec";
-    default:
-      throw new Error("Invalid month number");
+  if (monthNames[num]) {
+    return monthNames[num];
   }
+  throw new Error("Invalid month number");
 };
 
 export const mapChartDataToMonthlySummary = (chartData: ChartDataProps[]) => {

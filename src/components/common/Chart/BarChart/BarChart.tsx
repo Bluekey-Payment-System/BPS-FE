@@ -14,21 +14,15 @@ interface CustomTooltipProps {
   value: number
 }
 
-const customTooltip = ({ id, value }: CustomTooltipProps) => {
-  let tooltipText = "";
+const tooltipTexts: { [key: string]: string } = {
+  settlement: "정산액",
+  revenue: "매출액",
+  netIncome: "회사 수익",
+};
 
-  switch (id) {
-    case "settlement":
-      tooltipText = "정산액";
-      break;
-    case "revenue":
-      tooltipText = "매출액";
-      break;
-    case "netIncome":
-      tooltipText = "회사 수익";
-      break;
-    default:
-  }
+const customTooltip = ({ id, value }: CustomTooltipProps) => {
+  const tooltipText = tooltipTexts[id] || "Unknown";
+
   return (
     <div className={cx("tooltip")}>{`${tooltipText}: ${value.toLocaleString("ko-KR")}원`}</div>
   );
