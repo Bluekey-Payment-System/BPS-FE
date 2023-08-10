@@ -28,5 +28,10 @@
     overflow: hidden;
     border-radius: 8px;
     background-color: $primary-white;
+
+    .albumCover {
+      object-fit: cover;
+      object-position: center;
+    }
   }
 }

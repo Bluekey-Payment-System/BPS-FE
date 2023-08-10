@@ -12,6 +12,7 @@ interface AlbumCardProps {
 const cx = classNames.bind(styles);
 const AlbumCard = ({
   imageUrl = "/images/default-album-cover.svg",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   albumId,
   title,
   accessAdmin = false,
@@ -29,9 +30,8 @@ const AlbumCard = ({
           <Image
             src={imageUrl}
             fill
-            objectFit="cover"
-            objectPosition="center"
             alt="앨범 아트"
+            className={cx("albumCover")}
           />
         </div>
       </div>
