@@ -14,5 +14,12 @@ const getPosition = (ref: React.RefObject<HTMLElement>, gap = 10): PosType => {
   };
 };
 
+const checkTextOverflow = (elem: Element) => {
+  if (elem.clientWidth < elem.scrollWidth) {
+    return true;
+  }
+  return false;
+};
+
 export type { PosType };
-export { getPosition };
+export { getPosition, checkTextOverflow };
