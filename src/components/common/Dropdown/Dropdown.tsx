@@ -39,7 +39,6 @@ const Dropdown = ({ dropdownListData, theme = "bright", hasSearchBar = false }: 
 
   const handleCloseList = () => {
     setToggle(false);
-    console.log("이거 왜 안돼..?");
   };
 
   const handleClickDropdownItem = (event: React.MouseEvent<HTMLInputElement>) => {
