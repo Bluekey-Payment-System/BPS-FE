@@ -1,7 +1,9 @@
-import { useState, useRef } from "react";
+import {
+  useState, useRef, MouseEvent,
+} from "react";
 
 import Tooltip from "./Tooltip";
-import { getPosition, PosType } from "./Tooltip.utils";
+import { checkTextOverflow, getPosition, PosType } from "./Tooltip.utils";
 import TooltipPortal from "./TooltipPortal";
 
 interface TooltipRootProps {
@@ -29,9 +31,10 @@ const TooltipRoot = ({ children, message }: TooltipRootProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const pos = useRef<PosType | null>(null);
 
-  const handleMouseOver = () => {
+  const handleMouseOver = (e: MouseEvent<HTMLDivElement>) => {
     pos.current = getPosition(ref);
-    setIsVisible(true);
+    const visible = checkTextOverflow(e.currentTarget.children[0]);
+    setIsVisible(visible);
   };
 
   return (
