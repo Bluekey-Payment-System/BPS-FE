@@ -1,0 +1,26 @@
+.tooltip {
+  position: absolute;
+  top: -35px;
+  left: -20px;
+  width: fit-content;
+  height: 31px;
+  padding: 8px 10px 10px;
+  border-radius: 6px;
+  background-color: $primary-black;
+  color: $primary-white;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  transform: rotate(180deg);
+  border-right: 7px solid $primary-white;
+  border-bottom: 8px solid $primary-black;
+  border-left: 7px solid $primary-white;
+}
