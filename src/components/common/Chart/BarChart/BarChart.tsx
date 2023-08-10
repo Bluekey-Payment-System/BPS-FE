@@ -42,6 +42,10 @@ const yAxisFormat = (item: number) => {
   );
 };
 
+/**
+ * @author 임병욱
+ * @param barChartData - 차트 데이터
+*/
 const BarChart = ({ barChartData }: { barChartData: ChartDataProps[] }) => {
   const maxValue: number = getMaxValue(barChartData);
   const formattedData = mapChartDataToMonthlySummary(barChartData);
