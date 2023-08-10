@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+import { useMemo } from "react";
+
 import { PAGES_PER_PAGINATION } from "@/constants/pagination";
 
 import PaginationUI from "./PaginationUI";
@@ -32,16 +35,25 @@ const Pagination = ({
   itemsPerPage,
   queryParamName = "page",
 }: PaginationProps) => {
-  const paginationNum = Math.ceil(activePage / PAGES_PER_PAGINATION);
-  const endPage = Math.ceil(totalItems / itemsPerPage);
-  const endPaginationNum = Math.ceil(endPage / PAGES_PER_PAGINATION);
-
-  const shownStart = (paginationNum - 1) * PAGES_PER_PAGINATION + 1;
-  const shownEnd = Math.min(endPage, paginationNum * PAGES_PER_PAGINATION);
-  const shownPages = Array.from(
-    { length: shownEnd - shownStart + 1 },
-    (_, i) => { return i + shownStart; },
-  );
+  const {
+    shownPages, endPage, paginationNum, endPaginationNum,
+  } = useMemo(() => {
+    const paginationNum = Math.ceil(activePage / PAGES_PER_PAGINATION);
+    const endPage = Math.ceil(totalItems / itemsPerPage);
+    const endPaginationNum = Math.ceil(endPage / PAGES_PER_PAGINATION);
+    const shownStart = (paginationNum - 1) * PAGES_PER_PAGINATION + 1;
+    const shownEnd = Math.min(endPage, paginationNum * PAGES_PER_PAGINATION);
+    const shownPages = Array.from(
+      { length: shownEnd - shownStart + 1 },
+      (_, i) => { return i + shownStart; },
+    );
+    return {
+      shownPages,
+      endPage,
+      paginationNum,
+      endPaginationNum,
+    };
+  }, [activePage, itemsPerPage, totalItems]);
 
   return (
     <PaginationUI
