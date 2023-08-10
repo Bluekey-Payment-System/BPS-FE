@@ -32,11 +32,11 @@ const Pagination = ({
   itemsPerPage,
   queryParamName = "page",
 }: PaginationProps) => {
-  const paginationNum = Math.floor((activePage - 1) / PAGES_PER_PAGINATION) + 1;
-  const endPage = Math.floor((totalItems - 1) / itemsPerPage) + 1;
+  const paginationNum = Math.ceil(activePage / PAGES_PER_PAGINATION);
+  const endPage = Math.ceil(totalItems / itemsPerPage);
   const endPaginationNum = Math.ceil(endPage / PAGES_PER_PAGINATION);
 
-  const shownStart = Math.floor((activePage - 1) / PAGES_PER_PAGINATION) * PAGES_PER_PAGINATION + 1;
+  const shownStart = (paginationNum - 1) * PAGES_PER_PAGINATION + 1;
   const shownEnd = Math.min(endPage, paginationNum * PAGES_PER_PAGINATION);
   const shownPages = Array.from(
     { length: shownEnd - shownStart + 1 },
