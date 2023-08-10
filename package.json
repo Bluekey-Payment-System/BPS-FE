@@ -11,7 +11,7 @@
     "test:ci": "jest --ci --passWithNoTests"
   },
   "dependencies": {
-    "@nivo/bar": "^0.83.0",
+    "@nivo/bar": "^0.80.0",
     "@nivo/core": "^0.83.0",
     "@nivo/tooltip": "^0.83.0",
     "@react-spring/web": "^9.7.3",
