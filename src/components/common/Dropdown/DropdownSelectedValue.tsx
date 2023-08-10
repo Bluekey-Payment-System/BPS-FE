@@ -9,7 +9,7 @@ interface DropdownSelectedValueProps {
   selectedDropdownValue: string,
   toggle: boolean,
   handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLButtonElement>,
-  theme?: "bright" | "dark" | "withSearchBar",
+  theme?: "bright" | "dark" | "withSearchBar" | "hasSearchBar",
 }
 
 const DropdownSelectedValue = ({
@@ -18,7 +18,7 @@ const DropdownSelectedValue = ({
   return (
     <button onClick={handleToggle} type="button" className={cx("dropdownValueContainer", theme)}>
       <div
-        className={cx("userInput")}
+        className={cx("userInput", theme)}
       >
         {selectedDropdownValue}
       </div>

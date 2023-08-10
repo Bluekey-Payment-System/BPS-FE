@@ -29,7 +29,7 @@ const DropdownListWithSearchBar = ({
   return (
     <>
       <div className={cx("searchBarContainer")}>
-        <input className={cx("searchDropdownSearchInput")} value={inputValue} onChange={handleChangeValue} />
+        <input className={cx("searchDropdownSearchInput")} value={inputValue} onChange={handleChangeValue} placeholder="검색어를 입력해주세요" />
         <Image src="/images/search-bar.svg" alt="검색창" width={13} height={15} className={cx("searchDropdownSearchImage")} />
       </div>
       {inputValue === "" && dropdownListData.map((dropdownItem) => {

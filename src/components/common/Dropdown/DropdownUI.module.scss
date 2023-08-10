@@ -1,18 +1,19 @@
 .dropdownContainer {
-  @include flexbox(column, center, center) display: flex;
+  @include flexbox(column, center, center);
 
+  display: flex;
   width: 100%;
   height: 100%;
 
   .dropdownValueContainer {
     position: relative;
+    box-sizing: border-box;
     width: 89px;
     border: 1px solid $sub-color3;
     border-radius: 8px;
 
     .userInput {
       display: block;
-      box-sizing: border-box;
       width: 100%;
       height: 100%;
       max-height: 40px;
@@ -25,13 +26,6 @@
       text-overflow: ellipsis;
       word-break: break-all;
       white-space: nowrap;
-    }
-
-    .userInput.withSearchBar {
-      width: 89px;
-      max-width: 89px;
-      height: 40px;
-      border-radius: 8px 0 0 8px;
     }
 
     .toggle {
@@ -51,13 +45,24 @@
       color: $primary-white;
     }
 
-    .withSearchBar {
-      width: 100%;
-      max-width: 348px;
+    &.withSearchBar {
       height: 100%;
-      max-height: 47px;
       border: 1px solid $sub-color1;
       border-radius: 8px 0 0 8px;
+    }
+
+    &.hasSearchBar {
+      width: 348px;
+      height: 47px;
+      padding-top: 7px;
+      border: none;
+      background-color: $sub-color1;
+      color: $sub-color5;
+
+      .toggle {
+        top: 20px;
+        right: 10px;
+      }
     }
   }
 
@@ -65,7 +70,7 @@
     position: relative;
     z-index: 1;
     width: 127px;
-    margin-top: 5px;
+    margin-top: 6px;
     padding: 10px;
     border-radius: 6px;
     box-shadow: 0 1px 6px 0 rgb(0 0 0 / 11%);
@@ -120,6 +125,10 @@
 
         border: 1px solid $sub-color1;
         border-radius: 6px;
+
+        &::placeholder {
+          color: $sub-color5;
+        }
       }
 
       .searchDropdownSearchImage {
@@ -132,7 +141,6 @@
     &.dark {
       width: 100%;
       max-width: 171px;
-      height: 196px;
       overflow-y: scroll;
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
@@ -143,9 +151,6 @@
     }
 
     &.withSearchBar {
-      width: 100%;
-      max-width: 347px;
-      height: 251px;
       overflow-y: scroll;
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
@@ -153,6 +158,10 @@
       &::-webkit-scrollbar {
         display: none;
       }
+    }
+
+    &.hasSearchBar {
+      width: 347px;
     }
   }
 }
