@@ -6,7 +6,7 @@ const nextConfig = {
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
-    prependData: `@import "src/styles/variables.scss"; @import "src/styles/mixins.scss";`, 
+    prependData: `@use "src/styles/variables.scss" as *; @use "src/styles/mixins.scss" as *;`, 
   },
   pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js'],
 }

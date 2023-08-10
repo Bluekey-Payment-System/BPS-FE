@@ -1,0 +1,25 @@
+.customLegendContainer {
+  display: flex;
+  align-items: center;
+
+  .color {
+    min-width: 12px;
+    min-height: 12px;
+    border-radius: 50%;
+  }
+
+  .description {
+    color: $sub-color3;
+    font-size: 12px;
+
+    @include ellipsis;
+  }
+
+  .bar {
+    margin-left: 10px;
+  }
+
+  .doughnut {
+    margin-left: 7px;
+  }
+}

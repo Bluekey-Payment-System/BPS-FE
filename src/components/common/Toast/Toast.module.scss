@@ -1,0 +1,57 @@
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.toastContainer {
+  @include fixed(90px, 50%);
+  @include flexbox(row, flex-start, center);
+
+  z-index: 100;
+  width: 385px;
+  height: 71px;
+  padding: 27px 20px;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  background: #575757;
+  gap: 30px;
+
+  .iconBox {
+    position: relative;
+    z-index: 1000;
+    width: 15px;
+    height: 17px;
+  }
+
+  & span {
+    @include typo(16);
+
+    z-index: 1000;
+    color: $primary-white;
+    line-height: 26px;
+    text-align: center;
+  }
+}
+
+.fadeOut {
+  animation: fade-out 0.2s ease-out;
+}
+
+.fadeIn {
+  animation: fade-in 0.2s ease-in;
+}
