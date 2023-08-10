@@ -29,6 +29,7 @@ const Dropdown = ({ dropdownListData, theme = "bright", hasSearchBar = false }: 
 
   const initialSelectedDropdownValue = hasSearchBar ? "대표 아티스트를 지정해주세요." : dropdownListData[0];
 
+  // eslint-disable-next-line max-len
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<string>(initialSelectedDropdownValue);
 
   const handleToggle = (event: React.MouseEvent<HTMLImageElement | HTMLButtonElement>) => {
@@ -38,6 +39,7 @@ const Dropdown = ({ dropdownListData, theme = "bright", hasSearchBar = false }: 
 
   const handleCloseList = () => {
     setToggle(false);
+    console.log("이거 왜 안돼..?");
   };
 
   const handleClickDropdownItem = (event: React.MouseEvent<HTMLInputElement>) => {
