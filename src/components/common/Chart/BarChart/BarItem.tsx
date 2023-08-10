@@ -19,6 +19,7 @@ export const BarItem = <RawDatum extends BarDatum>({
     labelX,
     labelY,
     transform,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     width,
   },
 
@@ -36,15 +37,13 @@ export const BarItem = <RawDatum extends BarDatum>({
   tooltip,
 
   isFocusable,
-  ariaLabel,
-  ariaLabelledBy,
-  ariaDescribedBy,
 }: BarItemProps<RawDatum>) => {
   const theme = useTheme();
   const { showTooltipFromEvent, showTooltipAt, hideTooltip } = useTooltip();
 
   const renderTooltip = useMemo(
     () => {
+      // eslint-disable-next-line func-names
       return function () {
         return createElement(tooltip, { ...bar, ...data });
       };
@@ -91,8 +90,9 @@ export const BarItem = <RawDatum extends BarDatum>({
           <animated.rect
             x="0"
             y="0"
-            rx={3}
-            ry={3}
+            rx={5}
+            ry={5}
+            // width={7}
             width={to(width, (value) => { return Math.max(value, 0); })}
             height={to(height, (value) => { return Math.max(value + borderRadius, 0); })}
           />
@@ -101,6 +101,7 @@ export const BarItem = <RawDatum extends BarDatum>({
 
       <animated.rect
         clipPath={`url(#round-corner-${label})`}
+        // width={7}
         width={to(width, (value) => { return Math.max(value, 0); })}
         height={to(height, (value) => { return Math.max(value, 0); })}
         fill={data.fill ?? color}
@@ -108,9 +109,6 @@ export const BarItem = <RawDatum extends BarDatum>({
         stroke={borderColor}
         focusable={isFocusable}
         tabIndex={isFocusable ? 0 : undefined}
-        aria-label={ariaLabel ? ariaLabel(data) : undefined}
-        aria-labelledby={ariaLabelledBy ? ariaLabelledBy(data) : undefined}
-        aria-describedby={ariaDescribedBy ? ariaDescribedBy(data) : undefined}
         onMouseEnter={isInteractive ? handleMouseEnter : undefined}
         onMouseMove={isInteractive ? handleTooltip : undefined}
         onMouseLeave={isInteractive ? handleMouseLeave : undefined}

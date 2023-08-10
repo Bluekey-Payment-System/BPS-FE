@@ -1,4 +1,10 @@
-export function getMonthName(num: number): string | null {
+export interface ChartDataProps {
+  month: number,
+  settlement: number,
+  revenue: number,
+}
+
+export const getMonthName = (num: number): string => {
   switch (num) {
     case 1:
       return "Jan";
@@ -25,6 +31,24 @@ export function getMonthName(num: number): string | null {
     case 12:
       return "Dec";
     default:
-      return null; // 잘못된 입력에 대한 처리
+      throw new Error("Invalid month number");
   }
-}
+};
+
+export const mapChartDataToMonthlySummary = (chartData: ChartDataProps[]) => {
+  const convertedBarChartData = chartData.map((data) => {
+    return { month: getMonthName(data.month), settlement: data.settlement, revenue: data.revenue };
+  });
+
+  return convertedBarChartData;
+};
+
+export const getMaxValue = (chartData: ChartDataProps[]): number => {
+  let maxValue = 0;
+  for (let i = 0; i < chartData.length; i += 1) {
+    if (chartData[i].settlement > maxValue || chartData[i].revenue > maxValue) {
+      maxValue = Math.max(chartData[i].settlement, chartData[i].revenue);
+    }
+  }
+  return maxValue;
+};

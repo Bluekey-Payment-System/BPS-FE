@@ -1,16 +1,46 @@
 import { ResponsiveBar } from "@nivo/bar";
+import classNames from "classnames/bind";
 
 import utilFormatMoney from "@/utils/utilFormatMoney";
 
+import styles from "./BarChart.module.scss";
+import { ChartDataProps, mapChartDataToMonthlySummary, getMaxValue } from "./BarChart.utils";
 import { BarItem } from "./BarItem";
 
-const BarChart = ({ barChartData /* see data tab */ }) => {
-  let maxValue = 0;
-  for (let i = 0; i < barChartData.length; i++) {
-    if (barChartData[i].settlement > maxValue || barChartData[i].revenue > maxValue) {
-      maxValue = Math.max(barChartData[i].settlement, barChartData[i].revenue);
-    }
+const cx = classNames.bind(styles);
+
+const customTooltip = ({ id, value }: { id: string, value: number }) => {
+  let tooltipText = "";
+
+  switch (id) {
+    case "settlement":
+      tooltipText = "정산액";
+      break;
+    case "revenue":
+      tooltipText = "매출액";
+      break;
+    case "netIncome":
+      tooltipText = "회사 수익";
+      break;
+    default:
   }
+  return (
+    <div className={cx("tooltip")}>{`${tooltipText}: ${value.toLocaleString("ko-KR")}원`}</div>
+  );
+};
+
+const yAxisFormat = (item: number) => {
+  return (
+    <tspan style={{ fill: "#a3aab6" }}>
+      {(utilFormatMoney(item, "doughnut"))}
+    </tspan>
+  );
+};
+
+const BarChart = ({ barChartData }: { barChartData: ChartDataProps[] }) => {
+  const maxValue: number = getMaxValue(barChartData);
+  const formattedData = mapChartDataToMonthlySummary(barChartData);
+
   return (
     <ResponsiveBar
       theme={{
@@ -25,24 +55,25 @@ const BarChart = ({ barChartData /* see data tab */ }) => {
       maxValue={maxValue * 1.2}
       barComponent={BarItem}
       borderRadius={7}
-      data={barChartData}
-      keys={[
-        "settlement",
-        "revenue",
-      ]}
+      data={formattedData}
+      tooltip={customTooltip}
+      keys={
+        [
+          "settlement",
+          "revenue",
+        ]
+      }
       indexBy="month"
       margin={{
         top: 50, right: 130, bottom: 50, left: 60,
       }}
-      padding={0.7}
+      padding={0.6}
       innerPadding={3}
       groupMode="grouped"
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
       colors={["#bfd4f9", "#387ffd"]}
       colorBy="id"
-      axisTop={null}
-      axisRight={null}
       axisBottom={{
         tickSize: 0,
         tickPadding: 5,
@@ -52,24 +83,12 @@ const BarChart = ({ barChartData /* see data tab */ }) => {
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        format: (item) => { return utilFormatMoney(item, "doughnut"); },
+        format: yAxisFormat,
       }}
       enableGridY
       enableLabel={false}
-      labelSkipHeight={12}
-      labelTextColor={{
-        from: "color",
-        modifiers: [
-          [
-            "darker",
-            1.6,
-          ],
-        ],
-      }}
       legends={[]}
       role="application"
-      ariaLabel="Nivo bar chart demo"
-    // barAriaLabel={(e) => { return `${e.id}: ${e.formattedValue} in country: ${e.indexValue}`; }}
     />
   );
 };
