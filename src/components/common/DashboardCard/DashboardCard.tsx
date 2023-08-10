@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 
 import Chip from "@/components/common/Chip/Chip";
+import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 
 import styles from "./DashboardCard.module.scss";
 
@@ -19,7 +20,9 @@ const DashboardCard = ({
     <div className={cx("wrapper")}>
       <h2 className={cx("title")}>{title}</h2>
       <div className={cx("contentWrapper")}>
-        <h3 className={cx("content")}>{content ?? "-"}</h3>
+        <TooltipRoot message={content ?? "-"}>
+          <h3 className={cx("content")} id="content">{content ?? "-"}</h3>
+        </TooltipRoot>
         <Chip percentage={growthRate} />
       </div>
     </div>

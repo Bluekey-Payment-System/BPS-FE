@@ -18,11 +18,13 @@
   .contentWrapper {
     @include flexbox(row, space-between, center);
 
-    gap: 25px;
+    gap: 19px;
 
     .content {
       @include typo(24, bold);
+      @include ellipsis;
 
+      max-width: 156px;
       color: $primary-black;
     }
   }
