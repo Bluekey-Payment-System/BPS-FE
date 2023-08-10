@@ -20,7 +20,7 @@
 
     @include typo(14);
 
-    &.isActive {
+    &.active {
       color: $primary-black;
 
       @include typo(14, bold);

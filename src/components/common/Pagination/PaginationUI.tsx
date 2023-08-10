@@ -54,7 +54,7 @@ const PaginationUI = ({
       {shownPages.map((num) => {
         return (
           <Link className={cx("button", { disabled: page === num })} href={utilUpdateQueryParam(query, queryParamName, num)} key={num}>
-            <span className={cx("number", { isActive: page === num })}>
+            <span className={cx("number", { active: page === num })}>
               {num}
             </span>
           </Link>
