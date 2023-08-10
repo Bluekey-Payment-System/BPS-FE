@@ -1,0 +1,30 @@
+.albumContainer {
+  width: 270px;
+  height: 342px;
+  overflow: hidden;
+  border: 1px solid $sub-color1;
+  border-radius: 8px;
+  background-color: $primary-white;
+
+  .albumContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 34px 10px 33px 20px;
+  }
+}
+
+.imageBox {
+  height: 258px;
+  padding: 32px 31px 21px;
+  background-color: $sub-color1;
+
+  .imageContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    border-radius: 8px;
+    background-color: $primary-white;
+  }
+}
