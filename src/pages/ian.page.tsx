@@ -1,8 +1,10 @@
-import Button from "@/components/common/CommonBtns/Button/Button";
+import Pagination from "@/components/common/Pagination/Pagination";
 
 const Ian = () => {
   return (
-    <div><Button size="large" theme="bright" type="button">text</Button></div>
+    <div>
+      <Pagination activePage={17} totalItems={120} itemsPerPage={6} />
+    </div>
   );
 };
 

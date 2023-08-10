@@ -1,0 +1,24 @@
+.button {
+  background-color: $sub-color1;
+
+  @include typo(14);
+
+  &.small {
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 100px;
+    color: $primary-black;
+
+    &:disabled {
+      color: $sub-color3;
+    }
+  }
+
+  &.large {
+    width: 114px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 30px;
+    color: $point-color-blue4;
+  }
+}
