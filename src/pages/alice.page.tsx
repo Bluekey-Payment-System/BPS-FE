@@ -1,21 +1,9 @@
-/**
- * EmptyData 컴포넌트 사용 예시
- *
- * - EmptyData를 감싸는 컨테이너 요소에 flex 속성 부여해서 가운데 정렬해야 합니다.
- */
-import EmptyData from "@/components/common/EmptyData/EmptyData";
+import AlbumCard from "@/components/common/AlbumCard/AlbumCard";
 
 const Home = () => {
+  const imageUrl = "https://bootcamp-project-api.s3.ap-northeast-2.amazonaws.com/0-1/the-julge/d4cd7774-0bc4-49b0-a0d9-9ddb73614bdc-20220408_155146.jpg";
   return (
-    <div style={{ backgroundColor: "lightgray", padding: "50px" }}>
-
-      <div style={{
-        backgroundColor: "white", height: 800, display: "flex", justifyContent: "center", alignItems: "center",
-      }}
-      >
-        <EmptyData type="no-search-result" />
-      </div>
-    </div>
+    <AlbumCard albumCoverUrl={imageUrl} albumId={1} albumTitle="Great Days Great Days Great Days " accessAdmin />
   );
 };
 
