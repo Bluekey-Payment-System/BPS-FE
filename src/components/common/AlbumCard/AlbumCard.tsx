@@ -22,8 +22,14 @@ const AlbumCard = ({
   title,
   accessAdmin = false,
 }: AlbumCardProps) => {
+  const handleClickAlbumCard = () => {
+    /* 임시 */
+    // eslint-disable-next-line no-console
+    console.log(`"albums/${albumId}"로 이동`);
+  };
+
   return (
-    <div className={cx("albumContainer")}>
+    <div role="presentation" className={cx("albumContainer")} onClick={handleClickAlbumCard}>
       <div className={cx("imageBox")}>
         <div className={cx("imageContent")}>
           <Image
