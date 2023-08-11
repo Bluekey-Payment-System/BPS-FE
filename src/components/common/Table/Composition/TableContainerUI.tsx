@@ -6,14 +6,14 @@ const cx = classNames.bind(styles);
 
 interface TableContainerUIProps {
   children: React.ReactNode
-  paginationElement: React.ReactNode
+  paginationElement?: React.ReactNode
 }
 
 const TableContainerUI = ({ paginationElement, children }: TableContainerUIProps) => {
   return (
     <div className={cx("wrapper")}>
       <table className={cx("table")}>{children}</table>
-      <div className={cx("paginationWrapper")}>{paginationElement}</div>
+      {paginationElement && <div className={cx("paginationWrapper")}>{paginationElement}</div>}
     </div>
   );
 };
