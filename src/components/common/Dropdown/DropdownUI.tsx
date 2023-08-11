@@ -26,9 +26,9 @@ const DropdownUI = ({
   onClickDropdownItem,
   theme = "bright",
   hasSearchBar,
-}: DropdownUIProps, dropdownListWrapperRef: React.ForwardedRef<HTMLDivElement>) => {
+}: DropdownUIProps, dropdownContainerRef: React.ForwardedRef<HTMLDivElement>) => {
   return (
-    <div className={cx("dropdownContainer")} role="presentation">
+    <div className={cx("dropdownContainer")} role="presentation" ref={dropdownContainerRef}>
       <DropdownSelectedValue
         selectedDropdownValue={selectedDropdownValue}
         toggle={toggle}
@@ -38,7 +38,6 @@ const DropdownUI = ({
       {toggle && (
         <div
           className={cx("dropdownListWrapper", theme)}
-          ref={dropdownListWrapperRef}
         >
           <DropdownList
             dropdownListData={dropdownListData}
