@@ -38,6 +38,8 @@ const barChartData = data.contents;
 const DynamicBarChart = dynamic(() => { return import("@/components/common/Chart/BarChart/BarChart"); }, { ssr: false });
 
 const TonyPage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [value, setValue] = useState("");
   return (
     <div style={{ width: "550px", height: "380px" }}>
       <DynamicBarChart barChartData={barChartData} />
