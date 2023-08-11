@@ -31,7 +31,7 @@ const customTooltip = ({ id, value }: CustomTooltipProps) => {
 const yAxisFormat = (item: number) => {
   return (
     <tspan style={{ fill: "#a3aab6" }}>
-      {(utilFormatMoney(item, "doughnut"))}
+      {(utilFormatMoney(item, "chart"))}
     </tspan>
   );
 };
