@@ -19,6 +19,7 @@
       width: 1200px;
       color: $primary-black;
 
+      // 각 셀의 패딩
       th,
       td {
         padding-left: 16px;
@@ -32,6 +33,23 @@
       th:last-child,
       td:last-child {
         padding-right: 16px;
+      }
+
+      // 1열 혹은 마지막열 sticky 처리
+      &.firstSticky {
+        th:first-child,
+        td:first-child {
+          position: sticky;
+          left: 0;
+        }
+      }
+
+      &.lastSticky {
+        th:last-child,
+        td:last-child {
+          position: sticky;
+          right: 0;
+        }
       }
     }
   }

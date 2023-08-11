@@ -5,15 +5,20 @@ import styles from "./TableContainerUI.module.scss";
 const cx = classNames.bind(styles);
 
 interface TableContainerUIProps {
-  children: React.ReactNode
   paginationElement?: React.ReactNode
+  stickyColumns?: [boolean, boolean, boolean]
+  children: React.ReactNode
 }
 
-const TableContainerUI = ({ paginationElement, children }: TableContainerUIProps) => {
+const TableContainerUI = ({
+  paginationElement,
+  stickyColumns = [false, false, false],
+  children,
+}: TableContainerUIProps) => {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("tableContainer")}>
-        <table className={cx("table")}>{children}</table>
+        <table className={cx("table", { firstSticky: stickyColumns[0], lastSticky: stickyColumns[2] })}>{children}</table>
       </div>
       {paginationElement && <div className={cx("paginationContainer")}>{paginationElement}</div>}
     </div>

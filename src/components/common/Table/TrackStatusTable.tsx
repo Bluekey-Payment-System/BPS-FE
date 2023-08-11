@@ -18,6 +18,7 @@ const TrackStatusTable = ({ data, paginationElement }: TrackStatusTableProps) =>
   return (
     <TableContainerUI
       paginationElement={paginationElement}
+      stickyColumns={[true, false, false]}
     >
       <TableHeaderUI>
         <TableCellUI isHeader>곡명</TableCellUI>
