@@ -1,11 +1,19 @@
+.kebabButton {
+  position: relative;
+
+  button,
+  img {
+    display: block;
+  }
+}
+
 .buttonList {
   width: fit-content;
   padding: 10px;
   border-radius: 6px;
   background-color: $primary-white;
-
-  // background-color: red;
   box-shadow: 0 1px 6px rgb(0 0 0 / 11%);
+  cursor: auto;
 
   .buttonListItem {
     width: fit-content;
