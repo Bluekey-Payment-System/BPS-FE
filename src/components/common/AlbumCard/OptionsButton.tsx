@@ -18,9 +18,7 @@ const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClickOptionsButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("케밥 클릭", isOpen);
     e.stopPropagation();
-    // setIsOpen(!isOpen);
     setIsOpen(!isOpen);
   };
 
@@ -50,7 +48,9 @@ const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
           <Popover
             top="27px"
             right="-4px"
-            onClose={() => { setIsOpen(false); }}
+            onClose={() => {
+              setTimeout(() => { return setIsOpen(false); }, 10);
+            }}
           >
             <ul className={cx("buttonList")}>
               <li className={cx("buttonListItem")}>
