@@ -61,16 +61,18 @@
           left: 0;
         }
 
-        th:first-child::after,
-        td:first-child::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          right: -20px;
-          bottom: -1px;
-          width: 20px;
-          box-shadow: inset 15px 0 8px -8px rgb(5 5 5 / 6%);
-          pointer-events: none;
+        &.firstShadow {
+          th:first-child::after,
+          td:first-child::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: -20px;
+            bottom: -1px;
+            width: 20px;
+            box-shadow: inset 15px 0 8px -8px rgb(5 5 5 / 6%);
+            pointer-events: none;
+          }
         }
       }
 
@@ -82,16 +84,18 @@
           right: 0;
         }
 
-        th:last-child::before,
-        td:last-child::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          bottom: -1px;
-          left: -20px;
-          width: 20px;
-          box-shadow: inset -15px 0 8px -8px rgb(5 5 5 / 6%);
-          pointer-events: none;
+        &.lastShadow {
+          th:last-child::before,
+          td:last-child::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: -1px;
+            left: -20px;
+            width: 20px;
+            box-shadow: inset -15px 0 8px -8px rgb(5 5 5 / 6%);
+            pointer-events: none;
+          }
         }
       }
     }
