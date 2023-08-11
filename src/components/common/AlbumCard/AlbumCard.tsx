@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import Image from "next/image";
 
 import styles from "./AlbumCard.module.scss";
+import EditButton from "./EditButton";
 
 const defaultAlbumCover = "/images/default-album-cover.svg";
 
@@ -37,9 +38,7 @@ const AlbumCard = ({
         <h3 className={cx("albumTitle")}>{title}</h3>
         {accessAdmin
           && (
-            <button type="button">
-              <Image src="/images/kebab.svg" width={16} height={16} alt="더보기" />
-            </button>
+            <EditButton />
           )}
       </div>
     </div>
