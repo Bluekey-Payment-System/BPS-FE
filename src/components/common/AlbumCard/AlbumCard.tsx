@@ -2,24 +2,24 @@ import classNames from "classnames/bind";
 import Image from "next/image";
 
 import styles from "./AlbumCard.module.scss";
-import EditButton from "./EditButton";
+import OptionsButton from "./OptionsButton";
 
 const defaultAlbumCover = "/images/default-album-cover.svg";
 
 interface AlbumCardProps {
-  imageUrl: string | null,
+  albumCoverUrl: string | null,
   albumId: number
-  title: string
+  albumTitle: string
   accessAdmin?: boolean
 }
 
 const cx = classNames.bind(styles);
 
 const AlbumCard = ({
-  imageUrl,
+  albumCoverUrl,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   albumId,
-  title,
+  albumTitle,
   accessAdmin = false,
 }: AlbumCardProps) => {
   const handleClickAlbumCard = () => {
@@ -33,18 +33,18 @@ const AlbumCard = ({
       <div className={cx("imageBox")}>
         <div className={cx("imageContent")}>
           <Image
-            src={imageUrl ?? defaultAlbumCover}
+            src={albumCoverUrl ?? defaultAlbumCover}
             fill
             alt="앨범 아트"
-            className={cx("albumCover", { default: !imageUrl })}
+            className={cx("albumCover", { default: !albumCoverUrl })}
           />
         </div>
       </div>
       <div className={cx("albumContent")}>
-        <h3 className={cx("albumTitle")}>{title}</h3>
+        <h3 className={cx("albumTitle")}>{albumTitle}</h3>
         {accessAdmin
           && (
-            <EditButton />
+            <OptionsButton />
           )}
       </div>
     </div>

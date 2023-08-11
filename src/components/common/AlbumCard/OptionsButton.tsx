@@ -5,21 +5,21 @@ import Image from "next/image";
 
 import Popover from "../Popover/Popover";
 
-import styles from "./EditButton.module.scss";
+import styles from "./OptionsButton.module.scss";
 
 const cx = classNames.bind(styles);
 
-const EditButton = () => {
+const OptionsButton = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleClickEditButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickOptionsButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
 
   return (
     <div className={cx("kebabButton")}>
-      <button type="button" onClick={handleClickEditButton}>
+      <button type="button" onClick={handleClickOptionsButton}>
         <Image src="/images/kebab.svg" width={16} height={16} alt="더보기" />
       </button>
       {isOpen
@@ -43,4 +43,4 @@ const EditButton = () => {
   );
 };
 
-export default EditButton;
+export default OptionsButton;
