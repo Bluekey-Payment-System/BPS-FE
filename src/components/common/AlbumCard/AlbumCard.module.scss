@@ -1,7 +1,6 @@
 .albumContainer {
   width: 270px;
   height: 342px;
-  overflow: hidden;
   border: 1px solid $sub-color1;
   border-radius: 8px;
   background-color: $primary-white;
@@ -22,6 +21,8 @@
 .imageBox {
   height: 258px;
   padding: 32px 31px 21px;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
   background-color: $sub-color1;
 
   .imageContent {
