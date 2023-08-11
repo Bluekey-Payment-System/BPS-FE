@@ -1,5 +1,4 @@
-import dynamic from "next/dynamic";
-
+import LineChart from "@/components/common/Chart/LineChart/LineChart";
 import { IMappedChartData, mapLineDataToMonthlySummary } from "@/components/common/Chart/LineChart/LineChart.utils";
 
 const data = {
@@ -73,13 +72,11 @@ const data = {
   ],
 };
 
-const DynamicLineChart = dynamic(() => { return import("@/components/common/Chart/LineChart/LineChart"); }, { ssr: false });
-
 const TonyPage = () => {
   const chartData: IMappedChartData[] = mapLineDataToMonthlySummary(data, "revenue", 1);
   return (
     <div style={{ width: "700px", height: "300px" }}>
-      <DynamicLineChart lineChartData={chartData} />
+      <LineChart lineChartData={chartData} />
     </div>
   );
 };
