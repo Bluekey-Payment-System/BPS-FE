@@ -1,4 +1,22 @@
-const formatMoneyForDoughnut = (money: number) => {
+/**
+ * 소수점 이하 자릿수를 설정한 최대 자릿수 이하로 포맷팅합니다.
+ * @param {number} num - 포맷팅할 숫자입니다.
+ * @param {number} maxNumDigits - 소수점 이하 최대 자릿수입니다.
+ * @returns {string} 포맷팅된 숫자를 문자열로 반환합니다.
+ */
+const formatNumDigits = (num: number, maxNumDigits: number) => {
+  const numDigits = (num).toString().split(".")[1]?.length || 0;
+  const formattedNum = num.toFixed(Math.min(maxNumDigits, numDigits));
+
+  return formattedNum;
+};
+
+/**
+ * 차트 용 금액 포맷팅 함수입니다.
+ * @param {number} money - 포맷팅할 금액입니다.
+ * @returns {string}  포맷팅된 금액을 금액의 크기에 맞는 suffix와 함께 문자열로 반환합니다.
+ */
+const formatMoneyForChart = (money: number) => {
   let formattedMoney = money;
   const suffixes = ["", "K", "M", "B"];
   let suffixIndex = 0;
@@ -8,33 +26,27 @@ const formatMoneyForDoughnut = (money: number) => {
     suffixIndex += 1;
   }
 
-  let formattedNum;
+  let maxNumDigits;
   if (suffixIndex === 0 || formattedMoney >= 100) {
-    formattedNum = formattedMoney.toFixed(0);
+    maxNumDigits = 0;
   } else if (formattedMoney >= 10) {
-    formattedNum = formattedMoney.toFixed(1);
+    maxNumDigits = 1;
   } else {
-    formattedNum = formattedMoney.toFixed(2);
+    maxNumDigits = 2;
   }
 
+  const formattedNum = formatNumDigits(formattedMoney, maxNumDigits);
   return `₩${formattedNum}${suffixes[suffixIndex]}`;
-};
-
-const formatLargeNum = (num: number, unit: number) => {
-  const numDigits = (num / unit).toString().split(".")[1]?.length || 0;
-  const formattedNum = (numDigits <= 3)
-    ? (Math.round((num / unit) * 1000) / 1000).toFixed(numDigits)
-    : (Math.round((num / unit) * 1000) / 1000).toFixed(3);
-  return formattedNum;
 };
 
 /**
  * @author 연우킴 https://github.com/drizzle96
- * @param money 포맷팅할 금액입니다. number | null 타입의 값이 들어올 수 있습니다.
- * @param formatType 금액 포맷 타입을 지정합니다. "card", "doughnut", "table" 중 하나의 값이어야 합니다.
- * @returns 타입에 맞게 포맷된 string 형태의 금액
+ * @param money 포맷팅할 금액입니다. `number | null` 타입의 값이 들어올 수 있습니다.
+ * 금액으로 `null`이 들어오면 `- 원` 또는 `-`으로 포맷팅 됩니다.
+ * @param formatType 금액 포맷 타입을 지정합니다. `card`, `chart`, `table` 중 하나의 값이어야 합니다.
+ * @returns 타입에 맞게 포맷된 `string` 형태의 금액
  */
-const utilFormatMoney = (money: number | null, formatType: "card" | "doughnut" | "table") => {
+const utilFormatMoney = (money: number | null, formatType: "card" | "chart" | "table") => {
   if (money === null) {
     return formatType === "card" ? "- 원" : "-";
   }
@@ -42,13 +54,13 @@ const utilFormatMoney = (money: number | null, formatType: "card" | "doughnut" |
   switch (formatType) {
     case "card":
       if (money >= unit) {
-        return `${formatLargeNum(money, unit)}억원`;
+        return `${formatNumDigits(money / unit, 3)}억원`;
       } return `${money.toLocaleString("ko-KR")}원`;
-    case "doughnut":
-      return formatMoneyForDoughnut(money);
+    case "chart":
+      return formatMoneyForChart(money);
     case "table":
       if (money >= unit) {
-        return `₩${formatLargeNum(money, unit)}억`;
+        return `₩${formatNumDigits(money / unit, 3)}억`;
       } return `₩${money.toLocaleString("ko-KR")}`;
     default:
       return "-";
