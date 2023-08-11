@@ -11,19 +11,19 @@ const cx = classNames.bind(styles);
  * @param percentage 백분율 값
  * @returns 백분율을 나타내는 Chip 컴포넌트
  */
-const Chip = ({ percentage }: { percentage: number }) => {
+const Chip = ({ percentage }: { percentage: number | null }) => {
   let fluctuation: Fluctuation;
 
-  if (percentage > 0) {
-    fluctuation = "increase";
-  } else if (percentage === 0) {
+  if (!percentage) {
     fluctuation = "same";
+  } else if (percentage > 0) {
+    fluctuation = "increase";
   } else {
     fluctuation = "decrease";
   }
 
   return (
-    <div className={cx("chipBox", fluctuation)}>{`${percentage}%`}</div>
+    <div className={cx("chipBox", fluctuation)}>{percentage ? `${percentage}%` : "0%"}</div>
   );
 };
 
