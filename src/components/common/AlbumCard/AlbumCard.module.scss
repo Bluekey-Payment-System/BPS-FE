@@ -14,6 +14,9 @@
 
     .albumTitle {
       @include typo(14, "bold");
+      @include ellipsis;
+
+      width: 195px;
     }
   }
 }
