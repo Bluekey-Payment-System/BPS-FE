@@ -3,7 +3,7 @@ import { useState } from "react";
 import classNames from "classnames/bind";
 import Image from "next/image";
 
-import Popover from "../Popover/Popover";
+import Popover from "@/components/common/Popover/Popover";
 
 import styles from "./OptionsButton.module.scss";
 
