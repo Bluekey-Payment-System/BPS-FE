@@ -6,7 +6,7 @@ import styles from "./AlbumCard.module.scss";
 const defaultAlbumCover = "/images/default-album-cover.svg";
 
 interface AlbumCardProps {
-  imageUrl?: string,
+  imageUrl: string | null,
   albumId: number
   title: string
   accessAdmin?: boolean
@@ -15,7 +15,7 @@ interface AlbumCardProps {
 const cx = classNames.bind(styles);
 
 const AlbumCard = ({
-  imageUrl = defaultAlbumCover,
+  imageUrl,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   albumId,
   title,
@@ -26,10 +26,10 @@ const AlbumCard = ({
       <div className={cx("imageBox")}>
         <div className={cx("imageContent")}>
           <Image
-            src={imageUrl}
+            src={imageUrl ?? defaultAlbumCover}
             fill
             alt="앨범 아트"
-            className={cx("albumCover", { default: imageUrl === defaultAlbumCover })}
+            className={cx("albumCover", { default: !imageUrl })}
           />
         </div>
       </div>
