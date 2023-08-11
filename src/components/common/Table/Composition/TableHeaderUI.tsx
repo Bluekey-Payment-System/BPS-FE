@@ -10,7 +10,7 @@ interface TableHeaderUIProps {
 
 const TableHeaderUI = ({ children }: TableHeaderUIProps) => {
   return (
-    <thead className={cx("head")}>
+    <thead>
       <tr className={cx("headRow")}>{children}</tr>
     </thead>
   );

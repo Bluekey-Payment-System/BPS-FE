@@ -1,7 +1,45 @@
 .wrapper {
-  .table {
+  overflow: hidden;
+  border: 1px solid $sub-color1;
+  border-radius: 8px;
+  background-color: $primary-white;
+
+  .tableContainer {
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      // TODO: 스크롤바 꾸미기 or 스크롤 할 때 그림자 넣기
+      display: none;
+    }
+
+    .table {
+      @include typo(12);
+
+      // TODO: 밖에서 table width 알아야 함
+      width: 1200px;
+      color: $primary-black;
+
+      th,
+      td {
+        padding-left: 16px;
+      }
+
+      td {
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      th:last-child,
+      td:last-child {
+        padding-right: 16px;
+      }
+    }
   }
 
-  .paginationWrapper {
+  .paginationContainer {
+    @include flexbox(row, center, center);
+
+    padding-top: 34px;
+    padding-bottom: 34px;
   }
 }

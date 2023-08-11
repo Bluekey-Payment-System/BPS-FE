@@ -6,6 +6,7 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import TableBodyUI from "./Composition/TableBodyUI";
 import TableCellUI from "./Composition/TableCellUI";
 import TableContainerUI from "./Composition/TableContainerUI";
+import TableHeaderUI from "./Composition/TableHeaderUI";
 import TableRowUI from "./Composition/TableRowUI";
 
 interface TrackStatusTableProps {
@@ -18,15 +19,15 @@ const TrackStatusTable = ({ data, paginationElement }: TrackStatusTableProps) =>
     <TableContainerUI
       paginationElement={paginationElement}
     >
-      <TableRowUI>
+      <TableHeaderUI>
         <TableCellUI isHeader>곡명</TableCellUI>
         <TableCellUI isHeader>앨범명</TableCellUI>
         <TableCellUI isHeader>아티스트명</TableCellUI>
         <TableCellUI isHeader>매출액</TableCellUI>
         <TableCellUI isHeader>회사 이익</TableCellUI>
         <TableCellUI isHeader>정산액</TableCellUI>
-        <TableCellUI isHeader>요율</TableCellUI>
-      </TableRowUI>
+        <TableCellUI isHeader align="left">요율</TableCellUI>
+      </TableHeaderUI>
       <TableBodyUI>
         {data.map((item) => {
           return (
@@ -34,7 +35,7 @@ const TrackStatusTable = ({ data, paginationElement }: TrackStatusTableProps) =>
               <TableCellUI>{item.track.name}</TableCellUI>
               <TableCellUI>{item.album.name}</TableCellUI>
               <TableCellUI>
-                <div>
+                <div style={{ textAlign: "center" }}>
                   <p>{item.artist.name}</p>
                   <p>{item.artist.enName}</p>
                 </div>
@@ -42,7 +43,7 @@ const TrackStatusTable = ({ data, paginationElement }: TrackStatusTableProps) =>
               <TableCellUI>{utilFormatMoney(item.revenue, "table")}</TableCellUI>
               <TableCellUI>{utilFormatMoney(item.netIncome, "table")}</TableCellUI>
               <TableCellUI>{utilFormatMoney(item.settlementAmount, "table")}</TableCellUI>
-              <TableCellUI><ProgressBar value={item.commissionRate} /></TableCellUI>
+              <TableCellUI align="left"><ProgressBar value={item.commissionRate} /></TableCellUI>
             </TableRowUI>
           );
         })}

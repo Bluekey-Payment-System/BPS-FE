@@ -7,19 +7,20 @@ const cx = classNames.bind(styles);
 interface TableCellUIProps {
   children: React.ReactNode
   isHeader?: boolean
+  align?: "center" | "left";
 }
 
-const TableCellUI = ({ children, isHeader = false }: TableCellUIProps) => {
+const TableCellUI = ({ children, isHeader = false, align = "center" }: TableCellUIProps) => {
   return (
     isHeader
       ? (
-        <th className={cx("headCell")}>
+        <th className={cx("headCell", align === "left" && "left")}>
           {children}
         </th>
       )
       : (
         <td className={cx("bodyCell")}>
-          {children}
+          <div className={cx("content", align === "left" && "left")}>{children}</div>
         </td>
       )
   );

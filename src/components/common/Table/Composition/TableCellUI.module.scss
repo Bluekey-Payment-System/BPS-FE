@@ -1,5 +1,21 @@
 .headCell {
+  vertical-align: middle;
+
+  &.left {
+    text-align: left;
+  }
 }
 
 .bodyCell {
+  vertical-align: middle;
+
+  .content {
+    @include flexbox(row, center, center);
+
+    width: 100%;
+
+    &.left {
+      justify-content: flex-start;
+    }
+  }
 }

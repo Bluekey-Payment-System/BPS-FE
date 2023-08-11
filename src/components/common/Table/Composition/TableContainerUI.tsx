@@ -12,8 +12,10 @@ interface TableContainerUIProps {
 const TableContainerUI = ({ paginationElement, children }: TableContainerUIProps) => {
   return (
     <div className={cx("wrapper")}>
-      <table className={cx("table")}>{children}</table>
-      {paginationElement && <div className={cx("paginationWrapper")}>{paginationElement}</div>}
+      <div className={cx("tableContainer")}>
+        <table className={cx("table")}>{children}</table>
+      </div>
+      {paginationElement && <div className={cx("paginationContainer")}>{paginationElement}</div>}
     </div>
   );
 };
