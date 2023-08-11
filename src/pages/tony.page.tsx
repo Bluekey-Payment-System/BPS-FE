@@ -1,11 +1,14 @@
-import CustomLegend from "@/components/common/CustomLegend/CustomLegend";
+import { useState } from "react";
+
+import Dropdown from "@/components/common/Dropdown/Dropdown";
 
 const TonyPage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [value, setValue] = useState("");
   return (
-    <>
-      <CustomLegend color="#4e51ef" value="아이유아이유아이유아이유아이유아이유" type="bar" />
-      <CustomLegend color="#4e5" value="아이유아이유아이유아이유아이유아이유아이유아이유아이유아이유" type="doughnut" />
-    </>
+    <div style={{ display: "flex" }}>
+      <Dropdown dropdownListData={["아이유", "볼빨간 사춘기", "성시경"]} theme="hasSearchBar" hasSearchBar onClick={setValue} />
+    </div>
   );
 };
 

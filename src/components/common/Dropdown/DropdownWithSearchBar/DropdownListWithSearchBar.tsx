@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import classNames from "classnames/bind";
+import Image from "next/image";
 
 import styles from "../DropdownUI.module.scss";
 
@@ -11,7 +12,10 @@ interface DropdownListProps {
   onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>,
 }
 
-const DropdownListWithInput = ({ dropdownListData, onClickDropdownItem }: DropdownListProps) => {
+const DropdownListWithSearchBar = ({
+  dropdownListData,
+  onClickDropdownItem,
+}: DropdownListProps) => {
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleChangeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +28,10 @@ const DropdownListWithInput = ({ dropdownListData, onClickDropdownItem }: Dropdo
 
   return (
     <>
-      <input className={cx("searchDropdownList")} value={inputValue} onChange={handleChangeValue} />
+      <div className={cx("searchBarContainer")}>
+        <input className={cx("searchDropdownSearchInput")} value={inputValue} onChange={handleChangeValue} placeholder="검색어를 입력해주세요" />
+        <Image src="/images/search-bar.svg" alt="검색창" width={13} height={15} className={cx("searchDropdownSearchImage")} />
+      </div>
       {inputValue === "" && dropdownListData.map((dropdownItem) => {
         return (
           <div className={cx("select")} key={dropdownItem}>
@@ -61,4 +68,4 @@ const DropdownListWithInput = ({ dropdownListData, onClickDropdownItem }: Dropdo
   );
 };
 
-export default DropdownListWithInput;
+export default DropdownListWithSearchBar;
