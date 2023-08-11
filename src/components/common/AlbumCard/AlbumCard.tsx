@@ -7,18 +7,26 @@ import OptionsButton from "./OptionsButton";
 const defaultAlbumCover = "/images/default-album-cover.svg";
 
 interface AlbumCardProps {
-  albumCoverUrl: string | null,
   albumId: number
+  albumCoverUrl: string | null,
   albumTitle: string
   accessAdmin?: boolean
 }
 
 const cx = classNames.bind(styles);
 
+/**
+ * @author [hayoung-99](https://github.com/hayoung-99)
+ * @param albumId 엘범 id
+ * @param albumCoverUrl 앨범 커버 이미지 url
+ * @param albumTitle 앨범 제목
+ * @param accessAdmin 어드민 접근 가능 여부 - 어드민일 시 kebab 버튼 노출
+ * @returns 앨범 리스트에 들어갈 앨범카드 컴포넌트
+ */
 const AlbumCard = ({
-  albumCoverUrl,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   albumId,
+  albumCoverUrl,
   albumTitle,
   accessAdmin = false,
 }: AlbumCardProps) => {
