@@ -6,12 +6,12 @@
 
   .dropdownValueContainer {
     position: relative;
-    box-sizing: border-box;
     width: 89px;
+    height: 40px;
     border: 1px solid $sub-color3;
     border-radius: 8px;
 
-    .userInput {
+    .selectedValue {
       display: block;
       width: 100%;
       height: 100%;
