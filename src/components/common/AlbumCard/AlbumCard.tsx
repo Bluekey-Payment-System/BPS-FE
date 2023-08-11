@@ -3,15 +3,19 @@ import Image from "next/image";
 
 import styles from "./AlbumCard.module.scss";
 
+const defaultAlbumCover = "/images/default-album-cover.svg";
+
 interface AlbumCardProps {
   imageUrl?: string,
   albumId: number
   title: string
   accessAdmin?: boolean
 }
+
 const cx = classNames.bind(styles);
+
 const AlbumCard = ({
-  imageUrl = "/images/default-album-cover.svg",
+  imageUrl = defaultAlbumCover,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   albumId,
   title,
@@ -21,17 +25,11 @@ const AlbumCard = ({
     <div className={cx("albumContainer")}>
       <div className={cx("imageBox")}>
         <div className={cx("imageContent")}>
-          {/* <Image
-            src={imageUrl}
-            width={65}
-            height={110}
-            alt="앨범 아트"
-          /> */}
           <Image
             src={imageUrl}
             fill
             alt="앨범 아트"
-            className={cx("albumCover")}
+            className={cx("albumCover", { default: imageUrl === defaultAlbumCover })}
           />
         </div>
       </div>

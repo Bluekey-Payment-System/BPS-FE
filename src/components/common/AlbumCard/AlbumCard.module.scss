@@ -38,5 +38,11 @@
       object-fit: cover;
       object-position: center;
     }
+
+    .default {
+      position: static !important;
+      width: 65px !important;
+      height: 115px !important;
+    }
   }
 }
