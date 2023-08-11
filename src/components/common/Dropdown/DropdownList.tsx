@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 
 import styles from "./DropdownUI.module.scss";
-import DropdownListWithInput from "./DropdownWithInput/DropdownListWithInput";
+import DropdownListWithSearchBar from "./DropdownWithSearchBar/DropdownListWithSearchBar";
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +19,7 @@ const DropdownList = ({
   return (
     <>
       {hasSearchBar && (
-        <DropdownListWithInput
+        <DropdownListWithSearchBar
           dropdownListData={dropdownListData}
           onClickDropdownItem={onClickDropdownItem}
         />
