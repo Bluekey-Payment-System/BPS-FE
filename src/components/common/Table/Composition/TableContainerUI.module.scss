@@ -2,32 +2,49 @@
   overflow: hidden;
   border: 1px solid $sub-color1;
   border-radius: 8px;
-  background-color: $primary-white;
 
   .tableContainer {
     overflow-x: auto;
 
-    &::-webkit-scrollbar {
-      // TODO: 스크롤바 꾸미기 or 스크롤 할 때 그림자 넣기
+    // 가로 스크롤바
+    &::-webkit-scrollbar-button {
       display: none;
+    }
+
+    &::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 20px;
+      background-color: $sub-color2;
     }
 
     .table {
       @include typo(12);
 
       // TODO: 밖에서 table width 알아야 함
-      width: 1200px;
+      width: 1198px;
       color: $primary-black;
 
-      // 각 셀의 패딩
+      // 각 셀에 패딩, 배경색 적용
       th,
       td {
         padding-left: 16px;
       }
 
+      th {
+        background-color: $sub-color3;
+      }
+
       td {
         padding-top: 16px;
         padding-bottom: 16px;
+        background-color: $primary-white;
       }
 
       th:last-child,
@@ -35,12 +52,25 @@
         padding-right: 16px;
       }
 
-      // 1열 혹은 마지막열 sticky 처리
+      // 1열 혹은 마지막열 sticky 여부에 따른 처리
       &.firstSticky {
         th:first-child,
         td:first-child {
           position: sticky;
+          z-index: 1;
           left: 0;
+        }
+
+        th:first-child::after,
+        td:first-child::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: -20px;
+          bottom: -1px;
+          width: 20px;
+          box-shadow: inset 15px 0 8px -8px rgb(5 5 5 / 6%);
+          pointer-events: none;
         }
       }
 
@@ -48,7 +78,20 @@
         th:last-child,
         td:last-child {
           position: sticky;
+          z-index: 1;
           right: 0;
+        }
+
+        th:last-child::before,
+        td:last-child::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: -1px;
+          left: -20px;
+          width: 20px;
+          box-shadow: inset -15px 0 8px -8px rgb(5 5 5 / 6%);
+          pointer-events: none;
         }
       }
     }
