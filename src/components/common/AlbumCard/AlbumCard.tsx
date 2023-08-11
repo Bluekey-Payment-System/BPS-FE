@@ -44,7 +44,7 @@ const AlbumCard = ({
         <h3 className={cx("albumTitle")}>{albumTitle}</h3>
         {accessAdmin
           && (
-            <OptionsButton />
+            <OptionsButton albumId={albumId} albumTitle={albumTitle} />
           )}
       </div>
     </div>

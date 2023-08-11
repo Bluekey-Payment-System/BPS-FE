@@ -7,14 +7,37 @@ import Popover from "../Popover/Popover";
 
 import styles from "./OptionsButton.module.scss";
 
+interface OptionsButtonProps {
+  albumId: number,
+  albumTitle: string
+}
+
 const cx = classNames.bind(styles);
 
-const OptionsButton = () => {
+const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClickOptionsButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log("케밥 클릭", isOpen);
     e.stopPropagation();
+    // setIsOpen(!isOpen);
     setIsOpen(!isOpen);
+  };
+
+  const handleClickEditButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
+    /* 임시 */
+    // eslint-disable-next-line no-console
+    console.log(`"/admin/albums/edit/${albumId}"로 이동`);
+  };
+
+  const handleClickDeleteButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
+    /* 임시 */
+    // eslint-disable-next-line no-console
+    console.log(`"${albumTitle}" 앨범을 삭제하시겠습니까? 모달 띄우기`);
   };
 
   return (
@@ -31,10 +54,10 @@ const OptionsButton = () => {
           >
             <ul className={cx("buttonList")}>
               <li className={cx("buttonListItem")}>
-                <button className={cx("button")} type="button">수정하기</button>
+                <button className={cx("button")} type="button" onClick={handleClickEditButton}>수정하기</button>
               </li>
               <li className={cx("buttonListItem")}>
-                <button className={cx("button")} type="button">삭제하기</button>
+                <button className={cx("button")} type="button" onClick={handleClickDeleteButton}>삭제하기</button>
               </li>
             </ul>
           </Popover>
