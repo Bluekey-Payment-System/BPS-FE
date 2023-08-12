@@ -1,0 +1,28 @@
+.uploadContainer {
+  @include flexbox(column, center, center);
+
+  width: 730px;
+  height: 222px;
+  padding: 50px 220px;
+  border-radius: 8px;
+  background-color: $sub-color1;
+
+  .clickableArea {
+    @include flexbox(column, center, center);
+
+    gap: 18px;
+    cursor: pointer;
+
+    .dragdrop {
+      @include typo(16, bold);
+
+      color: $sub-color3;
+    }
+
+    .message {
+      @include typo(14);
+
+      text-align: center;
+    }
+  }
+}
