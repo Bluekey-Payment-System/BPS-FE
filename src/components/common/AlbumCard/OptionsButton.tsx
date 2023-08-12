@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import classNames from "classnames/bind";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import Popover from "@/components/common/Popover/Popover";
 
@@ -16,6 +17,7 @@ const cx = classNames.bind(styles);
 
 const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleClickOptionsButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -26,14 +28,15 @@ const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
 
   const handleClickEditButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    e.preventDefault();
 
-    /* 임시 */
-    // eslint-disable-next-line no-console
-    console.log(`"/admin/albums/edit/${albumId}"로 이동`);
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    router.push(`/admin/albums/edit/${albumId}`);
   };
 
   const handleClickDeleteButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    e.preventDefault();
 
     /* 임시 */
     // eslint-disable-next-line no-console
