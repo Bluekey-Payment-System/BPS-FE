@@ -1,0 +1,20 @@
+.container {
+  @include flexbox(column);
+
+  width: 1200px;
+  margin: 32px auto;
+  margin-bottom: 50px;
+  gap: 32px;
+
+  .titleContainer {
+    @include flexbox(row, flex-start, center);
+
+    gap: 32px;
+  }
+
+  .title {
+    @include typo(24, bold);
+
+    color: $primary-black;
+  }
+}
