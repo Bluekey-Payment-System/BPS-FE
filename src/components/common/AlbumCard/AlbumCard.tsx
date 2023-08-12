@@ -10,7 +10,7 @@ interface AlbumCardProps {
   albumId: number
   albumCoverUrl: string | null,
   albumTitle: string
-  accessAdmin?: boolean
+  hasKebabButton?: boolean
 }
 
 const cx = classNames.bind(styles);
@@ -20,7 +20,7 @@ const cx = classNames.bind(styles);
  * @param albumId 엘범 id
  * @param albumCoverUrl 앨범 커버 이미지 url
  * @param albumTitle 앨범 제목
- * @param accessAdmin 어드민 접근 가능 여부 - 어드민일 시 kebab 버튼 노출
+ * @param hasKebabButton 어드민 접근 가능 여부 - 어드민일 시 kebab 버튼 노출
  * @returns 앨범 리스트에 들어갈 앨범카드 컴포넌트
  */
 const AlbumCard = ({
@@ -28,7 +28,7 @@ const AlbumCard = ({
   albumId,
   albumCoverUrl,
   albumTitle,
-  accessAdmin = false,
+  hasKebabButton = false,
 }: AlbumCardProps) => {
   const handleClickAlbumCard = () => {
     /* 임시 */
@@ -50,7 +50,7 @@ const AlbumCard = ({
       </div>
       <div className={cx("albumContent")}>
         <h3 className={cx("albumTitle")}>{albumTitle}</h3>
-        {accessAdmin
+        {hasKebabButton
           && (
             <OptionsButton albumId={albumId} albumTitle={albumTitle} />
           )}
