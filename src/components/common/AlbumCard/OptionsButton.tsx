@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import Popover from "@/components/common/Popover/Popover";
+import useToast from "@/hooks/useToast";
 
 import styles from "./OptionsButton.module.scss";
 
@@ -17,6 +18,8 @@ const cx = classNames.bind(styles);
 
 const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { showToast } = useToast();
+
   const router = useRouter();
 
   const handleClickOptionsButton = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -38,9 +41,9 @@ const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
     e.stopPropagation();
     e.preventDefault();
 
-    /* 임시 */
-    // eslint-disable-next-line no-console
-    console.log(`"${albumTitle}" 앨범을 삭제하시겠습니까? 모달 띄우기`);
+    /* 테스트 */
+    showToast(`"(${albumId}): ${albumTitle}" 앨범 삭제 확인 모달 띄우기`);
+    setIsOpen(false);
   };
 
   return (
