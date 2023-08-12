@@ -41,9 +41,9 @@ const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
   };
 
   return (
-    <div className={cx("kebabButton")}>
-      <button type="button" onClick={handleClickOptionsButton}>
-        <Image src="/images/kebab.svg" width={16} height={16} alt="더보기" />
+    <div className={cx("kebabContent")}>
+      <button type="button" onClick={handleClickOptionsButton} className={cx("kebabButton")}>
+        <Image src="/images/kebab.svg" width={16} height={16} alt="더보기" className={cx("kebabIcon")} />
       </button>
       {isOpen
           && (
