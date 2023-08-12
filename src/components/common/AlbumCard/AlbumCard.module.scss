@@ -7,9 +7,8 @@
   cursor: pointer;
 
   .albumContent {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flexbox(row, space-between, center);
+
     padding: 34px 10px 33px 20px;
 
     .albumTitle {
@@ -29,10 +28,9 @@
   background-color: $sub-color1;
 
   .imageContent {
-    display: flex;
+    @include flexbox(row, center, center);
+
     position: relative;
-    align-items: center;
-    justify-content: center;
     height: 100%;
     overflow: hidden;
     border-radius: 8px;
@@ -43,6 +41,7 @@
       object-position: center;
     }
 
+    /* fill 속성 무시 */
     .default {
       position: static !important;
       width: 65px !important;
