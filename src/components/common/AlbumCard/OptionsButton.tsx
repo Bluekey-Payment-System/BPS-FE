@@ -19,6 +19,8 @@ const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
 
   const handleClickOptionsButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    e.preventDefault();
+
     setIsOpen(!isOpen);
   };
 
