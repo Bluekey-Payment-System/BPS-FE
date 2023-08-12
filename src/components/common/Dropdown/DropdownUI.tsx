@@ -14,7 +14,7 @@ interface DropdownUIProps {
   dropdownListData: string[],
   handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLButtonElement>,
   onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>,
-  theme?: "bright" | "dark",
+  theme?: "bright" | "dark" | "withSearchBar" | "hasSearchBar",
   hasSearchBar: boolean,
 }
 
@@ -24,29 +24,28 @@ const DropdownUI = ({
   dropdownListData,
   handleToggle,
   onClickDropdownItem,
-  theme,
+  theme = "bright",
   hasSearchBar,
-}: DropdownUIProps, dropdownListWrapperRef: React.ForwardedRef<HTMLDivElement>) => {
+}: DropdownUIProps, dropdownContainerRef: React.ForwardedRef<HTMLDivElement>) => {
   return (
-    <div className={cx("dropdownContainer")} role="presentation">
+    <div className={cx("dropdownContainer")} role="presentation" ref={dropdownContainerRef}>
       <DropdownSelectedValue
         selectedDropdownValue={selectedDropdownValue}
         toggle={toggle}
         handleToggle={handleToggle}
         theme={theme}
       />
-      <div
-        className={cx("dropdownWrapper")}
-        ref={dropdownListWrapperRef}
-      >
-        {toggle && (
+      {toggle && (
+        <div
+          className={cx("dropdownListWrapper", theme)}
+        >
           <DropdownList
             dropdownListData={dropdownListData}
             onClickDropdownItem={onClickDropdownItem}
             hasSearchBar={hasSearchBar}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -9,21 +9,21 @@ interface DropdownSelectedValueProps {
   selectedDropdownValue: string,
   toggle: boolean,
   handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLButtonElement>,
-  theme?: "bright" | "dark"
+  theme?: "bright" | "dark" | "withSearchBar" | "hasSearchBar",
 }
 
 const DropdownSelectedValue = ({
   selectedDropdownValue, toggle, handleToggle, theme = "bright",
 }: DropdownSelectedValueProps) => {
   return (
-    <button onClick={handleToggle} type="button">
+    <button onClick={handleToggle} type="button" className={cx("dropdownValueContainer", theme)}>
       <div
-        className={cx("userInput", { [theme]: theme })}
+        className={cx("selectedValue")}
       >
         {selectedDropdownValue}
       </div>
       <Image
-        className={styles.toggle}
+        className={cx("toggle")}
         src={toggle ? "/images/dropdown-up.svg" : "/images/dropdown-down.svg"}
         alt="토글버튼"
         width={20}
