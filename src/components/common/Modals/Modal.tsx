@@ -17,7 +17,28 @@ interface ModalProps extends DialogHTMLAttributes<HTMLDialogElement> {
   onClose: () => void;
   children: ReactNode;
 }
-
+/**
+ * 모달 컴포넌트
+ * @author [SeyoungCho](https://github.com/seyoungcho)
+ * @param type {ModalType} 모달 유형, ERROR, CONFIRM, FORM 세 가지 중 하나
+ * @param open {bolean} 모달의 open상태
+ * @param onClose {bolean} 모달의 open상태를 close로 바꾸는 함수
+ * @example
+ * ```tsx
+ * const {isOpen, setIsOpen} = useState(false)
+ * ...
+ * return (
+ * <>
+ *  <button onClick={()=>{setIsOpen(true)}}>모달 열기 버튼</button>
+ *  <Modal type="ERROR" open={isOpen} onClose={()=>{setIsOpen(false)}}>
+      <div>비밀번호 변경</div>
+      <p>비밀번호 변경 모달입니다.</p>
+      <button onClick={()=>{setIsOpen(false)}}>닫기</button>
+    </Modal>
+  </>
+  );
+ * ```
+ */
 const Modal = ({
   type, open, onClose, children, ...props
 }: ModalProps) => {
