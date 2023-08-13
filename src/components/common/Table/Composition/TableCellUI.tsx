@@ -14,13 +14,13 @@ const TableCellUI = ({ children, isHeader = false, align = "center" }: TableCell
   return (
     isHeader
       ? (
-        <th className={cx("headCell", align === "left" && "left")}>
+        <th className={cx("cell", align === "left" && "left")}>
           {children}
         </th>
       )
       : (
-        <td className={cx("bodyCell")}>
-          <div className={cx("content", align === "left" && "left")}>{children}</div>
+        <td className={cx("cell", align === "left" && "left")}>
+          {children}
         </td>
       )
   );

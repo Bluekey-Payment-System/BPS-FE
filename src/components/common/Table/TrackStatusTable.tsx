@@ -1,4 +1,7 @@
+import classNames from "classnames/bind";
+
 import ProgressBar from "@/components/common/ProgressBar/ProgressBar";
+import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import { ITrackStatus } from "@/types/dto";
 import utilFormatMoney from "@/utils/utilFormatMoney";
 
@@ -7,6 +10,9 @@ import TableCellUI from "./Composition/TableCellUI";
 import TableContainerUI from "./Composition/TableContainerUI";
 import TableHeaderUI from "./Composition/TableHeaderUI";
 import TableRowUI from "./Composition/TableRowUI";
+import styles from "./TrackStatusTable.module.scss";
+
+const cx = classNames.bind(styles);
 
 interface TrackStatusTableProps {
   data: ITrackStatus[]
@@ -33,12 +39,22 @@ const TrackStatusTable = ({ data, paginationElement }: TrackStatusTableProps) =>
         {data.map((item) => {
           return (
             <TableRowUI key={item.track.id}>
-              <TableCellUI>{item.track.name}</TableCellUI>
-              <TableCellUI>{item.album.name}</TableCellUI>
               <TableCellUI>
-                <div style={{ textAlign: "center" }}>
-                  <p>{item.artist.name}</p>
-                  <p>{item.artist.enName}</p>
+                <TooltipRoot message={item.track.name}>
+                  <p className={cx("ellipsis")}>{item.track.name}</p>
+                </TooltipRoot>
+              </TableCellUI>
+              <TableCellUI>
+                <TooltipRoot message={item.album.name}>
+                  <p className={cx("ellipsis")}>{item.album.name}</p>
+                </TooltipRoot>
+              </TableCellUI>
+              <TableCellUI>
+                <div>
+                  <TooltipRoot message={item.artist.name}>
+                    <p className={cx("artistName", "ellipsis")}>{item.artist.name}</p>
+                  </TooltipRoot>
+                  <p className={cx("artistName", "enName", "ellipsis")}>{item.artist.enName}</p>
                 </div>
               </TableCellUI>
               <TableCellUI>{utilFormatMoney(item.revenue, "table")}</TableCellUI>
