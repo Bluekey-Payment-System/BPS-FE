@@ -15,7 +15,7 @@ const utilGetPosition = (ref: React.RefObject<HTMLElement>, gap = 10): PosType =
 };
 
 const utilCheckTextOverflow = (elem: Element): boolean => {
-  if (elem.clientWidth < elem.scrollWidth) {
+  if (elem.clientWidth < elem.scrollWidth || elem.clientHeight < elem.scrollHeight) {
     return true;
   }
   return false;
