@@ -18,12 +18,12 @@ const ExcelFileUploader = () => {
   };
 
   const handleUploadFile = (droppedFile: File) => {
-    // 여기서 드롭된 파일을 처리
     const fileExtension = droppedFile.name.split(".").pop();
 
     if (!(fileExtension === "xlsx" || fileExtension === "xls")) {
       showToast(`[Error] 감지된 파일 확장자 (${fileExtension})`);
     } else {
+      // 파일 업로드 처리
       showToast(`Dropped file: ${droppedFile.name}`);
     }
   };
@@ -34,6 +34,13 @@ const ExcelFileUploader = () => {
 
     const droppedFiles = e.dataTransfer.files;
     handleUploadFile(droppedFiles[0]);
+  };
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const selectedFiles = e.target.files;
+      handleUploadFile(selectedFiles[0]);
+    }
   };
 
   return (
@@ -57,9 +64,7 @@ const ExcelFileUploader = () => {
           type="file"
           id="fileUpload"
           style={{ display: "none" }}
-          onChange={(e) => {
-            showToast(`Dropped file: ${e.target.files && e.target.files.length > 0 && e.target.files[0].name}`);
-          }}
+          onChange={handleChangeInput}
           accept=".xlsx, .xls"
         />
       </label>
