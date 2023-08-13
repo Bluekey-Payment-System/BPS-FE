@@ -1,7 +1,37 @@
-.gnbBox {
+.container {
+  @include flexbox(row, space-between, center);
+
   max-width: 1920px;
+  height: 89px;
   margin: 0 auto;
-  padding: 30px 30px 23px;
+  padding: 0 30px;
   border-bottom: 1px solid $sub-color2;
-  background-color: $point-color-blue2;
+  background-color: $primary-white;
+
+  button {
+    background-color: inherit;
+  }
+}
+
+.rightSide {
+  @include flexbox(row, center, center);
+
+  gap: 32px;
+}
+
+.profile {
+  @include flexbox(row, center, center);
+
+  gap: 18px;
+
+  .profileImage {
+    border-radius: 70%;
+  }
+
+  .profileName {
+    @include typo(16);
+
+    border-bottom: 1px solid $primary-black;
+    color: $primary-black;
+  }
 }
