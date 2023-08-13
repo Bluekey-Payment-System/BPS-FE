@@ -34,7 +34,7 @@ const DashboardCard = ({ title, content, growthRate }: DashboardCardProps) => {
       <h2 className={cx("title")}>{title}</h2>
       <div className={cx("contentWrapper")}>
         <TooltipRoot message={content ?? "-"}>
-          <h3 className={cx("content")} id="content">{content ?? "-"}</h3>
+          <h3 className={cx("content")}>{content ?? "-"}</h3>
         </TooltipRoot>
         <Chip percentage={growthRate} />
       </div>
