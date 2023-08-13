@@ -1,49 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 
 import classNames from "classnames/bind";
 import Image from "next/image";
 
 import useToast from "@/hooks/useToast";
 
-import styles from "./ExcelFileUploader.module.scss"; // 스타일 파일
+import styles from "./ExcelFileUploader.module.scss";
 
 const cx = classNames.bind(styles);
 
 const ExcelFileUploader = () => {
-  const [isDragging, setIsDragging] = useState(false);
   const { showToast } = useToast();
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(true);
   };
 
-  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-  };
-
-  const handleUploadFile = (droppedFiles: File[]) => {
+  const handleUploadFile = (droppedFile: File) => {
     // 여기서 드롭된 파일을 처리
-    showToast(`Dropped file: ${droppedFiles[0].name}`);
+    const fileExtension = droppedFile.name.split(".").pop();
+
+    if (!(fileExtension === "xlsx" || fileExtension === "xls")) {
+      showToast(`[Error] 감지된 파일 확장자 (${fileExtension})`);
+    } else {
+      showToast(`Dropped file: ${droppedFile.name}`);
+    }
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDragging(false);
 
-    const droppedFiles = Array.from(e.dataTransfer.files);
-    handleUploadFile(droppedFiles);
+    const droppedFiles = e.dataTransfer.files;
+    handleUploadFile(droppedFiles[0]);
   };
 
   return (
     <div
       className={cx("uploadContainer")}
       onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
       <label
@@ -51,9 +47,7 @@ const ExcelFileUploader = () => {
         htmlFor="fileUpload"
       >
         <Image src="/images/upload.svg" width={33} height={33} alt="액셀 파일 업로드" />
-        <h3 className={cx("dragDrop")}>
-          {isDragging ? "Drag & Drop" : "Drop file here"}
-        </h3>
+        <h3 className={cx("dragDrop")}>Drag & Drop</h3>
         <p className={cx("message")}>
           이곳에 파일을 끌어다 놓으면 파일이 업로드됩니다.
           <br />
