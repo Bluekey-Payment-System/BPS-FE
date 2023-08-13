@@ -63,9 +63,9 @@ const ExcelFileUploader = () => {
         <input
           type="file"
           id="fileUpload"
-          style={{ display: "none" }}
           onChange={handleChangeInput}
           accept=".xlsx, .xls"
+          className={cx("uploadInput")}
         />
       </label>
     </div>
