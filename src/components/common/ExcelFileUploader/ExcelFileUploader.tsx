@@ -9,6 +9,10 @@ import styles from "./ExcelFileUploader.module.scss";
 
 const cx = classNames.bind(styles);
 
+/**
+ * @author [hayoung-99](https://github.com/hayoung-99)
+ * @returns 엑셀 파일 업로드 박스
+ */
 const ExcelFileUploader = () => {
   const { showToast } = useToast();
 
