@@ -1,7 +1,6 @@
+import ProgressBar from "@/components/common/ProgressBar/ProgressBar";
 import { ITrackStatus } from "@/types/dto";
 import utilFormatMoney from "@/utils/utilFormatMoney";
-
-import ProgressBar from "../ProgressBar/ProgressBar";
 
 import TableBodyUI from "./Composition/TableBodyUI";
 import TableCellUI from "./Composition/TableCellUI";
@@ -19,6 +18,7 @@ const TrackStatusTable = ({ data, paginationElement }: TrackStatusTableProps) =>
     <TableContainerUI
       paginationElement={paginationElement}
       stickyColumns={[true, false, false]}
+      tableWidth={1200}
     >
       <TableHeaderUI>
         <TableCellUI isHeader>곡명</TableCellUI>

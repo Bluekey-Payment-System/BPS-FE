@@ -27,8 +27,7 @@
     .table {
       @include typo(12);
 
-      // TODO: 밖에서 table width 알아야 함
-      width: 1198px;
+      table-layout: fixed;
       color: $primary-black;
 
       // 각 셀에 패딩, 배경색 적용
