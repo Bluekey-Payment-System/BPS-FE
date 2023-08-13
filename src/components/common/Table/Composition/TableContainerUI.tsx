@@ -29,8 +29,8 @@ const TableContainerUI = ({
   };
 
   return (
-    <div className={cx("wrapper")}>
-      <div className={cx("tableContainer")} onScroll={handleScrollTableContainer} ref={tableContainerRef}>
+    <div className={cx("container")}>
+      <div className={cx("tableWrapper")} onScroll={handleScrollTableContainer} ref={tableContainerRef}>
         <table className={cx("table", {
           firstSticky: stickyColumns[0],
           firstShadow: isShownColumnShadow[0],
@@ -41,7 +41,7 @@ const TableContainerUI = ({
           {children}
         </table>
       </div>
-      {paginationElement && <div className={cx("paginationContainer")}>{paginationElement}</div>}
+      {paginationElement && <div className={cx("paginationWrapper")}>{paginationElement}</div>}
     </div>
   );
 };

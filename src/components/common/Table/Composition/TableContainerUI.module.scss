@@ -1,9 +1,9 @@
-.wrapper {
+.container {
   overflow: hidden;
   border: 1px solid $sub-color1;
   border-radius: 8px;
 
-  .tableContainer {
+  .tableWrapper {
     overflow-x: auto;
 
     // 가로 스크롤바
@@ -101,7 +101,7 @@
     }
   }
 
-  .paginationContainer {
+  .paginationWrapper {
     @include flexbox(row, center, center);
 
     padding-top: 34px;
