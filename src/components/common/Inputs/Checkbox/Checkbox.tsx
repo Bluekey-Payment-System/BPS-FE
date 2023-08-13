@@ -30,7 +30,7 @@ const Checkbox = forwardRef((
   return (
 
     <label className={cx("container")} htmlFor={props.id}>
-      <input id={props.id} type="checkbox" ref={ref} {...props} />
+      <input id={props.id} type="checkbox" ref={ref} {...props} data-testid="checkbox-input" />
       <div className={cx("checkmark")} />
       {label}
     </label>
