@@ -1,7 +1,7 @@
 .container {
   overflow: hidden;
-  border: 1px solid $sub-color1;
   border-radius: 8px;
+  outline: 1px solid $sub-color1;
 
   .tableWrapper {
     overflow-x: auto;
