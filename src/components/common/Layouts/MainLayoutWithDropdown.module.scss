@@ -2,8 +2,7 @@
   @include flexbox(column);
 
   width: 1200px;
-  margin: 32px auto;
-  margin-bottom: 50px;
+  margin: 32px auto 50px;
   gap: 32px;
 
   .titleContainer {
