@@ -1,0 +1,13 @@
+.container {
+  @include flexbox(column);
+
+  // margin: 32px auto 50px; (디자이너님과 협의 후 결정)
+  width: 100%;
+  gap: 32px;
+
+  .title {
+    @include typo(16, bold);
+
+    color: $primary-black;
+  }
+}

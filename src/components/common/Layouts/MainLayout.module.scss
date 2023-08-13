@@ -1,0 +1,13 @@
+.container {
+  @include flexbox(column);
+
+  width: 1200px;
+  margin: 38px auto 50px;
+  gap: 50px;
+
+  .title {
+    @include typo(24, bold);
+
+    color: $primary-black;
+  }
+}
