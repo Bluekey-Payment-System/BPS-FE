@@ -9,7 +9,20 @@ const cx = classNames.bind(styles);
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
-
+/**
+ * 체크박스 컴포넌트
+ * @author [SeyoungCho](https://github.com/seyoungcho)
+ * @param { string } label - 체크박스 라벨
+ * @example
+ *
+ * ```
+ * const { register } = useForm(); // react-hook-form을 사용하는 예시
+ * ...
+ * <Checkbox label="영문과 동일" {...register("isSameWithKoName")} />
+ * ...
+ * ```
+ *
+ */
 const Checkbox = forwardRef((
   { label, ...props }: CheckboxProps,
   ref: ForwardedRef<HTMLInputElement>,
