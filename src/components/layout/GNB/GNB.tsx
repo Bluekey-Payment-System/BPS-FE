@@ -26,6 +26,7 @@ const GNB = ({ loginId, profileImage, type }: GnbInfoProps) => {
         onClickLogout={handleLogout}
       />
       <MobileGNB
+        loginId={loginId}
         profileImage={profileImage}
         type={type}
         onClickNotification={handleClickNotification}

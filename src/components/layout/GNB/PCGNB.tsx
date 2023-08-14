@@ -8,7 +8,7 @@ import { RANDOM_PROFILES } from "@/constants/randomProfileList";
 import getRandomProfileIndex from "./GNB.utils";
 import styles from "./PCGNB.module.scss";
 
-interface PCGNBProps {
+interface GNBProps {
   loginId: string,
   profileImage: string | null,
   type: "SUPER_ADMIN" | "ADMIN" | "ARTIST",
@@ -20,7 +20,7 @@ const cx = classNames.bind(styles);
 
 const PCGNB = ({
   loginId, profileImage, type, onClickNotification, onClickLogout,
-}: PCGNBProps) => {
+}: GNBProps) => {
   return (
     <div className={cx("container")}>
       <Link href="/dashboard">
@@ -47,4 +47,5 @@ const PCGNB = ({
   );
 };
 
+export type { GNBProps };
 export default PCGNB;
