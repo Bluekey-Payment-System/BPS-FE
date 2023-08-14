@@ -14,7 +14,7 @@ import Pretendard from "@/styles/local.font";
 import styles from "./_app.page.module.scss";
 
 // eslint-disable-next-line import/order
-import Layout from "@/components/layout/Layout";
+import Layout from "@/components/Layout/Layout";
 
 const cx = classNames.bind(styles);
 
