@@ -11,13 +11,20 @@ import { GNBProps } from "./PCGNB";
 
 const cx = classNames.bind(styles);
 
+interface MobileGNBProps extends GNBProps {
+  onClickMenu: (isOpen: boolean) => void
+}
+
 const MobileGNB = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  loginId, profileImage, type, onClickNotification, onClickLogout,
-}: GNBProps) => {
+  loginId, profileImage, type, onClickNotification, onClickLogout, onClickMenu,
+}: MobileGNBProps) => {
+  const handleClickMenu = () => {
+    onClickMenu(true);
+  };
+
   return (
     <div className={cx("container")}>
-      <button type="button" className={cx("menu")}>
+      <button type="button" className={cx("menu")} onClick={handleClickMenu}>
         <Image src="/images/hamburger.svg" width={20} height={20} alt="메뉴" />
       </button>
       <Link href="/dashboard">

@@ -7,6 +7,7 @@ export interface IUserInfo {
 export interface GnbInfoProps extends IUserInfo {
   loginId: string,
   profileImage: string | null,
+  onClickMenu: (isOpen: boolean) => void,
 }
 
 export interface SideNavProps extends IUserInfo {
