@@ -10,7 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const userInfo = useAppSelector((state) => { return state.user.member; });
   return (
     <>
-      <GNB type={userInfo.type} loginId={userInfo.email} profileImage={userInfo.profileImage} />
+      <GNB type={userInfo.type} loginId={userInfo.loginId} profileImage={userInfo.profileImage} />
       <div style={{ display: "flex" }}>
         <SideNav isOpen={isOpen} setIsOpen={setIsOpen} type={userInfo.type} />
         {children}

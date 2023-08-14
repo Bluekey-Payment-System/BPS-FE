@@ -16,8 +16,8 @@ export interface IUserState {
 const initialState: IUserState = {
   member: {
     email: "bluekey@gmail.com",
-    loginId: "bluekey",
-    type: "ARTIST",
+    loginId: "bluaekey",
+    type: "SUPER_ADMIN",
     profileImage: null,
   },
   jwtInformation: {
