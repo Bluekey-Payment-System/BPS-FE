@@ -2,6 +2,7 @@ import {
   fireEvent, render, screen,
 } from "@testing-library/react";
 
+import Checkbox from "@/components/common/Inputs/Checkbox/Checkbox";
 import TextField from "@/components/common/Inputs/TextField/TextField";
 import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/TextFieldWithUnit";
 
@@ -33,5 +34,19 @@ describe("텍스트필드 컴포넌트 기능 테스트", () => {
       <TextFieldWithUnit label="test" name="test" errors={{}} unit="%" />,
     );
     expect(screen.getByText("%")).toBeInTheDocument();
+  });
+});
+describe("체크박스 렌더링 테스트", () => {
+  it("에러 없이 렌더링 되어야 합니다.", () => {
+    render(
+      <Checkbox label="체크박스" data-testid="checkbox-input" />,
+    );
+    expect(screen.getByTestId("checkbox-input")).toBeInTheDocument();
+  });
+  it("라벨 텍스트가 정상적으로 렌더링 되어야 합니다.", () => {
+    render(
+      <Checkbox label="체크박스" data-testid="checkbox-input" />,
+    );
+    expect(screen.getByText("체크박스")).toBeInTheDocument();
   });
 });
