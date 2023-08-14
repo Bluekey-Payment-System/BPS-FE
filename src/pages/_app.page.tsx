@@ -17,6 +17,9 @@ const cx = classNames.bind(styles);
 
 const App = ({ Component, ...rest }: AppProps) => {
   const { store } = wrapper.useWrappedStore(rest);
+  if (["/admin/signin"].includes(rest.router.pathname)
+    || ["/admin/signup"].includes(rest.router.pathname)
+    || ["/artist/login"].includes(rest.router.pathname)) { return <Component {...rest.pageProps} />; }
 
   return (
     <Provider store={store}>
