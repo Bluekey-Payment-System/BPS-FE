@@ -7,7 +7,7 @@ import classNames from "classnames/bind";
 import Head from "next/head";
 
 import ToastRoot from "@/components/common/Toast/ToastRoot";
-import Layout from "@/components/Layout/Layout";
+import Layout from "@/components/layout/Layout";
 import wrapper from "@/redux/store";
 import Pretendard from "@/styles/local.font";
 
