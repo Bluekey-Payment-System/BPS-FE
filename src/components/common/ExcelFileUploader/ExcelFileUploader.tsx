@@ -62,7 +62,7 @@ const ExcelFileUploader = () => {
         <p className={cx("message")}>
           이곳에 파일을 끌어다 놓으면 파일이 업로드됩니다.
           <br />
-          파일 유형: xslx, xls
+          파일 유형: xlsx, xls
         </p>
         <input
           type="file"
