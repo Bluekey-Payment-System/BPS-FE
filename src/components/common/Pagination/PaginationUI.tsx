@@ -33,12 +33,12 @@ const PaginationUI = ({
 
   return (
     <div className={cx("wrapper")}>
-      <Link className={cx("button", { disabled: !hasPrev })} href={utilUpdateQueryParam(query, queryParamName, shownPages[0] - PAGES_PER_PAGINATION)}>
+      <Link className={cx("button", { disabled: !hasPrev })} href={utilUpdateQueryParam(query, queryParamName, shownPages[0] - PAGES_PER_PAGINATION)} scroll={false}>
         <PaginationArrowUI able={hasPrev} />
       </Link>
       {hasPrev && (
         <>
-          <Link className={cx("button")} href={utilUpdateQueryParam(query, queryParamName, 1)}>
+          <Link className={cx("button")} href={utilUpdateQueryParam(query, queryParamName, 1)} scroll={false}>
             <span className={cx("number")}>
               1
             </span>
@@ -53,7 +53,7 @@ const PaginationUI = ({
       )}
       {shownPages.map((num) => {
         return (
-          <Link className={cx("button", { disabled: activePage === num })} href={utilUpdateQueryParam(query, queryParamName, num)} key={num}>
+          <Link className={cx("button", { disabled: activePage === num })} href={utilUpdateQueryParam(query, queryParamName, num)} key={num} scroll={false}>
             <span className={cx("number", { active: activePage === num })}>
               {num}
             </span>
@@ -68,14 +68,14 @@ const PaginationUI = ({
             width={32}
             height={4}
           />
-          <Link className={cx("button")} href={utilUpdateQueryParam(query, queryParamName, endPage)}>
+          <Link className={cx("button")} href={utilUpdateQueryParam(query, queryParamName, endPage)} scroll={false}>
             <span className={cx("number")}>
               {endPage}
             </span>
           </Link>
         </>
       )}
-      <Link className={cx("button", { disabled: !hasNext })} href={utilUpdateQueryParam(query, queryParamName, shownPages[shownPages.length - 1] + 1)}>
+      <Link className={cx("button", { disabled: !hasNext })} href={utilUpdateQueryParam(query, queryParamName, shownPages[shownPages.length - 1] + 1)} scroll={false}>
         <PaginationArrowUI direction="next" able={hasNext} />
       </Link>
     </div>
