@@ -52,7 +52,7 @@ export interface IDoughnutArtistRevenue extends IRevenue { // 아티스트 도�
   artist: IArtist,
 }
 
-export interface IDoughnutrackRevenue extends IRevenue { // 트랙 도넛 차트
+export interface IDoughnutTrackRevenue extends IRevenue { // 트랙 도넛 차트
   track: ITrack,
 }
 
@@ -65,7 +65,7 @@ interface ITrackInfo {
   koName: string,
   enName: string,
   bluekeyOriginalTrack: boolean,
-  Participants: {
+  participants: {
     koName: string,
     enName: string,
     commissionRate: number | null // 불확실
@@ -131,7 +131,7 @@ export interface IArtistList {
 
 // 프로필 관련
 interface IProfile {
-  email: string // 이메일은 nullable한 값인가요?
+  email: string | null, // 이메일은 nullable한 값인가요?
   loginId: string,
   profileImage: string | null
 }
