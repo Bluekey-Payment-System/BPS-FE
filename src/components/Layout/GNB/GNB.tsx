@@ -12,11 +12,12 @@ import getRandomProfileIndex from "./GNB.utils";
 interface GNBProps {
   loginId: string,
   profileImage: string | null,
+  userType: "SUPER_ADMIN" | "ADMIN" | "ARTIST"
 }
 
 const cx = classNames.bind(styles);
 
-const GNB = ({ loginId, profileImage }: GNBProps) => {
+const GNB = ({ loginId, profileImage, userType }: GNBProps) => {
   const { showToast } = useToast();
 
   const handleClickNotification = () => {
@@ -33,9 +34,12 @@ const GNB = ({ loginId, profileImage }: GNBProps) => {
         <Image src="/images/bluekey-music-logo.svg" width={153} height={36} alt="블루키 뮤직" />
       </Link>
       <div className={cx("rightSide")}>
+        {userType === "SUPER_ADMIN"
+        && (
         <button type="button" onClick={handleClickNotification}>
           <Image src="/images/bell.svg" width={20} height={20} alt="알림" />
         </button>
+        )}
         <Link href="/my-profile" className={cx("profile")}>
           {profileImage
             ? <Image src={profileImage} width={30} height={30} alt="프로필 이미지" />
