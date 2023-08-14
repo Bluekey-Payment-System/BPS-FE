@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import classNames from "classnames/bind";
 import Head from "next/head";
 
+import AlertModalRoot from "@/components/common/Modals/AlertModal/AlertModalRoot";
 import ToastRoot from "@/components/common/Toast/ToastRoot";
 import Layout from "@/components/layout/Layout";
 import wrapper from "@/redux/store";
@@ -39,6 +40,7 @@ const App = ({ Component, ...rest }: AppProps) => {
         {getContent()}
       </main>
       <ToastRoot />
+      <AlertModalRoot />
     </Provider>
   );
 };

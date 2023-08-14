@@ -1,0 +1,102 @@
+@import "https://db.onlinewebfonts.com/c/51b459eae74df5b00ba922028ccb20be?family=Password";
+
+.container {
+	position: relative;
+	width: 100%;
+
+	.input {
+		@include typo(14);
+
+		width: 100%;
+		height: 47px;
+		padding: 15px 18px;
+		border-radius: 6px;
+		background: $sub-color1;
+		color: $primary-black;
+
+		&.error {
+			box-shadow: 0 0 0 1px $point-color-red2 inset;
+		}
+
+		&.maxByte {
+			padding-right: 75px;
+		}
+
+		&.password,
+		&.unit {
+			padding-right: 40px;
+		}
+
+		&.copy {
+			padding-right: 50px;
+		}
+
+		&:focus {
+			background: $primary-white;
+			box-shadow: 0 0 0 1px $point-color-blue3 inset;
+			color: $primary-black;
+		}
+
+		&::placeholder {
+			color: $sub-color3;
+		}
+
+		&[type="password"] {
+			/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+			font-family: Password;
+			letter-spacing: 5px;
+		}
+	}
+}
+
+/* For TextFieldWithUtils */
+%input-util-btn {
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.toggleBtn {
+	@extend %input-util-btn;
+
+	right: 10px;
+}
+
+.copyBtn {
+	@extend %input-util-btn;
+
+	right: 18px;
+
+	& .copyText {
+		@include typo(14);
+
+		color: $point-color-blue4;
+		text-decoration-line: underline;
+	}
+}
+
+.unitText {
+	@extend %input-util-btn;
+	@include typo(14);
+
+	right: 18px;
+	cursor: default;
+}
+
+.byteCount {
+	@extend %input-util-btn;
+	@include typo(14);
+
+	right: 15px;
+
+	.maxBytes {
+		color: $sub-color3;
+	}
+
+	.currentByte {
+		color: $primary-black;
+	}
+}
