@@ -4,11 +4,7 @@ import styles from "./TableHeaderUI.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface TableHeaderUIProps {
-  children: React.ReactNode
-}
-
-const TableHeaderUI = ({ children }: TableHeaderUIProps) => {
+const TableHeaderUI = ({ children }: { children: React.ReactNode }) => {
   return (
     <thead>
       <tr className={cx("headRow")}>{children}</tr>

@@ -4,11 +4,7 @@ import styles from "./TableRowUI.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface TableRowUIProps {
-  children: React.ReactNode
-}
-
-const TableRowUI = ({ children }: TableRowUIProps) => {
+const TableRowUI = ({ children }: { children: React.ReactNode }) => {
   return (
     <tr className={cx("row")}>
       {children}
