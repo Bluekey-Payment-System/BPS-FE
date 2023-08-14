@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 
 import Head from "next/head";
 
+import AlertModalRoot from "@/components/common/Modals/AlertModal/AlertModalRoot";
 import ToastRoot from "@/components/common/Toast/ToastRoot";
 import wrapper from "@/redux/store";
 import Pretendard from "@/styles/local.font";
@@ -21,6 +22,7 @@ const App = ({ Component, ...rest }: AppProps) => {
         <Component {...rest.pageProps} />
       </main>
       <ToastRoot />
+      <AlertModalRoot />
     </Provider>
   );
 };
