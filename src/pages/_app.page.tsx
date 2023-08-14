@@ -7,14 +7,11 @@ import classNames from "classnames/bind";
 import Head from "next/head";
 
 import ToastRoot from "@/components/common/Toast/ToastRoot";
+import Layout from "@/components/Layout/Layout";
 import wrapper from "@/redux/store";
 import Pretendard from "@/styles/local.font";
 
-// eslint-disable-next-line import/order
 import styles from "./_app.page.module.scss";
-
-// eslint-disable-next-line import/order
-import Layout from "@/components/Layout/Layout";
 
 const cx = classNames.bind(styles);
 
