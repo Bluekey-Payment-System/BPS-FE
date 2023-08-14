@@ -1,4 +1,4 @@
-const MODAL_TYPE = {
+export const MODAL_TYPE = {
   ERROR: "ERROR",
   CONFIRM: "CONFIRM",
   FORM: "FORM",

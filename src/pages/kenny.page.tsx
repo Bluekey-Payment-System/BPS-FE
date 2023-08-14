@@ -1,4 +1,4 @@
-import React, { } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FieldValues, SubmitHandler, useForm,
 } from "react-hook-form";
@@ -11,9 +11,13 @@ import TextFieldWithMaxBytes from "@/components/common/Inputs/TextFieldWithMaxBy
 import PasswordField from "@/components/common/Inputs/PasswordInput/PasswordField";
 import TextFieldWithCopy from "@/components/common/Inputs/TextFieldWithCopy/TextFieldWithCopy";
 import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/TextFieldWithUnit";
+import Modal from "@/components/common/Modals/Modal";
+import ErrorModal from "@/components/common/Modals/ErrorModal/ErrorModal";
 
 const KennyPage = () => {
   const { showToast } = useToast();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
   const {
     register,
     formState: { errors, defaultValues },
@@ -34,6 +38,10 @@ const KennyPage = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
+
+  useEffect(()=>{
+    console.log("isOpen", isOpen);
+  }, [isOpen])
   return (
     <div style={{
       width: "40%",
@@ -166,6 +174,13 @@ const KennyPage = () => {
         <TextField label="test" name="test" onSave={()=>{console.log("hey")}} errors={{}} />
       </form>
       <DevTool control={control} />
+      <button onClick={()=>{setIsOpen(true)}}>그냥 모달 오픈</button>
+      <button onClick={()=>{setIsError(true)}}>에러 모달 오픈</button>
+      <Modal type="ERROR" open={isOpen} onClose={()=>{setIsOpen(false)}}>
+        <div>나는 모달이다</div>
+        <button onClick={()=>{setIsOpen(false)}}>닫기</button>
+      </Modal>
+      <ErrorModal open={isError} title="로그인 실패" onClose={()=>{setIsError(false)}} infoText="로그인에 실패했습니다. 아이디/비밀번호를 다시 한번 확인해주세요."/>
     </div>
   );
 };

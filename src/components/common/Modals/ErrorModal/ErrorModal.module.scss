@@ -1,0 +1,19 @@
+.container {
+	@include flexbox(column, false, center);
+
+	.title {
+		@include typo(20, bold);
+	}
+
+	/* stylelint-disable-next-line scss/dollar-variable-colon-space-after */
+	$mb-map:
+		"iconBox" 40px,
+		"title" 30px,
+		"infoText" 62px;
+
+	@each $class, $mb in $mb-map {
+		& .#{$class} {
+			margin-bottom: $mb;
+		}
+	}
+}

@@ -3,6 +3,9 @@ $float-up: float-up 300ms $bezier;
 $float-down: float-down 300ms $bezier;
 $fade-in: fade-in 300ms $bezier;
 $fade-out: fade-out 300ms $bezier;
+$error-type-padding: 40px 55px 42px 55px;
+$confirm-type-padding: 40px 55px 50px 55px;
+$form-type-padding: 32px;
 
 .dialog {
 	margin: auto;
@@ -32,12 +35,11 @@ $fade-out: fade-out 300ms $bezier;
 .container {
 	border-radius: 8px;
 	background-color: $primary-white;
-
 	/* stylelint-disable-next-line scss/dollar-variable-colon-space-after */
 	$modal-type-padding-map:
-		"error" 40px 55px 55px 42px,
-		"confirm" 40px 55px 55px 50px,
-		"form" 32px;
+		"error" $error-type-padding,
+		"confirm" $confirm-type-padding,
+		"form" $form-type-padding;
 
 	@each $type, $padding in $modal-type-padding-map {
 		&.#{$type} {
