@@ -1,14 +1,14 @@
 const RANDOM_PROFILES = [
+  "Mary Baker",
+  "Amelia Earhart",
   "Margaret Brent",
+  "Margaret Chase",
   "Mahalia Jackson",
-  "Sojourner Truth",
-  "Georgia O",
-  "Alicia Dickerson",
-  "Amelia Boynton",
-  "Babe Didrikson",
+  "Helen Keller",
   "Sacagawea",
-  "Mary Cassatt",
-  "Queen Lili",
+  "Wilma Mankiller",
+  "Annie Dodge",
+  "Marian Anderson",
 ];
 
 const RANDOM_PROFILES_LENGTH = RANDOM_PROFILES.length;
