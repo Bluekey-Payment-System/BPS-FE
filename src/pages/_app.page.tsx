@@ -3,17 +3,12 @@ import type { AppProps } from "next/app";
 
 import { Provider } from "react-redux";
 
-import classNames from "classnames/bind";
 import Head from "next/head";
 
 import ToastRoot from "@/components/common/Toast/ToastRoot";
 import Layout from "@/components/layout/Layout";
 import wrapper from "@/redux/store";
 import Pretendard from "@/styles/local.font";
-
-import styles from "./_app.page.module.scss";
-
-const cx = classNames.bind(styles);
 
 const App = ({ Component, ...rest }: AppProps) => {
   const { store } = wrapper.useWrappedStore(rest);
@@ -35,7 +30,7 @@ const App = ({ Component, ...rest }: AppProps) => {
       <Head>
         <title>블루키뮤직 정산시스템</title>
       </Head>
-      <main className={cx(Pretendard.className, "backgroundColor")}>
+      <main className={`${Pretendard.className} ${"backgroundColor"})`}>
         {getContent()}
       </main>
       <ToastRoot />
