@@ -26,3 +26,11 @@ export interface IUnRegisteredData {
   category: string
   value: string
 }
+
+export interface IAdminProfile {
+  type: "ADMIN"
+  email: string
+  loginId: string
+  nickName: string
+  profileImage: string | null
+}
