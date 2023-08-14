@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
 
-import { RANDOM_PROFILES } from "@/constants/randomProfileList";
+import { COMBINATION_COLORS, RANDOM_PROFILES } from "@/constants/randomProfileList";
 
 import getRandomProfileIndex from "./GNB.utils";
 import styles from "./MobileGNB.module.scss";
@@ -42,7 +42,7 @@ const MobileGNB = ({
         <Link href="/my-profile">
           {profileImage
             ? <Image src={profileImage} width={30} height={30} alt="프로필 이미지" />
-            : <Avatar size={20} name={RANDOM_PROFILES[getRandomProfileIndex(loginId)]} variant="marble" colors={["#bfd4f9", "#76a3f2", "#387ffd", "#ffd8d8", "#9b88ed"]} />}
+            : <Avatar size={20} name={RANDOM_PROFILES[getRandomProfileIndex(loginId)]} variant="marble" colors={COMBINATION_COLORS} />}
         </Link>
         <button type="button" onClick={onClickLogout}>
           <Image src="/images/logout.svg" width={20} height={17} alt="로그아웃" />

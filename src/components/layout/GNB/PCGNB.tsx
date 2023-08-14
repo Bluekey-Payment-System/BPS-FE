@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
 
-import { RANDOM_PROFILES } from "@/constants/randomProfileList";
+import { COMBINATION_COLORS, RANDOM_PROFILES } from "@/constants/randomProfileList";
 
 import getRandomProfileIndex from "./GNB.utils";
 import styles from "./PCGNB.module.scss";
@@ -36,7 +36,7 @@ const PCGNB = ({
         <Link href="/my-profile" className={cx("profile")}>
           {profileImage
             ? <Image src={profileImage} width={30} height={30} alt="프로필 이미지" />
-            : <Avatar size={30} name={RANDOM_PROFILES[getRandomProfileIndex(loginId)]} variant="marble" colors={["#bfd4f9", "#76a3f2", "#387ffd", "#ffd8d8", "#9b88ed"]} />}
+            : <Avatar size={30} name={RANDOM_PROFILES[getRandomProfileIndex(loginId)]} variant="marble" colors={COMBINATION_COLORS} />}
           <span className={cx("profileName")}>{`${loginId} 님`}</span>
         </Link>
         <button className={cx("logoutButton")} type="button" onClick={onClickLogout}>
