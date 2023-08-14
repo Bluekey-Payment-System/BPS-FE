@@ -1,5 +1,6 @@
 import LineChart from "@/components/common/Chart/LineChart/LineChart";
-import { IMappedChartData, mapLineDataToMonthlySummary } from "@/components/common/Chart/LineChart/LineChart.utils";
+import { IMappedChartData } from "@/components/common/Chart/LineChart/LineChart.types";
+import { mapLineDataToMonthlySummary } from "@/components/common/Chart/LineChart/LineChart.utils";
 
 const data = {
   tracks: [
@@ -73,7 +74,6 @@ const data = {
 };
 
 const TonyPage = () => {
-
   const chartData: IMappedChartData[] = mapLineDataToMonthlySummary(data, "revenue", 1);
   return (
     <div style={{ width: "700px", height: "300px" }}>
