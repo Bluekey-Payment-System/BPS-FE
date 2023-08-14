@@ -9,10 +9,12 @@ import Head from "next/head";
 import ToastRoot from "@/components/common/Toast/ToastRoot";
 import wrapper from "@/redux/store";
 import Pretendard from "@/styles/local.font";
+
+// eslint-disable-next-line import/order
+import styles from "./_app.page.module.scss";
+
 // eslint-disable-next-line import/order
 import Layout from "@/components/layout/Layout";
-
-import styles from "./_app.page.module.scss";
 
 const cx = classNames.bind(styles);
 
