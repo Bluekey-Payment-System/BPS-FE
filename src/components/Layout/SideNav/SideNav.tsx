@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import classNames from "classnames/bind";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useAppSelector } from "@/redux/hooks";
 
 import styles from "./SideNav.module.scss";
-import { ISideNavList } from "./SideNav.type";
+import { ISideNavList, SideNavProps } from "./SideNav.type";
 import { ADMIN, ARTIST, SUPER_ADMIN } from "./SideNav.utils";
 import SideNavMobile from "./SideNavMobile";
 
@@ -20,11 +20,6 @@ const userTypeToSideNavMap = {
 };
 
 type UserType = keyof typeof userTypeToSideNavMap;
-
-interface SideNavProps {
-  isOpen: boolean,
-  setIsOpen: React.Dispatch<SetStateAction<boolean>>,
-}
 
 const SideNav = ({ isOpen, setIsOpen }: SideNavProps) => {
   const [sideNavList, setSideNavList] = useState<ISideNavList[]>([]);

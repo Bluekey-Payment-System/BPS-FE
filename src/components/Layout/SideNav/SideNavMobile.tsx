@@ -1,5 +1,3 @@
-import { SetStateAction } from "react";
-
 import classNames from "classnames/bind";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -7,16 +5,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import styles from "./SideNav.module.scss";
-import { ISideNavList } from "./SideNav.type";
+import { ISideNavList, SideNavProps } from "./SideNav.type";
 
 const cx = classNames.bind(styles);
 
 const DynamicDrawer = dynamic(() => { return import("@/components/common/Drawer/Drawer"); }, { ssr: false });
 
-interface SideNavMobileProps {
+interface SideNavMobileProps extends SideNavProps {
   sideNavList: ISideNavList[],
-  isOpen: boolean,
-  setIsOpen: React.Dispatch<SetStateAction<boolean>>
 }
 
 const SideNavMobile = ({ sideNavList, isOpen, setIsOpen }: SideNavMobileProps) => {
