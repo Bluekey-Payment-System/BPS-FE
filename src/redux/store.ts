@@ -6,9 +6,11 @@ import {
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
 
 import toastReducer, { IToastState } from "@/redux/slices/toastSlice";
+import userReducer, { IUserState } from "@/redux/slices/userSlice";
 
 export interface IState {
   toast: IToastState;
+  user: IUserState;
 }
 
 const rootReducer = (state: IState, action: AnyAction): CombinedState<IState> => {
@@ -19,6 +21,7 @@ const rootReducer = (state: IState, action: AnyAction): CombinedState<IState> =>
     default: {
       const combinedReducer = combineReducers({
         toast: toastReducer,
+        user: userReducer,
       });
       return combinedReducer(state, action);
     }
