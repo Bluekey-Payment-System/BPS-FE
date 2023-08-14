@@ -2,7 +2,8 @@ import { ResponsiveLine } from "@nivo/line";
 
 import utilFormatMoney from "@/utils/utilFormatMoney";
 
-import { IMappedChartData, getMaxValueInLineChart } from "./LineChart.utils";
+import { IMappedChartData } from "./LineChart.types";
+import { getMaxValueInLineChart } from "./LineChart.utils";
 
 const yAxisFormat = (item: number) => {
   return (
