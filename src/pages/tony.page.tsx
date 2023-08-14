@@ -73,6 +73,7 @@ const data = {
 };
 
 const TonyPage = () => {
+
   const chartData: IMappedChartData[] = mapLineDataToMonthlySummary(data, "revenue", 1);
   return (
     <div style={{ width: "700px", height: "300px" }}>
