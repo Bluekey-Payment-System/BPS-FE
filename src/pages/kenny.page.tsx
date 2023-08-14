@@ -14,6 +14,8 @@ import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/Text
 import Modal from "@/components/common/Modals/Modal";
 import AlertModal from "@/components/common/Modals/AlertModal/AlertModal";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
+import useAlertModal, { IUseAlertModalParam } from "@/hooks/useAlertModal";
+import Button from "@/components/common/CommonBtns/Button/Button";
 
 const KennyPage = () => {
   const { showToast } = useToast();
@@ -36,6 +38,15 @@ const KennyPage = () => {
       copy: "복사할내용",
     },
   });
+  const alertModalProps: IUseAlertModalParam = {
+    type:MODAL_TYPE.CONFIRM,
+    title:"로그인 실패", 
+    message: "로그인에 실패했습니다. 아이디/비밀번호를 다시 한번 확인해주세요.",
+    onClickProceed: ()=>{showToast("재로그인 시도")},
+    proceedBtnText: "재시도하기",
+    closeBtnText: "닫기",
+  }
+  const { showAlertModal} = useAlertModal(alertModalProps);
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
@@ -175,8 +186,11 @@ const KennyPage = () => {
         <TextField label="test" name="test" onSave={()=>{console.log("hey")}} errors={{}} />
       </form>
       <DevTool control={control} />
-      <button onClick={()=>{setIsOpen(true)}}>그냥 모달 오픈</button>
-      <button onClick={()=>{setIsError(true)}}>에러 모달 오픈</button>
+      <Button size="large" theme="dark" onClick={()=>{setIsOpen(true)}}>그냥 모달 오픈</Button>
+      <br />
+      <br />
+    
+      <Button size="large" theme="dark" onClick={()=>{setIsError(true)}}>에러 모달 오픈</Button>
       <Modal type="ERROR" open={isOpen} onClose={()=>{setIsOpen(false)}}>
         <div>나는 모달이다</div>
         <button onClick={()=>{setIsOpen(false)}}>닫기</button>
@@ -186,11 +200,14 @@ const KennyPage = () => {
         open={isError} 
         title="로그인 실패" 
         onClose={()=>{setIsError(false)}} 
-        infoText="로그인에 실패했습니다. 아이디/비밀번호를 다시 한번 확인해주세요."
+        message="로그인에 실패했습니다. 아이디/비밀번호를 다시 한번 확인해주세요."
         onClickProceed={()=>{setIsError(false);showToast("재로그인을 시도합니다")}}
         proceedBtnText="다시 시도하기"
         closeBtnText="닫기"
       />
+      <br />
+      <br />
+      <Button size="large" theme="bright" onClick={()=>{showAlertModal()}}>useAlert모달로 열기</Button>
     </div>
   );
 };

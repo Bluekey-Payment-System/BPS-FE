@@ -20,6 +20,35 @@ export interface AlertModalProps {
   onClose: () => void;
 }
 
+/**
+ * 경고 모달 컴포넌트
+ * @author [SeyoungCho](https://github.com/seyoungcho)
+ * @param type {ModalType} 모달 유형, ERROR, CONFIRM중 하나
+ * @param open {bolean} 모달의 open상태
+ * @param onClose {bolean} 모달의 open상태를 close로 바꾸는 함수
+ * @param title {string} 경고 모달의 title
+ * @param message {string} 경고 모달의 메세지
+ * @param onClickProceed {Function} CONFIRM타입의 경우, 진행 버튼의 클릭 핸들러함수
+ * @param proceedBtnText {string} CONFIRM타입의 경우, 진행 버튼 텍스트
+ * @param closeBtnText {string} 닫기 버튼 텍스트, 기본값은 "확인""
+ * @example
+ * ```tsx
+ * const {isOpen, setIsOpen} = useState(false)
+ * ...
+ * return (
+ * <>
+ *  <button onClick={()=>{setIsOpen(true)}}>모달 열기 버튼</button>
+ *  <AlertModal
+ *   open={isOpen}
+ *   type={MODAL_TYPE.ERROR}
+ *   title="로그인 에러"
+ *   message="로그인에 실패했습니다. 아이디/비밀번호를 다시 한번 확인해주세요."
+ *   onClose={()=>{setIsOpen(false)}}
+ *  />
+  </>
+  );
+ * ```
+ */
 const AlertModal = ({
   open,
   type,
