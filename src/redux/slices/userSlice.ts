@@ -5,7 +5,8 @@ export interface IUserState {
   member: {
     email: string,
     loginId: string,
-    type: string
+    profileImage: string | null
+    type: "SUPER_ADMIN" | "ADMIN" | "ARTIST",
   },
   jwtInformation: {
     accessToken: string
@@ -17,6 +18,7 @@ const initialState: IUserState = {
     email: "bluekey@gmail.com",
     loginId: "bluekey",
     type: "ARTIST",
+    profileImage: null,
   },
   jwtInformation: {
     accessToken: "asdfasdf",

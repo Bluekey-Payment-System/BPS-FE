@@ -4,10 +4,10 @@ import classNames from "classnames/bind";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { useAppSelector } from "@/redux/hooks";
+import { SideNavProps } from "../Layout.types";
 
 import styles from "./SideNav.module.scss";
-import { ISideNavList, SideNavProps } from "./SideNav.type";
+import { ISideNavList } from "./SideNav.type";
 import { ADMIN, ARTIST, SUPER_ADMIN } from "./SideNav.utils";
 import SideNavMobile from "./SideNavMobile";
 
@@ -19,16 +19,13 @@ const userTypeToSideNavMap = {
   ARTIST,
 };
 
-type UserType = keyof typeof userTypeToSideNavMap;
-
-const SideNav = ({ isOpen, setIsOpen }: SideNavProps) => {
+const SideNav = ({ isOpen, setIsOpen, type }: SideNavProps) => {
   const [sideNavList, setSideNavList] = useState<ISideNavList[]>([]);
   const router = useRouter();
-  const userType = useAppSelector((state) => { return state.user.member.type as UserType; });
 
   useEffect(() => {
-    setSideNavList(userTypeToSideNavMap[userType]);
-  }, [userType]);
+    setSideNavList(userTypeToSideNavMap[type]);
+  }, [type]);
 
   return (
     <div className="app">
