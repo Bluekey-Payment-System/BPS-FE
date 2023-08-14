@@ -5,11 +5,17 @@ import {
 
 import classNames from "classnames/bind";
 
-import { ModalType } from "@/types/enums/modal.enum";
+import { MODAL_TYPE, ModalType } from "@/types/enums/modal.enum";
 
 import styles from "./Modal.module.scss";
 
 const cx = classNames.bind(styles);
+
+const MODAL_TYPE_CLASSNAME_MAP = {
+  [MODAL_TYPE.ERROR]: "error",
+  [MODAL_TYPE.CONFIRM]: "confirm",
+  [MODAL_TYPE.FORM]: "form",
+};
 
 interface ModalProps extends DialogHTMLAttributes<HTMLDialogElement> {
   type: ModalType;
@@ -75,7 +81,7 @@ const Modal = ({
       onAnimationEnd={handleAnimationEnd}
       {...props}
     >
-      <div className={cx("container", [type.toLowerCase()])}>
+      <div className={cx("container", [MODAL_TYPE_CLASSNAME_MAP[type]])}>
         {children}
       </div>
     </dialog>
