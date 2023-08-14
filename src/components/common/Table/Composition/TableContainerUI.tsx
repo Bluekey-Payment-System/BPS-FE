@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 
 import classNames from "classnames/bind";
 
+import utilThrottle from "@/utils/utilThrottle";
+
 import styles from "./TableContainerUI.module.scss";
 
 const cx = classNames.bind(styles);
@@ -22,7 +24,6 @@ const TableContainerUI = ({
   const tableContainerRef = useRef<HTMLDivElement>(null);
   const [isShownColumnShadow, setIsShowColumnShadow] = useState([false, false, false]);
   const handleScrollTableContainer = () => {
-    // TODO: 스로틀링
     if (!tableContainerRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = tableContainerRef.current;
     setIsShowColumnShadow((prev) => {
@@ -32,7 +33,7 @@ const TableContainerUI = ({
 
   return (
     <div className={cx("container")}>
-      <div className={cx("tableWrapper")} onScroll={handleScrollTableContainer} ref={tableContainerRef}>
+      <div className={cx("tableWrapper")} onScroll={utilThrottle(() => { handleScrollTableContainer(); }, 300)} ref={tableContainerRef}>
         <table
           className={cx("table", {
             firstSticky: stickyColumns[0],
