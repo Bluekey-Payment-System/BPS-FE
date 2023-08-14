@@ -24,7 +24,7 @@ const PCGNB = ({
   return (
     <div className={cx("container")}>
       <Link href="/dashboard">
-        <Image src="/images/bluekey-music-logo.svg" width={153} height={36} alt="블루키 뮤직" />
+        <Image className={cx("logo")} src="/images/bluekey-music-insight-logo.svg" width={206} height={30} alt="블루키 뮤직" />
       </Link>
       <div className={cx("rightSide")}>
         {type === "SUPER_ADMIN"

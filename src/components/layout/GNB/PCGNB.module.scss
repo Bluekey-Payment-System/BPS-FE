@@ -19,6 +19,10 @@
   }
 }
 
+.logo {
+  display: block;
+}
+
 .rightSide {
   @include flexbox(row, center, center);
 
