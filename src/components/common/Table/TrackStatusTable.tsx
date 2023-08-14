@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 
 import ProgressBar from "@/components/common/ProgressBar/ProgressBar";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
-import { ITrackStatus } from "@/types/dto";
+import { ITrackStatus } from "@/types/dto.temp";
 import utilFormatMoney from "@/utils/utilFormatMoney";
 
 import TableBodyUI from "./Composition/TableBodyUI";
