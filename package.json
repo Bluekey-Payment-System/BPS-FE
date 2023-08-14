@@ -13,6 +13,8 @@
   "dependencies": {
     "@nivo/bar": "^0.81.0",
     "@nivo/core": "^0.83.0",
+    "@nivo/line": "^0.80.0",
+    "@nivo/pie": "^0.80.0",
     "@nivo/tooltip": "^0.83.0",
     "@react-spring/web": "^9.7.3",
     "@reduxjs/toolkit": "^1.9.5",
@@ -28,6 +30,7 @@
     "react-redux": "^8.1.2"
   },
   "devDependencies": {
+    "@hookform/devtools": "^4.3.1",
     "@testing-library/dom": "^9.3.1",
     "@testing-library/react": "^14.0.0",
     "@testing-library/react-hooks": "^8.0.1",

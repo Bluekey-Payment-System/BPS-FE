@@ -4,7 +4,8 @@ import classNames from "classnames/bind";
 import utilFormatMoney from "@/utils/utilFormatMoney";
 
 import styles from "./BarChart.module.scss";
-import { ChartDataProps, mapChartDataToMonthlySummary, getMaxValue } from "./BarChart.utils";
+import { ChartDataProps } from "./BarChart.types";
+import { mapChartDataToMonthlySummary, getMaxValue } from "./BarChart.utils";
 import { BarItem } from "./BarItem";
 
 const cx = classNames.bind(styles);

@@ -1,8 +1,4 @@
-export interface ChartDataProps {
-  month: number,
-  settlement: number,
-  revenue: number,
-}
+import { ChartDataProps } from "./BarChart.types";
 
 const monthNames: { [key: number]: string } = {
   1: "Jan",
