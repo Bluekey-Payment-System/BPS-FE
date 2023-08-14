@@ -12,9 +12,9 @@ const cx = classNames.bind(styles);
 interface DrawerProps {
   isOpen: boolean,
   children: React.ReactNode,
-  className: string,
   onClose: () => void,
-  position: "left" | "right" | "top" | "bottom",
+  className?: string,
+  position?: "left" | "right" | "top" | "bottom",
   removeWhenClosed: boolean
 }
 
@@ -83,12 +83,12 @@ const Drawer = ({
       })}
     >
       <div
-        className={cx("drawer", position)}
+        className={cx("drawer", position, className)}
         role="dialog"
       >
         {children}
       </div>
-      <div className={cx("backdrop")} onClick={onClose} role="presentation" />
+      <div className={cx("backdrop", className)} onClick={onClose} role="presentation" />
     </div>,
     portalRootRef.current,
   );
