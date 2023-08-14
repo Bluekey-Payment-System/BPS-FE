@@ -12,7 +12,8 @@ import PasswordField from "@/components/common/Inputs/PasswordInput/PasswordFiel
 import TextFieldWithCopy from "@/components/common/Inputs/TextFieldWithCopy/TextFieldWithCopy";
 import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/TextFieldWithUnit";
 import Modal from "@/components/common/Modals/Modal";
-import ErrorModal from "@/components/common/Modals/ErrorModal/ErrorModal";
+import AlertModal from "@/components/common/Modals/AlertModal/AlertModal";
+import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
 const KennyPage = () => {
   const { showToast } = useToast();
@@ -180,7 +181,16 @@ const KennyPage = () => {
         <div>나는 모달이다</div>
         <button onClick={()=>{setIsOpen(false)}}>닫기</button>
       </Modal>
-      <ErrorModal open={isError} title="로그인 실패" onClose={()=>{setIsError(false)}} infoText="로그인에 실패했습니다. 아이디/비밀번호를 다시 한번 확인해주세요."/>
+      <AlertModal 
+        type={MODAL_TYPE.CONFIRM} 
+        open={isError} 
+        title="로그인 실패" 
+        onClose={()=>{setIsError(false)}} 
+        infoText="로그인에 실패했습니다. 아이디/비밀번호를 다시 한번 확인해주세요."
+        onClickProceed={()=>{setIsError(false);showToast("재로그인을 시도합니다")}}
+        proceedBtnText="다시 시도하기"
+        closeBtnText="닫기"
+      />
     </div>
   );
 };

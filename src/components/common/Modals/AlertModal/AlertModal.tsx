@@ -1,26 +1,37 @@
 import classNames from "classnames/bind";
 
-import { MODAL_TYPE } from "@/types/enums/modal.enum";
+import { MODAL_TYPE, ModalType } from "@/types/enums/modal.enum";
 
 import Button from "../../CommonBtns/Button/Button";
 import Modal from "../Modal";
 
-import styles from "./ErrorModal.module.scss";
+import styles from "./AlertModal.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface ErrorModalProps {
+interface AlertModalProps {
   open: boolean;
+  type: Extract<ModalType, (typeof MODAL_TYPE)["ERROR"] | (typeof MODAL_TYPE)["CONFIRM"]>;
   title: string;
   infoText: string;
+  onClickProceed?: ()=>void;
+  proceedBtnText?: string;
+  closeBtnText?: string;
   onClose: () => void;
 }
 
-const ErrorModal = ({
-  open, title, infoText, onClose,
-}: ErrorModalProps) => {
+const AlertModal = ({
+  open,
+  type,
+  title,
+  infoText,
+  onClickProceed,
+  proceedBtnText,
+  closeBtnText = "확인",
+  onClose,
+}: AlertModalProps) => {
   return (
-    <Modal type={MODAL_TYPE.ERROR} open={open} onClose={onClose}>
+    <Modal type={type} open={open} onClose={onClose}>
       <div className={cx("container")}>
         <div className={cx("iconBox")}>
           <svg xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58" fill="none">
@@ -30,10 +41,21 @@ const ErrorModal = ({
         </div>
         <h1 className={cx("title")}>{title}</h1>
         <p className={cx("infoText")}>{infoText}</p>
-        <Button size="large" theme="dark" onClick={onClose}>닫기</Button>
+        <Button
+          size="large"
+          theme="dark"
+          onClick={onClickProceed ?? onClose}
+        >
+          {proceedBtnText ?? closeBtnText}
+        </Button>
+        {onClickProceed && (
+          <button className={cx("closeBtnWithProceed")} onClick={onClose}>
+            {closeBtnText}
+          </button>
+        )}
       </div>
     </Modal>
   );
 };
 
-export default ErrorModal;
+export default AlertModal;
