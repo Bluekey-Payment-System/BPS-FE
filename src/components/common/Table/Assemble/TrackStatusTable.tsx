@@ -5,11 +5,12 @@ import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import { ITrackStatus } from "@/types/dto.temp";
 import utilFormatMoney from "@/utils/utilFormatMoney";
 
-import TableBodyUI from "./Composition/TableBodyUI";
-import TableCellUI from "./Composition/TableCellUI";
-import TableContainerUI from "./Composition/TableContainerUI";
-import TableHeaderUI from "./Composition/TableHeaderUI";
-import TableRowUI from "./Composition/TableRowUI";
+import TableBodyUI from "../Composition/TableBodyUI";
+import TableCellUI from "../Composition/TableCellUI";
+import TableContainerUI from "../Composition/TableContainerUI";
+import TableHeaderUI from "../Composition/TableHeaderUI";
+import TableRowUI from "../Composition/TableRowUI";
+
 import styles from "./TrackStatusTable.module.scss";
 
 const cx = classNames.bind(styles);
