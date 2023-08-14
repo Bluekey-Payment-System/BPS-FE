@@ -55,7 +55,6 @@ const Modal = ({
   };
 
   const handleClick:MouseEventHandler<HTMLDialogElement> = ({ target }) => {
-    // console.log(target);
     if (target === modalRef.current) onClose();
   };
 
