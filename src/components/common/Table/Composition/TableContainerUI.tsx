@@ -16,7 +16,7 @@ interface TableContainerUIProps {
 const TableContainerUI = ({
   paginationElement,
   stickyColumns = [false, false, false],
-  tableWidth = 1200,
+  tableWidth,
   children,
 }: TableContainerUIProps) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -40,7 +40,7 @@ const TableContainerUI = ({
             lastSticky: stickyColumns[2],
             lastShadow: isShownColumnShadow[2],
           })}
-          style={{ width: `${tableWidth}px` }}
+          style={{ width: tableWidth ? `${tableWidth}px` : "auto" }}
         >
           {children}
         </table>
