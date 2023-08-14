@@ -6,13 +6,18 @@ import useToast from "@/hooks/useToast";
 
 import styles from "./GNB.module.scss";
 
+interface GNBProps {
+  userName: string,
+  profileImage: string | null,
+}
+
 const cx = classNames.bind(styles);
 
-const GNB = () => {
+const GNB = ({ userName, profileImage }: GNBProps) => {
   const { showToast } = useToast();
 
   const handleLogout = () => {
-    showToast("로그아웃");
+    showToast("로그아웃 되었습니다.");
   };
 
   return (
