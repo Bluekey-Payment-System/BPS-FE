@@ -23,7 +23,7 @@ const TrackStatusTable = ({ data, paginationElement }: TrackStatusTableProps) =>
   return (
     <TableContainerUI
       paginationElement={paginationElement}
-      stickyColumns={[true, false, false]}
+      stickyFirstCol
       tableWidth={1200}
     >
       <TableHeaderUI>

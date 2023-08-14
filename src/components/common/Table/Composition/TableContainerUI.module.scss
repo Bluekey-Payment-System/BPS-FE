@@ -62,7 +62,7 @@
         }
       }
 
-      &.firstSticky {
+      &.stickyFirstCol {
         th:first-child,
         td:first-child {
           position: sticky;
@@ -70,7 +70,7 @@
           left: 0;
         }
 
-        &.firstShadow {
+        &.showFirstColShadow {
           th:first-child::after,
           td:first-child::after {
             content: "";
@@ -85,7 +85,7 @@
         }
       }
 
-      &.lastSticky {
+      &.stickyLastCol {
         th:last-child,
         td:last-child {
           position: sticky;
@@ -93,7 +93,7 @@
           right: 0;
         }
 
-        &.lastShadow {
+        &.showLastColShadow {
           th:last-child::before,
           td:last-child::before {
             content: "";

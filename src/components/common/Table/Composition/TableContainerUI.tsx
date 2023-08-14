@@ -10,8 +10,9 @@ const cx = classNames.bind(styles);
 
 interface TableContainerUIProps {
   paginationElement?: React.ReactNode
-  stickyColumns?: [boolean, boolean, boolean]
   stickyHeader?: boolean
+  stickyFirstCol?: boolean
+  stickyLastCol?: boolean
   tableWidth?: number
   tableHeight?: number
   children: React.ReactNode
@@ -19,37 +20,42 @@ interface TableContainerUIProps {
 
 const TableContainerUI = ({
   paginationElement,
-  stickyColumns = [false, false, false],
   stickyHeader = false,
+  stickyFirstCol = false,
+  stickyLastCol = false,
   tableWidth,
   tableHeight,
   children,
 }: TableContainerUIProps) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
-  const [isShownColumnShadow, setIsShowColumnShadow] = useState([false, false, false]);
+  const [showFirstColShadow, setShowFirstColShadow] = useState(false);
+  const [showLastColShadow, setShowLastColShadow] = useState(false);
   const handleScrollTableContainer = () => {
     if (!tableContainerRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = tableContainerRef.current;
-    setIsShowColumnShadow((prev) => {
-      return [(scrollLeft > 0), prev[1], (scrollLeft + 1 < scrollWidth - clientWidth)];
-    });
+    if (stickyFirstCol) setShowFirstColShadow(scrollLeft > 0);
+    if (stickyLastCol) setShowLastColShadow(scrollLeft + 1 < scrollWidth - clientWidth);
   };
 
   return (
     <div className={cx("container")}>
       <div
         className={cx("tableWrapper")}
-        onScroll={utilThrottle(() => { handleScrollTableContainer(); }, 300)}
+        onScroll={
+          (stickyFirstCol || stickyLastCol)
+            ? utilThrottle(() => { handleScrollTableContainer(); }, 300)
+            : undefined
+        }
         ref={tableContainerRef}
         style={{ height: tableHeight ? `${tableHeight}px` : "100%" }}
       >
         <table
           className={cx("table", {
             stickyHeader,
-            firstSticky: stickyColumns[0],
-            firstShadow: isShownColumnShadow[0],
-            lastSticky: stickyColumns[2],
-            lastShadow: isShownColumnShadow[2],
+            stickyFirstCol,
+            stickyLastCol,
+            showFirstColShadow,
+            showLastColShadow,
           })}
           style={{ width: tableWidth ? `${tableWidth}px` : "100%" }}
         >
