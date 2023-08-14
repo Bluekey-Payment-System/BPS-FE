@@ -1,4 +1,4 @@
-import dynamic from "next/dynamic";
+import DoughnutChart from "@/components/common/Chart/DoughnutChart/DoughnutChart";
 
 const data = {
   contents: [
@@ -64,12 +64,10 @@ const data = {
   ],
 };
 
-const DynamicDoughnutChart = dynamic(() => { return import("@/components/common/Chart/DoughnutChart/DoughnutChart"); }, { ssr: false });
-
 const TonyPage = () => {
   return (
     <div style={{ width: "300px", height: "300px" }}>
-      <DynamicDoughnutChart doughnutData={data} />
+      <DoughnutChart doughnutData={data} />
     </div>
   );
 };

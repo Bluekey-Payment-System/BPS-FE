@@ -2,7 +2,8 @@ import { ResponsivePie } from "@nivo/pie";
 
 import { chartColor } from "../chart.utils";
 
-import { DoughnutChartProps, createChartDataFromContents } from "./DoughnutChart.utils";
+import { DoughnutChartProps } from "./DoughnutChart.types";
+import { createChartDataFromContents } from "./DoughnutChart.utils";
 
 const CustomTooltip = () => { return null; };
 
@@ -26,7 +27,6 @@ const DoughnutChart = ({ doughnutData }: { doughnutData: DoughnutChartProps }) =
       endAngle={-360}
       sortByValue
       innerRadius={0.75}
-      cornerRadius={3}
       activeOuterRadiusOffset={8}
       borderColor={{
         from: "color",
