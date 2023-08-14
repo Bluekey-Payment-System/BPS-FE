@@ -11,14 +11,18 @@ const cx = classNames.bind(styles);
 interface TableContainerUIProps {
   paginationElement?: React.ReactNode
   stickyColumns?: [boolean, boolean, boolean]
+  stickyHeader?: boolean
   tableWidth?: number
+  tableHeight?: number
   children: React.ReactNode
 }
 
 const TableContainerUI = ({
   paginationElement,
   stickyColumns = [false, false, false],
+  stickyHeader = false,
   tableWidth,
+  tableHeight,
   children,
 }: TableContainerUIProps) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -33,15 +37,21 @@ const TableContainerUI = ({
 
   return (
     <div className={cx("container")}>
-      <div className={cx("tableWrapper")} onScroll={utilThrottle(() => { handleScrollTableContainer(); }, 300)} ref={tableContainerRef}>
+      <div
+        className={cx("tableWrapper")}
+        onScroll={utilThrottle(() => { handleScrollTableContainer(); }, 300)}
+        ref={tableContainerRef}
+        style={{ height: tableHeight ? `${tableHeight}px` : "100%" }}
+      >
         <table
           className={cx("table", {
+            stickyHeader,
             firstSticky: stickyColumns[0],
             firstShadow: isShownColumnShadow[0],
             lastSticky: stickyColumns[2],
             lastShadow: isShownColumnShadow[2],
           })}
-          style={{ width: tableWidth ? `${tableWidth}px` : "auto" }}
+          style={{ width: tableWidth ? `${tableWidth}px` : "100%" }}
         >
           {children}
         </table>

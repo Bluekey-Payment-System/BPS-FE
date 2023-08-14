@@ -4,14 +4,15 @@
   outline: 1px solid $sub-color1;
 
   .tableWrapper {
-    overflow-x: auto;
+    overflow: auto;
 
-    // 가로 스크롤바
+    // 스크롤바 스타일
     &::-webkit-scrollbar-button {
       display: none;
     }
 
     &::-webkit-scrollbar {
+      width: 5px;
       height: 5px;
     }
 
@@ -51,7 +52,16 @@
         padding-right: 16px;
       }
 
-      // 1열 혹은 마지막열 sticky 여부에 따른 처리
+      // Header or Column sticky 여부에 따른 처리
+      &.stickyHeader {
+        // color: $point-color-blue4;
+        th {
+          position: sticky;
+          z-index: 1;
+          top: 0;
+        }
+      }
+
       &.firstSticky {
         th:first-child,
         td:first-child {
