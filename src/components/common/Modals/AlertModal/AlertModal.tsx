@@ -9,11 +9,11 @@ import styles from "./AlertModal.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface AlertModalProps {
+export interface AlertModalProps {
   open: boolean;
   type: Extract<ModalType, (typeof MODAL_TYPE)["ERROR"] | (typeof MODAL_TYPE)["CONFIRM"]>;
   title: string;
-  infoText: string;
+  message: string;
   onClickProceed?: ()=>void;
   proceedBtnText?: string;
   closeBtnText?: string;
@@ -24,7 +24,7 @@ const AlertModal = ({
   open,
   type,
   title,
-  infoText,
+  message,
   onClickProceed,
   proceedBtnText,
   closeBtnText = "확인",
@@ -40,7 +40,7 @@ const AlertModal = ({
           </svg>
         </div>
         <h1 className={cx("title")}>{title}</h1>
-        <p className={cx("infoText")}>{infoText}</p>
+        <p className={cx("message")}>{message}</p>
         <Button
           size="large"
           theme="dark"

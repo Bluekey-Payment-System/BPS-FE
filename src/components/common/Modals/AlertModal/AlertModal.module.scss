@@ -9,7 +9,7 @@
 	$mb-map:
 		"iconBox" 40px,
 		"title" 30px,
-		"infoText" 62px;
+		"message" 62px;
 
 	@each $class, $mb in $mb-map {
 		& .#{$class} {
