@@ -1,3 +1,5 @@
+import { AdminType, ArtistType } from "./enums/user.enum";
+
 // 이름 관련
 interface IName {
   id: number,
@@ -5,7 +7,7 @@ interface IName {
   enName: string
 }
 
-interface IArtist extends IName { // type IArtist = IName 으로?
+interface IArtist extends IName {
 }
 
 interface ITrack extends IName {
@@ -26,7 +28,7 @@ export interface ITrackTransaction {
   revenue: number | null,
   netIncome: number | null,
   settlementAmount: number | null,
-  commissionRate: number | null // 사측 요율, 불확실
+  commissionRate: number | null
 }
 
 // 차트 관련
@@ -91,7 +93,7 @@ export interface IAdminDashboardCard {
   revenue: IEarnings,
   netIncome: IEarnings,
   settlementAmount: IEarnings,
-  bestArtist: IArtist & { // 문법 불확실
+  bestArtist: IArtist & {
     growthRate: number
   }
 }
@@ -131,18 +133,18 @@ export interface IArtistList {
 
 // 프로필 관련
 interface IProfile {
-  email: string | null, // 이메일은 nullable한 값인가요?
+  email: string | null,
   loginId: string,
   profileImage: string | null
 }
 
 export interface IAdminProfile extends IProfile {
-  type: "SUPER_ADMIN" | "ADMIN" // enum 사용 어떻게?
+  type: AdminType
   nickName: string
 }
 
 export interface IArtistProfile extends IProfile {
-  type: "ARTIST", // enum 사용 어떻게?
+  type: ArtistType,
   koName: string,
   enName: string,
   isSameKoNameWithEnName: boolean,
