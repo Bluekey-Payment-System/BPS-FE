@@ -1,25 +1,22 @@
 import { AdminType, ArtistType } from "./enums/user.enum";
 
 // 이름 관련
-interface IName {
-  id: number,
-  name: string,
-  enName: string
-}
-
 interface IArtist {
   memberId: number,
   koArtistName: string,
   enArtistName: string
 }
 
-export interface ITrack {
+interface ITrack {
   trackId: number,
   koTrackName: string,
   enTrackName: string
 }
 
-interface IAlbum extends IName {
+interface IAlbum {
+  albumId: number,
+  koAlbumName: string,
+  enAlbumName: string
 }
 
 interface IEarnings {
@@ -92,7 +89,7 @@ export interface IAlbumInfo {
   albumImage: string,
   koAlbumName: string,
   enAlbumName: string,
-  artist: IArtist,
+  artist: IArtist | null, // 앨범 대표 아티스트가 없을 수도 있음
   tracks: ITrackInfo[]
 }
 
@@ -137,7 +134,11 @@ export interface IAlbumDashboardCard {
 // 아티스트 현황
 // /api/v1/artist
 export interface IArtistList {
-  artists: IArtist[],
+  artist: {
+    koArtistName: string,
+    enArtistName: string,
+    profileImage: string
+  },
   revenue: number | null,
   netIncome: number | null,
   settlementAmount: number | null,

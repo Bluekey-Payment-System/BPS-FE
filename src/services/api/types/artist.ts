@@ -1,6 +1,10 @@
 import {
   IAlbumCard,
-  IArtistDashboardCard, IArtistList, IBarMonthlySettlement, ITrack, ITrackTransaction,
+  IArtistDashboardCard,
+  IArtistList,
+  IBarMonthlySettlement,
+  IDoughnutTrackRevenue,
+  ITrackTransaction,
 } from "@/types/dto";
 
 export interface IGetArtistsResponse {
@@ -13,11 +17,11 @@ export interface IGetArtistDashboardResponse extends IArtistDashboardCard {
 
 export interface IGetArtistTrackTransactionResponse {
   totalItems: number,
-  contents: ITrackTransaction[]
+  contents: Omit<ITrackTransaction, "netIncome">[]
 }
 
 export interface IGetArtistEarningsTopTrackResponse {
-  contents: ITrack[]
+  contents: IDoughnutTrackRevenue[]
 }
 
 export interface IGetArtistMonthlySettlementResponse {

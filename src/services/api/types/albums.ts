@@ -1,5 +1,9 @@
 import {
-  IAlbumCard, IAlbumInfo, IBarMonthlySettlement, ILineTrackSettlementTrends, ITrack,
+  IAlbumCard,
+  IAlbumInfo,
+  IBarMonthlySettlement,
+  IDoughnutTrackRevenue,
+  ILineTrackSettlementTrends,
 } from "@/types/dto";
 
 export interface IGetAlbumsResponse {
@@ -19,5 +23,5 @@ export interface IGetAlbumTrackSettlementTrendsResponse {
 }
 
 export interface IGetAlbumRevenueTopTrackResponse {
-  contents: ITrack[]
+  contents: IDoughnutTrackRevenue[]
 }
