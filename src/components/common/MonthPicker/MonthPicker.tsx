@@ -22,7 +22,13 @@ interface MonthPickerProps {
   selectedMonth: MonthString;
   onClose: () => void;
 }
-
+/**
+ * @author [SeyoungCho](https://github.com/seyoungcho)
+ * @param selectedYear {YearString} 현재 선택된 년도
+ * @param selectedMonth {MonthString} 현재 선택된 월 ("01" 포맷)
+ * @param onClose {Function} MonthPicker 팝오버 닫기 클릭 시 호출할 함수
+ * @returns
+ */
 const MonthPicker = ({ selectedYear, selectedMonth, onClose }: MonthPickerProps) => {
   const router = useRouter();
   const [currentSelectedYear, setCurrentSelectedYear] = useState(selectedYear);
