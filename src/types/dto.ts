@@ -7,10 +7,16 @@ interface IName {
   enName: string
 }
 
-interface IArtist extends IName {
+interface IArtist {
+  memberId: number,
+  koArtistName: string,
+  enArtistName: string
 }
 
-interface ITrack extends IName {
+interface ITrack {
+  trackId: number,
+  koTrackName: string,
+  enTrackName: string
 }
 
 interface IAlbum extends IName {
@@ -21,6 +27,8 @@ interface IEarnings {
   growthRate: number | null,
 }
 
+// /api/v1/admin/dashboard/track
+// /api/v1/artist/{memberId}/dashboard/settlement/track
 export interface ITrackTransaction {
   track: ITrack,
   album: IAlbum,
@@ -32,12 +40,15 @@ export interface ITrackTransaction {
 }
 
 // 차트 관련
+// /api/v1/admin/dashboard
 export interface IBarMonthlyEarnings { // 어드민이 보는 바 차트
   month: number,
   revenue: number | null,
   netIncome: number | null,
 }
 
+// /api/v1/albums/{albumId}/dashboard
+// /api/v1/artist/{memberId}/dashboard/monthly
 export interface IBarMonthlySettlement { // 아티스트가 보는 바 차트
   month: number,
   settlement: number | null,
@@ -47,9 +58,10 @@ export interface IBarMonthlySettlement { // 아티스트가 보는 바 차트
 interface IRevenue { // 도넛 차트
   revenue: number | null,
   growthRate: number | null,
-  proportion: number | null, // 불확실
+  proportion: number | null,
 }
 
+// /api/v1/admin/dashboard/artist
 export interface IDoughnutArtistRevenue extends IRevenue { // 아티스트 도넛 차트
   artist: IArtist,
 }
@@ -58,37 +70,41 @@ export interface IDoughnutTrackRevenue extends IRevenue { // 트랙 도넛 차�
   track: ITrack,
 }
 
+// /api/v1/albums/{albumId}/dashboard/track
 export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차트
   monthlyTrend: IBarMonthlySettlement[]
 }
 
 // Info 관련
+// /api/v1/albums/{albumId}
 interface ITrackInfo {
-  koName: string,
-  enName: string,
+  koTrackName: string,
+  enTrackName: string,
   bluekeyOriginalTrack: boolean,
   participants: {
-    koName: string,
-    enName: string,
-    commissionRate: number | null // 불확실
+    koArtistName: string,
+    enArtistName: string,
+    commissionRate: number | null
   }[]
 }
 
 export interface IAlbumInfo {
   albumImage: string,
-  albumKoName: string,
-  albumEnName: string,
-  artist: IArtist, // 노션에 프로퍼티 명이 다르지만 IArtist와 같게 올 것으로 추정
+  koAlbumName: string,
+  enAlbumName: string,
+  artist: IArtist,
   tracks: ITrackInfo[]
 }
 
+// /api/v1/albums
 export interface IAlbumCard {
-  id: number,
+  albumId: number,
   albumImage: string,
-  name: string
+  koAlbumName: string
 }
 
 // 대시보드 카드 관련
+// /api/v1/admin/dashboard
 export interface IAdminDashboardCard {
   revenue: IEarnings,
   netIncome: IEarnings,
@@ -98,6 +114,7 @@ export interface IAdminDashboardCard {
   }
 }
 
+// /api/v1/artist/{memberId}/dashboard
 export interface IArtistDashboardCard {
   settlement: IEarnings,
   bestAlbum: IAlbum & {
@@ -109,8 +126,8 @@ export interface IArtistDashboardCard {
 }
 
 export interface IAlbumDashboardCard {
-  albumKoName: string,
-  albumEnName: string,
+  koAlbumName: string,
+  enAlbumName: string,
   settlement: IEarnings
   bestTrack: ITrack & {
     growthRate: number | null
@@ -118,12 +135,9 @@ export interface IAlbumDashboardCard {
 }
 
 // 아티스트 현황
+// /api/v1/artist
 export interface IArtistList {
-  artist: { // 다른 interface와 비교했을 때 프로퍼티 명이 통일이 안된 것 같음. 추후 변경 요청 필요할 것으로 에상
-    koName: string,
-    enName: string,
-    profileImage: string
-  },
+  artists: IArtist[],
   revenue: number | null,
   netIncome: number | null,
   settlementAmount: number | null,
@@ -151,6 +165,7 @@ export interface IArtistProfile extends IProfile {
 }
 
 // 정산액 업로드 관련
+// /api/v1/transactions
 export interface ITransactionUpload {
   id: number,
   name: string,
