@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import classNames from "classnames/bind";
 
-import utilThrottle from "@/utils/utilThrottle";
+import throttle from "@/utils/throttle";
 
 import styles from "./TableContainerUI.module.scss";
 
@@ -58,7 +58,7 @@ const TableContainerUI = ({
         className={cx("tableWrapper")}
         onScroll={
           (stickyFirstCol || stickyLastCol)
-            ? utilThrottle(handleScrollTableContainer, 300)
+            ? throttle(handleScrollTableContainer, 300)
             : undefined
         }
         ref={tableContainerRef}
