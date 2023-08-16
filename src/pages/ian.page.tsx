@@ -2,7 +2,8 @@ import Pagination from "@/components/common/Pagination/Pagination";
 import AdminAccountsTable from "@/components/common/Table/Assemble/AdminAccountsTable";
 import TrackStatusTable from "@/components/common/Table/Assemble/TrackStatusTable";
 import UnRegisteredDataTable from "@/components/common/Table/Assemble/UnRegisteredDataTable";
-import { MOCK_ADMIN_ACCOUNT_DATA, MOCK_TRACK_STATUS_DATA, MOCK_UNREGISTERED_DATA } from "@/constants/table";
+import { MOCK_ADMIN_TABLE } from "@/constants/mock";
+import { MOCK_ADMIN_ACCOUNT_DATA, MOCK_UNREGISTERED_DATA } from "@/constants/table";
 
 const Ian = () => {
   return (
@@ -12,7 +13,7 @@ const Ian = () => {
       }}
       >
         <TrackStatusTable
-          data={MOCK_TRACK_STATUS_DATA}
+          data={MOCK_ADMIN_TABLE}
           paginationElement={<Pagination activePage={15} totalItems={120} itemsPerPage={6} />}
         />
         <AdminAccountsTable

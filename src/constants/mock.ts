@@ -346,7 +346,7 @@ export const MOCK_ADMIN_TABLE: IGetAdminTrackTransactionResponse = {
     {
       track: {
         trackId: 1,
-        koTrackName: "아주아주 이름이 매우매우 긴 곡",
+        koTrackName: "이름이 아주아주 매우매우 베리베리 긴 곡",
         enTrackName: "track name",
       },
       album: {
