@@ -33,7 +33,7 @@ const MonthPickerDropdown = () => {
         </div>
       </div>
       {isOpen && (
-        <Popover onClose={handleClose}>
+        <Popover onClose={handleClose} top="50px" left="-76px">
           <MonthPicker
             selectedYear={currentYear}
             selectedMonth={currentMonth}
