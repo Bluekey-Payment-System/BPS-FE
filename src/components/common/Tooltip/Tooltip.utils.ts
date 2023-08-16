@@ -2,7 +2,7 @@ interface PosType {
   style: { x: number, y: number };
 }
 
-const utilGetPosition = (ref: React.RefObject<HTMLElement>, gap = 10): PosType => {
+const getPosition = (ref: React.RefObject<HTMLElement>, gap = 10): PosType => {
   const rect = ref.current?.getBoundingClientRect() || {
     top: 0, left: 0, width: 0, height: 0,
   };
@@ -14,7 +14,7 @@ const utilGetPosition = (ref: React.RefObject<HTMLElement>, gap = 10): PosType =
   };
 };
 
-const utilCheckTextOverflow = (elem: Element): boolean => {
+const checkTextOverflow = (elem: Element): boolean => {
   if (elem.clientWidth < elem.scrollWidth || elem.clientHeight < elem.scrollHeight) {
     return true;
   }
@@ -22,4 +22,4 @@ const utilCheckTextOverflow = (elem: Element): boolean => {
 };
 
 export type { PosType };
-export { utilGetPosition, utilCheckTextOverflow };
+export { getPosition, checkTextOverflow };

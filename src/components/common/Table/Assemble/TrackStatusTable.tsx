@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import ProgressBar from "@/components/common/ProgressBar/ProgressBar";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import { ITrackStatus } from "@/types/dto.temp";
-import utilFormatMoney from "@/utils/utilFormatMoney";
+import formatMoney from "@/utils/formatMoney";
 
 import TableBodyUI from "../Composition/TableBodyUI";
 import TableCellUI from "../Composition/TableCellUI";
@@ -58,9 +58,9 @@ const TrackStatusTable = ({ data, paginationElement }: TrackStatusTableProps) =>
                   <p className={cx("artistName", "enName", "ellipsis")}>{item.artist.enName}</p>
                 </div>
               </TableCellUI>
-              <TableCellUI>{utilFormatMoney(item.revenue, "table")}</TableCellUI>
-              <TableCellUI>{utilFormatMoney(item.netIncome, "table")}</TableCellUI>
-              <TableCellUI>{utilFormatMoney(item.settlementAmount, "table")}</TableCellUI>
+              <TableCellUI>{formatMoney(item.revenue, "table")}</TableCellUI>
+              <TableCellUI>{formatMoney(item.netIncome, "table")}</TableCellUI>
+              <TableCellUI>{formatMoney(item.settlementAmount, "table")}</TableCellUI>
               <TableCellUI align="left"><ProgressBar value={item.commissionRate} /></TableCellUI>
             </TableRowUI>
           );
