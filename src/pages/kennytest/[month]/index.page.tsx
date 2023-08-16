@@ -21,7 +21,10 @@ const KennyTestPage = ({ params } : { params: string }) => {
   // eslint-disable-next-line no-console
   console.log(router.query.month);
   return (
-    <div>
+    <div style={{
+      height: "100vh", display: "flex", justifyContent: "center", marginTop: "50px",
+    }}
+    >
       <MonthPickerDropdown />
     </div>
 
