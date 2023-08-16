@@ -1,0 +1,89 @@
+$bezier: cubic-bezier(0.4, 0, 0.2, 1);
+$float-up: float-up 300ms $bezier;
+$float-down: float-down 300ms $bezier;
+$fade-in: fade-in 300ms $bezier;
+$fade-out: fade-out 300ms $bezier;
+$error-type-padding: 40px 55px 42px 55px;
+$confirm-type-padding: 40px 55px 50px 55px;
+$form-type-padding: 32px;
+
+.dialog {
+  margin: auto;
+  background-color: transparent;
+
+  &::backdrop {
+    background-color: rgb(0 0 0 / 66%);
+  }
+
+  &[open] {
+    animation: $fade-in, $float-up;
+
+    &::backdrop {
+      animation: $fade-in;
+    }
+
+    &.closing {
+      animation: $fade-out, $float-down;
+
+      &::backdrop {
+        animation: $fade-out;
+      }
+    }
+  }
+}
+
+.container {
+  border-radius: 8px;
+  background-color: $primary-white;
+  /* stylelint-disable-next-line scss/dollar-variable-colon-space-after */
+  $modal-type-padding-map:
+    "error" $error-type-padding,
+    "confirm" $confirm-type-padding,
+    "form" $form-type-padding;
+
+  @each $type, $padding in $modal-type-padding-map {
+    &.#{$type} {
+      padding: $padding;
+    }
+  }
+}
+
+@keyframes float-up {
+  from {
+    transform: translateY(min(100px, 5vh));
+  }
+
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes float-down {
+  from {
+    transform: translateY(0%);
+  }
+
+  to {
+    transform: translateY(min(100px, 5vh));
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

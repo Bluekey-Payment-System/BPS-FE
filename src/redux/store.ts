@@ -1,5 +1,3 @@
-import type { PreloadedState } from "@reduxjs/toolkit";
-
 import {
   AnyAction, CombinedState, Reducer, Store, combineReducers, configureStore,
 } from "@reduxjs/toolkit";
@@ -7,8 +5,11 @@ import { HYDRATE, createWrapper } from "next-redux-wrapper";
 
 import toastReducer, { IToastState } from "@/redux/slices/toastSlice";
 
+import alertModalReducer, { IAlertModalState } from "./slices/alertModalSlice";
+
 export interface IState {
   toast: IToastState;
+  alertModal: IAlertModalState;
 }
 
 const rootReducer = (state: IState, action: AnyAction): CombinedState<IState> => {
@@ -19,6 +20,7 @@ const rootReducer = (state: IState, action: AnyAction): CombinedState<IState> =>
     default: {
       const combinedReducer = combineReducers({
         toast: toastReducer,
+        alertModal: alertModalReducer,
       });
       return combinedReducer(state, action);
     }
@@ -31,10 +33,12 @@ const createStore = () => {
   return store;
 };
 
-export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
+export const setupStore = () => {
   return configureStore({
     reducer: rootReducer as Reducer<IState, AnyAction>,
-    preloadedState,
+    middleware: (getDefaultMiddleware) => {
+      return getDefaultMiddleware({ serializableCheck: false });
+    },
   });
 };
 

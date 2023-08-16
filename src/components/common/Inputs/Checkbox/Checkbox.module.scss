@@ -1,0 +1,56 @@
+.container input {
+  display: none;
+}
+
+.container {
+  @include flexbox(row, flex-start, center);
+  @include typo(14);
+
+  position: relative;
+  color: $primary-black;
+  cursor: pointer;
+  user-select: none;
+  gap: 10px;
+  -webkit-tap-highlight-color: transparent;
+
+  .checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    transition: all 0.25s;
+    border-radius: 3.85px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 16.154px;
+      height: 16.154px;
+      transform: rotate(0deg);
+      transition:
+        all 0.25s,
+        border-width 0.1s;
+      border: 1.538px solid $sub-color3;
+      border-radius: 3.846px;
+    }
+  }
+
+  & input:checked ~ .checkmark {
+    background-color: $point-color-blue4;
+
+    &::after {
+      top: 3.846px;
+      left: 6.923px;
+      width: 3.846px;
+      height: 7.692px;
+      transform: rotate(45deg);
+      border-width: 0 2.308px 2.308px 0;
+      border-radius: 0;
+      border-color: $primary-white;
+    }
+  }
+}
