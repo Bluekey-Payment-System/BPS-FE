@@ -1,6 +1,9 @@
 .cell {
-  text-align: center;
   vertical-align: middle;
+
+  &.center {
+    text-align: center;
+  }
 
   &.left {
     text-align: left;

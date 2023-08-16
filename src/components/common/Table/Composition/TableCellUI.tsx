@@ -23,12 +23,12 @@ const TableCellUI = ({ children, isHeader = false, align = "center" }: TableCell
   return (
     isHeader
       ? (
-        <th className={cx("cell", align === "left" && "left")}>
+        <th className={cx("cell", align)}>
           {children}
         </th>
       )
       : (
-        <td className={cx("cell", align === "left" && "left")}>
+        <td className={cx("cell", align)}>
           {children}
         </td>
       )
