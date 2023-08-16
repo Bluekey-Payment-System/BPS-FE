@@ -62,8 +62,11 @@ const Popover = React.memo(({
         left: `${left ?? "auto"}`,
         right: `${right ?? "auto"}`,
         bottom: `${bottom ?? "auto"}`,
+        cursor: "default",
       }}
       ref={popoverRef}
+      role="presentation"
+      onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
     >
       {children}
     </div>
