@@ -1,12 +1,6 @@
 import { AdminType, ArtistType } from "./enums/user.enum";
 
 // 이름 관련
-interface IName {
-  id: number,
-  name: string,
-  enName: string
-}
-
 interface IArtist {
   memberId: number,
   koArtistName: string,
@@ -19,7 +13,10 @@ interface ITrack {
   enTrackName: string
 }
 
-interface IAlbum extends IName {
+interface IAlbum {
+  albumId: number,
+  koAlbumName: string,
+  enAlbumName: string
 }
 
 interface IEarnings {
@@ -40,7 +37,7 @@ export interface ITrackTransaction {
 }
 
 // 차트 관련
-// /api/v1/admin/dashboard
+// /api/v1/admin/dashboard/trend
 export interface IBarMonthlyEarnings { // 어드민이 보는 바 차트
   month: number,
   revenue: number | null,
@@ -76,7 +73,6 @@ export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차�
 }
 
 // Info 관련
-// /api/v1/albums/{albumId}
 interface ITrackInfo {
   koTrackName: string,
   enTrackName: string,
@@ -88,11 +84,12 @@ interface ITrackInfo {
   }[]
 }
 
+// /api/v1/albums/{albumId}
 export interface IAlbumInfo {
   albumImage: string,
   koAlbumName: string,
   enAlbumName: string,
-  artist: IArtist,
+  artist: IArtist | null, // 앨범 대표 아티스트가 없을 수도 있음
   tracks: ITrackInfo[]
 }
 
@@ -137,7 +134,11 @@ export interface IAlbumDashboardCard {
 // 아티스트 현황
 // /api/v1/artist
 export interface IArtistList {
-  artists: IArtist[],
+  artist: {
+    koArtistName: string,
+    enArtistName: string,
+    profileImage: string
+  },
   revenue: number | null,
   netIncome: number | null,
   settlementAmount: number | null,
