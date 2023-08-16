@@ -13,7 +13,7 @@ interface IArtist {
   enArtistName: string
 }
 
-interface ITrack {
+export interface ITrack {
   trackId: number,
   koTrackName: string,
   enTrackName: string
@@ -40,7 +40,7 @@ export interface ITrackTransaction {
 }
 
 // 차트 관련
-// /api/v1/admin/dashboard
+// /api/v1/admin/dashboard/trend
 export interface IBarMonthlyEarnings { // 어드민이 보는 바 차트
   month: number,
   revenue: number | null,
@@ -76,7 +76,6 @@ export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차�
 }
 
 // Info 관련
-// /api/v1/albums/{albumId}
 interface ITrackInfo {
   koTrackName: string,
   enTrackName: string,
@@ -88,6 +87,7 @@ interface ITrackInfo {
   }[]
 }
 
+// /api/v1/albums/{albumId}
 export interface IAlbumInfo {
   albumImage: string,
   koAlbumName: string,
