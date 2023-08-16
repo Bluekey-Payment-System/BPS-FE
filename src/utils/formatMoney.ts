@@ -46,7 +46,7 @@ const formatMoneyForChart = (money: number) => {
  * @param formatType 금액 포맷 타입을 지정합니다. `card`, `chart`, `table` 중 하나의 값이어야 합니다.
  * @returns 타입에 맞게 포맷된 `string` 형태의 금액
  */
-const utilFormatMoney = (money: number | null, formatType: "card" | "chart" | "table") => {
+const formatMoney = (money: number | null, formatType: "card" | "chart" | "table") => {
   if (money === null) {
     return formatType === "card" ? "- 원" : "-";
   }
@@ -67,4 +67,4 @@ const utilFormatMoney = (money: number | null, formatType: "card" | "chart" | "t
   }
 };
 
-export default utilFormatMoney;
+export default formatMoney;

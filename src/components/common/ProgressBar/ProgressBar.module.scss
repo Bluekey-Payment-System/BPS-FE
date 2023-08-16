@@ -1,9 +1,11 @@
 .progressBar {
+  width: 100%;
+
   p {
     margin-top: 0;
     margin-bottom: 6px;
 
-    @include typo(12)
+    @include typo(12);
   }
 
   .barWrapper {
@@ -11,7 +13,7 @@
     height: 4px;
     border-radius: 0 30px 30px 0;
     background-color: $sub-color4;
-  
+
     .bar {
       height: 100%;
       border-radius: inherit;

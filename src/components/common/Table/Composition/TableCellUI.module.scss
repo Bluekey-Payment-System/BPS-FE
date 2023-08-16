@@ -1,0 +1,11 @@
+.cell {
+  vertical-align: middle;
+
+  &.center {
+    text-align: center;
+  }
+
+  &.left {
+    text-align: left;
+  }
+}

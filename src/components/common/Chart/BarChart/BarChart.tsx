@@ -1,7 +1,7 @@
 import { ResponsiveBar } from "@nivo/bar";
 import classNames from "classnames/bind";
 
-import utilFormatMoney from "@/utils/utilFormatMoney";
+import formatMoney from "@/utils/formatMoney";
 
 import styles from "./BarChart.module.scss";
 import { ChartDataProps } from "./BarChart.types";
@@ -32,7 +32,7 @@ const customTooltip = ({ id, value }: CustomTooltipProps) => {
 const yAxisFormat = (item: number) => {
   return (
     <tspan style={{ fill: "#a3aab6" }}>
-      {(utilFormatMoney(item, "chart"))}
+      {(formatMoney(item, "chart"))}
     </tspan>
   );
 };
