@@ -16,7 +16,7 @@ import { ParsedUrlQuery } from "querystring";
  * // URL에 존재하는 파람의 값을 변경하고 싶을 때
  * const router = useRouter();
  * const {query} = router;
- * utilUpdateQueryParam(query, "page", 5) // 리턴값: ?page=5&sort=2
+ * updateQueryParam(query, "page", 5) // 리턴값: ?page=5&sort=2
  * ```
  * @example
  * ```
@@ -24,11 +24,11 @@ import { ParsedUrlQuery } from "querystring";
  * // 아직 URL에 들어있지 않은 파람의 값을 변경하고 싶을 때
  * const router = useRouter();
  * const {query} = router;
- * utilUpdateQueryParam(query, "page", 5) // 리턴값: ?sort=2&page=5
+ * updateQueryParam(query, "page", 5) // 리턴값: ?sort=2&page=5
  * ```
  *
  */
-const utilUpdateQueryParam = (
+const updateQueryParam = (
   queryObject: ParsedUrlQuery,
   param: string,
   newValue: string | number,
@@ -38,4 +38,4 @@ const utilUpdateQueryParam = (
   return `?${searchParams.toString()}`;
 };
 
-export default utilUpdateQueryParam;
+export default updateQueryParam;
