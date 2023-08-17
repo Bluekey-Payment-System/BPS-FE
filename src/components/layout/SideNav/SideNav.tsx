@@ -31,9 +31,15 @@ const SideNav = ({ isOpen, setIsOpen, type }: SideNavProps) => {
   return (
     <>
       <aside className={cx("asideContainer")}>
-        {sideNavList?.map((list) => {
-          return <Link className={cx("asideItem", router.pathname === list.path && "active")} key={list.id} href={list.path}>{list.content}</Link>;
-        })}
+        <ul className={cx("linkContainer")}>
+          {sideNavList?.map((list) => {
+            return (
+              <li key={list.id}>
+                <Link className={cx("asideItem", router.pathname === list.path && "active")} href={list.path}>{list.content}</Link>
+              </li>
+            );
+          })}
+        </ul>
       </aside>
       <SideNavMobile sideNavList={sideNavList} isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
