@@ -1,7 +1,7 @@
 .chevron {
-	&.up {
-		transform: rotate(-180deg);
-	}
+  &.up {
+    transform: rotate(-180deg);
+  }
 
-	transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
