@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useDispatch } from "react-redux";
 
 import { useRouter } from "next/router";
