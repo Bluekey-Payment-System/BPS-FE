@@ -1,5 +1,6 @@
 // 페이지에서 어드민 대시보드 카드 데이터를 가져오는 예시
 import DashboardCard from "@/components/common/DashboardCard/DashboardCard";
+import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import { useAdminDashboardCard } from "@/services/queries/useTest";
 import formatMoney from "@/utils/formatMoney";
 
@@ -11,7 +12,7 @@ const AdminDashBoardPage = () => {
   if (!adminDashboardCard) return <div>데이터가 존재하지 않습니다</div>;
 
   return (
-    <div>
+    <ArtboardLayout>
       <DashboardCard
         title="당월 총 매출액"
         content={formatMoney(adminDashboardCard.revenue.totalAmount, "card")}
@@ -27,7 +28,7 @@ const AdminDashBoardPage = () => {
         content={formatMoney(adminDashboardCard.settlementAmount.totalAmount, "card")}
         growthRate={adminDashboardCard.settlementAmount.growthRate}
       />
-    </div>
+    </ArtboardLayout>
   );
 };
 
