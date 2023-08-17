@@ -1,9 +1,25 @@
 .container {
   display: none;
+  height: 49px;
+  padding: 0 16px;
+  background-color: $primary-white;
+
+  .menu {
+    flex-basis: 92px;
+    text-align: start;
+  }
+}
+
+.rightSide {
+  @include flexbox(row, center, center);
+
+  gap: 16px;
 }
 
 @include mobile {
   .container {
+    @include flexbox(row, space-between, center);
+
     display: block;
   }
 }

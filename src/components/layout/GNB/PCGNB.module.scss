@@ -1,22 +1,18 @@
-@mixin mobile {
-  @media only screen and (width <= 767px) {
-    @content;
-  }
-}
-
 .container {
   @include flexbox(row, space-between, center);
 
-  max-width: 1920px;
   height: 89px;
-  margin: 0 auto;
   padding: 0 30px;
-  border-bottom: 1px solid $sub-color2;
+  border: 1px solid $sub-color2;
   background-color: $primary-white;
 
   button {
     background-color: inherit;
   }
+}
+
+.logo {
+  display: block;
 }
 
 .rightSide {

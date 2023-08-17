@@ -5,7 +5,9 @@ import { GnbInfoProps } from "../Layout.types";
 import MobileGNB from "./MobileGNB";
 import PCGNB from "./PCGNB";
 
-const GNB = ({ loginId, profileImage, type }: GnbInfoProps) => {
+const GNB = ({
+  loginId, profileImage, type, onClickMenu,
+}: GnbInfoProps) => {
   const { showToast } = useToast();
 
   const handleClickNotification = () => {
@@ -26,10 +28,12 @@ const GNB = ({ loginId, profileImage, type }: GnbInfoProps) => {
         onClickLogout={handleLogout}
       />
       <MobileGNB
+        loginId={loginId}
         profileImage={profileImage}
         type={type}
         onClickNotification={handleClickNotification}
         onClickLogout={handleLogout}
+        onClickMenu={onClickMenu}
       />
     </>
   );
