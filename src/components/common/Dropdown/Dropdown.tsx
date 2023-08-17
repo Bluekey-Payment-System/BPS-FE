@@ -20,7 +20,7 @@ interface DropdownProps {
  * @param theme "hasSearchBar"는 드롭다운 내에 검색창 있는 경우 사용합니다. 이 기능을 사용하실 경우 theme="withSearchBar"와
  * @param theme hasSearchBar = true 속성을 같이 사용해주셔야 스타일링이 적용됩니다.
  * @param hasSearchBar 드롭다운 리스트에 검색창이 필요하다면 이 속성을 true로 설정해주세요.
- * @param onClick 드롭다운에 클릭된 값을 알기위해 setter함수를 넣어주면 됩니다.
+ * @param onClick 드롭다운에 클릭된 값을 알기위해 event.currentTarget.value를 받는 함수를 넣어주면 됩니다.
 */
 const Dropdown = ({
   dropdownListData, theme = "bright", hasSearchBar = false, onClick,
