@@ -45,6 +45,10 @@
 			/* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
 			font-family: Password;
 			letter-spacing: 5px;
+
+			&::placeholder {
+				letter-spacing: normal;
+			}
 		}
 	}
 }
