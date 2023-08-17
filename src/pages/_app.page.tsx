@@ -8,6 +8,7 @@ import Head from "next/head";
 
 import AlertModalRoot from "@/components/common/Modals/AlertModal/AlertModalRoot";
 import ToastRoot from "@/components/common/Toast/ToastRoot";
+import AuthPageLayout from "@/components/layout/AuthPageLayout";
 import Layout from "@/components/layout/Layout";
 import wrapper from "@/redux/store";
 import Pretendard from "@/styles/local.font";
@@ -22,7 +23,7 @@ const App = ({ Component, ...rest }: AppProps) => {
   const getContent = () => {
     if (["/admin/signin"].includes(rest.router.pathname)
       || ["/admin/signup"].includes(rest.router.pathname)
-      || ["/artist/login"].includes(rest.router.pathname)) { return <Component {...rest.pageProps} />; }
+      || ["/signin"].includes(rest.router.pathname)) { return <AuthPageLayout><Component {...rest.pageProps} /></AuthPageLayout>; }
 
     return (
       <Layout>
