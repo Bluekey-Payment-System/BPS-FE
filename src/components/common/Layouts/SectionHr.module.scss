@@ -1,0 +1,11 @@
+.hr {
+  width: 100%;
+  height: 1px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: $sub-color1;
+
+  &.isThick {
+    height: 10px;
+  }
+}
