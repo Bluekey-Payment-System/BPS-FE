@@ -13,6 +13,10 @@ const yAxisFormat = (item: number) => {
   );
 };
 
+/**
+ * @author 임병욱
+ * @param lineChartData - 차트 데이터
+*/
 const LineChart = ({ lineChartData }: { lineChartData: IMappedChartData[] }) => {
   return (
     <ResponsiveLine

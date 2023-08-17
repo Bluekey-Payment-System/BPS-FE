@@ -9,6 +9,10 @@ const CustomTooltip = () => { return null; };
 
 const formattedValue = (value: number) => { return `${value}%`; };
 
+/**
+ * @author 임병욱
+ * @param doughnutData - 차트 데이터
+*/
 const DoughnutChart = ({ doughnutData }: { doughnutData: DoughnutChartProps }) => {
   const { contents } = doughnutData;
   const chartData = createChartDataFromContents(contents);

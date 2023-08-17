@@ -29,14 +29,14 @@ const SideNav = ({ isOpen, setIsOpen, type }: SideNavProps) => {
   }, [type]);
 
   return (
-    <div className="app">
+    <>
       <aside className={cx("asideContainer")}>
         {sideNavList?.map((list) => {
           return <Link className={cx("asideItem", router.pathname === list.path && "active")} key={list.id} href={list.path}>{list.content}</Link>;
         })}
       </aside>
       <SideNavMobile sideNavList={sideNavList} isOpen={isOpen} setIsOpen={setIsOpen} />
-    </div>
+    </>
   );
 };
 

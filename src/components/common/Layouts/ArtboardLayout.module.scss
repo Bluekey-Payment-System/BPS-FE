@@ -1,0 +1,10 @@
+.board {
+  @include flexbox(column, flex-start, center);
+
+  width: 100%;
+  padding-top: 32px;
+  padding-bottom: 50px;
+  border: 1px solid $sub-color1;
+  border-radius: 6px;
+  background-color: $primary-white;
+}
