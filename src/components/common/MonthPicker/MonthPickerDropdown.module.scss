@@ -1,14 +1,14 @@
 .container {
-	position: relative;
-	width: 139px;
-	height: 40px;
-	padding: 12px 20px;
-	border-radius: 8px;
-	background-color: $primary-black;
-	color: $primary-white;
+  position: relative;
+  width: 139px;
+  height: 40px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background-color: $primary-black;
+  color: $primary-white;
 
-	.textWrapper {
-		@include flexbox(row, space-between, center);
-		@include typo(14);
-	}
+  .textWrapper {
+    @include flexbox(row, space-between, center);
+    @include typo(14);
+  }
 }
