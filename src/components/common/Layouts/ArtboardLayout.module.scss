@@ -1,4 +1,6 @@
 .board {
+  @include flexbox(column, flex-start, center);
+
   width: 100%;
   padding-top: 32px;
   padding-bottom: 50px;
