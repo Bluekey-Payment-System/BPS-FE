@@ -16,7 +16,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         profileImage={userInfo!.profileImage}
         onClickMenu={setIsOpen}
       />
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", position: "relative" }}>
         <SideNav isOpen={isOpen} setIsOpen={setIsOpen} type={userInfo!.type} />
         {children}
       </div>
