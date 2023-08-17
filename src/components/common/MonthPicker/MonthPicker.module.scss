@@ -1,0 +1,39 @@
+.container {
+  @include flexbox(column);
+
+  gap: 32px;
+  position: relative;
+  width: 296px;
+
+  padding: 32px;
+  border-radius: 6px;
+  background-color: $primary-white;
+  box-shadow: 0 1px 6px 0 rgb(0 0 0 / 11%);
+  color: $primary-black;
+
+  .closeBtn {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 15px;
+    height: 15px;
+    background-color: transparent;
+  }
+
+  .pickSection {
+    @include flexbox(column, center, flex-start);
+
+    & h2 {
+      @include typo(16, bold);
+
+      margin-bottom: 32px;
+    }
+  }
+
+  .spacing {
+    width: 100%;
+    height: 1px;
+    margin-top: 18px;
+    background-color: $sub-color1;
+  }
+}

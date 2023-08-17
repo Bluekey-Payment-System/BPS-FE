@@ -57,7 +57,7 @@ const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
             top="27px"
             right="-4px"
             onClose={() => {
-              setTimeout(() => { return setIsOpen(false); }, 10);
+              setIsOpen(false);
             }}
           >
             <ul className={cx("buttonList")}>
