@@ -3,7 +3,12 @@ export interface DoughnutChartProps {
 }
 
 export interface IDoughnutChartList {
-  track: {
+  artist?: {
+    id: number;
+    name: string;
+    enName: string;
+  };
+  track?: {
     id: number;
     name: string;
     enName: string;

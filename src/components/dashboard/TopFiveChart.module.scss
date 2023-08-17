@@ -1,0 +1,27 @@
+.topFiveChartContainer {
+  width: 590px;
+  height: 419px;
+  margin-left: 300px;
+  padding: 32px 30px;
+
+  .description {
+    @include typo(24, bold);
+  }
+
+  .contentContainer {
+    display: flex;
+    align-items: center;
+
+    .legendContainer {
+      display: grid;
+      grid-template-columns: repeat(3, 55px);
+      align-items: center;
+      justify-items: center;
+      gap: 25px;
+
+      .fomattedMoney {
+        @include typo(12);
+      }
+    }
+  }
+}

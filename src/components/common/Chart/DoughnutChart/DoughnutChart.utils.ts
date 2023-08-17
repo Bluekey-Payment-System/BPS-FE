@@ -1,10 +1,10 @@
-import { IDoughnutChartList } from "./DoughnutChart.types";
+import { IDoughnutArtistRevenue } from "@/types/dto";
 
-export const createChartDataFromContents = (contents: IDoughnutChartList[]) => {
-  const chartData = contents.map((item: IDoughnutChartList) => {
+export const createChartDataFromContents = (contents: IDoughnutArtistRevenue[]) => {
+  const chartData = contents.map((item) => {
     return {
-      id: item.track.id.toString(),
-      label: item.track.name,
+      id: item.artist.id.toString(),
+      label: item.artist.koName,
       value: item.proportion,
     };
   });

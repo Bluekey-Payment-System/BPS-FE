@@ -1,5 +1,7 @@
 import classNames from "classnames/bind";
 
+import TooltipRoot from "../Tooltip/TooltipRoot";
+
 import styels from "./CustomLegend.module.scss";
 
 const cx = classNames.bind(styels);
@@ -20,7 +22,9 @@ const CustomLegend = ({ color, value, type }: CustomLegendProps) => {
   return (
     <div className={cx("customLegendContainer")}>
       <div className={cx("color")} style={{ backgroundColor: color }} />
-      <p className={cx("description", type)}>{value}</p>
+      <TooltipRoot message={value}>
+        <p className={cx("description", type)}>{value}</p>
+      </TooltipRoot>
     </div>
   );
 };
