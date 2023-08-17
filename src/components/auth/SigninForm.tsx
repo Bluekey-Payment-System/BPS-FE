@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import Button from "../common/CommonBtns/Button/Button";
 import PasswordField from "../common/Inputs/PasswordInput/PasswordField";
@@ -18,6 +19,7 @@ interface SigninFormProps {
 
 const SigninForm = ({ title, onSubmit }:SigninFormProps) => {
   const { register, formState: { errors }, handleSubmit } = useForm();
+  const isAdmin = useRouter().pathname.includes("admin");
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -32,11 +34,13 @@ const SigninForm = ({ title, onSubmit }:SigninFormProps) => {
       <div className={cx("signinBtnWrapper")}>
         <Button size="large" theme="dark" type="submit">로그인</Button>
       </div>
-      <p>
-        아직 회원이 아니세요?
-        {" "}
-        <Link href="/admin/signup">회원가입</Link>
-      </p>
+      {isAdmin && (
+        <p>
+          아직 회원이 아니세요?
+          {" "}
+          <Link href="/admin/signup">회원가입</Link>
+        </p>
+      )}
     </form>
   );
 };
