@@ -41,3 +41,15 @@
   word-break: break-all;
   white-space: nowrap;
 }
+
+@mixin tablet {
+  @media only screen and (width <= 1199px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media only screen and (width <= 767px) {
+    @content;
+  }
+}

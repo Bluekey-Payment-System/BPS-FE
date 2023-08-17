@@ -1,0 +1,9 @@
+.container {
+  display: none;
+}
+
+@include mobile {
+  .container {
+    display: block;
+  }
+}
