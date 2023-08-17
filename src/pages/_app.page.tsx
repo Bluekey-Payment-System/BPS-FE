@@ -31,7 +31,7 @@ const App = ({ Component, ...rest }: AppProps) => {
       <Head>
         <title>블루키뮤직 정산시스템</title>
       </Head>
-      <main className={Pretendard.className}>
+      <main className={Pretendard.className} style={{ minWidth: "1920px" }}>
         {getContent()}
       </main>
       <ToastRoot />
