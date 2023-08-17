@@ -11,13 +11,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <GNB
-        type={userInfo.type}
-        loginId={userInfo.loginId}
-        profileImage={userInfo.profileImage}
+        type={userInfo!.type}
+        loginId={userInfo!.loginId}
+        profileImage={userInfo!.profileImage}
         onClickMenu={setIsOpen}
       />
       <div style={{ display: "flex" }}>
-        <SideNav isOpen={isOpen} setIsOpen={setIsOpen} type={userInfo.type} />
+        <SideNav isOpen={isOpen} setIsOpen={setIsOpen} type={userInfo!.type} />
         {children}
       </div>
     </>

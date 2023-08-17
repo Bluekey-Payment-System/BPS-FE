@@ -1,16 +1,18 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { MemberType } from "@/types/enums/user.enum";
+
 export interface IUserState {
   member: {
     email: string,
     loginId: string,
     profileImage: string | null
-    type: "SUPER_ADMIN" | "ADMIN" | "ARTIST",
-  },
+    type: MemberType,
+  } | null,
   jwtInformation: {
     accessToken: string
-  }
+  } | null
 }
 
 const initialState: IUserState = {
@@ -33,9 +35,13 @@ export const userSlice = createSlice({
       state.member = action.payload.member;
       state.jwtInformation = action.payload.jwtInformation;
     },
+    resetUser: (state) => {
+      state.member = null;
+      state.jwtInformation = null;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, resetUser } = userSlice.actions;
 
 export default userSlice.reducer;
