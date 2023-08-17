@@ -25,6 +25,20 @@ const createPortalRoot = () => {
   return drawerRoot;
 };
 
+/**
+ * 모달 드로어를 표시하는 Drawer 컴포넌트입니다.
+ *
+ * @component
+ * @author 임병욱
+ * @param {boolean} isOpen - 드로어가 열려 있는지 여부를 결정합니다.
+ * @param {React.ReactNode} children - 드로어 안에 표시될 내용입니다.
+ * @param {string} [className] - 드로어에 추가적인 CSS 클래스 이름입니다.
+ * @param {"left" | "right" | "top" | "bottom"} [props.position="left"] - 드로어가 나타날 위치입니다.
+ * @param {function} onClose - 드로어가 닫힐 때 호출될 함수입니다.
+ * @param {boolean} [removeWhenClosed=true] - 드로어가 닫혔을 때 DOM에서 제거할지 여부를 결정합니다.
+ *
+ * @returns {React.ReactNode} Drawer 컴포넌트의 JSX 표현입니다.
+ */
 const Drawer = ({
   isOpen,
   children,
