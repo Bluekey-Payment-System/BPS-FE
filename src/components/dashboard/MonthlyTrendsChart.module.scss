@@ -1,0 +1,24 @@
+.chartContainer {
+  width: 590px;
+  height: 419px;
+  padding: 32px 30px;
+
+  .description {
+    @include flexbox(row, space-between, center);
+
+    span {
+      display: block;
+      font-size: 24px;
+    }
+
+    .legendContainer {
+      display: flex;
+      gap: 26px;
+    }
+  }
+
+  .chartWrapper {
+    width: 100%;
+    height: 100%;
+  }
+}

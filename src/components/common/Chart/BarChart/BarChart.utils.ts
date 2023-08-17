@@ -1,3 +1,5 @@
+import { MemberType } from "@/types/enums/user.enum";
+
 import { ChartDataProps } from "./BarChart.types";
 
 const monthNames: { [key: number]: string } = {
@@ -22,20 +24,40 @@ export const getMonthName = (num: number): string => {
   throw new Error("Invalid month number");
 };
 
-export const mapChartDataToMonthlySummary = (chartData: ChartDataProps[]) => {
+export const mapChartDataToMonthlySummary = (
+  chartData: ChartDataProps[],
+  type: MemberType,
+) => {
   const convertedBarChartData = chartData.map((data) => {
-    return { month: getMonthName(data.month), settlement: data.settlement, revenue: data.revenue };
+    if (type === "ARTIST") {
+      return {
+        month: getMonthName(data.month),
+        settlement: data.settlement,
+        revenue: data.revenue,
+      };
+    }
+    return { month: getMonthName(data.month), netIncome: data.netIncome, revenue: data.revenue };
   });
 
   return convertedBarChartData;
 };
 
-export const getMaxValue = (chartData: ChartDataProps[]): number => {
+export const getMaxValue = (chartData: ChartDataProps[], type: MemberType): number => {
   let maxValue = 0;
+
   for (let i = 0; i < chartData.length; i += 1) {
-    if (chartData[i].settlement > maxValue || chartData[i].revenue > maxValue) {
-      maxValue = Math.max(chartData[i].settlement, chartData[i].revenue);
+    let valueToCompare = 0;
+
+    if (type === "ARTIST") {
+      valueToCompare = Math.max(chartData[i].settlement || 0, chartData[i].revenue);
+    } else {
+      valueToCompare = Math.max(chartData[i].netIncome || 0, chartData[i].revenue);
+    }
+
+    if (valueToCompare > maxValue) {
+      maxValue = valueToCompare;
     }
   }
+
   return maxValue;
 };

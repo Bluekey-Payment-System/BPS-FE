@@ -1,5 +1,6 @@
 export interface ChartDataProps {
   month: number,
-  settlement: number,
   revenue: number,
+  netIncome?: number,
+  settlement?: number,
 }
