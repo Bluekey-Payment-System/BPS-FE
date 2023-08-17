@@ -1,0 +1,11 @@
+.sideContentContainer {
+  display: grid;
+  grid-template-columns: 250px auto;
+
+  .content {
+    width: 100%;
+    padding-top: 38px;
+    padding-left: 110px;
+    overflow-x: scroll;
+  }
+}
