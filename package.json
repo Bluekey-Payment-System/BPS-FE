@@ -13,9 +13,13 @@
   "dependencies": {
     "@nivo/bar": "^0.81.0",
     "@nivo/core": "^0.83.0",
+    "@nivo/line": "^0.80.0",
+    "@nivo/pie": "^0.80.0",
     "@nivo/tooltip": "^0.83.0",
     "@react-spring/web": "^9.7.3",
     "@reduxjs/toolkit": "^1.9.5",
+    "@tanstack/react-query": "^4.32.6",
+    "@tanstack/react-query-devtools": "^4.32.6",
     "@testing-library/jest-dom": "^5.17.0",
     "axios": "^1.4.0",
     "boring-avatars": "^1.10.1",
@@ -25,10 +29,10 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.2",
-    "react-query": "^3.39.3",
     "react-redux": "^8.1.2"
   },
   "devDependencies": {
+    "@hookform/devtools": "^4.3.1",
     "@testing-library/dom": "^9.3.1",
     "@testing-library/react": "^14.0.0",
     "@testing-library/react-hooks": "^8.0.1",
@@ -37,7 +41,6 @@
     "@types/node": "^20.4.7",
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
-    "@types/react-query": "^1.2.9",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
     "eslint": "^8.46.0",

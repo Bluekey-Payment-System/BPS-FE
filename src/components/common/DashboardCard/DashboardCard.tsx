@@ -22,9 +22,9 @@ interface DashboardCardProps {
  *
  * @example
  * ```
- * <DashboardCard title="당월 총 매출액" content={utilFormatMoney(1178932, "card")} growthRate={17} />
+ * <DashboardCard title="당월 총 매출액" content={formatMoney(1178932, "card")} growthRate={17} />
  * // 금액이 `null`인 경우 금액 포맷 함수를 거쳐 `- 원`이 대시보드 카드에 전달됩니다.
- * <DashboardCard title="당월 총 매출액" content={utilFormatMoney(null, "card")} growthRate={null} />
+ * <DashboardCard title="당월 총 매출액" content={formatMoney(null, "card")} growthRate={null} />
  * <DashboardCard title="2023년 8월의 아티스트" content="이름이 매우매우 긴 아티스트" growthRate={0} />
  * ```
  */
@@ -34,7 +34,7 @@ const DashboardCard = ({ title, content, growthRate }: DashboardCardProps) => {
       <h2 className={cx("title")}>{title}</h2>
       <div className={cx("contentWrapper")}>
         <TooltipRoot message={content ?? "-"}>
-          <h3 className={cx("content")} id="content">{content ?? "-"}</h3>
+          <h3 className={cx("content")}>{content ?? "-"}</h3>
         </TooltipRoot>
         <Chip percentage={growthRate} />
       </div>

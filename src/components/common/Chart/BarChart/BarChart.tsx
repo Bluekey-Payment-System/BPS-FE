@@ -1,10 +1,11 @@
 import { ResponsiveBar } from "@nivo/bar";
 import classNames from "classnames/bind";
 
-import utilFormatMoney from "@/utils/utilFormatMoney";
+import formatMoney from "@/utils/formatMoney";
 
 import styles from "./BarChart.module.scss";
-import { ChartDataProps, mapChartDataToMonthlySummary, getMaxValue } from "./BarChart.utils";
+import { ChartDataProps } from "./BarChart.types";
+import { mapChartDataToMonthlySummary, getMaxValue } from "./BarChart.utils";
 import { BarItem } from "./BarItem";
 
 const cx = classNames.bind(styles);
@@ -31,7 +32,7 @@ const customTooltip = ({ id, value }: CustomTooltipProps) => {
 const yAxisFormat = (item: number) => {
   return (
     <tspan style={{ fill: "#a3aab6" }}>
-      {(utilFormatMoney(item, "chart"))}
+      {(formatMoney(item, "chart"))}
     </tspan>
   );
 };

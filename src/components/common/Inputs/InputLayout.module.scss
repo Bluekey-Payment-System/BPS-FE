@@ -1,0 +1,30 @@
+.container {
+	@include flexbox(column, center, flex-start);
+	@include typo(14);
+
+	gap: 10px;
+
+	.labelArea {
+		width: 100%;
+
+		@include flexbox(row, space-between, flex-start);
+	}
+
+	.editBtn {
+		margin-right: 18px;
+		transform: translateY(7px);
+		color: $point-color-blue4;
+	}
+
+	.bottomText {
+		@include typo(12);
+
+		height: 14px;
+		margin-top: -6px;
+		color: $sub-color3;
+
+		&.error {
+			color: $point-color-red2;
+		}
+	}
+}
