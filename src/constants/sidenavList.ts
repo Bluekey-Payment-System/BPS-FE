@@ -1,4 +1,4 @@
-export const SUPER_ADMIN = [
+export const SIDE_NAV_ITEMS_SUPER_ADMIN = [
   { id: 1, content: "대시보드", path: "/" },
   { id: 2, content: "아티스트 상세", path: "/admin/artists" },
   { id: 3, content: "아티스트 등록", path: "/admin/artists/new" },
@@ -9,7 +9,7 @@ export const SUPER_ADMIN = [
   { id: 8, content: "내 프로필", path: "/admin/my-profile" },
 ];
 
-export const ADMIN = [
+export const SIDE_NAV_ITEMS_ADMIN = [
   { id: 1, content: "대시보드", path: "/" },
   { id: 2, content: "아티스트 상세", path: "/admin/artists" },
   { id: 3, content: "아티스트 등록", path: "/admin/artists/new" },
@@ -20,7 +20,7 @@ export const ADMIN = [
   { id: 8, content: "내 프로필", path: "/admin/my-profile" },
 ];
 
-export const ARTIST = [
+export const SIDE_NAV_ITEMS_ARTIST = [
   { id: 1, content: "대시보드", path: "/" },
   { id: 2, content: "앨범 상세", path: "/artists/albums" },
   { id: 3, content: "내 프로필", path: "/artist/my-profile" },
