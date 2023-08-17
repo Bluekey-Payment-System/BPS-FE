@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { MOCK_ADMIN_DASHBOARD_CARD } from "@/constants/mock";
-import queryKeys from "@/constants/queryKeys";
+import QUERY_KEYS from "@/constants/queryKeys";
 
 import { IGetAdminDashboardResponse } from "../api/types/admin";
 
@@ -16,7 +16,7 @@ const fetchAdminDashboardCard = (): Promise<IGetAdminDashboardResponse> => {
 
 export function useAdminDashboardCard() {
   const { data: adminDashboardCard, isError, isLoading } = useQuery<IGetAdminDashboardResponse>({
-    queryKey: [queryKeys.admin, queryKeys.dashboard, queryKeys.card],
+    queryKey: [QUERY_KEYS.admin, QUERY_KEYS.dashboard, QUERY_KEYS.card],
     queryFn: fetchAdminDashboardCard,
   });
 
