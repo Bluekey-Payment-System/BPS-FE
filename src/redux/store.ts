@@ -1,5 +1,5 @@
 import {
-  AnyAction, CombinedState, Reducer, Store, combineReducers, configureStore,
+  AnyAction, CombinedState, PreloadedState, Reducer, Store, combineReducers, configureStore,
 } from "@reduxjs/toolkit";
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
 
@@ -33,9 +33,10 @@ const createStore = () => {
   return store;
 };
 
-export const setupStore = () => {
+export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   return configureStore({
     reducer: rootReducer as Reducer<IState, AnyAction>,
+    preloadedState,
     middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware({ serializableCheck: false });
     },
