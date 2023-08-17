@@ -4,9 +4,9 @@ import classNames from "classnames/bind";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import Button from "../common/CommonBtns/Button/Button";
-import PasswordField from "../common/Inputs/PasswordInput/PasswordField";
-import TextField from "../common/Inputs/TextField/TextField";
+import Button from "@/components/common/CommonBtns/Button/Button";
+import PasswordField from "@/components/common/Inputs/PasswordInput/PasswordField";
+import TextField from "@/components/common/Inputs/TextField/TextField";
 
 import styles from "./SigninForm.module.scss";
 

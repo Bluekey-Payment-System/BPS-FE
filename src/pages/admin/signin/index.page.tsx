@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import SigninForm from "@/components/auth/SigninForm";
+import SigninForm from "@/components/auth/SigninForm/SigninForm";
 import useToast from "@/hooks/useToast";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
