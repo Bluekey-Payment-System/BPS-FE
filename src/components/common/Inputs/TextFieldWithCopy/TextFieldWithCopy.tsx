@@ -39,14 +39,15 @@ const TextFieldWithCopy = forwardRef((
   const { showToast } = useToast();
   const inputRef = useForwardRef<HTMLInputElement>(ref);
 
-  const handleClickCopyToClipboard: MouseEventHandler<HTMLButtonElement> = (e) => {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  const handleClickCopyToClipboard: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
-    const asyncWrapper = async () => {
+    try {
       await navigator.clipboard.writeText(inputRef.current.value);
-    };
-    asyncWrapper()
-      .then(() => { showToast("클립보드에 복사했습니다."); })
-      .catch(() => { return showToast("클립보드 복사에 실패했습니다."); });
+      showToast("클립보드에 복사했습니다.");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
