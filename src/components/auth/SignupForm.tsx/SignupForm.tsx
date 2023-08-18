@@ -31,7 +31,7 @@ const SignupForm = ({ title }:{ title: string }) => {
       <TextField
         label="이메일"
         {...register("email", {
-          required: "*이메일을 입력하세요",
+          required: "*이메일을 입력하세요.",
           pattern: {
             value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/g,
             message: "*올바른 이메일을 입력해주세요.",
@@ -44,7 +44,7 @@ const SignupForm = ({ title }:{ title: string }) => {
       <TextField
         label="아이디"
         {...register("loginId", {
-          required: "*아이디를 입력하세요",
+          required: "*아이디를 입력하세요.",
           minLength: {
             value: 5,
             message: "*아이디는 5자 이상으로 입력해주세요.",
@@ -69,6 +69,7 @@ const SignupForm = ({ title }:{ title: string }) => {
         label="닉네임"
         maxBytes={20}
         {...register("nickname", {
+          required: "*닉네임을 입력하세요.",
           pattern: {
             value: /^[가-힣a-zA-Z0-9]*$/,
             message: "*한글, 영문, 숫자만 사용해주세요.",
@@ -84,6 +85,7 @@ const SignupForm = ({ title }:{ title: string }) => {
       <PasswordField
         label="비밀번호"
         {...register("password", {
+          required: "*비밀번호를 입력하세요.",
           minLength: {
             value: 8,
             message: "*비밀번호는 8자 이상으로 입력해주세요.",
@@ -104,6 +106,7 @@ const SignupForm = ({ title }:{ title: string }) => {
       <PasswordField
         label="비밀번호 확인"
         {...register("password-confirm", {
+          required: "*비밀번호를 확인해주세요.",
           validate: {
             matchesPassword: (v: string) => { return v === getValues("password") || "*비밀번호가 일치하지 않습니다."; },
           },
