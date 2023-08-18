@@ -34,7 +34,7 @@ const KennyPage = () => {
     mode: "onBlur",
     defaultValues: {
       username: "kenny",
-      address: "주소",
+      address: "seyoung",
       email: "wnl383@naver.com",
       phone: "010-8413-2266",
       copy: "복사할내용",

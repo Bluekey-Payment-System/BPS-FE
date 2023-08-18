@@ -1,5 +1,6 @@
 import {
-  ForwardedRef, InputHTMLAttributes, forwardRef,
+  ChangeEventHandler,
+  ForwardedRef, InputHTMLAttributes, forwardRef, useEffect, useId, useState,
 } from "react";
 
 import classNames from "classnames/bind";
@@ -18,11 +19,32 @@ interface ImageUploaderProps extends InputHTMLAttributes<HTMLInputElement> {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ImageUploader = forwardRef(({ shape = "square", ...props }: ImageUploaderProps, ref: ForwardedRef<HTMLInputElement>) => {
   const fileRef = useForwardRef(ref);
+  const [previewUrl, setPreviewUrl] = useState<string>();
+  const uploaderId = useId();
+
+  const handleChangeFile:ChangeEventHandler<HTMLInputElement> = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file));
+    }
+    props.onChange?.(e);
+  };
+
+  useEffect(() => {
+    const uploaderElem = document.getElementById(`${uploaderId}`) as HTMLButtonElement;
+    if (previewUrl) {
+      uploaderElem.style.backgroundImage = `url(${previewUrl})`;
+      uploaderElem.style.backgroundSize = "cover";
+      uploaderElem.style.backgroundPosition = "center";
+    }
+  }, [previewUrl, uploaderId]);
+
   return (
     <>
       <button
         className={cx("container", `${shape}`)}
         onClick={() => { fileRef?.current?.click(); }}
+        id={uploaderId}
       >
         <div className={cx("deck")}>
           <div className={cx("uploadIcon")}>
@@ -36,6 +58,7 @@ const ImageUploader = forwardRef(({ shape = "square", ...props }: ImageUploaderP
         {...props}
         type="file"
         accept="image/*"
+        onChange={handleChangeFile}
       />
     </>
   );
