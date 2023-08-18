@@ -105,6 +105,9 @@ export function useDashboardCards(type: DashboardType) {
   const { data: cardsData, isError, isLoading } = useQuery(
     [type, "dashboard", "card"],
     () => { return getDashboardCards(type, yearMonthStr); },
+    {
+      staleTime: 5000,
+    },
   );
 
   return ({
