@@ -10,6 +10,7 @@ const cx = classNames.bind(styles);
 interface SearchBarProps {
   placeholder: string,
   onClick: () => void
+  theme?: "withSearchBar"
 }
 
 /**
@@ -18,12 +19,12 @@ interface SearchBarProps {
  * @param {string} onClick - 돋보기 아이콘을 클릭하면 실행되는 함수를 넣어주시면됩니다.
  */
 const SearchBar = (
-  { placeholder, onClick }: SearchBarProps,
+  { placeholder, onClick, theme }: SearchBarProps,
   inputRef: React.ForwardedRef<HTMLInputElement>,
 ) => {
   return (
-    <div className={cx("searchBarContainer")}>
-      <input className={cx("searchInput")} ref={inputRef} placeholder={placeholder} />
+    <div className={cx("searchBarContainer", theme)}>
+      <input className={cx("searchInput", theme)} ref={inputRef} placeholder={placeholder} />
       <Image src="/images/search-bar.svg" className={cx("searchImage")} alt="검색" width={13} height={15} onClick={onClick} />
     </div>
   );
