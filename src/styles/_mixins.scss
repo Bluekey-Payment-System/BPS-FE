@@ -53,3 +53,24 @@
     @content;
   }
 }
+
+@mixin scrollbar($thickness, $color: #edeef0) {
+  // 기본 색: $sub-color2
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: #{$thickness}px;
+    height: #{$thickness}px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: $color;
+  }
+}

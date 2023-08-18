@@ -6,6 +6,8 @@
     width: 100%;
     padding-top: 38px;
     padding-left: 110px;
-    overflow-x: scroll;
+    overflow-x: auto;
+
+    @include scrollbar(15);
   }
 }
