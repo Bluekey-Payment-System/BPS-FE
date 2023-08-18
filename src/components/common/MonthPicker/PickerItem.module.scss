@@ -1,0 +1,15 @@
+.container {
+  @include flexbox(row, center, flex-start);
+  @include typo(14);
+
+  min-width: 65.34px;
+  padding: 10px 15px;
+  border: 1px solid $sub-color1;
+  border-radius: 100px;
+  background-color: transparent;
+
+  &.selected {
+    background-color: $point-color-blue1;
+    color: $point-color-blue3;
+  }
+}

@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 
 import Popover from "@/components/common/Popover/Popover";
+import { delay } from "@/utils/test.utils";
 
 describe("팝오버 컴포넌트 렌더링 테스트", () => {
   it("should render properly", () => {
@@ -12,7 +13,7 @@ describe("팝오버 컴포넌트 렌더링 테스트", () => {
     );
     expect(screen.getByText(/팝오버 컨텐츠/i)).toBeInTheDocument();
   });
-  it("should close when clicked outside", () => {
+  it("should close when clicked outside", async () => {
     const handleClose = jest.fn();
     const handleClickOutside = jest.fn();
     render(
@@ -24,6 +25,7 @@ describe("팝오버 컴포넌트 렌더링 테스트", () => {
       </>,
     );
     fireEvent.click(screen.getByText(/외부 영역/i));
+    await delay(100);
     expect(handleClose).toBeCalledTimes(1);
   });
 });

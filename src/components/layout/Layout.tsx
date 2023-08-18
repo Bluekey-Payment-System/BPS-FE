@@ -1,9 +1,14 @@
 import { useState } from "react";
 
+import classNames from "classnames/bind";
+
 import { useAppSelector } from "@/redux/hooks";
 
 import GNB from "./GNB/GNB";
+import styles from "./Layout.module.scss";
 import SideNav from "./SideNav/SideNav";
+
+const cx = classNames.bind(styles);
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,9 +21,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         profileImage={userInfo!.profileImage}
         onClickMenu={setIsOpen}
       />
-      <div style={{ display: "flex" }}>
+      <div className={cx("sideContentContainer")}>
         <SideNav isOpen={isOpen} setIsOpen={setIsOpen} type={userInfo!.type} />
-        {children}
+        <div className={cx("content")}>
+          {children}
+        </div>
       </div>
     </>
   );

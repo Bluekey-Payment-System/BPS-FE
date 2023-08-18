@@ -1,0 +1,67 @@
+.container {
+  @include flexbox(row);
+
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100dvh;
+  background-color: $primary-white;
+  font-size: 0;
+  letter-spacing: 0;
+  word-spacing: 0;
+
+  .gradientContainer {
+    position: relative;
+    z-index: 1;
+    height: 100dvh;
+    aspect-ratio: 660 / 1080;
+  }
+
+  .fadingLayer {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: calc(100dvh * 0.154);
+    width: calc(100dvh * 0.98);
+    height: 100dvh;
+    background: linear-gradient(
+      90deg,
+      rgb(255 255 255 / 0%) 2.16%,
+      rgb(255 255 255 / 51%) 21.72%,
+      rgb(255 255 255 / 71%) 29.44%,
+      rgb(255 255 255 / 94%) 37.15%,
+      #fff 46.08%,
+      #fff 100%
+    );
+  }
+
+  .formSectionWrapper {
+    @include typo(16);
+
+    display: flex;
+    position: relative;
+    z-index: 3;
+    flex-direction: column;
+    width: min(100%, 1260px);
+    padding: 60px 0;
+    vertical-align: top;
+
+    .formSection {
+      @include flexbox(column, space-between, center);
+
+      height: 100dvh;
+
+      .logoContainer {
+        position: relative;
+        width: 300px;
+        height: 44px;
+      }
+
+      .versionText {
+        @include typo(14);
+
+        color: $sub-color3;
+      }
+    }
+  }
+}
