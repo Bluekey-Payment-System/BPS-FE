@@ -62,7 +62,7 @@ const TableContainerUI = ({
             : undefined
         }
         ref={tableContainerRef}
-        style={{ height: tableHeight ? `${tableHeight}px` : "100%" }}
+        style={{ height: tableHeight ? `${tableHeight}px` : "auto" }}
       >
         <table
           className={cx("table", {
