@@ -1,21 +1,20 @@
-import { DashboardCardProps } from "@/components/common/DashboardCard/DashboardCard.type";
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import TrackStatusTable from "@/components/dashboard/TrackStatusTable/TrackStatusTable";
 import { MOCK_ADMIN_TABLE } from "@/constants/mock";
-import formatMoney from "@/utils/formatMoney";
+import { useDashboardCards } from "@/services/queries/useDashboardCards";
+import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 const Ian = () => {
-  const cardsData: DashboardCardProps[] = [
-    { title: "당월 총 매출액", content: formatMoney(1000000, "card"), growthRate: 2.1 },
-    { title: "당월 총 매출액", content: formatMoney(1000000, "card"), growthRate: 2.1 },
-    { title: "당월 총 매출액", content: formatMoney(1000000, "card"), growthRate: 2.1 },
-    { title: "당월 총 매출액", content: formatMoney(1000000, "card"), growthRate: 2.1 },
-  ];
+  const { cardsData, isError, isLoading } = useDashboardCards(DASHBOARD_TYPE.ADMIN);
 
   const { totalItems, contents: tableData } = MOCK_ADMIN_TABLE;
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError) return <div>에러 발생!</div>;
+  if (!cardsData) return <div>데이터가 없다</div>;
   return (
     <MainLayoutWithDropdown title="대쉬보드" dropdownElement={<MonthPickerDropdown />}>
       <DashboardCardList data={cardsData} />
