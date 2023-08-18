@@ -4,14 +4,9 @@ import Chip from "@/components/common/Chip/Chip";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 
 import styles from "./DashboardCard.module.scss";
+import { DashboardCardProps } from "./DashboardCard.type";
 
 const cx = classNames.bind(styles);
-
-interface DashboardCardProps {
-  title: string
-  content: string | null
-  growthRate: number | null
-}
 
 /**
  * @author 연우킴(drizzle96) [Github](https://github.com/drizzle96)
