@@ -16,6 +16,8 @@ import AlertModal from "@/components/common/Modals/AlertModal/AlertModal";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import useAlertModal, { IUseAlertModalParam } from "@/hooks/useAlertModal";
 import Button from "@/components/common/CommonBtns/Button/Button";
+import Spacing from "@/components/common/Layouts/Spacing";
+import ImageUploader from "@/components/common/ImageUploader/ImageUploader";
 
 const KennyPage = () => {
   const { showToast } = useToast();
@@ -208,6 +210,8 @@ const KennyPage = () => {
       <br />
       <br />
       <Button size="large" theme="bright" onClick={()=>{showAlertModal()}}>useAlert모달로 열기</Button>
+      <Spacing size={100} />
+      <ImageUploader shape="circle" {...register("profileImg")} type="file"/>
     </div>
   );
 };
