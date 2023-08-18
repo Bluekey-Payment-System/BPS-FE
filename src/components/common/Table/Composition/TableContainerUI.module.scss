@@ -6,24 +6,7 @@
   .tableWrapper {
     overflow: auto;
 
-    // 스크롤바 스타일
-    &::-webkit-scrollbar-button {
-      display: none;
-    }
-
-    &::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      border-radius: 20px;
-      background-color: $sub-color2;
-    }
+    @include scrollbar(5);
 
     .table {
       @include typo(12);
@@ -54,7 +37,6 @@
 
       // Header or Column sticky 여부에 따른 처리
       &.stickyHeader {
-        // color: $point-color-blue4;
         th {
           position: sticky;
           z-index: 1;

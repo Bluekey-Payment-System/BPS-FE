@@ -1,29 +1,32 @@
 .asideContainer {
-  position: absolute;
-  width: 250px;
-  height: calc(100vh - 89px);
+  height: max(calc(100vh - 89px), 100%);
   padding: 32px 30px 0;
   border: 1px solid $sub-color2;
   background-color: $primary-white;
 
-  .asideItem {
-    display: block;
-    width: 190px;
-    height: 55px;
-    padding: 18px 30px;
-    border-radius: 0.6px;
-    color: $primary-black;
-    cursor: pointer;
+  .linkContainer {
+    position: sticky;
+    top: 89px;
 
-    &.active {
-      border-radius: 6px;
-      background-color: $point-color-blue1;
-      color: $point-color-blue4;
-    }
+    .asideItem {
+      display: block;
+      width: 190px;
+      height: 55px;
+      padding: 18px 30px;
+      border-radius: 0.6px;
+      color: $primary-black;
+      cursor: pointer;
 
-    &:hover {
-      background-color: $point-color-blue1;
-      color: $point-color-blue4;
+      &.active {
+        border-radius: 6px;
+        background-color: $point-color-blue1;
+        color: $point-color-blue4;
+      }
+
+      &:hover {
+        background-color: $point-color-blue1;
+        color: $point-color-blue4;
+      }
     }
   }
 }
