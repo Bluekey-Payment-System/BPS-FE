@@ -24,7 +24,7 @@ const DoughnutChart = ({ doughnutData }: { doughnutData: DoughnutChartProps }) =
       tooltip={CustomTooltip}
       data={chartData}
       margin={{
-        top: 30, right: 30, bottom: 30, left: 30,
+        top: 50, right: 30, bottom: 30, left: -30,
       }}
       valueFormat={formattedValue}
       startAngle={360}

@@ -1,13 +1,12 @@
 import classNames from "classnames/bind";
 
+import { chartColor } from "@/components/common/Chart/chart.utils";
+import DoughnutChart from "@/components/common/Chart/DoughnutChart/DoughnutChart";
+import Chip from "@/components/common/Chip/Chip";
+import CustomLegend from "@/components/common/CustomLegend/CustomLegend";
 import { IGetAdminEarningsTopArtistResponse } from "@/services/api/types/admin";
 import { MemberType } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
-
-import { chartColor } from "../common/Chart/chart.utils";
-import DoughnutChart from "../common/Chart/DoughnutChart/DoughnutChart";
-import Chip from "../common/Chip/Chip";
-import CustomLegend from "../common/CustomLegend/CustomLegend";
 
 import styles from "./TopFiveChart.module.scss";
 

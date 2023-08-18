@@ -9,10 +9,12 @@
   }
 
   .description {
-    color: $sub-color3;
-    font-size: 12px;
+    width: fit-content;
 
     @include ellipsis;
+
+    color: $sub-color3;
+    font-size: 12px;
   }
 
   .bar {
@@ -20,6 +22,7 @@
   }
 
   .doughnut {
+    width: 53px;
     margin-left: 7px;
   }
 }
