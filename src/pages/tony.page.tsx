@@ -1,12 +1,12 @@
-import TopFiveChart from "@/components/dashboard/TopFiveChart";
+import TopFiveChart from "@/components/dashboard/TopFiveChart/TopFiveChart";
 
 const data = {
   contents: [
     {
       artist: {
-        id: 1,
-        koName: "아이유",
-        enName: "IU",
+        memberId: 1,
+        koArtistName: "아이유",
+        enArtistName: "IU",
       },
       revenue: 1000000,
       growthRate: 2.1,
@@ -14,9 +14,9 @@ const data = {
     },
     {
       artist: {
-        id: 2,
-        koName: "아이유",
-        enName: "IU",
+        memberId: 2,
+        koArtistName: "아이유",
+        enArtistName: "IU",
       },
       revenue: 1000000,
       growthRate: 2.1,
@@ -24,9 +24,9 @@ const data = {
     },
     {
       artist: {
-        id: 3,
-        koName: "아이유",
-        enName: "IU",
+        memberId: 3,
+        koArtistName: "아이유",
+        enArtistName: "IU",
       },
       revenue: 1000000,
       growthRate: 2.1,
@@ -34,9 +34,9 @@ const data = {
     },
     {
       artist: {
-        id: 4,
-        koName: "아이유",
-        enName: "IU",
+        memberId: 4,
+        koArtistName: "아이유",
+        enArtistName: "IU",
       },
       revenue: 1000000,
       growthRate: 2.1,
@@ -44,9 +44,9 @@ const data = {
     },
     {
       artist: {
-        id: 5,
-        koName: "아이유",
-        enName: "IU",
+        memberId: 5,
+        koArtistName: "아이유",
+        enArtistName: "IU",
       },
       revenue: 1000000,
       growthRate: 2.1,
@@ -54,9 +54,9 @@ const data = {
     },
     {
       artist: {
-        id: 6,
-        koName: "이름이 긴 아...",
-        enName: "IU",
+        memberId: 6,
+        koArtistName: "이름이 긴 아...",
+        enArtistName: "IU",
       },
       revenue: 1000000,
       growthRate: 2.1,
@@ -66,7 +66,7 @@ const data = {
 };
 const TonyPage = () => {
   return (
-    <TopFiveChart topFiveChartData={data} type="ADMIN" />
+    <TopFiveChart topFiveChartData={data} />
   );
 };
 

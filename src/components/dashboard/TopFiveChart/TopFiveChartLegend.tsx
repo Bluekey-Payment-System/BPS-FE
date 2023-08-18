@@ -18,7 +18,7 @@ interface TopFiveChartLegendProps {
 
 const TopFiveChartLegend = ({ legendData, index }: TopFiveChartLegendProps) => {
   return (
-    <div key={index}>
+    <div key={index} className={cx("legendItem")}>
       {"artist" in legendData ? (
         <>
           <CustomLegend
