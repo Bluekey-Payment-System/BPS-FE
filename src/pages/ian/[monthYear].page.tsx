@@ -1,10 +1,14 @@
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { GetServerSideProps } from "next";
+
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
+import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import TrackStatusTable from "@/components/dashboard/TrackStatusTable/TrackStatusTable";
 import { MOCK_ADMIN_TABLE } from "@/constants/mock";
-import { useDashboardCards } from "@/services/queries/useDashboardCards";
+import { getDashboardCards, useDashboardCards } from "@/services/queries/useDashboardCards";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 const Ian = () => {
@@ -25,6 +29,34 @@ const Ian = () => {
       />
     </MainLayoutWithDropdown>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  // TODO: monthYear에 유효하지 않은 값이 들어왔을 때 or 값이 없을 때 처리
+  const monthYear = params?.monthYear as string;
+  const queryClient = new QueryClient();
+
+  try {
+    await Promise.all([
+      queryClient.prefetchQuery(
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
+        () => {
+          return getDashboardCards(DASHBOARD_TYPE.ADMIN, convertToYearMonthFormat(monthYear));
+        },
+      )]);
+
+    return {
+      props: {
+        dehydratedState: dehydrate(queryClient),
+      },
+    };
+  } catch (e) {
+    return {
+      notFound: true,
+    };
+  } finally {
+    queryClient.clear();
+  }
 };
 
 export default Ian;

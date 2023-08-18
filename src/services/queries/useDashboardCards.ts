@@ -35,7 +35,7 @@ const getAlbumDashboardCards = (): Promise<IGetAlbumDashboardResponse> => {
   });
 };
 
-const getDashboardCards = async (type: DashboardType, yearMonthStr: string) => {
+export const getDashboardCards = async (type: DashboardType, yearMonthStr: string) => {
   let response;
   let data: DashboardCardProps[];
   if (type === DASHBOARD_TYPE.ADMIN) {
