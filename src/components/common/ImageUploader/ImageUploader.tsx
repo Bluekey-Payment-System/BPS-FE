@@ -15,7 +15,17 @@ const cx = classNames.bind(styles);
 interface ImageUploaderProps extends InputHTMLAttributes<HTMLInputElement> {
   shape: "circle" | "square";
 }
-
+/**
+ * 이미지 업로더 컴포넌트
+ * @author [SeyoungCho](https://github.com/seyoungcho)
+ * @param {string} shape 업로더의 모양 - `circle` 또는 `square`
+ * @param {InputHTMLAttributes} ...props input 엘리먼트의 attributes
+ * @example
+ * ```
+ * <ImageUploader shape="circle" name="profileImage" onChange={handleChange}/>
+ * <ImageUploader shape="square" name="albumCoverImage" onChange={handleChange}/>
+ * ```
+ */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ImageUploader = forwardRef(({ shape = "square", ...props }: ImageUploaderProps, ref: ForwardedRef<HTMLInputElement>) => {
   const fileRef = useForwardRef(ref);
