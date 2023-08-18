@@ -12,6 +12,7 @@ import Head from "next/head";
 
 import AlertModalRoot from "@/components/common/Modals/AlertModal/AlertModalRoot";
 import ToastRoot from "@/components/common/Toast/ToastRoot";
+import AuthPageLayout from "@/components/layout/AuthPageLayout";
 import Layout from "@/components/layout/Layout";
 import wrapper from "@/redux/store";
 import Pretendard from "@/styles/local.font";
@@ -23,7 +24,7 @@ const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState
   const getContent = () => {
     if (["/admin/signin"].includes(rest.router.pathname)
       || ["/admin/signup"].includes(rest.router.pathname)
-      || ["/login"].includes(rest.router.pathname)) { return <Component {...rest.pageProps} />; }
+      || ["/signin"].includes(rest.router.pathname)) { return <AuthPageLayout><Component {...rest.pageProps} /></AuthPageLayout>; }
 
     return (
       <Layout>
@@ -39,7 +40,7 @@ const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState
           <Head>
             <title>블루키뮤직 정산시스템</title>
           </Head>
-          <main className={Pretendard.className} style={{ width: "1920px" }}>
+          <main className={Pretendard.className}>
             {getContent()}
           </main>
           <ToastRoot />

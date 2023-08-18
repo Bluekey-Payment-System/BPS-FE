@@ -18,7 +18,7 @@ export interface IUserState {
 const initialState: IUserState = {
   member: {
     email: "bluekey@gmail.com",
-    loginId: "bluaekey",
+    loginId: "bluekey",
     type: "SUPER_ADMIN",
     profileImage: null,
   },

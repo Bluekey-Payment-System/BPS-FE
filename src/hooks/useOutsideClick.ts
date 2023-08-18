@@ -8,10 +8,9 @@ const useOutsideClick = (
 ) => {
   const handleClick = (e: MouseEvent) => {
     if (ref.current && !ref.current.contains(e.target as Node)) {
-      callback();
+      setTimeout(callback, 10);
     }
   };
-
   useEffect(() => {
     document.addEventListener("click", handleClick, { capture: true });
     return () => {
