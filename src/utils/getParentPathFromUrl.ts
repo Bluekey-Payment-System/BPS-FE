@@ -1,5 +1,5 @@
 /**
- * getLastSegmentFromUrl 유틸 함수
+ * getParentPathFromUrl 유틸 함수
  * @author [SeyoungCho](https://github.com/seyoungcho)
  * @param url {string} "xxx/xxx/xxx/..." 형태의 url 스트링
  * @returns {string} url을 "/"으로 구분지어 마지막 세그먼트를 제외한 pathname을 리턴합니다
