@@ -19,7 +19,5 @@
 @include mobile {
   .container {
     @include flexbox(row, space-between, center);
-
-    display: block;
   }
 }
