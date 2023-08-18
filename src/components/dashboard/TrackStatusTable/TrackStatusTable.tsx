@@ -1,15 +1,14 @@
 import classNames from "classnames/bind";
 
 import ProgressBar from "@/components/common/ProgressBar/ProgressBar";
+import TableBodyUI from "@/components/common/Table/Composition/TableBodyUI";
+import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
+import TableContainerUI from "@/components/common/Table/Composition/TableContainerUI";
+import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
+import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import formatMoney from "@/utils/formatMoney";
-
-import TableBodyUI from "../Composition/TableBodyUI";
-import TableCellUI from "../Composition/TableCellUI";
-import TableContainerUI from "../Composition/TableContainerUI";
-import TableHeaderUI from "../Composition/TableHeaderUI";
-import TableRowUI from "../Composition/TableRowUI";
 
 import styles from "./TrackStatusTable.module.scss";
 
