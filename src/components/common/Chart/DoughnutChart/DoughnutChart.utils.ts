@@ -1,11 +1,27 @@
-import { IDoughnutArtistRevenue } from "@/types/dto";
+// import { IGetAdminEarningsTopArtistResponse, IGetAdminEarningsTopTrackResponse } from "./";
+import { IGetAdminEarningsTopArtistResponse, IGetAdminEarningsTopTrackResponse } from "@/services/api/types/admin";
 
-export const createChartDataFromContents = (contents: IDoughnutArtistRevenue[]) => {
-  const chartData = contents.map((item) => {
+interface ChartDataItem {
+  id: string;
+  label: string;
+  value: number | null;
+}
+
+type DoughnutData = IGetAdminEarningsTopArtistResponse | IGetAdminEarningsTopTrackResponse;
+
+export const createChartDataFromContents = (doughnutData: DoughnutData): ChartDataItem[] => {
+  const chartData: ChartDataItem[] = doughnutData.contents.map((chartItem) => {
+    if ("artist" in chartItem) {
+      return {
+        id: chartItem.artist.memberId.toString(),
+        label: chartItem.artist.koArtistName,
+        value: chartItem.proportion,
+      };
+    }
     return {
-      id: item.artist.id.toString(),
-      label: item.artist.koName,
-      value: item.proportion,
+      id: chartItem.track.trackId.toString(),
+      label: chartItem.track.koTrackName,
+      value: chartItem.proportion,
     };
   });
 

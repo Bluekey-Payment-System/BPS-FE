@@ -1,8 +1,9 @@
 import { ResponsivePie } from "@nivo/pie";
 
+import { IGetAdminEarningsTopArtistResponse, IGetAdminEarningsTopTrackResponse } from "@/services/api/types/admin";
+
 import { chartColor } from "../chart.utils";
 
-import { DoughnutChartProps } from "./DoughnutChart.types";
 import { createChartDataFromContents } from "./DoughnutChart.utils";
 
 const CustomTooltip = () => { return null; };
@@ -13,9 +14,11 @@ const formattedValue = (value: number) => { return `${value}%`; };
  * @author 임병욱
  * @param doughnutData - 차트 데이터
 */
+
+type DoughnutChartProps = IGetAdminEarningsTopArtistResponse | IGetAdminEarningsTopTrackResponse;
+
 const DoughnutChart = ({ doughnutData }: { doughnutData: DoughnutChartProps }) => {
-  const { contents } = doughnutData;
-  const chartData = createChartDataFromContents(contents);
+  const chartData = createChartDataFromContents(doughnutData);
 
   return (
     <ResponsivePie
