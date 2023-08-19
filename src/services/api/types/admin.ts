@@ -1,6 +1,9 @@
 import {
-  // eslint-disable-next-line max-len
-  IAdminDashboardCard, IBarMonthlyEarnings, IDoughnutArtistRevenue, ITrackTransaction, IBarMonthlySettlement,
+  IAdminDashboardCard,
+  IBarMonthlyEarnings,
+  IDoughnutArtistRevenue,
+  ITrackTransaction,
+  IBarMonthlySettlement,
 } from "@/types/dto";
 
 export interface IGetAdminDashboardResponse extends IAdminDashboardCard {
