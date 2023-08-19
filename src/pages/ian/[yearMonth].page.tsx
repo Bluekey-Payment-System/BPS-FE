@@ -7,8 +7,9 @@ import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDrop
 import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
-import { MOCK_ADMIN_TABLE } from "@/constants/mock";
+import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import useDashboardCards, { getDashboardCards } from "@/services/queries/useDashboardCards";
+import useDashboardTable, { getDashboardTable } from "@/services/queries/useDashboardTable";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 const Ian = ({ yearMonth }: { yearMonth: string }) => {
@@ -17,21 +18,27 @@ const Ian = ({ yearMonth }: { yearMonth: string }) => {
     isCardsError,
     isCardsLoading,
   } = useDashboardCards(DASHBOARD_TYPE.ADMIN, yearMonth);
+  const {
+    tableData,
+    isTableError,
+    isTableLoading,
+  } = useDashboardTable(DASHBOARD_TYPE.ADMIN, yearMonth);
 
-  const { totalItems, contents: tableData } = MOCK_ADMIN_TABLE;
   const yearMonthStr = convertToYearMonthFormat(yearMonth);
 
-  if (isCardsLoading) return <div>로딩 중...</div>;
-  if (isCardsError) return <div>에러 발생!</div>;
-  if (!cardsData) return <div>데이터가 없다</div>;
+  if (isCardsLoading || isTableLoading) return <div>로딩 중...</div>;
+  if (isCardsError || isTableError) return <div>에러 발생!</div>;
+  if (!cardsData || !tableData) return <div>데이터가 없다</div>;
+  // TODO: tableData가 Artist Table response 타입으로 추론되는 문제 해결
+  const { totalItems, contents: tableContents } = tableData as IGetAdminTrackTransactionResponse;
   return (
     <MainLayoutWithDropdown title="대쉬보드" dropdownElement={<MonthPickerDropdown />}>
       <DashboardCardList data={cardsData} />
       <AdminTrackStatusTable
         title={`${yearMonthStr}의 트랙별 현황`}
-        data={tableData}
+        data={tableContents}
         // TODO: tableData 형태에 따라 isEmpty 체크 변경
-        isEmpty={!tableData}
+        isEmpty={!tableContents}
         paginationElement={<Pagination activePage={1} totalItems={totalItems} itemsPerPage={6} />}
       />
     </MainLayoutWithDropdown>
@@ -49,6 +56,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
         () => {
           return getDashboardCards(DASHBOARD_TYPE.ADMIN, yearMonth);
+        },
+      ),
+      queryClient.prefetchQuery(
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "table"],
+        () => {
+          return getDashboardTable(DASHBOARD_TYPE.ADMIN, yearMonth);
         },
       )]);
 
