@@ -24,7 +24,7 @@ const TopFiveChartLegend = ({ legendData, index }: TopFiveChartLegendProps) => {
           <CustomLegend
             key={chartColor[index]}
             color={chartColor[index]}
-            value={legendData.artist.koArtistName}
+            text={legendData.artist.koArtistName}
             type="doughnut"
           />
           <p className={cx("formattedMoney")}>{formatMoney(legendData.revenue, "chart")}</p>
@@ -35,7 +35,7 @@ const TopFiveChartLegend = ({ legendData, index }: TopFiveChartLegendProps) => {
           <CustomLegend
             key={chartColor[index]}
             color={chartColor[index]}
-            value={legendData.track.koTrackName}
+            text={legendData.track.koTrackName}
             type="doughnut"
           />
           <p className={cx("formattedMoney")}>{formatMoney(legendData.revenue, "chart")}</p>
