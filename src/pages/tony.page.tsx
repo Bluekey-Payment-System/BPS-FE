@@ -1,72 +1,139 @@
-import LineChart from "@/components/common/Chart/LineChart/LineChart";
-import { IMappedChartData } from "@/components/common/Chart/LineChart/LineChart.types";
-import { mapLineDataToMonthlySummary } from "@/components/common/Chart/LineChart/LineChart.utils";
+import AlbumTrendsChart from "@/components/dashboard/AlbumTrendsChart/AlbumTrendsChart";
+import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 const data = {
   tracks: [
     {
-      id: 1,
-      name: "곡 제목",
-      enName: "track1",
+      trackId: 2,
+      koTrackName: "금요일에 만나요asdasdasd",
+      enTrackName: "meet on Friday",
       monthlyTrend: [
         {
           month: 1,
-          settlement: 3456789,
-          revenue: 23456789,
+          settlement: 2142344,
+          revenue: 732143,
         },
         {
           month: 2,
-          settlement: 3456789,
-          revenue: 23456789,
+          settlement: 2231211,
+          revenue: 7323,
         },
         {
           month: 3,
-          settlement: 4000089,
-          revenue: 45000890,
+          settlement: 2261211,
+          revenue: 732143,
         },
         {
           month: 4,
-          settlement: 3456789,
-          revenue: 47000890,
+          settlement: 2142344,
+          revenue: 732143,
         },
         {
           month: 5,
-          settlement: 3456789,
-          revenue: 23456789,
+          settlement: 2142344,
+          revenue: 732143,
         },
         {
           month: 6,
-          settlement: 3456789,
-          revenue: 0,
+          settlement: 2142344,
+          revenue: 732143,
         },
         {
           month: 7,
-          settlement: 3456789,
-          revenue: 23456789,
+          settlement: 2142344,
+          revenue: 732143,
         },
         {
           month: 8,
-          settlement: 3456789,
-          revenue: 23456789,
+          settlement: 2142344,
+          revenue: 732143,
         },
         {
           month: 9,
-          settlement: 3456789,
-          revenue: 23456789,
+          settlement: 2142344,
+          revenue: 732143,
         },
         {
           month: 10,
-          settlement: 3456789,
-          revenue: 23456789,
+          settlement: 2142344,
+          revenue: 732143,
         },
         {
           month: 11,
-          settlement: 3456789,
-          revenue: 23456789,
-        }, {
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
           month: 12,
-          settlement: 3456789,
-          revenue: 23456789,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+      ],
+    },
+    {
+      trackId: 1,
+      koTrackName: "너랑나",
+      enTrackName: "U and I",
+      monthlyTrend: [
+        {
+          month: 1,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
+          month: 2,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
+          month: 3,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
+          month: 4,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
+          month: 5,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
+          month: 6,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
+          month: 7,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
+          month: 8,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
+          month: 9,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
+          month: 10,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
+          month: 11,
+          settlement: 2142344,
+          revenue: 732143,
+        },
+        {
+          month: 12,
+          settlement: 2142344,
+          revenue: 732143,
         },
       ],
     },
@@ -74,11 +141,8 @@ const data = {
 };
 
 const TonyPage = () => {
-  const chartData: IMappedChartData[] = mapLineDataToMonthlySummary(data, "revenue", 1);
   return (
-    <div style={{ width: "700px", height: "300px" }}>
-      <LineChart lineChartData={chartData} />
-    </div>
+    <AlbumTrendsChart albumTrendsChartData={data} memberType={MEMBER_TYPE.ADMIN} />
   );
 };
 
