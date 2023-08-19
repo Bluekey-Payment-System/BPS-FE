@@ -3,7 +3,8 @@ import classNames from "classnames/bind";
 import { useRouter } from "next/router";
 
 import DoughnutChart from "@/components/common/Chart/DoughnutChart/DoughnutChart";
-import { IGetAdminEarningsTopArtistResponse, IGetAdminEarningsTopTrackResponse } from "@/services/api/types/admin";
+import { IGetAdminEarningsTopArtistResponse } from "@/services/api/types/admin";
+import { IGetAlbumRevenueTopTrackResponse } from "@/services/api/types/albums";
 
 import styles from "./TopFiveChart.module.scss";
 import RouteBasedOnPath from "./TopFiveChart.utils";
@@ -11,7 +12,7 @@ import TopFiveChartLegend from "./TopFiveChartLegend";
 
 const cx = classNames.bind(styles);
 
-type TopFiveChartProps = IGetAdminEarningsTopArtistResponse | IGetAdminEarningsTopTrackResponse;
+type TopFiveChartProps = IGetAdminEarningsTopArtistResponse | IGetAlbumRevenueTopTrackResponse;
 
 const TopFiveChart = ({ topFiveChartData }: { topFiveChartData: TopFiveChartProps }) => {
   const router = useRouter();

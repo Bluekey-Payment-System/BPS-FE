@@ -1,6 +1,6 @@
 import {
   IAdminDashboardCard, IBarMonthlyEarnings,
-  IDoughnutArtistRevenue, IDoughnutTrackRevenue, ITrackTransaction,
+  IDoughnutArtistRevenue, ITrackTransaction,
 } from "@/types/dto";
 
 export interface IGetAdminDashboardResponse extends IAdminDashboardCard {
@@ -17,8 +17,4 @@ export interface IGetAdminTrackTransactionResponse {
 
 export interface IGetAdminEarningsTopArtistResponse {
   contents: IDoughnutArtistRevenue[]
-}
-
-export interface IGetAdminEarningsTopTrackResponse {
-  contents: IDoughnutTrackRevenue[]
 }

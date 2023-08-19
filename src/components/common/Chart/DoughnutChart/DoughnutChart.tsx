@@ -1,6 +1,7 @@
 import { ResponsivePie } from "@nivo/pie";
 
-import { IGetAdminEarningsTopArtistResponse, IGetAdminEarningsTopTrackResponse } from "@/services/api/types/admin";
+import { IGetAdminEarningsTopArtistResponse } from "@/services/api/types/admin";
+import { IGetAlbumRevenueTopTrackResponse } from "@/services/api/types/albums";
 
 import { chartColor } from "../chart.utils";
 
@@ -15,7 +16,7 @@ const formattedValue = (value: number) => { return `${value}%`; };
  * @param doughnutData - 차트 데이터
 */
 
-type DoughnutChartProps = IGetAdminEarningsTopArtistResponse | IGetAdminEarningsTopTrackResponse;
+type DoughnutChartProps = IGetAdminEarningsTopArtistResponse | IGetAlbumRevenueTopTrackResponse;
 
 const DoughnutChart = ({ doughnutData }: { doughnutData: DoughnutChartProps }) => {
   const chartData = createChartDataFromContents(doughnutData);

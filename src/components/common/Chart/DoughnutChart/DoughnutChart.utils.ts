@@ -1,5 +1,6 @@
 // import { IGetAdminEarningsTopArtistResponse, IGetAdminEarningsTopTrackResponse } from "./";
-import { IGetAdminEarningsTopArtistResponse, IGetAdminEarningsTopTrackResponse } from "@/services/api/types/admin";
+import { IGetAdminEarningsTopArtistResponse } from "@/services/api/types/admin";
+import { IGetAlbumRevenueTopTrackResponse } from "@/services/api/types/albums";
 
 interface ChartDataItem {
   id: string;
@@ -7,7 +8,7 @@ interface ChartDataItem {
   value: number | null;
 }
 
-type DoughnutData = IGetAdminEarningsTopArtistResponse | IGetAdminEarningsTopTrackResponse;
+type DoughnutData = IGetAdminEarningsTopArtistResponse | IGetAlbumRevenueTopTrackResponse;
 
 export const createChartDataFromContents = (doughnutData: DoughnutData): ChartDataItem[] => {
   const chartData: ChartDataItem[] = doughnutData.contents.map((chartItem) => {

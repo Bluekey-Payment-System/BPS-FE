@@ -1,4 +1,7 @@
-function getHeaderText(currentPath: string) {
+import getParentPathFromUrl from "@/utils/getParentPathFromUrl";
+
+function getHeaderText(currentPath: string | null) {
+  if (currentPath) return "";
   if (currentPath === "/admin/dashboard") {
     return "당월 Top 5 아티스트 매출 비중";
   }
@@ -7,7 +10,7 @@ function getHeaderText(currentPath: string) {
 }
 
 function RouteBasedOnPath(currentPath: string) {
-  const headerText = getHeaderText(currentPath);
+  const headerText = getHeaderText(getParentPathFromUrl(currentPath));
 
   return headerText;
 }
