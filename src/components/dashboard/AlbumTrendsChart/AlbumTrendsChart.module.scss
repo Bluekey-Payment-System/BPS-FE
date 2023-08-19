@@ -1,0 +1,16 @@
+.container {
+  width: 1200px;
+  height: 419px;
+  padding: 27px 30px;
+  border: 1px solid $sub-color1;
+  border-radius: 6px;
+  background-color: $primary-white;
+
+  .selectingTrackContainer {
+    @include flexbox(row, space-between, center);
+
+    .description {
+      @include typo(24, bold);
+    }
+  }
+}
