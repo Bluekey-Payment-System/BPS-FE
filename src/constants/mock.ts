@@ -5,6 +5,7 @@ import {
   IGetAdminTrackTransactionResponse,
 } from "@/services/api/types/admin";
 import {
+  IGetAlbumDashboardResponse,
   IGetAlbumMonthlySettlementResponse,
   IGetAlbumRevenueTopTrackResponse,
   IGetAlbumTrackSettlementTrendsResponse,
@@ -277,6 +278,21 @@ export const MOCK_ALBUM_DOUGHNUT: IGetAlbumRevenueTopTrackResponse = {
       proportion: 4,
     },
   ],
+};
+
+export const MOCK_ALBUM_DASHBOARD_CARD: IGetAlbumDashboardResponse = {
+  settlement:
+  {
+    totalAmount: 1000,
+    growthRate: 10.2,
+  },
+  bestTrack:
+  {
+    trackId: 1,
+    koTrackName: "트랙명2",
+    enTrackName: "track2",
+    growthRate: -30,
+  },
 };
 /* ########################## */
 

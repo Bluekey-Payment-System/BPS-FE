@@ -123,8 +123,6 @@ export interface IArtistDashboardCard {
 }
 
 export interface IAlbumDashboardCard {
-  koAlbumName: string,
-  enAlbumName: string,
   settlement: IEarnings
   bestTrack: ITrack & {
     growthRate: number | null
