@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 
+import Button from "@/components/common/CommonBtns/Button/Button";
 import ImageUploader from "@/components/common/ImageUploader/ImageUploader";
 import Checkbox from "@/components/common/Inputs/Checkbox/Checkbox";
 import TextField from "@/components/common/Inputs/TextField/TextField";
@@ -37,8 +38,9 @@ const ArtistCreatePage = () => {
               <TextField label="활동 예명(영문)" errors={{}} />
               <TextField label="계정 아이디" errors={{}} />
               <TextField label="계정 이메일" errors={{}} />
-              <TextFieldWithCopy label="임시 비밀번호" errors={{}} />
+              <TextFieldWithCopy label="임시 비밀번호" bottomText="*분실시 아티스트 계정 관리 페이지에서 재발급 받을 수 있습니다." errors={{}} />
               <TextFieldWithUnit label="기본 요율" unit="%" errors={{}} />
+              <Button size="large" theme="dark" style={{ width: "218px", marginTop: "16px" }}>아티스트 등록</Button>
             </form>
           </section>
         </div>

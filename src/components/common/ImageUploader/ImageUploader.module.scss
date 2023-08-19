@@ -1,7 +1,9 @@
 .container {
+  $width: 147px;
+
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: $width;
+  height: $width;
   overflow: hidden;
   background-color: $sub-color1;
   cursor: pointer;
@@ -19,13 +21,13 @@
   .deck {
     position: absolute;
     bottom: 0;
-    width: 200px;
-    height: 50px;
+    width: $width;
+    height: 33.17px;
     background-color: $primary-black;
 
     .uploadIcon {
       position: absolute;
-      top: 14px;
+      top: 8.17px;
       left: 50%;
       width: 14px;
       height: 14px;
