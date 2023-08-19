@@ -14,17 +14,17 @@ import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import { ITrackTransaction } from "@/types/dto";
 import formatMoney from "@/utils/formatMoney";
 
-import styles from "./TrackStatusTable.module.scss";
+import styles from "./AdminTrackStatusTable.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface TrackStatusTableProps {
+interface AdminTrackStatusTableProps {
   title: string
   data: ITrackTransaction[]
   paginationElement?: React.ReactNode
 }
 
-const TrackStatusTable = ({ title, data, paginationElement }: TrackStatusTableProps) => {
+const AdminTrackStatusTable = ({ title, data, paginationElement }: AdminTrackStatusTableProps) => {
   const handleClickSortByDropdown = (value: string) => {
     // TODO: 정렬 순서 쿼리 파람 변경
   };
@@ -52,7 +52,7 @@ const TrackStatusTable = ({ title, data, paginationElement }: TrackStatusTablePr
             theme="withSearchBar"
             onClick={handleClickSearchByDropdown}
           />
-          <SearchBar placeholder="검색어를 입력해주세요" onClick={handleClickSearchBar} />
+          <SearchBar placeholder="검색어를 입력해주세요" theme="withSearchBar" onClick={handleClickSearchBar} />
         </div>
       </div>
       <TableContainerUI
@@ -104,4 +104,4 @@ const TrackStatusTable = ({ title, data, paginationElement }: TrackStatusTablePr
   );
 };
 
-export default TrackStatusTable;
+export default AdminTrackStatusTable;

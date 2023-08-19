@@ -5,13 +5,13 @@ import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDr
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
+import AdminTrackStatusTable from "@/components/dashboard/AdminTrackStatusTable/AdminTrackStatusTable";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
-import TrackStatusTable from "@/components/dashboard/TrackStatusTable/TrackStatusTable";
 import { MOCK_ADMIN_TABLE } from "@/constants/mock";
 import { getDashboardCards, useDashboardCards } from "@/services/queries/useDashboardCards";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
-const Ian = () => {
+const Ian = ({ monthYearStr }: { monthYearStr: string }) => {
   const { cardsData, isError, isLoading } = useDashboardCards(DASHBOARD_TYPE.ADMIN);
 
   const { totalItems, contents: tableData } = MOCK_ADMIN_TABLE;
@@ -22,8 +22,8 @@ const Ian = () => {
   return (
     <MainLayoutWithDropdown title="대쉬보드" dropdownElement={<MonthPickerDropdown />}>
       <DashboardCardList data={cardsData} />
-      <TrackStatusTable
-        title="2023년 8월의 트랙별 현황"
+      <AdminTrackStatusTable
+        title={`${monthYearStr}의 트랙별 현황`}
         data={tableData}
         paginationElement={<Pagination activePage={1} totalItems={totalItems} itemsPerPage={6} />}
       />
@@ -34,6 +34,7 @@ const Ian = () => {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   // TODO: monthYear에 유효하지 않은 값이 들어왔을 때 or 값이 없을 때 처리
   const monthYear = params?.monthYear as string;
+  const monthYearStr = convertToYearMonthFormat(monthYear);
   const queryClient = new QueryClient();
 
   try {
@@ -41,13 +42,14 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
         () => {
-          return getDashboardCards(DASHBOARD_TYPE.ADMIN, convertToYearMonthFormat(monthYear));
+          return getDashboardCards(DASHBOARD_TYPE.ADMIN, monthYearStr);
         },
       )]);
 
     return {
       props: {
         dehydratedState: dehydrate(queryClient),
+        monthYearStr,
       },
     };
   } catch (e) {
