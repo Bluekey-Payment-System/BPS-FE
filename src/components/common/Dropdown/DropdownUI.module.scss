@@ -135,7 +135,7 @@
 
     &.dark {
       width: 171px;
-      height: 196px;
+      max-height: 196px;
       overflow-y: scroll;
 
       &::-webkit-scrollbar {
