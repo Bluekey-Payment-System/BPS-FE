@@ -96,8 +96,8 @@ const AdminTrackStatusTable = ({
                       <div>
                         <TooltipRoot message={formatArtistCell(item.artists)}>
                           <p className={cx("artistName", "ellipsis")}>{formatArtistCell(item.artists)}</p>
+                          <p className={cx("artistName", "enName", "ellipsis")}>{item.artists[0].enArtistName}</p>
                         </TooltipRoot>
-                        <p className={cx("artistName", "enName", "ellipsis")}>{item.artists[0].enArtistName}</p>
                       </div>
                     </TableCellUI>
                     <TableCellUI>{formatMoney(item.revenue, "table")}</TableCellUI>

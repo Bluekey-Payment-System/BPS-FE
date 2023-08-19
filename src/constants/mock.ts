@@ -389,7 +389,7 @@ export const MOCK_ADMIN_TABLE: IGetAdminTrackTransactionResponse = {
       artists: [
         {
           memberId: 1,
-          koArtistName: "아이유",
+          koArtistName: "아이유~~참말로제가한게아닙니더",
           enArtistName: "IU",
         },
         {
