@@ -12,13 +12,17 @@ import useDashboardCards, { getDashboardCards } from "@/services/queries/useDash
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 const Ian = ({ yearMonth }: { yearMonth: string }) => {
-  const { cardsData, isError, isLoading } = useDashboardCards(DASHBOARD_TYPE.ADMIN, yearMonth);
+  const {
+    cardsData,
+    isCardsError,
+    isCardsLoading,
+  } = useDashboardCards(DASHBOARD_TYPE.ADMIN, yearMonth);
 
   const { totalItems, contents: tableData } = MOCK_ADMIN_TABLE;
   const yearMonthStr = convertToYearMonthFormat(yearMonth);
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError) return <div>에러 발생!</div>;
+  if (isCardsLoading) return <div>로딩 중...</div>;
+  if (isCardsError) return <div>에러 발생!</div>;
   if (!cardsData) return <div>데이터가 없다</div>;
   return (
     <MainLayoutWithDropdown title="대쉬보드" dropdownElement={<MonthPickerDropdown />}>
