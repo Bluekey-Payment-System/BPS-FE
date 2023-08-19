@@ -13,7 +13,8 @@
     }
 
     .legendContainer {
-      display: flex;
+      @include flexbox(row);
+
       gap: 26px;
     }
   }
