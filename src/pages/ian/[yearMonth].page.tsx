@@ -8,7 +8,7 @@ import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
 import { MOCK_ADMIN_TABLE } from "@/constants/mock";
-import { getDashboardCards, useDashboardCards } from "@/services/queries/useDashboardCards";
+import useDashboardCards, { getDashboardCards } from "@/services/queries/useDashboardCards";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 const Ian = ({ yearMonth }: { yearMonth: string }) => {
