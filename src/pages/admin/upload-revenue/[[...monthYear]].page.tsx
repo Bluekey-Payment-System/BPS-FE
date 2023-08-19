@@ -7,6 +7,7 @@ import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDr
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
+import UploadHistroyTable from "@/components/uploadRevenue/UploadHistoryTable/UploadHistoryTable";
 
 const UploadRevenuePage = () => {
   return (
@@ -23,7 +24,8 @@ const UploadRevenuePage = () => {
           </SectionLayout>
           <SectionHr isThick />
           <SectionLayout title="업로드 내역">
-            <EmptyData type="no-data" text="업로드 내역이 없습니다." />
+            {/* <EmptyData type="no-data" text="업로드 내역이 없습니다." /> */}
+            <UploadHistroyTable />
           </SectionLayout>
         </div>
       </ArtboardLayout>
