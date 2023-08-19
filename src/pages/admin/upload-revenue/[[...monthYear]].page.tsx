@@ -1,6 +1,5 @@
 // import { useRouter } from "next/router";
 
-import EmptyData from "@/components/common/EmptyData/EmptyData";
 import ExcelFileUploader from "@/components/common/ExcelFileUploader/ExcelFileUploader";
 import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
@@ -24,7 +23,6 @@ const UploadRevenuePage = () => {
           </SectionLayout>
           <SectionHr isThick />
           <SectionLayout title="업로드 내역">
-            {/* <EmptyData type="no-data" text="업로드 내역이 없습니다." /> */}
             <UploadHistroyTable />
           </SectionLayout>
         </div>
