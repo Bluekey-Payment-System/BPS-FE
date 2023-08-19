@@ -5,8 +5,8 @@ import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDr
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
-import AdminTrackStatusTable from "@/components/dashboard/AdminTrackStatusTable/AdminTrackStatusTable";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
+import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
 import { MOCK_ADMIN_TABLE } from "@/constants/mock";
 import { getDashboardCards, useDashboardCards } from "@/services/queries/useDashboardCards";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
@@ -25,6 +25,7 @@ const Ian = ({ monthYearStr }: { monthYearStr: string }) => {
       <AdminTrackStatusTable
         title={`${monthYearStr}의 트랙별 현황`}
         data={tableData}
+        isEmpty={!tableData}
         paginationElement={<Pagination activePage={1} totalItems={totalItems} itemsPerPage={6} />}
       />
     </MainLayoutWithDropdown>
