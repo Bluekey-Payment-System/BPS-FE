@@ -291,6 +291,11 @@ export const MOCK_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
     },
   ],
 };
+
+export const MOCK_EMPTY_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
+  totalItems: 0,
+  contents: [],
+};
 /* ########################## */
 
 /* ##### 3. ADMIN ##### */
