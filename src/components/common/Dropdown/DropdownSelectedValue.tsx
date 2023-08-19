@@ -18,7 +18,7 @@ const DropdownSelectedValue = ({
   return (
     <button onClick={handleToggle} type="button" className={cx("dropdownValueContainer", theme)}>
       <div
-        className={cx("selectedValue")}
+        className={cx("selectedValue", theme)}
       >
         {selectedDropdownValue}
       </div>

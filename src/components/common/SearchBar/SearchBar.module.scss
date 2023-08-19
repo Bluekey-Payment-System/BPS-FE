@@ -1,6 +1,6 @@
 .searchBarContainer {
   position: relative;
-  width: 100%;
+  width: 376px;
   height: 40px;
   border-radius: 6px;
   background-color: $primary-white;
@@ -10,12 +10,31 @@
     height: 100%;
     padding: 11px 26px 11px 18px;
     border: 1px solid $sub-color1;
+    border-radius: inherit;
     font-size: 14px;
+
+    &::placeholder {
+      color: $sub-color3;
+    }
+
+    &.withSearchBar {
+      width: 381px;
+      border-radius: 0 6px 6px 0;
+    }
   }
 
   .searchImage {
     position: absolute;
     top: 13px;
     right: 10px;
+  }
+
+  .withSearchBar {
+    border-radius: 6px;
+  }
+
+  &.withSearchBar {
+    width: 381px;
+    border-radius: 0 6px 6px 0;
   }
 }
