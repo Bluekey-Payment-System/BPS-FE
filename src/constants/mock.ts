@@ -382,6 +382,16 @@ export const MOCK_ADMIN_TABLE: IGetAdminTrackTransactionResponse = {
           koArtistName: "아이유",
           enArtistName: "IU",
         },
+        {
+          memberId: 2,
+          koArtistName: "지드래곤",
+          enArtistName: "G-Dragon",
+        },
+        {
+          memberId: 3,
+          koArtistName: "태양",
+          enArtistName: "Sun",
+        },
       ],
       revenue: 1000000000,
       netIncome: 100000000,

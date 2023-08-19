@@ -1,7 +1,7 @@
 import { AdminType, ArtistType } from "./enums/user.enum";
 
 // 이름 관련
-interface IArtist {
+export interface IArtist {
   memberId: number,
   koArtistName: string,
   enArtistName: string

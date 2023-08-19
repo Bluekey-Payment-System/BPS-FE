@@ -15,6 +15,7 @@ import { ITrackTransaction } from "@/types/dto";
 import formatMoney from "@/utils/formatMoney";
 
 import styles from "./AdminTrackStatusTable.module.scss";
+import { formatArtistCell } from "./TrackStatusTable.utils";
 
 const cx = classNames.bind(styles);
 
@@ -85,8 +86,8 @@ const AdminTrackStatusTable = ({ title, data, paginationElement }: AdminTrackSta
                 </TableCellUI>
                 <TableCellUI>
                   <div>
-                    <TooltipRoot message={item.artists[0].koArtistName}>
-                      <p className={cx("artistName", "ellipsis")}>{item.artists[0].koArtistName}</p>
+                    <TooltipRoot message={formatArtistCell(item.artists)}>
+                      <p className={cx("artistName", "ellipsis")}>{formatArtistCell(item.artists)}</p>
                     </TooltipRoot>
                     <p className={cx("artistName", "enName", "ellipsis")}>{item.artists[0].enArtistName}</p>
                   </div>
