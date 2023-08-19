@@ -283,12 +283,13 @@ export const MOCK_ALBUM_DOUGHNUT: IGetAlbumRevenueTopTrackResponse = {
 /* ##### 2. TRANSACTION ##### */
 export const MOCK_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
   totalItems: 10,
-  contents:
-  {
-    id: 1,
-    name: "1202306_마피아 유통사 정산 내역.xlsx",
-    uploadAt: "2023-08",
-  },
+  contents: [
+    {
+      id: 1,
+      name: "1202306_마피아 유통사 정산 내역.xlsx",
+      uploadAt: "2023-08",
+    },
+  ],
 };
 /* ########################## */
 
