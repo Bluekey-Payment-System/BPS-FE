@@ -1,5 +1,5 @@
 /**
- * getCurrentMonthAsPath 유틸 함수
+ * getLatestYearMonthString 유틸 함수
  * @author [SeyoungCho](https://github.com/seyoungcho)
  * @returns {string} 현재 월을 기준으로 한달 전의 YYYYMM을 문자열로 반환합니다.
  */

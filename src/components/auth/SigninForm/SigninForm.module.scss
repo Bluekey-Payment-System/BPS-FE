@@ -2,20 +2,10 @@
   .title {
     @include typo(32);
 
-    margin-bottom: 98px;
     text-align: center;
   }
 
-  .textFieldWrapper {
-    margin-top: 16px;
-  }
-
-  .signinBtnWrapper {
-    margin-top: 36px;
-  }
-
   & > p {
-    margin-top: 24px;
     color: $sub-color3;
     text-align: center;
 

@@ -1,4 +1,4 @@
-const MEMBER_TYPE = {
+export const MEMBER_TYPE = {
   SUPER_ADMIN: "SUPER_ADMIN",
   ADMIN: "ADMIN",
   ARTIST: "ARTIST",
