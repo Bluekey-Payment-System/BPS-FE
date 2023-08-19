@@ -1,4 +1,3 @@
-import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 // import { useRouter } from "next/router";
 
 import EmptyData from "@/components/common/EmptyData/EmptyData";
@@ -7,14 +6,9 @@ import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
-
-const getServerSideProps: GetServerSideProps = async () => {
-
-  // query key 미확정
+import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 
 const UploadRevenuePage = () => {
-  // const router = useRouter();
-
   return (
     <MainLayoutWithDropdown
       title="정산 내역 업로드"
