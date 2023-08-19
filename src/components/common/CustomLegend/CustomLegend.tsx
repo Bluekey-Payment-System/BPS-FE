@@ -22,8 +22,8 @@ const CustomLegend = ({ color, text, type }: CustomLegendProps) => {
   return (
     <div className={cx("customLegendContainer")}>
       <div className={cx("color")} style={{ backgroundColor: color }} />
-      <TooltipRoot message={value}>
-        <p className={cx("description", type)}>{value}</p>
+      <TooltipRoot message={text}>
+        <p className={cx("description", type)}>{text}</p>
       </TooltipRoot>
     </div>
   );
