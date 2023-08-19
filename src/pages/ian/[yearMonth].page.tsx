@@ -7,12 +7,24 @@ import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDrop
 import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
+import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
 import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import useDashboardCards, { getDashboardCards } from "@/services/queries/useDashboardCards";
 import useDashboardTable, { getDashboardTable } from "@/services/queries/useDashboardTable";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
+import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
-const Ian = ({ yearMonth }: { yearMonth: string }) => {
+interface IanProps {
+  yearMonth: string
+  page: number
+  sortBy: string
+  searchBy: string
+  keyword: string
+}
+
+const Ian = ({
+  yearMonth, page, sortBy, searchBy, keyword,
+}: IanProps) => {
   const {
     cardsData,
     isCardsError,
@@ -22,7 +34,7 @@ const Ian = ({ yearMonth }: { yearMonth: string }) => {
     tableData,
     isTableError,
     isTableLoading,
-  } = useDashboardTable(DASHBOARD_TYPE.ADMIN, yearMonth);
+  } = useDashboardTable(DASHBOARD_TYPE.ADMIN, yearMonth, page, sortBy, searchBy, keyword);
 
   const yearMonthStr = convertToYearMonthFormat(yearMonth);
 
@@ -39,16 +51,29 @@ const Ian = ({ yearMonth }: { yearMonth: string }) => {
         data={tableContents}
         // TODO: tableData 형태에 따라 isEmpty 체크 변경
         isEmpty={!tableContents}
-        paginationElement={<Pagination activePage={1} totalItems={totalItems} itemsPerPage={6} />}
+        paginationElement={(
+          <Pagination
+            activePage={page}
+            totalItems={totalItems}
+            itemsPerPage={ITEMS_PER_DASHBOARD_TABLE}
+          />
+        )}
       />
     </MainLayoutWithDropdown>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  // TODO: monthYear에 유효하지 않은 값이 들어왔을 때 or 값이 없을 때 처리
-  const yearMonth = params?.yearMonth as string;
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const queryClient = new QueryClient();
+
+  // TODO: monthYear에 유효하지 않은 값이 들어왔을 때 or 값이 없을 때 처리
+  const yearMonth = query?.yearMonth as string;
+
+  const pageParam = (query?.sortBy ?? null) as (string | null);
+  const page = convertPageParamToNum(pageParam);
+  const sortBy = (query?.sortBy ?? "createdAt") as string;
+  const searchBy = (query?.searchBy ?? "track") as string;
+  const keyword = (query?.keyword ?? "") as string;
 
   try {
     await Promise.all([
@@ -61,7 +86,14 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ADMIN, "dashboard", "table"],
         () => {
-          return getDashboardTable(DASHBOARD_TYPE.ADMIN, yearMonth);
+          return getDashboardTable(
+            DASHBOARD_TYPE.ADMIN,
+            yearMonth,
+            page,
+            sortBy,
+            searchBy,
+            keyword,
+          );
         },
       )]);
 
@@ -69,6 +101,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       props: {
         dehydratedState: dehydrate(queryClient),
         yearMonth,
+        page,
+        sortBy,
+        searchBy,
+        keyword,
       },
     };
   } catch (e) {
