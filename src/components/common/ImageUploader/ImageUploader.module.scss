@@ -1,0 +1,39 @@
+.container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  background-color: $sub-color1;
+  cursor: pointer;
+  /* stylelint-disable-next-line scss/dollar-variable-colon-space-after */
+  $br-map:
+    "square" 6px,
+    "circle" 100%;
+
+  @each $class, $br in $br-map {
+    &.#{$class} {
+      border-radius: $br;
+    }
+  }
+
+  .deck {
+    position: absolute;
+    bottom: 0;
+    width: 200px;
+    height: 50px;
+    background-color: $primary-black;
+
+    .uploadIcon {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      width: 14px;
+      height: 14px;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}
