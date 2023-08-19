@@ -1,0 +1,42 @@
+.container {
+  .profileImageSection {
+    @include flexbox(column, center, flex-start);
+
+    .sizeLimitText {
+      @include typo(12);
+
+      margin-left: 10px;
+      color: $sub-color3;
+      vertical-align: bottom;
+    }
+  }
+
+  .title {
+    @include typo(16, bold);
+
+    margin-bottom: 32px;
+  }
+
+  .artistInfoSection {
+    @include flexbox(column, center, flex-start);
+
+    .form {
+      display: grid;
+      position: relative;
+      grid-template-columns: 1fr 1fr;
+      width: 728px;
+
+      $column-gap: 32px;
+      $row-gap: 10px;
+
+      column-gap: $column-gap;
+      row-gap: $row-gap;
+
+      .checkboxContainer {
+        position: absolute;
+        left: calc(50%);
+        transform: translateX(calc(-100% - ($column-gap * 0.5)));
+      }
+    }
+  }
+}
