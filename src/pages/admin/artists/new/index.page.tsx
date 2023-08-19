@@ -23,7 +23,6 @@ const ArtistCreatePage = () => {
             <h1 className={cx("title")}>아티스트 프로필 이미지 업로드</h1>
             <div className={cx("imageUploadContainer")}>
               <ImageUploader shape="circle" />
-              {/* <Spacing direction="horizontal" size={10} /> */}
               <span className={cx("sizeLimitText")}>*이미지 크기는 6MB 이하로 업로드 해주세요.</span>
             </div>
           </section>
