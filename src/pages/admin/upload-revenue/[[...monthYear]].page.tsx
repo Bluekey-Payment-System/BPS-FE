@@ -1,4 +1,4 @@
-import classNames from "classnames/bind";
+import { QueryClient, dehydrate, useQuery } from "@tanstack/react-query";
 // import { useRouter } from "next/router";
 
 import EmptyData from "@/components/common/EmptyData/EmptyData";
@@ -8,9 +8,9 @@ import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDr
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
 
-import styles from "./[[...monthYear]].module.scss";
+const getServerSideProps: GetServerSideProps = async () => {
 
-const cx = classNames.bind(styles);
+  // query key 미확정
 
 const UploadRevenuePage = () => {
   // const router = useRouter();
@@ -19,9 +19,7 @@ const UploadRevenuePage = () => {
     <MainLayoutWithDropdown
       title="정산 내역 업로드"
       dropdownElement={(
-        <div className={cx("monthYearButton")}>
-          2023년 8월
-        </div>
+        <MonthPickerDropdown />
     )}
     >
       <ArtboardLayout>
