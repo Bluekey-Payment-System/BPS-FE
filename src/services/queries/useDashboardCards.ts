@@ -100,7 +100,7 @@ export const getDashboardCards = async (type: DashboardType, yearMonth: string) 
 };
 
 const useDashboardCards = (type: DashboardType, yearMonth: string) => {
-  const { data: cardsData, isError, isLoading } = useQuery(
+  const { data: cardsData, isError: isCardsError, isLoading: isCardsLoading } = useQuery(
     [type, "dashboard", "card"],
     () => { return getDashboardCards(type, yearMonth); },
     {
@@ -109,7 +109,7 @@ const useDashboardCards = (type: DashboardType, yearMonth: string) => {
   );
 
   return ({
-    cardsData, isLoading, isError,
+    cardsData, isCardsLoading, isCardsError,
   });
 };
 
