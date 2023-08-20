@@ -358,6 +358,16 @@ export const MOCK_ADMIN_BAR: IGetAdminMonthlyEarningsTrendsResponse = {
       netIncome: 5142344,
       revenue: 1032143,
     },
+    {
+      month: 5,
+      netIncome: 3942344,
+      revenue: 1032143,
+    },
+    {
+      month: 6,
+      netIncome: 2442344,
+      revenue: 1032143,
+    },
 
   ],
 };
