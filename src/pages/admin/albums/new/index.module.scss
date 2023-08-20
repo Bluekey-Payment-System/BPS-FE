@@ -6,27 +6,4 @@
     color: $sub-color3;
     vertical-align: bottom;
   }
-
-  .form {
-    display: grid;
-    position: relative;
-    grid-template-columns: 1fr 1fr;
-    width: 728px;
-
-    $column-gap: 32px;
-    $row-gap: 10px;
-
-    column-gap: $column-gap;
-    row-gap: $row-gap;
-
-    .dropdownContainer {
-      @include flexbox(column, center, flex-start);
-
-      span {
-        @include typo(14);
-      }
-
-      gap: 10px;
-    }
-  }
 }
