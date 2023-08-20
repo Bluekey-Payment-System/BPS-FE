@@ -2,7 +2,7 @@ import AlbumTrendsChart from "@/components/dashboard/AlbumTrendsChart/AlbumTrend
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 const data = {
-  tracks: [
+  contents: [
     {
       trackId: 2,
       koTrackName: "금요일에 만나요asdasdasd",
@@ -139,7 +139,7 @@ const data = {
     },
   ],
 };
-
+        
 const TonyPage = () => {
   return (
     <AlbumTrendsChart albumTrendsChartData={data} memberType={MEMBER_TYPE.ADMIN} />

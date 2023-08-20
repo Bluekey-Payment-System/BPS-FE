@@ -9,17 +9,20 @@ const cx = classNames.bind(styles);
 
 const DashboardCardList = ({ data }: { data: DashboardCardProps[] }) => {
   return (
-    <section className={cx("container")}>
-      {data.map((item) => {
-        return (
-          <DashboardCard
-            title={item.title}
-            content={item.content}
-            growthRate={item.growthRate}
-            key={item.title}
-          />
-        );
-      })}
+    <section>
+      <ul className={cx("container")}>
+        {data.map((item) => {
+          return (
+            <li key={item.title}>
+              <DashboardCard
+                title={item.title}
+                content={item.content}
+                growthRate={item.growthRate}
+              />
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 };

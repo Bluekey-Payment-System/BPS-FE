@@ -5,6 +5,7 @@ import {
   IGetAdminTrackTransactionResponse,
 } from "@/services/api/types/admin";
 import {
+  IGetAlbumDashboardResponse,
   IGetAlbumMonthlySettlementResponse,
   IGetAlbumRevenueTopTrackResponse,
   IGetAlbumTrackSettlementTrendsResponse,
@@ -278,17 +279,38 @@ export const MOCK_ALBUM_DOUGHNUT: IGetAlbumRevenueTopTrackResponse = {
     },
   ],
 };
+
+export const MOCK_ALBUM_DASHBOARD_CARD: IGetAlbumDashboardResponse = {
+  settlement:
+  {
+    totalAmount: 1000,
+    growthRate: 10.2,
+  },
+  bestTrack:
+  {
+    trackId: 1,
+    koTrackName: "트랙명2",
+    enTrackName: "track2",
+    growthRate: -30,
+  },
+};
 /* ########################## */
 
 /* ##### 2. TRANSACTION ##### */
 export const MOCK_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
   totalItems: 10,
-  contents:
-  {
-    id: 1,
-    name: "1202306_마피아 유통사 정산 내역.xlsx",
-    uploadAt: "2023-08",
-  },
+  contents: [
+    {
+      id: 1,
+      name: "1202306_마피아 유통사 정산 내역.xlsx",
+      uploadAt: "2023-08",
+    },
+  ],
+};
+
+export const MOCK_EMPTY_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
+  totalItems: 0,
+  contents: [],
 };
 /* ########################## */
 
