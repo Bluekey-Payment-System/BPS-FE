@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
@@ -19,11 +20,11 @@ const cx = classNames.bind(styles);
 
 const ArtistCreatePage = () => {
   const {
-    register, handleSubmit, formState: { errors },
+    register, handleSubmit, formState: { errors }, setValue,
   } = useForm<IArtistFieldValues>({
     mode: "onBlur",
     defaultValues: {
-      password: generateRandomStringWithRegex(/^[a-zA-Z0-9!@#$%^&*()-_+=<>?]*$/, 6, 18),
+      password: generateRandomStringWithRegex(/^[a-zA-Z0-9@$!%*?&_-]*$/, 6, 18),
     },
   });
 
@@ -48,7 +49,7 @@ const ArtistCreatePage = () => {
           <section className={cx("artistInfoSection")}>
             <h1 className={cx("title")}>아티스트 계정 정보 입력</h1>
             {/* eslint-disable @typescript-eslint/no-misused-promises */}
-            <form className={cx("form")} onSubmit={handleSubmit(onSubmit)}>
+            <form className={cx("form")} onSubmit={handleSubmit(onSubmit)} noValidate>
               <TextField
                 label="*활동 예명(한글)"
                 {...register("name", {
@@ -107,8 +108,10 @@ const ArtistCreatePage = () => {
               <TextFieldWithUnit
                 label="기본 요율(아티스트 측)"
                 {...register("commissionRate", {
-                  valueAsNumber: true,
-                  validate: (v) => { return !(v && Number.isNaN(v)) || "*숫자를 입력하세요"; },
+                  onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                    const val = parseInt(e.target.value.replace(/\D/g, ""), 10);
+                    setValue("commissionRate", Number.isNaN(val) ? undefined : val);
+                  },
                   min: {
                     value: 0,
                     message: "*0~100 사이의 값을 입력하세요.",
@@ -120,6 +123,7 @@ const ArtistCreatePage = () => {
                 })}
                 unit="%"
                 bottomText="*트랙별로 기본 요율과 다른 요율을 적용할 수도 있습니다."
+                inputMode="numeric"
                 errors={errors}
               />
               <Button type="submit" size="large" theme="dark" style={{ width: "218px", marginTop: "16px" }}>아티스트 등록</Button>

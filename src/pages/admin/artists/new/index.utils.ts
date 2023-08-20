@@ -11,7 +11,7 @@ export const generateRandomStringWithRegex = (
   minLength: number,
   maxLength: number,
 ): string => {
-  const characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?@*-_";
+  const characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@$!%*?&_-";
   const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
 
   let randomString = "";
