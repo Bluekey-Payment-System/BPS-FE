@@ -1,5 +1,4 @@
 import classNames from "classnames/bind";
-import Image from "next/image";
 
 import AlbumDetailsInformationTooltip from "@/components/album/albumDetailsInformationTooltip/AlbumDetailsInformationTooltip";
 import { DashboardCardProps } from "@/components/common/DashboardCard/DashboardCard.type";
