@@ -11,23 +11,48 @@ const cx = classNames.bind(styles);
 
 const typeMap = {
   404: {
-    imageSrc: "/images/error-warning.svg",
+    image: {
+      src: "/images/error-warning.svg",
+      width: 166,
+      height: 170,
+      alt: "에러 워닝",
+    },
     title: "죄송합니다. 원하시는 페이지를 찾을 수 없습니다.",
   },
   error: {
-    imageSrc: "/images/error-warning.svg",
+    image: {
+      src: "/images/error-warning.svg",
+      width: 166,
+      height: 170,
+      alt: "에러 워닝",
+    },
     title: "잠시후 다시 확인해주세요.",
   },
   systemChecking: {
-    imageSrc: "/images/system-checking.svg",
+    image: {
+      src: "/images/system-checking.svg",
+      width: 155,
+      height: 170,
+      alt: "시스템 점검",
+    },
     title: "시스템 점검 중입니다.",
   },
   approvalWaiting: {
-    imageSrc: "/images/approval-waiting.svg",
+    image: {
+      src: "/images/approval-waiting.svg",
+      width: 138,
+      height: 170,
+      alt: "신청 대기 중",
+    },
     title: "관리자 권한 승인 대기중입니다.",
   },
   approvalRejected: {
-    imageSrc: "/images/approval-rejected.svg",
+    image: {
+      src: "/images/approval-rejected.svg",
+      width: 187,
+      height: 170,
+      alt: "신청 거절",
+    },
     title: "관리자 권한 신청이 거절되었습니다.",
   },
 };
@@ -62,7 +87,12 @@ const FallbackPageLayout = ({
       </div>
       <Spacing size={16} />
       <div className={cx("imageWrapper")}>
-        <Image src={typeMap[pageType].imageSrc} width={166} height={170} alt="에러 워닝" />
+        <Image
+          src={typeMap[pageType].image.src}
+          width={typeMap[pageType].image.width}
+          height={typeMap[pageType].image.height}
+          alt={typeMap[pageType].image.alt}
+        />
       </div>
       <Spacing size={50} />
       <div className={cx("textContainer")}>
