@@ -1,0 +1,14 @@
+.container {
+  .form {
+    display: grid;
+    position: relative;
+    grid-template-columns: 1fr 1fr;
+    width: 728px;
+
+    $column-gap: 32px;
+    $row-gap: 10px;
+
+    column-gap: $column-gap;
+    row-gap: $row-gap;
+  }
+}
