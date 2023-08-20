@@ -10,33 +10,24 @@ import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/Text
 import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import MainLayout from "@/components/common/Layouts/MainLayout";
 import SectionHr from "@/components/common/Layouts/SectionHr";
+import { IArtistFieldValues } from "@/types/artist.types";
 
 import styles from "./index.module.scss";
 import { generateRandomStringWithRegex } from "./index.utils";
 
 const cx = classNames.bind(styles);
 
-interface CreateArtistFieldValues {
-  email: string,
-  loginId: string,
-  name: string,
-  enName: string,
-  password: string,
-  profileImage?: File,
-  commissionRate?: number,
-}
-
 const ArtistCreatePage = () => {
   const {
     register, handleSubmit, formState: { errors },
-  } = useForm<CreateArtistFieldValues>({
+  } = useForm<IArtistFieldValues>({
     mode: "onBlur",
     defaultValues: {
       password: generateRandomStringWithRegex(/^[a-zA-Z0-9!@#$%^&*()-_+=<>?]*$/, 6, 18),
     },
   });
 
-  const onSubmit: SubmitHandler<CreateArtistFieldValues> = (data) => {
+  const onSubmit: SubmitHandler<IArtistFieldValues> = (data) => {
     // TODO: /api/v1/artist 로 POST요청 (Content-Type: multipart/formData)
     // eslint-disable-next-line no-console
     console.log(JSON.stringify(data));
