@@ -7,6 +7,7 @@ import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import UploadHistroyTable from "@/components/uploadRevenue/UploadHistoryTable/UploadHistoryTable";
+import { MOCK_TRANSACTION_UPLOAD } from "@/constants/mock";
 
 const UploadRevenuePage = () => {
   return (
@@ -23,7 +24,7 @@ const UploadRevenuePage = () => {
           </SectionLayout>
           <SectionHr isThick />
           <SectionLayout title="업로드 내역">
-            <UploadHistroyTable />
+            <UploadHistroyTable uploadList={MOCK_TRANSACTION_UPLOAD.contents} />
           </SectionLayout>
         </div>
       </ArtboardLayout>
