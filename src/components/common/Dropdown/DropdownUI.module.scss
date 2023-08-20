@@ -8,15 +8,17 @@
     border-radius: 8px;
 
     .selectedValue {
-      display: flex;
-      align-items: center;
       width: 89px;
       height: 40px;
-      padding: 11px 20px 11px 12px;
+      padding: 12px 20px 12px 12px;
       text-align: start;
 
       @include typo(12);
       @include ellipsis;
+
+      &.dark {
+        width: 120px;
+      }
 
       &.hasSearchBar {
         width: 100%;
@@ -32,6 +34,10 @@
       height: 8px;
       fill: $sub-color3;
       cursor: pointer;
+
+      &.dark {
+        right: 15px;
+      }
     }
 
     &.dark {
@@ -135,7 +141,7 @@
 
     &.dark {
       width: 171px;
-      height: 196px;
+      max-height: 196px;
       overflow-y: scroll;
 
       &::-webkit-scrollbar {
