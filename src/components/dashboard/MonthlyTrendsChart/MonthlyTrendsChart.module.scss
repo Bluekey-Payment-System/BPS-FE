@@ -2,6 +2,7 @@
   width: 590px;
   height: 419px;
   padding: 32px 30px;
+  background-color: $primary-white;
 
   .description {
     @include flexbox(row, space-between, center);
