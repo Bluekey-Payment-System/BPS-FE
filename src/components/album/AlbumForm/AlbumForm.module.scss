@@ -1,12 +1,4 @@
 .container {
-  .sizeLimitText {
-    @include typo(12);
-
-    margin-left: 10px;
-    color: $sub-color3;
-    vertical-align: bottom;
-  }
-
   .form {
     display: grid;
     position: relative;
