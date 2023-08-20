@@ -61,7 +61,7 @@ const data = {
         {
           month: 11,
           settlement: 2142344,
-          revenue: 732143,
+          revenue: 732144,
         },
         {
           month: 12,
