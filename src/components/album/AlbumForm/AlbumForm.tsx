@@ -68,7 +68,7 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
           <Spacing size={14} />
         </div>
         <Spacing size={0} />
-        <Button theme="dark" size="large" isTextEmphasis type="submit" style={{ marginTop: "26px", width: "218px" }}>{submitBtnText}</Button>
+        <Button theme="dark" size="large" type="submit" style={{ marginTop: "26px", width: "218px" }}>{submitBtnText}</Button>
       </form>
     </div>
   );
