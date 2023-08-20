@@ -15,7 +15,7 @@
       padding: 11px 20px 11px 12px;
       text-align: start;
 
-      @include typo(12);
+      @include typo(14);
       @include ellipsis;
 
       &.hasSearchBar {
@@ -104,7 +104,7 @@
 
       cursor: pointer;
 
-      @include typo(12);
+      @include typo(14);
     }
 
     .searchBarContainer {
@@ -116,7 +116,7 @@
         height: 30px;
         padding: 11px 25px 11px 12px;
 
-        @include typo(12);
+        @include typo(14);
 
         border: 1px solid $sub-color1;
         border-radius: 6px;
@@ -154,8 +154,16 @@
     }
 
     &.hasSearchBar {
-      top: 52px;
+      position: static;
       width: 347px;
+      max-height: 294px;
+      margin-top: 5px;
+      overflow-y: scroll;
+      transform: translateX(0);
     }
+  }
+
+  &.hasSearchBar {
+    height: auto;
   }
 }
