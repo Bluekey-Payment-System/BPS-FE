@@ -1,14 +1,14 @@
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
-import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
+import ArtistTrackStatusTable from "@/components/dashboard/TrackStatusTable/ArtistTrackStatusTable";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
-import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import useDashboardCards, { getDashboardCards } from "@/services/queries/useDashboardCards";
 import useDashboardTable, { getDashboardTable } from "@/services/queries/useDashboardTable";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
@@ -29,24 +29,23 @@ const Ian = ({
     cardsData,
     isCardsError,
     isCardsLoading,
-  } = useDashboardCards(DASHBOARD_TYPE.ADMIN, yearMonth);
+  } = useDashboardCards(DASHBOARD_TYPE.ARTIST, yearMonth);
   const {
     tableData,
     isTableError,
     isTableLoading,
-  } = useDashboardTable(DASHBOARD_TYPE.ADMIN, yearMonth, page, sortBy, searchBy, keyword);
+  } = useDashboardTable(DASHBOARD_TYPE.ARTIST, yearMonth, page, sortBy, searchBy, keyword);
 
   const yearMonthStr = convertToYearMonthFormat(yearMonth);
 
   if (isCardsLoading || isTableLoading) return <div>로딩 중...</div>;
   if (isCardsError || isTableError) return <div>에러 발생!</div>;
   if (!cardsData || !tableData) return <div>데이터가 없다</div>;
-  // TODO: tableData가 Artist Table response 타입으로 추론되는 문제 해결
-  const { totalItems, contents: tableContents } = tableData as IGetAdminTrackTransactionResponse;
+  const { totalItems, contents: tableContents } = tableData;
   return (
     <MainLayoutWithDropdown title="대쉬보드" dropdownElement={<MonthPickerDropdown />}>
       <DashboardCardList data={cardsData} />
-      <AdminTrackStatusTable
+      <ArtistTrackStatusTable
         title={`${yearMonthStr}의 트랙별 현황`}
         data={tableContents}
         // TODO: tableData 형태에 따라 isEmpty 체크 변경
@@ -59,6 +58,7 @@ const Ian = ({
           />
         )}
       />
+      <Link href="/ian/admin/202308">어드민 대시보드 페이지 이동</Link>
     </MainLayoutWithDropdown>
   );
 };
@@ -69,7 +69,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   // TODO: monthYear에 유효하지 않은 값이 들어왔을 때 or 값이 없을 때 처리
   const yearMonth = query?.yearMonth as string;
 
-  const pageParam = (query?.sortBy ?? null) as (string | null);
+  const pageParam = (query?.page ?? null) as (string | null);
   const page = convertPageParamToNum(pageParam);
   const sortBy = (query?.sortBy ?? "createdAt") as string;
   const searchBy = (query?.searchBy ?? "track") as string;
@@ -78,16 +78,16 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   try {
     await Promise.all([
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "card"],
         () => {
-          return getDashboardCards(DASHBOARD_TYPE.ADMIN, yearMonth);
+          return getDashboardCards(DASHBOARD_TYPE.ARTIST, yearMonth);
         },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "table"],
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "table"],
         () => {
           return getDashboardTable(
-            DASHBOARD_TYPE.ADMIN,
+            DASHBOARD_TYPE.ARTIST,
             yearMonth,
             page,
             sortBy,
