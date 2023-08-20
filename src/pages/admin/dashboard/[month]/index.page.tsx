@@ -12,7 +12,7 @@ import { MOCK_ADMIN_BAR, MOCK_ADMIN_DOUGHNUT, MOCK_ADMIN_TABLE } from "@/constan
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
 
-import styles from "./monthYear.module.scss";
+import styles from "./index.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -33,7 +33,13 @@ const AdminDashboardPage = () => {
       <TrackStatusTable
         title="2023년 8월의 트랙별 현황"
         data={MOCK_ADMIN_TABLE.contents}
-        paginationElement={<Pagination activePage={1} totalItems={MOCK_ADMIN_TABLE.totalItems} itemsPerPage={6} />}
+        paginationElement={(
+          <Pagination
+            activePage={1}
+            totalItems={MOCK_ADMIN_TABLE.totalItems}
+            itemsPerPage={6}
+          />
+        )}
       />
     </MainLayoutWithDropdown>
   );
