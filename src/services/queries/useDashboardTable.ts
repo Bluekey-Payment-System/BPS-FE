@@ -14,7 +14,6 @@ const getAdminDashboardTable = (
   sortBy: string,
   searchBy: string,
   keyword: string,
-  artistId?: string,
 ): Promise<IGetAdminTrackTransactionResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -56,7 +55,6 @@ export const getDashboardTable = (
       sortBy,
       searchBy,
       keyword,
-      artistId,
     )
     : getArtistDashboardTable(
       yearMonth,

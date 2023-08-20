@@ -12,7 +12,6 @@ import formatMoney from "@/utils/formatMoney";
 
 const getAdminDashboardCards = (
   yearMonth: string,
-  artist?: string,
 ): Promise<IGetAdminDashboardResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -23,7 +22,7 @@ const getAdminDashboardCards = (
 
 const getArtistDashboardCards = (
   yearMonth: string,
-  artist?: string,
+  artistId?: string,
 ): Promise<IGetArtistDashboardResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -34,7 +33,7 @@ const getArtistDashboardCards = (
 
 const getAlbumDashboardCards = (
   yearMonth: string,
-  artist?: string,
+  albumId?: string,
 ): Promise<IGetAlbumDashboardResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -47,12 +46,13 @@ export const getDashboardCards = async (
   type: DashboardType,
   yearMonth: string,
   artistId?: string,
+  albumId?: string,
 ) => {
   const yearMonthStr = convertToYearMonthFormat(yearMonth);
   let response;
   let data: DashboardCardProps[];
   if (type === DASHBOARD_TYPE.ADMIN) {
-    response = await getAdminDashboardCards(yearMonth, artistId);
+    response = await getAdminDashboardCards(yearMonth);
     const {
       revenue, settlementAmount, bestArtist, netIncome,
     } = response;
@@ -95,7 +95,7 @@ export const getDashboardCards = async (
       growthRate: bestTrack.growthRate,
     }];
   } else {
-    response = await getAlbumDashboardCards(yearMonth, artistId);
+    response = await getAlbumDashboardCards(yearMonth, albumId);
     const { settlement, bestTrack } = response;
     data = [{
       title: "이 앨범의 당월 정산액",
@@ -112,10 +112,15 @@ export const getDashboardCards = async (
   return data;
 };
 
-const useDashboardCards = (type: DashboardType, yearMonth: string, artistId?: string) => {
+const useDashboardCards = (
+  type: DashboardType,
+  yearMonth: string,
+  artistId?: string,
+  albumId?: string,
+) => {
   const { data: cardsData, isError: isCardsError, isLoading: isCardsLoading } = useQuery(
     [type, "dashboard", "card"],
-    () => { return getDashboardCards(type, yearMonth, artistId); },
+    () => { return getDashboardCards(type, yearMonth, artistId, albumId); },
     {
       staleTime: 5000,
     },

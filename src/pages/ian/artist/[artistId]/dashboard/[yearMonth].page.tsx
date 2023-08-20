@@ -30,7 +30,7 @@ const Ian = ({
     cardsData,
     isCardsError,
     isCardsLoading,
-  } = useDashboardCards(DASHBOARD_TYPE.ARTIST, artistId, yearMonth);
+  } = useDashboardCards(DASHBOARD_TYPE.ARTIST, yearMonth, artistId);
   const {
     tableData,
     isTableError,
@@ -67,7 +67,7 @@ const Ian = ({
           />
         )}
       />
-      <Link href="/ian/admin/202308">어드민 대시보드 페이지 이동</Link>
+      <Link href="/ian/albums/1/dashboard/202308">앨범(id = 1) 대시보드 페이지 이동</Link>
     </MainLayoutWithDropdown>
   );
 };
@@ -90,7 +90,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "card"],
         () => {
-          return getDashboardCards(DASHBOARD_TYPE.ARTIST, artistId, yearMonth);
+          return getDashboardCards(DASHBOARD_TYPE.ARTIST, yearMonth, artistId);
         },
       ),
       queryClient.prefetchQuery(
