@@ -21,16 +21,16 @@ import { formatArtistCell } from "./TrackStatusTable.utils";
 
 const cx = classNames.bind(styles);
 
-interface AdminTrackStatusTableProps {
+interface ArtistTrackStatusTableProps {
   title: string
-  data: ITrackTransaction[]
+  data: Omit<ITrackTransaction, "netIncome">[]
   isEmpty?: boolean
   paginationElement?: React.ReactNode
 }
 
-const AdminTrackStatusTable = ({
+const ArtistTrackStatusTable = ({
   title, data, isEmpty = false, paginationElement,
-}: AdminTrackStatusTableProps) => {
+}: ArtistTrackStatusTableProps) => {
   const handleClickSortByDropdown = (value: string) => {
     // TODO: 정렬 순서 쿼리 파람 변경
   };
@@ -49,7 +49,7 @@ const AdminTrackStatusTable = ({
         <h2 className={cx("title")}>{title}</h2>
         <div className={cx("utilContainer")}>
           <Dropdown
-            dropdownListData={["매출순", "회사 이익순", "정산액순", "요율순"]}
+            dropdownListData={["매출순", "정산액순", "요율순"]}
             onClick={handleClickSortByDropdown}
           />
           <Spacing direction="horizontal" size={18} />
@@ -62,7 +62,7 @@ const AdminTrackStatusTable = ({
         </div>
       </div>
       {isEmpty
-        ? <EmptyTableData type={DASHBOARD_TYPE.ADMIN} />
+        ? <EmptyTableData type={DASHBOARD_TYPE.ARTIST} />
         : (
           <TableContainerUI
             paginationElement={paginationElement}
@@ -74,8 +74,8 @@ const AdminTrackStatusTable = ({
               <TableCellUI isHeader>앨범명</TableCellUI>
               <TableCellUI isHeader>아티스트명</TableCellUI>
               <TableCellUI isHeader>매출액</TableCellUI>
-              <TableCellUI isHeader>회사 이익</TableCellUI>
               <TableCellUI isHeader>정산액</TableCellUI>
+              <TableCellUI isHeader>원천세</TableCellUI>
               <TableCellUI isHeader align="left">요율</TableCellUI>
             </TableHeaderUI>
             <TableBodyUI>
@@ -101,8 +101,8 @@ const AdminTrackStatusTable = ({
                       </div>
                     </TableCellUI>
                     <TableCellUI>{formatMoney(item.revenue, "table")}</TableCellUI>
-                    <TableCellUI>{formatMoney(item.netIncome, "table")}</TableCellUI>
                     <TableCellUI>{formatMoney(item.settlementAmount, "table")}</TableCellUI>
+                    <TableCellUI>3.3%</TableCellUI>
                     <TableCellUI align="left">{item.commissionRate && <ProgressBar value={item.commissionRate} />}</TableCellUI>
                   </TableRowUI>
                 );
@@ -114,4 +114,4 @@ const AdminTrackStatusTable = ({
   );
 };
 
-export default AdminTrackStatusTable;
+export default ArtistTrackStatusTable;
