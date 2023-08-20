@@ -1,7 +1,7 @@
 import Button from "@/components/common/CommonBtns/Button/Button";
 import FallbackPageLayout from "@/components/layout/FallbackPageLayout";
 
-const Error = () => {
+const Pending = () => {
   return (
     <FallbackPageLayout
       pageType="approvalWaiting"
@@ -17,4 +17,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default Pending;

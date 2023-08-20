@@ -1,7 +1,7 @@
 import Button from "@/components/common/CommonBtns/Button/Button";
 import FallbackPageLayout from "@/components/layout/FallbackPageLayout";
 
-const Error = () => {
+const Rejected = () => {
   return (
     <FallbackPageLayout
       pageType="approvalRejected"
@@ -17,4 +17,4 @@ const Error = () => {
   );
 };
 
-export default Error;
+export default Rejected;
