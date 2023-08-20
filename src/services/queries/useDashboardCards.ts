@@ -10,7 +10,10 @@ import { IGetArtistDashboardResponse } from "@/services/api/types/artist";
 import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
 import formatMoney from "@/utils/formatMoney";
 
-const getAdminDashboardCards = (yearMonth: string): Promise<IGetAdminDashboardResponse> => {
+const getAdminDashboardCards = (
+  yearMonth: string,
+  artist?: string,
+): Promise<IGetAdminDashboardResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ADMIN_DASHBOARD_CARD);
@@ -18,7 +21,10 @@ const getAdminDashboardCards = (yearMonth: string): Promise<IGetAdminDashboardRe
   });
 };
 
-const getArtistDashboardCards = (yearMonth: string): Promise<IGetArtistDashboardResponse> => {
+const getArtistDashboardCards = (
+  yearMonth: string,
+  artist?: string,
+): Promise<IGetArtistDashboardResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ARTIST_DASHBOARD_CARD);
@@ -26,7 +32,10 @@ const getArtistDashboardCards = (yearMonth: string): Promise<IGetArtistDashboard
   });
 };
 
-const getAlbumDashboardCards = (yearMonth: string): Promise<IGetAlbumDashboardResponse> => {
+const getAlbumDashboardCards = (
+  yearMonth: string,
+  artist?: string,
+): Promise<IGetAlbumDashboardResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ALBUM_DASHBOARD_CARD);
@@ -34,12 +43,16 @@ const getAlbumDashboardCards = (yearMonth: string): Promise<IGetAlbumDashboardRe
   });
 };
 
-export const getDashboardCards = async (type: DashboardType, yearMonth: string) => {
+export const getDashboardCards = async (
+  type: DashboardType,
+  yearMonth: string,
+  artistId?: string,
+) => {
   const yearMonthStr = convertToYearMonthFormat(yearMonth);
   let response;
   let data: DashboardCardProps[];
   if (type === DASHBOARD_TYPE.ADMIN) {
-    response = await getAdminDashboardCards(yearMonth);
+    response = await getAdminDashboardCards(yearMonth, artistId);
     const {
       revenue, settlementAmount, bestArtist, netIncome,
     } = response;
@@ -64,7 +77,7 @@ export const getDashboardCards = async (type: DashboardType, yearMonth: string) 
       growthRate: bestArtist.growthRate,
     }];
   } else if (type === DASHBOARD_TYPE.ARTIST) {
-    response = await getArtistDashboardCards(yearMonth);
+    response = await getArtistDashboardCards(yearMonth, artistId);
     const { bestAlbum, bestTrack, settlement } = response;
     data = [{
       title: "당월 정산액",
@@ -82,7 +95,7 @@ export const getDashboardCards = async (type: DashboardType, yearMonth: string) 
       growthRate: bestTrack.growthRate,
     }];
   } else {
-    response = await getAlbumDashboardCards(yearMonth);
+    response = await getAlbumDashboardCards(yearMonth, artistId);
     const { settlement, bestTrack } = response;
     data = [{
       title: "이 앨범의 당월 정산액",
@@ -99,10 +112,10 @@ export const getDashboardCards = async (type: DashboardType, yearMonth: string) 
   return data;
 };
 
-const useDashboardCards = (type: DashboardType, yearMonth: string) => {
+const useDashboardCards = (type: DashboardType, yearMonth: string, artistId?: string) => {
   const { data: cardsData, isError: isCardsError, isLoading: isCardsLoading } = useQuery(
     [type, "dashboard", "card"],
-    () => { return getDashboardCards(type, yearMonth); },
+    () => { return getDashboardCards(type, yearMonth, artistId); },
     {
       staleTime: 5000,
     },

@@ -14,6 +14,7 @@ const getAdminDashboardTable = (
   sortBy: string,
   searchBy: string,
   keyword: string,
+  artistId?: string,
 ): Promise<IGetAdminTrackTransactionResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -29,6 +30,7 @@ const getArtistDashboardTable = (
   sortBy: string,
   searchBy: string,
   keyword: string,
+  artistId?: string,
 ): Promise<IGetArtistTrackTransactionResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -44,6 +46,7 @@ export const getDashboardTable = (
   sortBy: string,
   searchBy: string,
   keyword: string,
+  artistId?: string,
 ) => {
   const data = (type === DASHBOARD_TYPE.ADMIN)
     ? getAdminDashboardTable(
@@ -53,6 +56,7 @@ export const getDashboardTable = (
       sortBy,
       searchBy,
       keyword,
+      artistId,
     )
     : getArtistDashboardTable(
       yearMonth,
@@ -61,6 +65,7 @@ export const getDashboardTable = (
       sortBy,
       searchBy,
       keyword,
+      artistId,
     );
   return data;
 };
@@ -72,11 +77,12 @@ const useDashboardTable = (
   sortBy: string,
   searchBy: string,
   keyword: string,
+  artistId?: string,
 ) => {
   const { data: tableData, isError: isTableError, isLoading: isTableLoading } = useQuery(
     [type, "dashboard", "table"],
     () => {
-      return getDashboardTable(type, yearMonth, page, sortBy, searchBy, keyword);
+      return getDashboardTable(type, yearMonth, page, sortBy, searchBy, keyword, artistId);
     },
     {
       staleTime: 5000,

@@ -16,6 +16,7 @@ import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
 interface IanProps {
   yearMonth: string
+  artistId: string
   page: number
   sortBy: string
   searchBy: string
@@ -23,18 +24,26 @@ interface IanProps {
 }
 
 const Ian = ({
-  yearMonth, page, sortBy, searchBy, keyword,
+  yearMonth, artistId, page, sortBy, searchBy, keyword,
 }: IanProps) => {
   const {
     cardsData,
     isCardsError,
     isCardsLoading,
-  } = useDashboardCards(DASHBOARD_TYPE.ARTIST, yearMonth);
+  } = useDashboardCards(DASHBOARD_TYPE.ARTIST, artistId, yearMonth);
   const {
     tableData,
     isTableError,
     isTableLoading,
-  } = useDashboardTable(DASHBOARD_TYPE.ARTIST, yearMonth, page, sortBy, searchBy, keyword);
+  } = useDashboardTable(
+    DASHBOARD_TYPE.ARTIST,
+    yearMonth,
+    page,
+    sortBy,
+    searchBy,
+    keyword,
+    artistId,
+  );
 
   const yearMonthStr = convertToYearMonthFormat(yearMonth);
 
@@ -66,7 +75,8 @@ const Ian = ({
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const queryClient = new QueryClient();
 
-  // TODO: monthYear에 유효하지 않은 값이 들어왔을 때 or 값이 없을 때 처리
+  // TODO: yearMonth에 유효하지 않은 값이 들어왔을 때 or 값이 없을 때 처리
+  const artistId = query?.artistId as string;
   const yearMonth = query?.yearMonth as string;
 
   const pageParam = (query?.page ?? null) as (string | null);
@@ -80,7 +90,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "card"],
         () => {
-          return getDashboardCards(DASHBOARD_TYPE.ARTIST, yearMonth);
+          return getDashboardCards(DASHBOARD_TYPE.ARTIST, artistId, yearMonth);
         },
       ),
       queryClient.prefetchQuery(
@@ -93,6 +103,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
             sortBy,
             searchBy,
             keyword,
+            artistId,
           );
         },
       )]);
@@ -101,6 +112,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       props: {
         dehydratedState: dehydrate(queryClient),
         yearMonth,
+        artistId,
         page,
         sortBy,
         searchBy,
