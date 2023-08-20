@@ -41,12 +41,16 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
       <form className={cx("form")} onSubmit={handleSubmit(onSubmit)}>
         <TextField
           label="*앨범명 (한글)"
-          {...register("name")}
+          {...register("name", {
+            required: "*앨범명을 입력하세요.",
+          })}
           errors={errors}
         />
         <TextField
           label="*앨범명 (영문)"
-          {...register("enName")}
+          {...register("enName", {
+            required: "*앨범명 (영문)을 입력하세요.",
+          })}
           errors={errors}
         />
         <div className={cx("dropdownContainer")}>
@@ -64,7 +68,7 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
           <Spacing size={14} />
         </div>
         <Spacing size={0} />
-        <Button theme="dark" size="large" type="submit" style={{ marginTop: "26px", width: "218px" }}>{submitBtnText}</Button>
+        <Button theme="dark" size="large" isTextEmphasis type="submit" style={{ marginTop: "26px", width: "218px" }}>{submitBtnText}</Button>
       </form>
     </div>
   );
