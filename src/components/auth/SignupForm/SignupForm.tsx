@@ -95,7 +95,7 @@ const SignupForm = ({ title }:{ title: string }) => {
             message: "*비밀번호는 16자 이하로 입력해주세요.",
           },
           pattern: {
-            value: /^[a-zA-Z!@#$%^&*()-_+=<>?]*$/,
+            value: /^[a-zA-Z0-9!@#$%^&*()-_+=<>?]*$/,
             message: "*영문, 숫자, 특수문자(!@#$%^&*()-_+=<>?)만 사용해주세요.",
           },
         })}
