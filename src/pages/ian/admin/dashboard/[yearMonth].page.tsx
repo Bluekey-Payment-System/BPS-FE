@@ -60,7 +60,7 @@ const Ian = ({
           />
         )}
       />
-      <Link href="/ian/artist/202308">아티스트 대시보드 페이지 이동</Link>
+      <Link href="/ian/artist/1/dashboard/202308">아티스트(id = 1) 대시보드 페이지 이동</Link>
     </MainLayoutWithDropdown>
   );
 };
