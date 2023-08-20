@@ -1,11 +1,9 @@
-import { ChangeEvent } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
 
 import Button from "@/components/common/CommonBtns/Button/Button";
 import ImageUploader from "@/components/common/ImageUploader/ImageUploader";
-import Checkbox from "@/components/common/Inputs/Checkbox/Checkbox";
 import TextField from "@/components/common/Inputs/TextField/TextField";
 import TextFieldWithCopy from "@/components/common/Inputs/TextFieldWithCopy/TextFieldWithCopy";
 import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/TextFieldWithUnit";
@@ -26,30 +24,18 @@ interface CreateArtistFieldValues {
   password: string,
   profileImage?: File,
   commissionRate?: number,
-  sameKoNameWithEnName: boolean,
 }
 
 const ArtistCreatePage = () => {
   const {
-    register, handleSubmit, formState: { errors }, setValue, watch,
+    register, handleSubmit, formState: { errors },
   } = useForm<CreateArtistFieldValues>({
     mode: "onBlur",
     defaultValues: {
       password: generateRandomStringWithRegex(/^[a-zA-Z0-9!@#$%^&*()-_+=<>?]*$/, 6, 18),
-      sameKoNameWithEnName: false,
     },
   });
-  // 활동 예명(한글) 필드를 수동으로 영문과 동일하게 입력하는 경우, '영문과 동일' 체크박스 자동 체크
-  const handleBlureNameInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const targetValue = e.target.value;
-    const targetName = e.target.name;
-    const compareName = targetName === "name" ? "enName" : "name";
-    if (targetValue === watch(compareName)) {
-      setValue("sameKoNameWithEnName", true);
-      return;
-    }
-    setValue("sameKoNameWithEnName", false);
-  };
+
   const onSubmit: SubmitHandler<CreateArtistFieldValues> = (data) => {
     // TODO: /api/v1/artist 로 POST요청 (Content-Type: multipart/formData)
     // eslint-disable-next-line no-console
@@ -72,32 +58,17 @@ const ArtistCreatePage = () => {
             <h1 className={cx("title")}>아티스트 계정 정보 입력</h1>
             {/* eslint-disable @typescript-eslint/no-misused-promises */}
             <form className={cx("form")} onSubmit={handleSubmit(onSubmit)}>
-              <div className={cx("checkboxContainer")}>
-                <Checkbox
-                  label="영문과 동일"
-                  {...register("sameKoNameWithEnName", {
-                    onChange: (e: ChangeEvent<HTMLInputElement>) => {
-                      if (e.target.checked) {
-                        setValue("name", watch("enName"), { shouldTouch: true, shouldDirty: true });
-                      }
-                    },
-                  })}
-                />
-              </div>
               <TextField
                 label="*활동 예명(한글)"
                 {...register("name", {
                   required: "예명을 입력하세요.",
-                  onBlur: handleBlureNameInput,
                 })}
-                disabled={watch("sameKoNameWithEnName")}
                 errors={errors}
               />
               <TextField
                 label="*활동 예명(영문)"
                 {...register("enName", {
                   required: "영문 예명을 입력하세요.",
-                  onBlur: handleBlureNameInput,
                 })}
                 errors={errors}
               />
