@@ -7,13 +7,15 @@ import { checkTextOverflow, getPosition, PosType } from "./Tooltip.utils";
 import TooltipPortal from "./TooltipPortal";
 
 interface TooltipRootProps {
-  children: React.ReactNode;
   message: string;
+  alwaysVisible?: boolean
+  children: React.ReactNode;
 }
 
 /**
  * @author [hayoung-99](https://github.com/hayoung-99)
  * @param message 툴팁 메시지
+ * @param alwaysVisible 텍스트 overflow 상관없이 hover 시 툴팁 항상 노출
  * @param children hover 대상 요소
  * @example
  * ```
@@ -26,7 +28,7 @@ interface TooltipRootProps {
  * ```
  * @returns hover 대상 요소 하단에 툴팁 노출
  */
-const TooltipRoot = ({ children, message }: TooltipRootProps) => {
+const TooltipRoot = ({ children, message, alwaysVisible = false }: TooltipRootProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const pos = useRef<PosType | null>(null);
@@ -34,7 +36,7 @@ const TooltipRoot = ({ children, message }: TooltipRootProps) => {
   const handleMouseOver = (e: MouseEvent<HTMLDivElement>) => {
     pos.current = getPosition(ref);
     const visible = checkTextOverflow(e.currentTarget?.children[0]);
-    setIsVisible(visible);
+    setIsVisible(alwaysVisible || visible);
   };
 
   return (
