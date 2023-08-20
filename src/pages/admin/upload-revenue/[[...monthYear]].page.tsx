@@ -1,5 +1,5 @@
 import {
-  QueryClient, UseQueryResult, dehydrate, useMutation, useQuery, useQueryClient,
+  QueryClient, UseQueryResult, dehydrate, useQuery,
 } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
 // import { useRouter } from "next/router";
@@ -38,7 +38,6 @@ const getServerSideProps: GetServerSideProps = async () => {
 
 const UploadRevenuePage = () => {
   // const router = useRouter();
-  const queryClient = useQueryClient();
 
   const { data }: UseQueryResult<IGETTransactionUploadResponse> = useQuery(
     [MEMBER_TYPE.ADMIN, "settlement-upload-history"],
@@ -54,22 +53,6 @@ const UploadRevenuePage = () => {
     },
   );
 
-  const mutationTest = useMutation(() => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("Mutation Success!");
-      }, 2000);
-    });
-  }, {
-    onSuccess: () => {
-      queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "settlement-upload-history"]);
-    },
-  });
-
-  const handleMutationTest = () => {
-    mutationTest.mutate();
-  };
-
   return (
     <MainLayoutWithDropdown
       title="정산 내역 업로드"
@@ -77,7 +60,6 @@ const UploadRevenuePage = () => {
         <MonthPickerDropdown />
     )}
     >
-      <button type="button" onClick={handleMutationTest}>클릭!</button>
       <ArtboardLayout>
         <div style={{ width: 730 }}>
           <SectionLayout title="정산 내역 파일 업로드">
