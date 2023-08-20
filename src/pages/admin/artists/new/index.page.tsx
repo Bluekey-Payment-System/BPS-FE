@@ -11,6 +11,7 @@ import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/Text
 import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import MainLayout from "@/components/common/Layouts/MainLayout";
 import SectionHr from "@/components/common/Layouts/SectionHr";
+import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import { IArtistFieldValues } from "@/types/artist.types";
 
 import styles from "./index.module.scss";
@@ -25,11 +26,15 @@ const ArtistCreatePage = () => {
     mode: "onBlur",
     defaultValues: {
       password: generateRandomStringWithRegex(/^[a-zA-Z0-9@$!%*?&_-]*$/, 6, 18),
+      profileImage: null,
+      commissionRate: null,
     },
   });
 
   const onSubmit: SubmitHandler<IArtistFieldValues> = (data) => {
     // TODO: /api/v1/artist 로 POST요청 (Content-Type: multipart/formData)
+    // eslint-disable-next-line no-console
+    console.log(data);
     // eslint-disable-next-line no-console
     console.log(JSON.stringify(data));
   };
@@ -38,16 +43,21 @@ const ArtistCreatePage = () => {
     <MainLayout title="아티스트 등록">
       <ArtboardLayout>
         <div className={cx("container")}>
-          <section className={cx("profileImageSection")}>
-            <h1 className={cx("title")}>아티스트 프로필 이미지 업로드</h1>
+          <SectionLayout title="아티스트 프로필 이미지 업로드">
             <div className={cx("imageUploadContainer")}>
-              <ImageUploader shape="circle" {...register("profileImage")} />
+              <ImageUploader
+                shape="circle"
+                {...register("profileImage", {
+                  onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                    setValue("profileImage", e.target.files?.[0] ?? null);
+                  },
+                })}
+              />
               <span className={cx("sizeLimitText")}>*이미지 크기는 6MB 이하로 업로드 해주세요.</span>
             </div>
-          </section>
+          </SectionLayout>
           <SectionHr />
-          <section className={cx("artistInfoSection")}>
-            <h1 className={cx("title")}>아티스트 계정 정보 입력</h1>
+          <SectionLayout title="아티스트 계정 정보 입력">
             {/* eslint-disable @typescript-eslint/no-misused-promises */}
             <form className={cx("form")} onSubmit={handleSubmit(onSubmit)} noValidate>
               <TextField
@@ -108,9 +118,10 @@ const ArtistCreatePage = () => {
               <TextFieldWithUnit
                 label="기본 요율(아티스트 측)"
                 {...register("commissionRate", {
+                  setValueAs: (v: string) => { return parseInt(v, 10); },
                   onChange: (e: ChangeEvent<HTMLInputElement>) => {
                     const val = parseInt(e.target.value.replace(/\D/g, ""), 10);
-                    setValue("commissionRate", Number.isNaN(val) ? undefined : val);
+                    setValue("commissionRate", Number.isNaN(val) ? null : val);
                   },
                   min: {
                     value: 0,
@@ -124,11 +135,13 @@ const ArtistCreatePage = () => {
                 unit="%"
                 bottomText="*트랙별로 기본 요율과 다른 요율을 적용할 수도 있습니다."
                 inputMode="numeric"
+                max={100}
+                step={10}
                 errors={errors}
               />
               <Button type="submit" size="large" theme="dark" style={{ width: "218px", marginTop: "16px" }}>아티스트 등록</Button>
             </form>
-          </section>
+          </SectionLayout>
         </div>
       </ArtboardLayout>
     </MainLayout>
