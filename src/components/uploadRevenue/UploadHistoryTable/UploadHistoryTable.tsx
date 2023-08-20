@@ -18,7 +18,7 @@ interface FileData {
 }
 
 const UploadHistroyTable = (
-  { uploadList }: { uploadList: ITransactionUpload[] },
+  { uploadList }: { uploadList?: ITransactionUpload[] },
 ) => {
   const [isCancelUploadModalOpen, setIsCancelUploadModalOpen] = useState(false);
   const [fileData, setFileData] = useState<FileData>({} as FileData);
@@ -41,7 +41,7 @@ const UploadHistroyTable = (
     showToast("업로드 내역이 삭제되었습니다.");
   };
 
-  if (uploadList.length === 0) {
+  if (uploadList?.length === 0) {
     return <EmptyData type="no-data" text="업로드 내역이 없습니다." />;
   }
 
@@ -57,7 +57,7 @@ const UploadHistroyTable = (
           <TableCellUI isHeader>비고</TableCellUI>
         </TableHeaderUI>
         <TableBodyUI>
-          {uploadList.map((item) => {
+          {uploadList?.map((item) => {
             return (
               <TableRowUI key={item.id}>
                 <TableCellUI>
