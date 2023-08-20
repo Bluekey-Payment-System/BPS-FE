@@ -8,6 +8,7 @@ import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
 import TableContainerUI from "@/components/common/Table/Composition/TableContainerUI";
 import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
+import useToast from "@/hooks/useToast";
 import { ITransactionUpload } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
@@ -21,6 +22,7 @@ const UploadHistroyTable = (
 ) => {
   const [isCancelUploadModalOpen, setIsCancelUploadModalOpen] = useState(false);
   const [fileData, setFileData] = useState<FileDataProps>({} as FileDataProps);
+  const { showToast } = useToast();
 
   const handleClickCancelUploadBtn = (fileId: number, fileName: string) => {
     setIsCancelUploadModalOpen(true);
@@ -30,11 +32,13 @@ const UploadHistroyTable = (
     });
   };
 
-  // TODO: 업로드 취소 API 작업
   const handleCancelUpload = (fileId: number, fileName: string) => {
+    // TODO: 업로드 취소 API 작업
     // eslint-disable-next-line no-console
     console.log(`(${fileId}) ${fileName} 파일 삭제`);
+
     setIsCancelUploadModalOpen(false);
+    showToast("업로드 내역이 삭제되었습니다.");
   };
 
   if (uploadList.length === 0) {
