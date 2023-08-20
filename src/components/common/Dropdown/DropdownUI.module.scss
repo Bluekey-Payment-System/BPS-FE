@@ -140,31 +140,21 @@
     }
 
     &.dark {
+      @include scrollbar(6);
+
       width: 171px;
       max-height: 196px;
       overflow-y: scroll;
-
-      &::-webkit-scrollbar {
-        width: 5px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        border: transparent;
-        border-radius: 30px;
-        background-color: $sub-color2;
-      }
     }
 
     &.hasSearchBar {
+      @include scrollbar(6);
+
       position: static;
       width: 347px;
       max-height: 294px;
       margin-top: 5px;
-      overflow-y: scroll;
+      overflow-y: auto;
       transform: translateX(0);
     }
   }
