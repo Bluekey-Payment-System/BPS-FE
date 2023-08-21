@@ -16,7 +16,11 @@ interface AlbumTrendsChartProps {
   albumTrendsChartData: IGetAlbumTrackSettlementTrendsResponse,
   memberType: MemberType,
 }
-
+/**
+ * @author 임병욱
+ * @param barChartData - 차트 데이터 {contents: [{month: 1, revenue: 1000000, settlement: 10000},]} 형식
+ * @param memberType - SUPER_ADMIN | ADMIN | ARTIST
+*/
 const AlbumTrendsChart = ({ albumTrendsChartData, memberType }: AlbumTrendsChartProps) => {
   const trackList = albumTrendsChartData.tracks.map((track) => { return track.koTrackName; });
   const [selectedTrack, setSelectedTrack] = useState(trackList[0]);
@@ -40,7 +44,7 @@ const AlbumTrendsChart = ({ albumTrendsChartData, memberType }: AlbumTrendsChart
   return (
     <section className={cx("container")}>
       <div className={cx("selectingTrackContainer")}>
-        <p className={cx("description")}>{`이 앨범의 트랙별 ${memberType === MEMBER_TYPE.ADMIN ? "정산액" : "매출액"} 추이`}</p>
+        <p className={cx("description")}>{`이 앨범의 트랙별 ${memberType === MEMBER_TYPE.ARTIST ? "정산액" : "매출액"} 추이`}</p>
         <Dropdown dropdownListData={trackList} theme="dark" onClick={handleSelectedTrack} />
       </div>
       <div style={{ width: "100%", height: "300px" }}>

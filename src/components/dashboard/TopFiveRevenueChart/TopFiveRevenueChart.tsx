@@ -15,6 +15,10 @@ const cx = classNames.bind(styles);
 
 type TopFiveRevenueChartProps = IGetAdminEarningsTopArtistResponse | IGetAlbumRevenueTopTrackResponse;
 
+/**
+ * @author 임병욱
+ * @param topFiveChartData - 차트 데이터
+*/
 const TopFiveRevenueChart = ({ topFiveChartData }: { topFiveChartData: TopFiveRevenueChartProps }) => {
   const router = useRouter();
 
