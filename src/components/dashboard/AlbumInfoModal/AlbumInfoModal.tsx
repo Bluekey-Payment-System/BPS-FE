@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import Button from "@/components/common/CommonBtns/Button/Button";
 import Modal from "@/components/common/Modals/Modal";
-import { MOCK_ALBUM_TRACKS } from "@/constants/mock";
+import { IGetAlbumTracksResponse } from "@/services/api/types/albums";
 
 import styles from "./AlbumInfoModal.module.scss";
 import TrackListTable from "./TrackListTable/TrackListTable";
@@ -11,11 +11,13 @@ import TrackListTable from "./TrackListTable/TrackListTable";
 const cx = classNames.bind(styles);
 
 interface AlbumInfoModalProps {
+  data: IGetAlbumTracksResponse
   open: boolean;
   onClose: () => void;
 }
 
 const AlbumInfoModal = ({
+  data,
   open,
   onClose,
 }: AlbumInfoModalProps) => {
@@ -25,17 +27,17 @@ const AlbumInfoModal = ({
         <h2 className={cx("title")}>앨범 정보</h2>
         <div className={cx("contentContainer")}>
           <div className={cx("albumInfoContainer")}>
-            <Image src="/images/filter.svg" width={346} height={341} alt="앨범 커버" />
+            <Image src={data.albumImage} width={346} height={341} alt="앨범 커버" />
             <div className={cx("textContainer")}>
-              <h3 className={cx("albumTitle")}>Beautiful</h3>
+              <h3 className={cx("albumTitle")}>{data.koAlbumName}</h3>
               <div className={cx("artist")}>
-                <span className={cx("name")}>혁기</span>
-                <span className={cx("name", "enName")}>Hyucki</span>
+                <span className={cx("name")}>{data.artist?.koArtistName}</span>
+                <span className={cx("name", "enName")}>{data.artist?.enArtistName}</span>
               </div>
             </div>
           </div>
           <div className={cx("tableWrapper")}>
-            <TrackListTable tracks={MOCK_ALBUM_TRACKS.tracks} />
+            <TrackListTable tracks={data.tracks} />
           </div>
         </div>
         <div className={cx("buttonWrapper")}>
