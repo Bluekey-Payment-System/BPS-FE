@@ -7,7 +7,7 @@ const MainTenance = () => {
   const purpose = "서비스 긴급점검";
   return (
     <FallbackPageLayout
-      pageType="systemChecking"
+      pageType="maintenance"
       description={
         [
           `보다 나은 서비스를 위해 정기 점검을 진행 중입니다.
