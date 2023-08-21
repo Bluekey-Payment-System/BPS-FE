@@ -6,7 +6,7 @@ import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDrop
 import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/MonthlyTrendsChart";
-import TopFiveChart from "@/components/dashboard/TopFiveChart/TopFiveChart";
+import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
 import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
 import { MOCK_ADMIN_BAR, MOCK_ADMIN_DOUGHNUT, MOCK_ADMIN_TABLE } from "@/constants/mock";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
@@ -28,7 +28,7 @@ const AdminDashboardPage = () => {
       <DashboardCardList data={cardsData} />
       <div className={cx("cardContainer")}>
         <MonthlyTrendChart barChartData={MOCK_ADMIN_BAR} type={MEMBER_TYPE.ADMIN} />
-        <TopFiveChart topFiveChartData={MOCK_ADMIN_DOUGHNUT} />
+        <TopFiveRevenueChart topFiveChartData={MOCK_ADMIN_DOUGHNUT} />
       </div>
       <AdminTrackStatusTable
         title="2023년 8월의 트랙별 현황"

@@ -8,9 +8,9 @@ const getHeaderText = (currentPath: string | null) => {
   return "당월 Top 5 트랙 매출 비중";
 };
 
-const RouteBasedOnPath = (currentPath: string) => {
+const routeBasedOnPath = (currentPath: string) => {
   const headerText = getHeaderText(getParentPathFromUrl(currentPath));
   return headerText;
 };
 
-export default RouteBasedOnPath;
+export default routeBasedOnPath;
