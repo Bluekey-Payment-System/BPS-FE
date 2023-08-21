@@ -433,12 +433,55 @@ export const MOCK_ALBUM_DASHBOARD_CARD: IGetAlbumDashboardResponse = {
 
 /* ##### 2. TRANSACTION ##### */
 export const MOCK_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
-  totalItems: 10,
+  totalItems: 3,
   contents: [
     {
       id: 1,
-      name: "1202306_마피아 유통사 정산 내역.xlsx",
-      uploadAt: "2023-08",
+      name: "202308_마피아 유통사 정산 내역.xlsx",
+      uploadAt: "2023/08/12 13:20",
+      warnings: [
+        {
+          rowIndex: 15,
+          columnIndex: 4,
+          columnName: "앨범명",
+          cellValue: "0.0",
+          type: "NULL_CELL",
+          severity: "string",
+          message: "값이 비어 있는 셀입니다.",
+        },
+      ],
+    },
+    {
+      id: 2,
+      name: "202308_아토 유통사 정산 내역.xlsx",
+      uploadAt: "2023/08/13 19:00",
+      warnings: [
+        {
+          rowIndex: 15,
+          columnIndex: 4,
+          columnName: "앨범명",
+          cellValue: "0.0",
+          type: "NULL_CELL",
+          severity: "string",
+          message: "값이 비어 있는 셀입니다.",
+        },
+      ],
+    },
+    {
+      id: 3,
+      name: "202308_삼쩜일사 유통사 정산 내역.xlsx",
+      uploadAt: "2023/08/25 11:03",
+      warnings: [
+        {
+          rowIndex: 15,
+          columnIndex: 4,
+          columnName: "앨범명",
+          cellValue: "0.0",
+          type: "NULL_CELL",
+          severity: "string",
+          message: "값이 비어 있는 셀입니다.",
+        },
+      ],
     },
   ],
 };
