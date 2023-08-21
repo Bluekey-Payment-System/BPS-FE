@@ -1,8 +1,6 @@
 .container {
   @include flexbox(row, center, center);
 
-  width: 730px;
-  height: 218px;
   border-radius: 8px;
   background-color: $sub-color2;
 }

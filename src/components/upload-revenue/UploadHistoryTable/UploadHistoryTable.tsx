@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
 import EmptyData from "@/components/common/EmptyData/EmptyData";
+import Loading from "@/components/common/Loading/Loading";
 import AlertModal from "@/components/common/Modals/AlertModal/AlertModal";
 import TableBodyUI from "@/components/common/Table/Composition/TableBodyUI";
 import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
@@ -14,8 +15,6 @@ import useToast from "@/hooks/useToast";
 import { ITransactionUpload } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
-
-import Loading from "./loading";
 
 interface FileData {
   fileId: number,
@@ -66,7 +65,7 @@ const UploadHistroyTable = (
   }
 
   if (mutationTest.isLoading) {
-    return <Loading />;
+    return <Loading width="100%" height={218} />;
   }
 
   return (

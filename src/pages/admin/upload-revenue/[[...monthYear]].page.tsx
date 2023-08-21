@@ -9,8 +9,8 @@ import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
+import Loading from "@/components/common/Loading/Loading";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
-import Loading from "@/components/upload-revenue/UploadHistoryTable/loading";
 import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/UploadHistoryTable";
 import { MOCK_TRANSACTION_UPLOAD } from "@/constants/mock";
 import useRevenueUploadHistory from "@/services/queries/useRevenueUploadHistory";
@@ -65,7 +65,7 @@ const UploadRevenuePage = () => {
           <SectionHr isThick />
           <SectionLayout title="업로드 내역">
             {(isLoading || isFetching)
-              ? <Loading />
+              ? <Loading width="100%" height={218} />
               : <UploadHistroyTable uploadList={revenueUploadHistory?.contents} />}
           </SectionLayout>
         </div>
