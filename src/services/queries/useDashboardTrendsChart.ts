@@ -11,7 +11,6 @@ import { IGetAlbumMonthlySettlementResponse } from "../api/types/albums";
 
 type DashBoardTrendsChart = IGetAdminMonthlyEarningsTrendsResponse | IGetArtistMonthlyEarningsTrendsResponse | IGetAlbumMonthlySettlementResponse;
 
-// 멤버 타입이 어드민인 경우
 const getAdminDashboardTrendsChart = (month: string): Promise<IGetAdminMonthlyEarningsTrendsResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -66,14 +65,14 @@ const useDashboardTrendsChart = (
   artistId?: string,
   albumId?: string,
 ) => {
-  const { data: trendsChartData, isError, isLoading } = useQuery(
+  const { data: trendsChartData, isError: istrendsChartError, isLoading: istrendsChartLoading } = useQuery(
     [type, "dashboard", "trendsChart"],
     () => { return getDashboardTrendsChart(type, month, artistId, albumId); },
 
     { staleTime: 5000 },
   );
   return {
-    trendsChartData, isLoading, isError,
+    trendsChartData, istrendsChartError, istrendsChartLoading,
   };
 };
 
