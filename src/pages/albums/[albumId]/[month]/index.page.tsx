@@ -1,12 +1,16 @@
+import { useSelector } from "react-redux";
+
 import classNames from "classnames/bind";
 
 import AlbumDetailsInformationTooltip from "@/components/album/albumDetailsInformationTooltip/AlbumDetailsInformationTooltip";
 import { DashboardCardProps } from "@/components/common/DashboardCard/DashboardCard.type";
+import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import AlbumTrendsChart from "@/components/dashboard/AlbumTrendsChart/AlbumTrendsChart";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/MonthlyTrendsChart";
 import TopFiveChart from "@/components/dashboard/TopFiveChart/TopFiveChart";
 import { MOCK_ALBUM_BAR, MOCK_ALBUM_DOUGHNUT, MOCK_ALBUM_LINE } from "@/constants/mock";
+import { IState } from "@/redux/store";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
 
@@ -20,11 +24,16 @@ const cardsData: DashboardCardProps[] = [
 ];
 
 const AlbumDashboardPage = () => {
+  const memberType = useSelector<IState>((state) => { return state.user.member!.type; });
+
   return (
     <section className={cx("container")}>
       <div className={cx("sectionHeader")}>
         <h1 className={cx("title")}>앨범명</h1>
-        <AlbumDetailsInformationTooltip memberType={MEMBER_TYPE.ADMIN} />
+        {memberType === MEMBER_TYPE.ARTIST && <AlbumDetailsInformationTooltip />}
+        <div className={cx("monthPickerDropdownContainer", { artist: memberType === MEMBER_TYPE.ARTIST })}>
+          <MonthPickerDropdown />
+        </div>
         <button className={cx("albumInfo")}>앨범 정보 보기</button>
       </div>
       <DashboardCardList data={cardsData} />
