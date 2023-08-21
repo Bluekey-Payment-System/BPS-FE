@@ -86,7 +86,7 @@ export interface ITrackInfo {
 
 // /api/v1/albums/{albumId}
 export interface IAlbumInfo {
-  albumImage: string,
+  albumImage: string | null,
   koAlbumName: string,
   enAlbumName: string,
   artist: IArtist | null, // 앨범 대표 아티스트가 없을 수도 있음
