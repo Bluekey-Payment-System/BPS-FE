@@ -28,7 +28,12 @@ const AlbumInfoModal = ({
         <div className={cx("contentContainer")}>
           <div className={cx("albumInfoContainer")}>
             <div className={cx("imageWrapper")}>
-              <Image src={data.albumImage} width={346} height={341} alt="앨범 커버" />
+              <Image
+                className={cx({ defaultCover: !data.albumImage })}
+                src={data.albumImage ?? "/images/default-album-cover.svg"}
+                fill
+                alt="앨범 커버"
+              />
             </div>
             <h3 className={cx("albumTitle")}>{data.koAlbumName}</h3>
             <hr className={cx("hr")} />

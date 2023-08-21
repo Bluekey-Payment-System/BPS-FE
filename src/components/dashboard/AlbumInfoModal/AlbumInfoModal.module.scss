@@ -23,9 +23,19 @@
       color: $primary-black;
 
       .imageWrapper {
+        @include flexbox(row, center, center);
+
+        width: 346px;
+        height: 341px;
         overflow: hidden;
         border-radius: 8px;
+        background-color: $primary-white;
         filter: drop-shadow(0 2px 13px rgb(0 0 0 / 37%));
+
+        .defaultCover {
+          position: static !important;
+          width: 120px !important;
+        }
       }
 
       .albumTitle {
