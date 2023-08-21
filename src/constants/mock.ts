@@ -66,8 +66,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
   artist:
   {
     memberId: 1,
-    koArtistName: "아린",
-    enArtistName: "Arin",
+    koArtistName: "오마이걸",
+    enArtistName: "Ohmygirl",
   },
   tracks: [
     {

@@ -36,6 +36,7 @@ const TrackListTable = ({ tracks }: TrackListTableProps) => {
                 {idx + 1}
               </TableCellUI>
               <TableCellUI>
+                {/* TODO: z-index 문제로 툴팁 안보임 */}
                 <TooltipRoot message={track.koTrackName}>
                   <p className={cx("ellipsis")}>{track.koTrackName}</p>
                 </TooltipRoot>
