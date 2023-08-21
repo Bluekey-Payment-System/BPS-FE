@@ -20,28 +20,34 @@
       @include flexbox(column, flex-start, center);
 
       gap: 32px;
+      color: $primary-black;
 
-      .textContainer {
+      .imageWrapper {
+        overflow: hidden;
+        border-radius: 8px;
+        filter: drop-shadow(0 2px 13px rgb(0 0 0 / 37%));
+      }
+
+      .albumTitle {
+        @include typo(24, bold);
+      }
+
+      .hr {
+        width: 100%;
+        height: 1px;
+        background-color: $sub-color1;
+      }
+
+      .artist {
         @include flexbox(column, flex-start, center);
 
-        gap: 65px;
-        color: $primary-black;
+        gap: 8px;
 
-        .albumTitle {
-          @include typo(24, bold);
-        }
+        .name {
+          @include typo(16);
 
-        .artist {
-          @include flexbox(column, flex-start, center);
-
-          gap: 8px;
-
-          .name {
-            @include typo(16);
-
-            &.enName {
-              color: $sub-color3;
-            }
+          &.enName {
+            color: $sub-color3;
           }
         }
       }

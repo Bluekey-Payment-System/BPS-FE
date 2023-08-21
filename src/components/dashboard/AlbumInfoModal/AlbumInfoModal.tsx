@@ -27,13 +27,14 @@ const AlbumInfoModal = ({
         <h2 className={cx("title")}>앨범 정보</h2>
         <div className={cx("contentContainer")}>
           <div className={cx("albumInfoContainer")}>
-            <Image src={data.albumImage} width={346} height={341} alt="앨범 커버" />
-            <div className={cx("textContainer")}>
-              <h3 className={cx("albumTitle")}>{data.koAlbumName}</h3>
-              <div className={cx("artist")}>
-                <span className={cx("name")}>{data.artist?.koArtistName}</span>
-                <span className={cx("name", "enName")}>{data.artist?.enArtistName}</span>
-              </div>
+            <div className={cx("imageWrapper")}>
+              <Image src={data.albumImage} width={346} height={341} alt="앨범 커버" />
+            </div>
+            <h3 className={cx("albumTitle")}>{data.koAlbumName}</h3>
+            <hr className={cx("hr")} />
+            <div className={cx("artist")}>
+              <span className={cx("name")}>{data.artist?.koArtistName}</span>
+              <span className={cx("name", "enName")}>{data.artist?.enArtistName}</span>
             </div>
           </div>
           <div className={cx("tableWrapper")}>
