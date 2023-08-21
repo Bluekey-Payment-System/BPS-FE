@@ -12,7 +12,7 @@ import useToast from "@/hooks/useToast";
 import { ITransactionUpload } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
-interface FileDataProps {
+interface FileData {
   fileId: number,
   fileName: string
 }
@@ -21,7 +21,7 @@ const UploadHistroyTable = (
   { uploadList }: { uploadList: ITransactionUpload[] },
 ) => {
   const [isCancelUploadModalOpen, setIsCancelUploadModalOpen] = useState(false);
-  const [fileData, setFileData] = useState<FileDataProps>({} as FileDataProps);
+  const [fileData, setFileData] = useState<FileData>({} as FileData);
   const { showToast } = useToast();
 
   const handleClickCancelUploadBtn = (fileId: number, fileName: string) => {

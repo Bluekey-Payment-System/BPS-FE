@@ -166,7 +166,7 @@ export interface IArtistProfile extends IProfile {
 }
 
 // 정산액 업로드 관련
-interface ITransactionUploadWarning {
+interface ITransactionUploadAlert {
   "rowIndex": number,
   "columnIndex": number,
   "columnName": string,
@@ -181,5 +181,5 @@ export interface ITransactionUpload {
   id: number,
   name: string,
   uploadAt: string
-  warnings: ITransactionUploadWarning[]
+  warnings: ITransactionUploadAlert[]
 }
