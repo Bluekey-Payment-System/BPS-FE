@@ -13,7 +13,7 @@ import Loading from "@/components/common/Loading/Loading";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/UploadHistoryTable";
 import { MOCK_TRANSACTION_UPLOAD } from "@/constants/mock";
-import useRevenueUploadHistory from "@/services/queries/useRevenueUploadHistory";
+import { useUploadHistoryGet } from "@/services/queries/useRevenueUploadHistory";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 const getServerSideProps: GetServerSideProps = async () => {
@@ -42,7 +42,7 @@ const UploadRevenuePage = () => {
 
   const {
     revenueUploadHistory, isLoading, isError, isFetching,
-  } = useRevenueUploadHistory();
+  } = useUploadHistoryGet();
 
   if (isError) {
     return (

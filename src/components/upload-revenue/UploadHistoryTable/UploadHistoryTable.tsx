@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
 import EmptyData from "@/components/common/EmptyData/EmptyData";
@@ -12,9 +12,9 @@ import TableContainerUI from "@/components/common/Table/Composition/TableContain
 import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import useToast from "@/hooks/useToast";
+import { useUploadHistoryDelete } from "@/services/queries/useRevenueUploadHistory";
 import { ITransactionUpload } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
-import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 interface FileData {
   fileId: number,
@@ -28,20 +28,7 @@ const UploadHistroyTable = (
   const [isCancelUploadModalOpen, setIsCancelUploadModalOpen] = useState(false);
   const [fileData, setFileData] = useState<FileData>({} as FileData);
   const { showToast } = useToast();
-
-  const mutationTest = useMutation(() => {
-    // TODO: 업로드 내역 삭제 DELETE
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("업로드 내역이 삭제되었습니다.");
-      }, 2000);
-    });
-  }, {
-    onSuccess: async (data) => {
-      await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "settlement-upload-history"]);
-      showToast(data as string);
-    },
-  });
+  const { deleteUploadHistory, isLoading } = useUploadHistoryDelete(queryClient, showToast);
 
   const handleClickCancelUploadBtn = (fileId: number, fileName: string) => {
     setIsCancelUploadModalOpen(true);
@@ -55,7 +42,7 @@ const UploadHistroyTable = (
     // TODO: 업로드 취소 API 작업
     // eslint-disable-next-line no-console
     console.log(`(${fileId}) ${fileName} 파일 삭제`);
-    mutationTest.mutate();
+    deleteUploadHistory();
 
     setIsCancelUploadModalOpen(false);
   };
@@ -64,7 +51,7 @@ const UploadHistroyTable = (
     return <EmptyData type="no-data" text="업로드 내역이 없습니다." />;
   }
 
-  if (mutationTest.isLoading) {
+  if (isLoading) {
     return <Loading width="100%" height={218} />;
   }
 
