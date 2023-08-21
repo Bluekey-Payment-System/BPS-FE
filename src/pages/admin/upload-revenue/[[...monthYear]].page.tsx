@@ -10,6 +10,7 @@ import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDr
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
+import Loading from "@/components/upload-revenue/UploadHistoryTable/loading";
 import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/UploadHistoryTable";
 import { MOCK_TRANSACTION_UPLOAD } from "@/constants/mock";
 import useRevenueUploadHistory from "@/services/queries/useRevenueUploadHistory";
@@ -43,12 +44,6 @@ const UploadRevenuePage = () => {
     revenueUploadHistory, isLoading, isError, isFetching,
   } = useRevenueUploadHistory();
 
-  if (isLoading || isFetching) {
-    return (
-      <div>로딩 중...</div>
-    );
-  }
-
   if (isError) {
     return (
       <div>에러 발생</div>
@@ -69,7 +64,9 @@ const UploadRevenuePage = () => {
           </SectionLayout>
           <SectionHr isThick />
           <SectionLayout title="업로드 내역">
-            <UploadHistroyTable uploadList={revenueUploadHistory?.contents} />
+            {(isLoading || isFetching)
+              ? <Loading />
+              : <UploadHistroyTable uploadList={revenueUploadHistory?.contents} />}
           </SectionLayout>
         </div>
       </ArtboardLayout>

@@ -15,6 +15,8 @@ import { ITransactionUpload } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
+import Loading from "./loading";
+
 interface FileData {
   fileId: number,
   fileName: string
@@ -36,8 +38,8 @@ const UploadHistroyTable = (
       }, 2000);
     });
   }, {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "settlement-upload-history"]);
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "settlement-upload-history"]);
       showToast(data as string);
     },
   });
@@ -61,6 +63,10 @@ const UploadHistroyTable = (
 
   if (uploadList?.length === 0) {
     return <EmptyData type="no-data" text="업로드 내역이 없습니다." />;
+  }
+
+  if (mutationTest.isLoading) {
+    return <Loading />;
   }
 
   return (
