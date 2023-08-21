@@ -7,16 +7,16 @@ import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthP
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
-import ArtistTrackStatusTable from "@/components/dashboard/TrackStatusTable/ArtistTrackStatusTable";
+import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
+import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import useDashboardCards, { getDashboardCards } from "@/services/queries/useDashboardCards";
 import useDashboardTable, { getDashboardTable } from "@/services/queries/useDashboardTable";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
 interface IanProps {
-  yearMonth: string
-  artistId: string
+  month: string
   page: number
   sortBy: string
   searchBy: string
@@ -24,38 +24,31 @@ interface IanProps {
 }
 
 const Ian = ({
-  yearMonth, artistId, page, sortBy, searchBy, keyword,
+  month, page, sortBy, searchBy, keyword,
 }: IanProps) => {
   const {
     cardsData,
     isCardsError,
     isCardsLoading,
-  } = useDashboardCards(DASHBOARD_TYPE.ARTIST, yearMonth, artistId);
+  } = useDashboardCards(DASHBOARD_TYPE.ADMIN, month);
   const {
     tableData,
     isTableError,
     isTableLoading,
-  } = useDashboardTable(
-    DASHBOARD_TYPE.ARTIST,
-    yearMonth,
-    page,
-    sortBy,
-    searchBy,
-    keyword,
-    artistId,
-  );
+  } = useDashboardTable(DASHBOARD_TYPE.ADMIN, month, page, sortBy, searchBy, keyword);
 
-  const yearMonthStr = convertToYearMonthFormat(yearMonth);
+  const formattedMonth = convertToYearMonthFormat(month);
 
   if (isCardsLoading || isTableLoading) return <div>로딩 중...</div>;
   if (isCardsError || isTableError) return <div>에러 발생!</div>;
   if (!cardsData || !tableData) return <div>데이터가 없다</div>;
-  const { totalItems, contents: tableContents } = tableData;
+  // TODO: tableData가 Artist Table response 타입으로 추론되는 문제 해결
+  const { totalItems, contents: tableContents } = tableData as IGetAdminTrackTransactionResponse;
   return (
     <MainLayoutWithDropdown title="대쉬보드" dropdownElement={<MonthPickerDropdown />}>
       <DashboardCardList data={cardsData} />
-      <ArtistTrackStatusTable
-        title={`${yearMonthStr}의 트랙별 현황`}
+      <AdminTrackStatusTable
+        title={`${formattedMonth}의 트랙별 현황`}
         data={tableContents}
         // TODO: tableData 형태에 따라 isEmpty 체크 변경
         isEmpty={!tableContents}
@@ -67,7 +60,7 @@ const Ian = ({
           />
         )}
       />
-      <Link href="/ian/albums/1/dashboard/202308">앨범(id = 1) 대시보드 페이지 이동</Link>
+      <Link href="/ian/artist/1/dashboard/202308">아티스트(id = 1) 대시보드 페이지 이동</Link>
     </MainLayoutWithDropdown>
   );
 };
@@ -75,9 +68,8 @@ const Ian = ({
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const queryClient = new QueryClient();
 
-  // TODO: yearMonth에 유효하지 않은 값이 들어왔을 때 or 값이 없을 때 처리
-  const artistId = query?.artistId as string;
-  const yearMonth = query?.yearMonth as string;
+  // TODO: monthYear에 유효하지 않은 값이 들어왔을 때 or 값이 없을 때 처리
+  const month = query?.month as string;
 
   const pageParam = (query?.page ?? null) as (string | null);
   const page = convertPageParamToNum(pageParam);
@@ -88,22 +80,21 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   try {
     await Promise.all([
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "card"],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
         () => {
-          return getDashboardCards(DASHBOARD_TYPE.ARTIST, yearMonth, artistId);
+          return getDashboardCards(DASHBOARD_TYPE.ADMIN, month);
         },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "table"],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "table"],
         () => {
           return getDashboardTable(
-            DASHBOARD_TYPE.ARTIST,
-            yearMonth,
+            DASHBOARD_TYPE.ADMIN,
+            month,
             page,
             sortBy,
             searchBy,
             keyword,
-            artistId,
           );
         },
       )]);
@@ -111,8 +102,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     return {
       props: {
         dehydratedState: dehydrate(queryClient),
-        yearMonth,
-        artistId,
+        month,
         page,
         sortBy,
         searchBy,
