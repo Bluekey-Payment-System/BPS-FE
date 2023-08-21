@@ -1,8 +1,5 @@
-import {
-  QueryClient, dehydrate,
-} from "@tanstack/react-query";
-import { GetServerSideProps } from "next";
-// import { useRouter } from "next/router";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import ExcelFileUploader from "@/components/common/ExcelFileUploader/ExcelFileUploader";
 import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
@@ -12,37 +9,34 @@ import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import Loading from "@/components/common/Loading/Loading";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/UploadHistoryTable";
-import { MOCK_TRANSACTION_UPLOAD } from "@/constants/mock";
-import { useUploadHistoryGet } from "@/services/queries/useRevenueUploadHistory";
+import { getRevenueUploadHistory, useUploadHistoryGet } from "@/services/queries/useRevenueUploadHistory";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
+import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 
-const getServerSideProps: GetServerSideProps = async () => {
+const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const queryClient = new QueryClient();
+  const { month } = query;
+  const monthToQueryString = convertYearMonthToQuery(month && month[0]);
 
   await queryClient.prefetchQuery(
     [MEMBER_TYPE.ADMIN, "settlement-upload-history"],
-    () => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(MOCK_TRANSACTION_UPLOAD);
-        }, 3000);
-      });
-    },
+    () => { return getRevenueUploadHistory(monthToQueryString); },
   );
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
+      month: monthToQueryString,
     },
   };
 };
 
-const UploadRevenuePage = () => {
-  // const router = useRouter();
-
+const UploadRevenuePage = (
+  { month } : { month: string },
+): InferGetServerSidePropsType<typeof getServerSideProps> => {
   const {
     revenueUploadHistory, isLoading, isError, isFetching,
-  } = useUploadHistoryGet();
+  } = useUploadHistoryGet(month);
 
   if (isError) {
     return (

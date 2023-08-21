@@ -7,7 +7,8 @@ import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 import { IGETTransactionUploadResponse } from "../api/types/transaction";
 
-const getRevenueUploadHistory = (): Promise<IGETTransactionUploadResponse> => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getRevenueUploadHistory = (month: string): Promise<IGETTransactionUploadResponse> => {
   // TODO: (GET) 정산 업로드 내역
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -26,12 +27,12 @@ const deleteRevenueUploadHistory = () => {
 };
 
 /* 정산 업로드 내역 GET */
-const useUploadHistoryGet = () => {
+const useUploadHistoryGet = (month: string) => {
   const {
     data: revenueUploadHistory, isLoading, isError, isFetching,
   }: UseQueryResult<IGETTransactionUploadResponse> = useQuery(
     [MEMBER_TYPE.ADMIN, "settlement-upload-history"],
-    getRevenueUploadHistory,
+    () => { return getRevenueUploadHistory(month); },
     {
       staleTime: Infinity,
     },
@@ -55,4 +56,4 @@ const useUploadHistoryDelete = (queryClient: QueryClient, showToast: (message: s
   return { deleteUploadHistory, isLoading };
 };
 
-export { useUploadHistoryGet, useUploadHistoryDelete };
+export { getRevenueUploadHistory, useUploadHistoryGet, useUploadHistoryDelete };
