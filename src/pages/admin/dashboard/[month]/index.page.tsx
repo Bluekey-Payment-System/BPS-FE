@@ -41,6 +41,18 @@ const AdminDashboardPage = ({
     isCardsError,
     isCardsLoading,
   } = useDashboardCards(DASHBOARD_TYPE.ADMIN, month);
+
+  const {
+    trendsChartData,
+    istrendsChartLoading, istrendsChartError,
+  } = useDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month);
+
+  const {
+    topFiveRevenueData: topFiveChartData,
+    istopFiveRevenueDataLoading,
+    istopFiveRevenueDataError,
+  } = useDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month);
+
   const {
     tableData,
     isTableError,
@@ -48,13 +60,6 @@ const AdminDashboardPage = ({
   } = useDashboardTable(DASHBOARD_TYPE.ADMIN, month, page, sortBy, searchBy, keyword);
 
   const formattedMonth = convertToYearMonthFormat(month);
-
-  const { trendsChartData, istrendsChartLoading, istrendsChartError } = useDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month);
-  const {
-    topFiveRevenueData: topFiveChartData,
-    istopFiveRevenueDataLoading,
-    istopFiveRevenueDataError,
-  } = useDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month);
 
   if (istrendsChartLoading || istopFiveRevenueDataLoading || isCardsLoading || isTableLoading) return <div>로딩 중...</div>;
   if (istrendsChartError || istopFiveRevenueDataError || isCardsError || isTableError) return <div>에러 발생!</div>;
