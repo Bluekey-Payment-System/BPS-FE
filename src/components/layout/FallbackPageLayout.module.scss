@@ -1,0 +1,48 @@
+.container {
+  @include flexbox(column, flex-start, center);
+
+  width: fit-content;
+  margin: 18px auto 142px;
+
+  .logoWrapper {
+    @include flexbox(row, center, center);
+
+    width: 316px;
+    height: 242px;
+    background-image: url("/images/logo-background-blur.svg");
+  }
+
+  .imageWrapper {
+    @include flexbox(row, center, center);
+
+    width: 401px;
+    height: 401px;
+    border-radius: 20px;
+    background-color: $sub-color1;
+  }
+
+  .textContainer {
+    @include flexbox(column, flex-start, center);
+
+    gap: 30px;
+    color: $primary-black;
+
+    .title {
+      @include typo(32, bold);
+    }
+
+    .description {
+      @include typo(16);
+
+      line-height: 22px;
+      text-align: center;
+      white-space: pre-line;
+    }
+  }
+
+  .buttonWrapper {
+    @include flexbox(row);
+
+    gap: 18px;
+  }
+}
