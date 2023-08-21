@@ -146,17 +146,18 @@ export interface IArtistList {
 
 // 프로필 관련
 interface IProfile {
-  email: string | null,
   loginId: string,
   profileImage: string | null
 }
 
 export interface IAdminProfile extends IProfile {
+  email: string,
   type: AdminType
   nickName: string
 }
 
 export interface IArtistProfile extends IProfile {
+  email: string | null,
   type: ArtistType,
   koName: string,
   enName: string,
@@ -180,4 +181,21 @@ export interface ITransactionUpload {
   name: string,
   uploadAt: string
   warnings: ITransactionUploadAlert[]
+}
+
+// 계정 관련
+export interface IAdminAccount {
+  id: number,
+  nickName: string,
+  loginId: string,
+  email: string,
+}
+
+export interface IArtistAccount {
+  id: number,
+  name: string,
+  enName: string,
+  loginId: string,
+  email: string | null,
+  commissionRate: number | null,
 }
