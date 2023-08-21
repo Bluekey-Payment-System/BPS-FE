@@ -2,6 +2,7 @@
 import classNames from "classnames/bind";
 
 import Dropdown from "@/components/common/Dropdown/Dropdown";
+import Filter from "@/components/common/Filter/Filter";
 import Spacing from "@/components/common/Layouts/Spacing";
 import ProgressBar from "@/components/common/ProgressBar/ProgressBar";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
@@ -53,6 +54,8 @@ const ArtistTrackStatusTable = ({
             onClick={handleClickSortByDropdown}
           />
           <Spacing direction="horizontal" size={18} />
+          <Filter />
+          <Spacing direction="horizontal" size={32} />
           <Dropdown
             dropdownListData={["곡 명", "앨범 명"]}
             theme="withSearchBar"
