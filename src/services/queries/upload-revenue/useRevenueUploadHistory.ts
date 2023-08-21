@@ -26,7 +26,8 @@ const deleteRevenueUploadHistory = () => {
   });
 };
 
-const postRevenueUploadHistory = () => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const postRevenueUploadHistory = (file: File, uploadAt: string) => {
   // TODO: (POST) 정산 내역 업로드
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -42,6 +43,9 @@ const useUploadHistoryGet = (month: string) => {
   }: UseQueryResult<IGETTransactionUploadResponse> = useQuery(
     [MEMBER_TYPE.ADMIN, "settlement-upload-history"],
     () => { return getRevenueUploadHistory(month); },
+    {
+      staleTime: Infinity,
+    },
   );
 
   return ({
@@ -50,7 +54,10 @@ const useUploadHistoryGet = (month: string) => {
 };
 
 /* 정산 업로드 내역 DELETE */
-const useUploadHistoryDelete = (queryClient: QueryClient, showToast: (message: string) => void) => {
+const useUploadHistoryDelete = (
+  queryClient: QueryClient,
+  showToast: (message: string) => void,
+) => {
   const { mutate: deleteUploadHistory, isLoading } = useMutation(deleteRevenueUploadHistory, {
     // TODO: delete 실패 시 실패 문구 Toast 노출 처리
     onSuccess: async (data) => {
@@ -63,13 +70,24 @@ const useUploadHistoryDelete = (queryClient: QueryClient, showToast: (message: s
 };
 
 /* 정산 업로드 내역 POST */
-const useUploadHistoryPost = (queryClient: QueryClient, showToast: (message: string) => void) => {
-  const { mutate: postUploadHistory, isLoading } = useMutation(postRevenueUploadHistory, {
-    // TODO: post 실패 시 알림 모달 띄우기
-    // TODO: post 성공 시, warnings 있을 경우 알림 모달 띄우기
+interface FileData {
+  file: File,
+  uploadAt: string,
+}
+
+const useUploadHistoryPost = (
+  // file: File,
+  // uploadAt: string,
+  queryClient: QueryClient,
+  showToast: (message: string) => void,
+) => {
+  const { mutate: postUploadHistory, isLoading } = useMutation((fileData: FileData) => {
+    return postRevenueUploadHistory(fileData.file, fileData.uploadAt);
+  }, {
+    // TODO: post 실패 또는 warnings 있을 경우 알림 모달 띄우기
     onSuccess: async (data) => {
-      await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "settlement-upload-history"]);
       showToast(data as string);
+      await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "settlement-upload-history"]);
     },
   });
 
