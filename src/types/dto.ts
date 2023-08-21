@@ -1,7 +1,7 @@
 import { AdminType, ArtistType } from "./enums/user.enum";
 
 // 이름 관련
-interface IArtist {
+export interface IArtist {
   memberId: number,
   koArtistName: string,
   enArtistName: string
@@ -73,7 +73,7 @@ export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차�
 }
 
 // Info 관련
-interface ITrackInfo {
+export interface ITrackInfo {
   koTrackName: string,
   enTrackName: string,
   bluekeyOriginalTrack: boolean,
@@ -164,9 +164,20 @@ export interface IArtistProfile extends IProfile {
 }
 
 // 정산액 업로드 관련
+interface ITransactionUploadAlert {
+  "rowIndex": number,
+  "columnIndex": number,
+  "columnName": string,
+  "cellValue": string,
+  "type": string,
+  "severity": string,
+  "message": string
+}
+
 // /api/v1/transactions
 export interface ITransactionUpload {
   id: number,
   name: string,
   uploadAt: string
+  warnings: ITransactionUploadAlert[]
 }
