@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 const typeMap = {
   404: {
     image: {
-      src: "/images/error-warning.svg",
+      src: "/images/error-warning.png",
       width: 166,
       height: 170,
       alt: "에러 워닝",
@@ -21,7 +21,7 @@ const typeMap = {
   },
   error: {
     image: {
-      src: "/images/error-warning.svg",
+      src: "/images/error-warning.png",
       width: 166,
       height: 170,
       alt: "에러 워닝",
@@ -30,7 +30,7 @@ const typeMap = {
   },
   systemChecking: {
     image: {
-      src: "/images/system-checking.svg",
+      src: "/images/maintenence.png",
       width: 155,
       height: 170,
       alt: "시스템 점검",
@@ -39,7 +39,7 @@ const typeMap = {
   },
   approvalWaiting: {
     image: {
-      src: "/images/approval-waiting.svg",
+      src: "/images/pending.png",
       width: 138,
       height: 170,
       alt: "신청 대기 중",
@@ -48,7 +48,7 @@ const typeMap = {
   },
   approvalRejected: {
     image: {
-      src: "/images/approval-rejected.svg",
+      src: "/images/rejected.png",
       width: 187,
       height: 170,
       alt: "신청 거절",
