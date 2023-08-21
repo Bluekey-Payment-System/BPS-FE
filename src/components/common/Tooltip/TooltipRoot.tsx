@@ -34,9 +34,13 @@ const TooltipRoot = ({ children, message, alwaysVisible = false }: TooltipRootPr
   const pos = useRef<PosType | null>(null);
 
   const handleMouseOver = (e: MouseEvent<HTMLDivElement>) => {
-    pos.current = getPosition(ref);
-    const visible = checkTextOverflow(e.currentTarget?.children[0]);
-    setIsVisible(alwaysVisible || visible);
+    if (alwaysVisible) {
+      setIsVisible(true);
+    } else {
+      pos.current = getPosition(ref);
+      const visible = checkTextOverflow(e.currentTarget?.children[0]);
+      setIsVisible(visible);
+    }
   };
 
   return (
