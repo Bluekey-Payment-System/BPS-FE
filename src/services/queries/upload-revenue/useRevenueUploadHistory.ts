@@ -85,9 +85,10 @@ const useUploadHistoryPost = (
     return postRevenueUploadHistory(fileData.file, fileData.uploadAt);
   }, {
     // TODO: post 실패 또는 warnings 있을 경우 알림 모달 띄우기
-    onSuccess: async (data) => {
+    onSuccess: (data) => {
       showToast(data as string);
-      await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history"]);
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history"]);
     },
   });
 

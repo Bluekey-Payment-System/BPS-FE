@@ -7,6 +7,8 @@ import Image from "next/image";
 import useToast from "@/hooks/useToast";
 import { useUploadHistoryPost } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 
+import Loading from "../Loading/Loading";
+
 import styles from "./ExcelFileUploader.module.scss";
 
 const cx = classNames.bind(styles);
@@ -19,7 +21,7 @@ const ExcelFileUploader = () => {
   const queryClient = useQueryClient();
 
   const { showToast } = useToast();
-  const { postUploadHistory } = useUploadHistoryPost(queryClient, showToast);
+  const { postUploadHistory, isLoading } = useUploadHistoryPost(queryClient, showToast);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -52,6 +54,10 @@ const ExcelFileUploader = () => {
       handleUploadFile(selectedFiles[0]);
     }
   };
+
+  if (isLoading) {
+    return <Loading width={730} height={222} />;
+  }
 
   return (
     <div
