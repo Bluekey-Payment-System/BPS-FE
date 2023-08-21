@@ -8,7 +8,7 @@ import { IGetArtistTrackTransactionResponse } from "@/services/api/types/artist"
 import { AdminDashboardType, ArtistDashboardType, DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 const getAdminDashboardTable = (
-  yearMonth: string,
+  month: string,
   page: number,
   size: number,
   sortBy: string,
@@ -23,7 +23,7 @@ const getAdminDashboardTable = (
 };
 
 const getArtistDashboardTable = (
-  yearMonth: string,
+  month: string,
   page: number,
   size: number,
   sortBy: string,
@@ -40,7 +40,7 @@ const getArtistDashboardTable = (
 
 export const getDashboardTable = (
   type: AdminDashboardType | ArtistDashboardType,
-  yearMonth: string,
+  month: string,
   page: number,
   sortBy: string,
   searchBy: string,
@@ -49,7 +49,7 @@ export const getDashboardTable = (
 ) => {
   const data = (type === DASHBOARD_TYPE.ADMIN)
     ? getAdminDashboardTable(
-      yearMonth,
+      month,
       page,
       ITEMS_PER_DASHBOARD_TABLE,
       sortBy,
@@ -57,7 +57,7 @@ export const getDashboardTable = (
       keyword,
     )
     : getArtistDashboardTable(
-      yearMonth,
+      month,
       page,
       ITEMS_PER_DASHBOARD_TABLE,
       sortBy,
@@ -70,7 +70,7 @@ export const getDashboardTable = (
 
 const useDashboardTable = (
   type: AdminDashboardType | ArtistDashboardType,
-  yearMonth: string,
+  month: string,
   page: number,
   sortBy: string,
   searchBy: string,
@@ -80,7 +80,7 @@ const useDashboardTable = (
   const { data: tableData, isError: isTableError, isLoading: isTableLoading } = useQuery(
     [type, "dashboard", "table"],
     () => {
-      return getDashboardTable(type, yearMonth, page, sortBy, searchBy, keyword, artistId);
+      return getDashboardTable(type, month, page, sortBy, searchBy, keyword, artistId);
     },
     {
       staleTime: 5000,

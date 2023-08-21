@@ -9,18 +9,18 @@ import useDashboardCards, { getDashboardCards } from "@/services/queries/useDash
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 interface IanProps {
-  yearMonth: string
+  month: string
   albumId: string
 }
 
 const Ian = ({
-  yearMonth, albumId,
+  month, albumId,
 }: IanProps) => {
   const {
     cardsData,
     isCardsError,
     isCardsLoading,
-  } = useDashboardCards(DASHBOARD_TYPE.ALBUM, yearMonth, undefined, albumId);
+  } = useDashboardCards(DASHBOARD_TYPE.ALBUM, month, undefined, albumId);
 
   if (isCardsLoading) return <div>로딩 중...</div>;
   if (isCardsError) return <div>에러 발생!</div>;
@@ -38,21 +38,21 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   // TODO: yearMonth에 유효하지 않은 값이 들어왔을 때 or 값이 없을 때 처리
   const albumId = query?.albumId as string;
-  const yearMonth = query?.yearMonth as string;
+  const month = query?.month as string;
 
   try {
     await Promise.all([
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ALBUM, "dashboard", "card"],
         () => {
-          return getDashboardCards(DASHBOARD_TYPE.ARTIST, yearMonth, undefined, albumId);
+          return getDashboardCards(DASHBOARD_TYPE.ARTIST, month, undefined, albumId);
         },
       )]);
 
     return {
       props: {
         dehydratedState: dehydrate(queryClient),
-        yearMonth,
+        month,
         albumId,
       },
     };

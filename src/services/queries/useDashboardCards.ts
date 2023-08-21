@@ -11,7 +11,7 @@ import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
 import formatMoney from "@/utils/formatMoney";
 
 const getAdminDashboardCards = (
-  yearMonth: string,
+  month: string,
 ): Promise<IGetAdminDashboardResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -21,7 +21,7 @@ const getAdminDashboardCards = (
 };
 
 const getArtistDashboardCards = (
-  yearMonth: string,
+  month: string,
   artistId?: string,
 ): Promise<IGetArtistDashboardResponse> => {
   return new Promise((resolve) => {
@@ -32,7 +32,7 @@ const getArtistDashboardCards = (
 };
 
 const getAlbumDashboardCards = (
-  yearMonth: string,
+  month: string,
   albumId?: string,
 ): Promise<IGetAlbumDashboardResponse> => {
   return new Promise((resolve) => {
@@ -44,15 +44,15 @@ const getAlbumDashboardCards = (
 
 export const getDashboardCards = async (
   type: DashboardType,
-  yearMonth: string,
+  month: string,
   artistId?: string,
   albumId?: string,
 ) => {
-  const yearMonthStr = convertToYearMonthFormat(yearMonth);
+  const formattedMonth = convertToYearMonthFormat(month);
   let response;
   let data: DashboardCardProps[];
   if (type === DASHBOARD_TYPE.ADMIN) {
-    response = await getAdminDashboardCards(yearMonth);
+    response = await getAdminDashboardCards(month);
     const {
       revenue, settlementAmount, bestArtist, netIncome,
     } = response;
@@ -72,12 +72,12 @@ export const getDashboardCards = async (
       growthRate: settlementAmount.growthRate,
     },
     {
-      title: `${yearMonthStr}의 아티스트`,
+      title: `${formattedMonth}의 아티스트`,
       content: bestArtist.koArtistName,
       growthRate: bestArtist.growthRate,
     }];
   } else if (type === DASHBOARD_TYPE.ARTIST) {
-    response = await getArtistDashboardCards(yearMonth, artistId);
+    response = await getArtistDashboardCards(month, artistId);
     const { bestAlbum, bestTrack, settlement } = response;
     data = [{
       title: "당월 정산액",
@@ -85,17 +85,17 @@ export const getDashboardCards = async (
       growthRate: settlement.growthRate,
     },
     {
-      title: `${yearMonthStr}의 앨범`,
+      title: `${formattedMonth}의 앨범`,
       content: bestAlbum.koAlbumName,
       growthRate: bestAlbum.growthRate,
     },
     {
-      title: `${yearMonthStr}의 트랙`,
+      title: `${formattedMonth}의 트랙`,
       content: bestTrack.koTrackName,
       growthRate: bestTrack.growthRate,
     }];
   } else {
-    response = await getAlbumDashboardCards(yearMonth, albumId);
+    response = await getAlbumDashboardCards(month, albumId);
     const { settlement, bestTrack } = response;
     data = [{
       title: "이 앨범의 당월 정산액",
@@ -103,7 +103,7 @@ export const getDashboardCards = async (
       growthRate: settlement.growthRate,
     },
     {
-      title: `${yearMonthStr}의 트랙`,
+      title: `${formattedMonth}의 트랙`,
       content: bestTrack.koTrackName,
       growthRate: bestTrack.growthRate,
     }];
@@ -114,13 +114,13 @@ export const getDashboardCards = async (
 
 const useDashboardCards = (
   type: DashboardType,
-  yearMonth: string,
+  month: string,
   artistId?: string,
   albumId?: string,
 ) => {
   const { data: cardsData, isError: isCardsError, isLoading: isCardsLoading } = useQuery(
     [type, "dashboard", "card"],
-    () => { return getDashboardCards(type, yearMonth, artistId, albumId); },
+    () => { return getDashboardCards(type, month, artistId, albumId); },
     {
       staleTime: 5000,
     },
