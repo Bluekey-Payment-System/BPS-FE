@@ -8,7 +8,7 @@ import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDrop
 import AlbumTrendsChart from "@/components/dashboard/AlbumTrendsChart/AlbumTrendsChart";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/MonthlyTrendsChart";
-import TopFiveChart from "@/components/dashboard/TopFiveChart/TopFiveChart";
+import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
 import { MOCK_ALBUM_BAR, MOCK_ALBUM_DOUGHNUT, MOCK_ALBUM_LINE } from "@/constants/mock";
 import { IState } from "@/redux/store";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
@@ -39,7 +39,7 @@ const AlbumDashboardPage = () => {
       <DashboardCardList data={cardsData} />
       <div className={cx("chartContainer")}>
         <MonthlyTrendChart barChartData={MOCK_ALBUM_BAR} type={MEMBER_TYPE.ARTIST} />
-        <TopFiveChart topFiveChartData={MOCK_ALBUM_DOUGHNUT} />
+        <TopFiveRevenueChart topFiveChartData={MOCK_ALBUM_DOUGHNUT} />
       </div>
       <AlbumTrendsChart albumTrendsChartData={MOCK_ALBUM_LINE} memberType={MEMBER_TYPE.ARTIST} />
     </section>
