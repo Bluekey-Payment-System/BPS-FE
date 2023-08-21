@@ -30,7 +30,7 @@ const typeMap = {
   },
   systemChecking: {
     image: {
-      src: "/images/maintenence.png",
+      src: "/images/maintenance.png",
       width: 155,
       height: 170,
       alt: "시스템 점검",
@@ -59,7 +59,7 @@ const typeMap = {
 
 interface FallbackPageLayoutProps {
   pageType: "404" | "error" | "systemChecking" | "approvalWaiting" | "approvalRejected"
-  descriptions: string[][]
+  description: string | string[]
   buttonElements?: React.ReactNode
 }
 
@@ -69,15 +69,16 @@ interface FallbackPageLayoutProps {
  *
  * @param {string} pageType - 페이지 유형을 나타내는 문자열입니다.
  * "404" | "error" | "systemChecking" | "approvalWaiting" | "approvalRejected" 중 하나의 값이 올 수 있습니다.
- * @param {Array<Array<string>>} descriptions - 페이지에 표시할 설명 내용의 문자열 2차 배열입니다.
- * 한 1차 배열의 내용이 p 태그로 감싸지고, 2차 배열의 각 내용이 br 태그로 줄넘김처리 됩니다.
+ * @param {Array<string> | string} description - 페이지에 표시할 설명 내용입니다.
+ * 한 단락인 경우 string, 두 단락 이상인 경우 string[]으로 제공할 수 있습니다.
+ * 백틱 + 엔터를 통해 줄넘김을 표시할 수 있습니다.
  * @param {React.ReactNode} buttonElements - 페이지에 표시할 버튼 요소입니다. 옵션으로 제공할 수 있습니다.
  * @author 연우킴(drizzle96) [Github](https://github.com/drizzle96)
  *
  */
 const FallbackPageLayout = ({
   pageType,
-  descriptions,
+  description,
   buttonElements,
 }: FallbackPageLayoutProps) => {
   return (
@@ -97,21 +98,13 @@ const FallbackPageLayout = ({
       <Spacing size={50} />
       <div className={cx("textContainer")}>
         <h1 className={cx("title")}>{typeMap[pageType].title}</h1>
-        {descriptions.map((description, idx) => {
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <p className={cx("description")} key={idx}>
-              {description.map((textLine) => {
-                return (
-                  <React.Fragment key={textLine}>
-                    {textLine}
-                    <br />
-                  </React.Fragment>
-                );
-              })}
-            </p>
-          );
-        })}
+        {typeof description === "string"
+          ? <p className={cx("description")}>{description}</p>
+          : description.map((paragraph) => {
+            return (
+              <p key={paragraph} className={cx("description")}>{paragraph}</p>
+            );
+          })}
       </div>
       {buttonElements && (
         <>

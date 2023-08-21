@@ -9,7 +9,7 @@ const Error = () => {
   return (
     <FallbackPageLayout
       pageType="error"
-      descriptions={[[`${statusCode}: ${errorMessage}`]]}
+      description={`${statusCode}: ${errorMessage}`}
       buttonElements={(
         // TODO: 버튼 핸들러 달기
         <>
