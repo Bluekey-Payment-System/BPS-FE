@@ -12,7 +12,7 @@ import TableContainerUI from "@/components/common/Table/Composition/TableContain
 import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import useToast from "@/hooks/useToast";
-import { useUploadHistoryDelete } from "@/services/queries/useRevenueUploadHistory";
+import { useUploadHistoryDelete } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 import { ITransactionUpload } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
