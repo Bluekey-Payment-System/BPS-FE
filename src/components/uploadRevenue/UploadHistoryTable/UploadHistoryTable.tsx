@@ -48,7 +48,7 @@ const UploadHistroyTable = (
   return (
     <>
       <TableContainerUI
-        stickyFirstCol
+        stickyLastCol
         tableWidth={730}
       >
         <TableHeaderUI>
