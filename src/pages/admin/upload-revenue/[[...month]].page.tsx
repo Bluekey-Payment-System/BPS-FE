@@ -19,7 +19,7 @@ const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const monthToQueryString = convertYearMonthToQuery(month && month[0]);
 
   await queryClient.prefetchQuery(
-    [MEMBER_TYPE.ADMIN, "settlement-upload-history"],
+    [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
     () => { return getRevenueUploadHistory(monthToQueryString); },
   );
 

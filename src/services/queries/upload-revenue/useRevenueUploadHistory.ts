@@ -41,7 +41,7 @@ const useUploadHistoryGet = (month: string) => {
   const {
     data: revenueUploadHistory, isLoading, isError, isFetching,
   }: UseQueryResult<IGETTransactionUploadResponse> = useQuery(
-    [MEMBER_TYPE.ADMIN, "settlement-upload-history"],
+    [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
     () => { return getRevenueUploadHistory(month); },
     {
       staleTime: Infinity,
@@ -61,7 +61,7 @@ const useUploadHistoryDelete = (
   const { mutate: deleteUploadHistory, isLoading } = useMutation(deleteRevenueUploadHistory, {
     // TODO: delete 실패 시 실패 문구 Toast 노출 처리
     onSuccess: async (data) => {
-      await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "settlement-upload-history"]);
+      await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history"]);
       showToast(data as string);
     },
   });
@@ -87,7 +87,7 @@ const useUploadHistoryPost = (
     // TODO: post 실패 또는 warnings 있을 경우 알림 모달 띄우기
     onSuccess: async (data) => {
       showToast(data as string);
-      await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "settlement-upload-history"]);
+      await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history"]);
     },
   });
 
