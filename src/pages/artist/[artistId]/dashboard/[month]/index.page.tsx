@@ -5,7 +5,7 @@ import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/MonthlyTrendsChart";
 import TopFiveChart from "@/components/dashboard/TopFiveChart/TopFiveChart";
-import TrackStatusTable from "@/components/dashboard/TrackStatusTable/TrackStatusTable";
+import ArtistTrackStatusTable from "@/components/dashboard/TrackStatusTable/ArtistTrackStatusTable";
 import { MOCK_ADMIN_TABLE, MOCK_ARTIST_BAR, MOCK_ARTIST_DOUGHNUT } from "@/constants/mock";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
@@ -24,7 +24,7 @@ const ArtistDashboardPage = () => {
         <MonthlyTrendChart barChartData={MOCK_ARTIST_BAR} type={MEMBER_TYPE.ARTIST} />
         <TopFiveChart topFiveChartData={MOCK_ARTIST_DOUGHNUT} />
       </div>
-      <TrackStatusTable
+      <ArtistTrackStatusTable
         title="2023년 8월의 트랙별 현황"
         data={MOCK_ADMIN_TABLE.contents}
         paginationElement={(
