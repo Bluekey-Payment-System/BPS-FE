@@ -301,6 +301,46 @@ export const MOCK_ALBUM_LINE: IGetAlbumTrackSettlementTrendsResponse = {
           settlement: 5142344,
           revenue: 1032143,
         },
+        {
+          month: 5,
+          settlement: 5142344,
+          revenue: 1032143,
+        },
+        {
+          month: 6,
+          settlement: 5142344,
+          revenue: 1032143,
+        },
+        {
+          month: 7,
+          settlement: 5142344,
+          revenue: 1032143,
+        },
+        {
+          month: 8,
+          settlement: 5142344,
+          revenue: 1032143,
+        },
+        {
+          month: 9,
+          settlement: 5142344,
+          revenue: 1032143,
+        },
+        {
+          month: 10,
+          settlement: 5142344,
+          revenue: 1032143,
+        },
+        {
+          month: 11,
+          settlement: 5142344,
+          revenue: 1032143,
+        },
+        {
+          month: 12,
+          settlement: 5142344,
+          revenue: 1032143,
+        },
       ],
     },
     {

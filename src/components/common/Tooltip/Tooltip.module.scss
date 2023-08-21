@@ -1,16 +1,18 @@
 .content {
   position: fixed;
-  width: fit-content;
   transform: translate(-50%);
 }
 
 .tooltip {
   @include typo(14);
 
-  padding: 7px 10px;
+  width: fit-content;
+  max-width: 220px;
+  padding: 12px 15px;
   border-radius: 6px;
   background-color: $primary-black;
   color: $primary-white;
+  line-height: 18px;
 
   &::before {
     content: "";

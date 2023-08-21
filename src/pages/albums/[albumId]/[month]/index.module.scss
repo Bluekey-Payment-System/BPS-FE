@@ -1,0 +1,42 @@
+.container {
+  @include flexbox(column);
+
+  width: 1200px;
+  margin-bottom: 50px;
+  gap: 32px;
+
+  .sectionHeader {
+    @include flexbox(row, null, center);
+
+    .title {
+      @include typo(24, bold);
+
+      display: block;
+      margin-right: 10px;
+      color: $primary-black;
+    }
+
+    .albumInfo {
+      width: 114px;
+      height: 40px;
+      margin-left: 30px;
+      border: 1px solid $sub-color1;
+      border-radius: 8px;
+      background-color: $primary-white;
+
+      @include typo(14);
+    }
+
+    .monthPickerDropdownContainer {
+      margin-left: 22px;
+
+      &.artist {
+        margin-left: 49px;
+      }
+    }
+  }
+
+  .chartContainer {
+    @include flexbox(row, space-between, center);
+  }
+}
