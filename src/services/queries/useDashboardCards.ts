@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/router";
 
 import { DashboardCardProps } from "@/components/common/DashboardCard/DashboardCard.type";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
@@ -9,9 +9,10 @@ import { IGetAlbumDashboardResponse } from "@/services/api/types/albums";
 import { IGetArtistDashboardResponse } from "@/services/api/types/artist";
 import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
 import formatMoney from "@/utils/formatMoney";
-import getLastSegmentFromUrl from "@/utils/getLastSegmentFromUrl";
 
-const getAdminDashboardCards = (): Promise<IGetAdminDashboardResponse> => {
+const getAdminDashboardCards = (
+  month: string,
+): Promise<IGetAdminDashboardResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ADMIN_DASHBOARD_CARD);
@@ -19,7 +20,10 @@ const getAdminDashboardCards = (): Promise<IGetAdminDashboardResponse> => {
   });
 };
 
-const getArtistDashboardCards = (): Promise<IGetArtistDashboardResponse> => {
+const getArtistDashboardCards = (
+  month: string,
+  artistId?: string,
+): Promise<IGetArtistDashboardResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ARTIST_DASHBOARD_CARD);
@@ -27,7 +31,10 @@ const getArtistDashboardCards = (): Promise<IGetArtistDashboardResponse> => {
   });
 };
 
-const getAlbumDashboardCards = (): Promise<IGetAlbumDashboardResponse> => {
+const getAlbumDashboardCards = (
+  month: string,
+  albumId?: string,
+): Promise<IGetAlbumDashboardResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ALBUM_DASHBOARD_CARD);
@@ -35,11 +42,17 @@ const getAlbumDashboardCards = (): Promise<IGetAlbumDashboardResponse> => {
   });
 };
 
-export const getDashboardCards = async (type: DashboardType, yearMonthStr: string) => {
+export const getDashboardCards = async (
+  type: DashboardType,
+  month: string,
+  artistId?: string,
+  albumId?: string,
+) => {
+  const formattedMonth = convertToYearMonthFormat(month);
   let response;
   let data: DashboardCardProps[];
   if (type === DASHBOARD_TYPE.ADMIN) {
-    response = await getAdminDashboardCards();
+    response = await getAdminDashboardCards(month);
     const {
       revenue, settlementAmount, bestArtist, netIncome,
     } = response;
@@ -59,12 +72,12 @@ export const getDashboardCards = async (type: DashboardType, yearMonthStr: strin
       growthRate: settlementAmount.growthRate,
     },
     {
-      title: `${yearMonthStr}의 아티스트`,
+      title: `${formattedMonth}의 아티스트`,
       content: bestArtist.koArtistName,
       growthRate: bestArtist.growthRate,
     }];
   } else if (type === DASHBOARD_TYPE.ARTIST) {
-    response = await getArtistDashboardCards();
+    response = await getArtistDashboardCards(month, artistId);
     const { bestAlbum, bestTrack, settlement } = response;
     data = [{
       title: "당월 정산액",
@@ -72,17 +85,17 @@ export const getDashboardCards = async (type: DashboardType, yearMonthStr: strin
       growthRate: settlement.growthRate,
     },
     {
-      title: `${yearMonthStr}의 앨범`,
+      title: `${formattedMonth}의 앨범`,
       content: bestAlbum.koAlbumName,
       growthRate: bestAlbum.growthRate,
     },
     {
-      title: `${yearMonthStr}의 트랙`,
+      title: `${formattedMonth}의 트랙`,
       content: bestTrack.koTrackName,
       growthRate: bestTrack.growthRate,
     }];
   } else {
-    response = await getAlbumDashboardCards();
+    response = await getAlbumDashboardCards(month, albumId);
     const { settlement, bestTrack } = response;
     data = [{
       title: "이 앨범의 당월 정산액",
@@ -90,7 +103,7 @@ export const getDashboardCards = async (type: DashboardType, yearMonthStr: strin
       growthRate: settlement.growthRate,
     },
     {
-      title: `${yearMonthStr}의 트랙`,
+      title: `${formattedMonth}의 트랙`,
       content: bestTrack.koTrackName,
       growthRate: bestTrack.growthRate,
     }];
@@ -99,18 +112,23 @@ export const getDashboardCards = async (type: DashboardType, yearMonthStr: strin
   return data;
 };
 
-export function useDashboardCards(type: DashboardType) {
-  const router = useRouter();
-  const yearMonthStr = convertToYearMonthFormat(getLastSegmentFromUrl(router.asPath));
-  const { data: cardsData, isError, isLoading } = useQuery(
+const useDashboardCards = (
+  type: DashboardType,
+  month: string,
+  artistId?: string,
+  albumId?: string,
+) => {
+  const { data: cardsData, isError: isCardsError, isLoading: isCardsLoading } = useQuery(
     [type, "dashboard", "card"],
-    () => { return getDashboardCards(type, yearMonthStr); },
+    () => { return getDashboardCards(type, month, artistId, albumId); },
     {
       staleTime: 5000,
     },
   );
 
   return ({
-    cardsData, isLoading, isError,
+    cardsData, isCardsLoading, isCardsError,
   });
-}
+};
+
+export default useDashboardCards;

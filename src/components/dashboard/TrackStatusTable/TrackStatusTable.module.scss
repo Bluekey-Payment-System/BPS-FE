@@ -31,7 +31,7 @@
 .artistName {
   @include typo(12);
 
-  .enName {
+  &.enName {
     color: $sub-color3;
   }
 }
