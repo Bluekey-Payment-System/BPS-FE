@@ -14,15 +14,14 @@ import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/Admin
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
 import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
+import useDashboardTable, { getDashboardTable } from "@/services/queries/dashboard/useDashboardTable";
+import { getDashboardTopFiveRevenueChart, useDashboardTopFiveRevenueChart } from "@/services/queries/dashboard/useDashboardTopFiveRevenueChart";
+import useDashboardTrendsChart, { getDashboardTrendsChart } from "@/services/queries/dashboard/useDashboardTrendsChart";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
 import styles from "./index.module.scss";
-
-import useDashboardTable, { getDashboardTable } from "@/services/queries/useDashboardTable";
-import { getDashboardTopFiveRevenueChart, useDashboardTopFiveRevenueChart } from "@/services/queries/useDashboardTopFiveRevenueChart";
-import useDashboardTrendsChart, { getDashboardTrendsChart } from "@/services/queries/useDashboardTrendsChart";
 
 const cx = classNames.bind(styles);
 

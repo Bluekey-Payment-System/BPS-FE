@@ -3,11 +3,10 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { MOCK_ADMIN_DOUGHNUT, MOCK_ALBUM_DOUGHNUT, MOCK_ARTIST_DOUGHNUT } from "@/constants/mock";
+import { IGetAdminEarningsTopArtistResponse } from "@/services/api/types/admin";
+import { IGetAlbumRevenueTopTrackResponse } from "@/services/api/types/albums";
+import { IGetArtistEarningsTopTrackResponse } from "@/services/api/types/artist";
 import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
-
-import { IGetAdminEarningsTopArtistResponse } from "../api/types/admin";
-import { IGetAlbumRevenueTopTrackResponse } from "../api/types/albums";
-import { IGetArtistEarningsTopTrackResponse } from "../api/types/artist";
 
 const getAdminDashboardTopFiveRevenueChart = (month: string): Promise<IGetAdminEarningsTopArtistResponse> => {
   return new Promise((resolve) => {

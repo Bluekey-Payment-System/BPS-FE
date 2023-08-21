@@ -4,10 +4,9 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { MOCK_ADMIN_BAR, MOCK_ALBUM_BAR, MOCK_ARTIST_BAR } from "@/constants/mock";
+import { IGetAdminMonthlyEarningsTrendsResponse, IGetArtistMonthlyEarningsTrendsResponse } from "@/services/api/types/admin";
+import { IGetAlbumMonthlySettlementResponse } from "@/services/api/types/albums";
 import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
-
-import { IGetAdminMonthlyEarningsTrendsResponse, IGetArtistMonthlyEarningsTrendsResponse } from "../api/types/admin";
-import { IGetAlbumMonthlySettlementResponse } from "../api/types/albums";
 
 type DashBoardTrendsChart = IGetAdminMonthlyEarningsTrendsResponse | IGetArtistMonthlyEarningsTrendsResponse | IGetAlbumMonthlySettlementResponse;
 
