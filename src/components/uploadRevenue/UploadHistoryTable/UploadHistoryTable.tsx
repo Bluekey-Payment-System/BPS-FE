@@ -29,6 +29,7 @@ const UploadHistroyTable = (
   const { showToast } = useToast();
 
   const mutationTest = useMutation(() => {
+    // TODO: 업로드 내역 삭제 DELETE
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve("업로드 내역이 삭제되었습니다.");

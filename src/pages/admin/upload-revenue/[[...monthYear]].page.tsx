@@ -1,5 +1,5 @@
 import {
-  QueryClient, UseQueryResult, dehydrate, useQuery,
+  QueryClient, dehydrate,
 } from "@tanstack/react-query";
 import { GetServerSideProps } from "next";
 // import { useRouter } from "next/router";
@@ -12,7 +12,7 @@ import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import UploadHistroyTable from "@/components/uploadRevenue/UploadHistoryTable/UploadHistoryTable";
 import { MOCK_TRANSACTION_UPLOAD } from "@/constants/mock";
-import { IGETTransactionUploadResponse } from "@/services/api/types/transaction";
+import useRevenueUploadHistory from "@/services/queries/useRevenueUploadHistory";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 const getServerSideProps: GetServerSideProps = async () => {
@@ -39,19 +39,21 @@ const getServerSideProps: GetServerSideProps = async () => {
 const UploadRevenuePage = () => {
   // const router = useRouter();
 
-  const { data }: UseQueryResult<IGETTransactionUploadResponse> = useQuery(
-    [MEMBER_TYPE.ADMIN, "settlement-upload-history"],
-    () => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(MOCK_TRANSACTION_UPLOAD);
-        }, 3000);
-      });
-    },
-    {
-      staleTime: Infinity,
-    },
-  );
+  const {
+    revenueUploadHistory, isLoading, isError, isFetching,
+  } = useRevenueUploadHistory();
+
+  if (isLoading || isFetching) {
+    return (
+      <div>로딩 중...</div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div>에러 발생</div>
+    );
+  }
 
   return (
     <MainLayoutWithDropdown
@@ -67,7 +69,7 @@ const UploadRevenuePage = () => {
           </SectionLayout>
           <SectionHr isThick />
           <SectionLayout title="업로드 내역">
-            <UploadHistroyTable uploadList={data?.contents} />
+            <UploadHistroyTable uploadList={revenueUploadHistory?.contents} />
           </SectionLayout>
         </div>
       </ArtboardLayout>
