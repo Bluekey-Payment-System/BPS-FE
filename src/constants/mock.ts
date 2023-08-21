@@ -71,6 +71,47 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
   },
   tracks: [
     {
+      koTrackName: "불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이",
+      enTrackName: "Fireworks",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "던던댄스",
+      enTrackName: "Dun Dun Dance",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "바나나 알러지 원숭이",
+      enTrackName: "Banana Allergy Monkey",
+      bluekeyOriginalTrack: true,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+        {
+          koArtistName: "승희",
+          enArtistName: "Seunghee",
+          commissionRate: 30,
+        },
+      ],
+    },
+    {
       koTrackName: "불꽃놀이",
       enTrackName: "Fireworks",
       bluekeyOriginalTrack: false,
@@ -108,6 +149,100 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
           koArtistName: "승희",
           enArtistName: "Seunghee",
           commissionRate: 30,
+        },
+      ],
+    },
+    {
+      koTrackName: "불꽃놀이",
+      enTrackName: "Fireworks",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "던던댄스",
+      enTrackName: "Dun Dun Dance",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "바나나 알러지 원숭이",
+      enTrackName: "Banana Allergy Monkey",
+      bluekeyOriginalTrack: true,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+        {
+          koArtistName: "승희",
+          enArtistName: "Seunghee",
+          commissionRate: 30,
+        },
+      ],
+    },
+    {
+      koTrackName: "불꽃놀이",
+      enTrackName: "Fireworks",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "던던댄스",
+      enTrackName: "Dun Dun Dance",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "바나나 알러지 원숭이",
+      enTrackName: "Banana Allergy Monkey",
+      bluekeyOriginalTrack: true,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+        {
+          koArtistName: "승희",
+          enArtistName: "Seunghee",
+          commissionRate: 30,
+        },
+      ],
+    },
+    {
+      koTrackName: "불꽃놀이",
+      enTrackName: "Fireworks",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
         },
       ],
     },
