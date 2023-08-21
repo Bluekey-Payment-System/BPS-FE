@@ -10,7 +10,7 @@ import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDr
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
-import UploadHistroyTable from "@/components/uploadRevenue/UploadHistoryTable/UploadHistoryTable";
+import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/UploadHistoryTable";
 import { MOCK_TRANSACTION_UPLOAD } from "@/constants/mock";
 import useRevenueUploadHistory from "@/services/queries/useRevenueUploadHistory";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
