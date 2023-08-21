@@ -1,7 +1,7 @@
 import { AdminType, ArtistType } from "./enums/user.enum";
 
 // 이름 관련
-interface IArtist {
+export interface IArtist {
   memberId: number,
   koArtistName: string,
   enArtistName: string
@@ -73,7 +73,7 @@ export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차�
 }
 
 // Info 관련
-interface ITrackInfo {
+export interface ITrackInfo {
   koTrackName: string,
   enTrackName: string,
   bluekeyOriginalTrack: boolean,
@@ -123,8 +123,6 @@ export interface IArtistDashboardCard {
 }
 
 export interface IAlbumDashboardCard {
-  koAlbumName: string,
-  enAlbumName: string,
   settlement: IEarnings
   bestTrack: ITrack & {
     growthRate: number | null

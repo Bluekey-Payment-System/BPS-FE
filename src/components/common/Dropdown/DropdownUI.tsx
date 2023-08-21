@@ -28,7 +28,7 @@ const DropdownUI = ({
   hasSearchBar,
 }: DropdownUIProps, dropdownContainerRef: React.ForwardedRef<HTMLDivElement>) => {
   return (
-    <div className={cx("dropdownContainer")} role="presentation" ref={dropdownContainerRef}>
+    <div className={cx("dropdownContainer", theme)} role="presentation" ref={dropdownContainerRef}>
       <DropdownSelectedValue
         selectedDropdownValue={selectedDropdownValue}
         toggle={toggle}

@@ -1,0 +1,37 @@
+.container {
+  @include flexbox(column);
+
+  width: 100%;
+  gap: 44px;
+
+  .titleContainer {
+    @include flexbox(row, space-between, center);
+
+    .title {
+      @include typo(24, bold);
+
+      color: $primary-black;
+    }
+
+    .utilContainer {
+      @include flexbox(row, flex-start, center);
+    }
+  }
+}
+
+.ellipsis {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.artistName {
+  @include typo(12);
+
+  &.enName {
+    color: $sub-color3;
+  }
+}

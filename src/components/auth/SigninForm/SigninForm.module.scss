@@ -1,0 +1,17 @@
+.form {
+  .title {
+    @include typo(32);
+
+    text-align: center;
+  }
+
+  & > p {
+    color: $sub-color3;
+    text-align: center;
+
+    a {
+      color: $primary-black;
+      text-decoration: underline;
+    }
+  }
+}

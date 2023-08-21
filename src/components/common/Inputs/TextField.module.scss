@@ -47,6 +47,7 @@
 			letter-spacing: 5px;
 
 			&::placeholder {
+				font-family: initial;
 				letter-spacing: normal;
 			}
 		}

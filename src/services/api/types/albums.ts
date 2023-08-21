@@ -1,5 +1,6 @@
 import {
   IAlbumCard,
+  IAlbumDashboardCard,
   IAlbumInfo,
   IBarMonthlySettlement,
   IDoughnutTrackRevenue,
@@ -9,6 +10,9 @@ import {
 export interface IGetAlbumsResponse {
   totalItems: number,
   contents: IAlbumCard[]
+}
+
+export interface IGetAlbumDashboardResponse extends IAlbumDashboardCard {
 }
 
 export interface IGetAlbumTracksResponse extends IAlbumInfo {

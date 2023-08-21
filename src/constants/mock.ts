@@ -5,6 +5,7 @@ import {
   IGetAdminTrackTransactionResponse,
 } from "@/services/api/types/admin";
 import {
+  IGetAlbumDashboardResponse,
   IGetAlbumMonthlySettlementResponse,
   IGetAlbumRevenueTopTrackResponse,
   IGetAlbumTrackSettlementTrendsResponse,
@@ -70,6 +71,47 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
   },
   tracks: [
     {
+      koTrackName: "불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이",
+      enTrackName: "Fireworks",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "던던댄스",
+      enTrackName: "Dun Dun Dance",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "바나나 알러지 원숭이",
+      enTrackName: "Banana Allergy Monkey",
+      bluekeyOriginalTrack: true,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+        {
+          koArtistName: "승희",
+          enArtistName: "Seunghee",
+          commissionRate: 30,
+        },
+      ],
+    },
+    {
       koTrackName: "불꽃놀이",
       enTrackName: "Fireworks",
       bluekeyOriginalTrack: false,
@@ -107,6 +149,100 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
           koArtistName: "승희",
           enArtistName: "Seunghee",
           commissionRate: 30,
+        },
+      ],
+    },
+    {
+      koTrackName: "불꽃놀이",
+      enTrackName: "Fireworks",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "던던댄스",
+      enTrackName: "Dun Dun Dance",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "바나나 알러지 원숭이",
+      enTrackName: "Banana Allergy Monkey",
+      bluekeyOriginalTrack: true,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+        {
+          koArtistName: "승희",
+          enArtistName: "Seunghee",
+          commissionRate: 30,
+        },
+      ],
+    },
+    {
+      koTrackName: "불꽃놀이",
+      enTrackName: "Fireworks",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "던던댄스",
+      enTrackName: "Dun Dun Dance",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      koTrackName: "바나나 알러지 원숭이",
+      enTrackName: "Banana Allergy Monkey",
+      bluekeyOriginalTrack: true,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+        {
+          koArtistName: "승희",
+          enArtistName: "Seunghee",
+          commissionRate: 30,
+        },
+      ],
+    },
+    {
+      koTrackName: "불꽃놀이",
+      enTrackName: "Fireworks",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
         },
       ],
     },
@@ -278,6 +414,21 @@ export const MOCK_ALBUM_DOUGHNUT: IGetAlbumRevenueTopTrackResponse = {
     },
   ],
 };
+
+export const MOCK_ALBUM_DASHBOARD_CARD: IGetAlbumDashboardResponse = {
+  settlement:
+  {
+    totalAmount: 1000,
+    growthRate: 10.2,
+  },
+  bestTrack:
+  {
+    trackId: 1,
+    koTrackName: "트랙명2",
+    enTrackName: "track2",
+    growthRate: -30,
+  },
+};
 /* ########################## */
 
 /* ##### 2. TRANSACTION ##### */
@@ -385,6 +536,16 @@ export const MOCK_ADMIN_BAR: IGetAdminMonthlyEarningsTrendsResponse = {
       netIncome: 5142344,
       revenue: 1032143,
     },
+    {
+      month: 5,
+      netIncome: 3942344,
+      revenue: 1032143,
+    },
+    {
+      month: 6,
+      netIncome: 2442344,
+      revenue: 1032143,
+    },
 
   ],
 };
@@ -406,8 +567,18 @@ export const MOCK_ADMIN_TABLE: IGetAdminTrackTransactionResponse = {
       artists: [
         {
           memberId: 1,
-          koArtistName: "아이유",
+          koArtistName: "아이유~~참말로제가한게아닙니더",
           enArtistName: "IU",
+        },
+        {
+          memberId: 2,
+          koArtistName: "지드래곤",
+          enArtistName: "G-Dragon",
+        },
+        {
+          memberId: 3,
+          koArtistName: "태양",
+          enArtistName: "Sun",
         },
       ],
       revenue: 1000000000,

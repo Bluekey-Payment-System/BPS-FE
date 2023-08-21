@@ -18,12 +18,12 @@ const DropdownSelectedValue = ({
   return (
     <button onClick={handleToggle} type="button" className={cx("dropdownValueContainer", theme)}>
       <div
-        className={cx("selectedValue")}
+        className={cx("selectedValue", theme)}
       >
         {selectedDropdownValue}
       </div>
       <Image
-        className={cx("toggle")}
+        className={cx("toggle", theme)}
         src={toggle ? "/images/dropdown-up.svg" : "/images/dropdown-down.svg"}
         alt="토글버튼"
         width={20}

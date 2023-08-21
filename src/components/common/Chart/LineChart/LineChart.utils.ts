@@ -1,31 +1,28 @@
+/* eslint-disable max-len */
+import { ILineTrackSettlementTrends } from "@/types/dto";
+import { MEMBER_TYPE, MemberType } from "@/types/enums/user.enum";
+
 import { getMonthName } from "../chart.utils";
 
-import { IMappedChartData, ILineChart } from "./LineChart.types";
+export const getMaxValueInLineChart = (chartList: ILineTrackSettlementTrends, memberType: MemberType) => {
+  const values = chartList.monthlyTrend.map((chartItem) => {
+    const value = memberType === MEMBER_TYPE.ARTIST ? chartItem.settlement : chartItem.revenue;
+    return value !== null ? value : 0;
+  });
 
-export const getMaxValueInLineChart = (chartList: IMappedChartData[]) => {
-  let maxValue = 0;
-  for (let i = 0; i < chartList[0].data.length; i += 1) {
-    if (chartList[0].data[i].y > maxValue) {
-      maxValue = chartList[0].data[i].y;
-    }
-  }
-
-  return maxValue;
+  return Math.max(...values);
 };
 
 export const mapLineDataToMonthlySummary = (
-  chartData: ILineChart,
-  type: "settlement" | "revenue",
-  id: number,
+  chartData: ILineTrackSettlementTrends,
+  memberType: MemberType,
 ) => {
-  const findChartData = chartData.tracks.find((data) => { return data.id === id; });
-  if (!findChartData) return [];
   const data = {
-    id: findChartData.id,
-    data: findChartData.monthlyTrend.map((chartItem) => {
+    id: chartData.koTrackName,
+    data: chartData.monthlyTrend.map((chartItem) => {
       return {
-        x: getMonthName(chartItem?.month),
-        y: chartItem[type],
+        x: getMonthName(chartItem.month),
+        y: memberType === MEMBER_TYPE.ARTIST ? chartItem.settlement : chartItem.revenue,
       };
     }),
   };

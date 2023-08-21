@@ -1,0 +1,17 @@
+.container {
+  @include flexbox(row, flex-start, center);
+
+  gap: 18px;
+  height: 40px;
+  padding-right: 13px;
+  padding-left: 13px;
+  border: 1px solid $sub-color1;
+  border-radius: 8px;
+  background-color: $primary-white;
+
+  .text {
+    @include typo(14);
+
+    color: $primary-black;
+  }
+}
