@@ -4,13 +4,19 @@ import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
 import TableContainerUI from "@/components/common/Table/Composition/TableContainerUI";
 import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
-import { MOCK_ARTISTS } from "@/constants/mock";
+import { IArtistList } from "@/types/dto";
 
-const ArtistsStatusTable = () => {
-  const artistList = MOCK_ARTISTS.contents;
+interface ArtistsStatusTableProps {
+  artistList: IArtistList[],
+  paginationElement: React.ReactNode
+}
 
+const ArtistsStatusTable = ({
+  artistList, paginationElement,
+}: ArtistsStatusTableProps) => {
   return (
     <TableContainerUI
+      paginationElement={paginationElement}
       stickyFirstCol
       tableWidth={1200}
     >
