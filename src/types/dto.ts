@@ -134,6 +134,7 @@ export interface IAlbumDashboardCard {
 // /api/v1/artist
 export interface IArtistList {
   artist: {
+    memberId: number,
     koArtistName: string,
     enArtistName: string,
     profileImage: string
