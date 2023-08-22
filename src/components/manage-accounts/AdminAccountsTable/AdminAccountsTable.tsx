@@ -34,7 +34,7 @@ const AdminAccountsTable = ({ accounts, paginationElement }: AdminAccountsTableP
       <TableBodyUI>
         {accounts.map((account) => {
           return (
-            <TableRowUI key={account.id}>
+            <TableRowUI key={account.memberId}>
               <TableCellUI>
                 <TooltipRoot message={account.nickName}>
                   <p className={cx("ellipsis")}>{account.nickName}</p>

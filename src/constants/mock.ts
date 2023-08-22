@@ -1088,7 +1088,7 @@ export const MOCK_ACCOUNTS: IGetAccountsResponse = {
     totalItems: 100,
     contents: [
       {
-        id: 1,
+        memberId: 1,
         name: "혁기",
         enName: "hyuki",
         loginId: "qwertyui1234",
@@ -1096,7 +1096,7 @@ export const MOCK_ACCOUNTS: IGetAccountsResponse = {
         commissionRate: null,
       },
       {
-        id: 2,
+        memberId: 2,
         name: "혁기2",
         enName: "hyuki2",
         loginId: "qwerty2ui1234",
@@ -1104,7 +1104,7 @@ export const MOCK_ACCOUNTS: IGetAccountsResponse = {
         commissionRate: 90,
       },
       {
-        id: 3,
+        memberId: 3,
         name: "혁기3",
         enName: "hyuki",
         loginId: "qwertyui1234",
@@ -1112,7 +1112,7 @@ export const MOCK_ACCOUNTS: IGetAccountsResponse = {
         commissionRate: 86,
       },
       {
-        id: 4,
+        memberId: 4,
         name: "혁기4",
         enName: "hyuki2",
         loginId: "qwerty2ui1234",
@@ -1120,7 +1120,7 @@ export const MOCK_ACCOUNTS: IGetAccountsResponse = {
         commissionRate: 90,
       },
       {
-        id: 5,
+        memberId: 5,
         name: "혁기5",
         enName: "hyuki",
         loginId: "qwertyui1234",
@@ -1128,7 +1128,7 @@ export const MOCK_ACCOUNTS: IGetAccountsResponse = {
         commissionRate: 86,
       },
       {
-        id: 6,
+        memberId: 6,
         name: "혁기6",
         enName: "hyuki2",
         loginId: "qwerty2ui1234",
@@ -1141,37 +1141,37 @@ export const MOCK_ACCOUNTS: IGetAccountsResponse = {
     totalItems: 100,
     contents: [
       {
-        id: 1,
+        memberId: 1,
         nickName: "혁기1",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
       },
       {
-        id: 2,
+        memberId: 2,
         nickName: "혁기2",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
       },
       {
-        id: 3,
+        memberId: 3,
         nickName: "혁기1",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
       },
       {
-        id: 4,
+        memberId: 4,
         nickName: "혁기2",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
       },
       {
-        id: 5,
+        memberId: 5,
         nickName: "혁기1",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
       },
       {
-        id: 6,
+        memberId: 6,
         nickName: "혁기2",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
