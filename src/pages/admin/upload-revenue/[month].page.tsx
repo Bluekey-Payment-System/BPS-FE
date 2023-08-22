@@ -27,6 +27,12 @@ const UploadRevenuePage = (
     );
   }
 
+  if (!revenueUploadHistory) {
+    return (
+      <div>데이터를 가져오는 데 실패했습니다. 다시 시도해주세요</div>
+    );
+  }
+
   return (
     <MainLayoutWithDropdown
       title="정산 내역 업로드"
@@ -43,7 +49,11 @@ const UploadRevenuePage = (
           <SectionLayout title="업로드 내역">
             {(isLoading || isFetching)
               ? <Loading height={218} />
-              : <UploadHistroyTable uploadList={revenueUploadHistory?.contents} />}
+              : (
+                <UploadHistroyTable
+                  uploadList={revenueUploadHistory.contents}
+                />
+              )}
           </SectionLayout>
         </div>
       </ArtboardLayout>

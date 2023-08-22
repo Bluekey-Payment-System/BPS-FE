@@ -26,7 +26,7 @@ interface FileData {
  * @returns 정산 내역 테이블
  */
 const UploadHistroyTable = (
-  { uploadList }: { uploadList?: ITransactionUpload[] },
+  { uploadList }: { uploadList: ITransactionUpload[] },
 ) => {
   const queryClient = useQueryClient();
   const [isCancelUploadModalOpen, setIsCancelUploadModalOpen] = useState(false);
@@ -50,7 +50,7 @@ const UploadHistroyTable = (
     setIsCancelUploadModalOpen(false);
   };
 
-  if (uploadList?.length === 0) {
+  if (uploadList.length === 0) {
     return <EmptyData type="no-data" text="업로드 내역이 없습니다." />;
   }
 
@@ -70,7 +70,7 @@ const UploadHistroyTable = (
           <TableCellUI isHeader>비고</TableCellUI>
         </TableHeaderUI>
         <TableBodyUI>
-          {uploadList?.map((item) => {
+          {uploadList.map((item) => {
             return (
               <TableRowUI key={item.id}>
                 <TableCellUI>
