@@ -879,19 +879,6 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
       representativeTrack: "love",
       monthlyIncreaseRate: 2.5,
     },
-    {
-      artist: {
-        memberId: 11,
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
-        profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
-      },
-      revenue: 300,
-      netIncome: 1234,
-      settlementAmount: 1234124,
-      representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
-    },
   ],
 };
 
