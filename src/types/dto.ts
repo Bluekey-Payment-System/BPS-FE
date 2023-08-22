@@ -167,13 +167,13 @@ export interface IArtistProfile extends IProfile {
 
 // 정산액 업로드 관련
 interface ITransactionUploadAlert {
-  "rowIndex": number,
-  "columnIndex": number,
-  "columnName": string,
-  "cellValue": string,
-  "type": string,
-  "severity": string,
-  "message": string
+  rowIndex: number,
+  columnIndex: number,
+  columnName: string,
+  cellValue: string,
+  type: string,
+  severity: string,
+  message: string
 }
 
 // /api/v1/transactions
