@@ -55,7 +55,7 @@ const UploadHistroyTable = (
   }
 
   if (isLoading) {
-    return <Loading width="100%" height={218} />;
+    return <Loading height={218} />;
   }
 
   return (

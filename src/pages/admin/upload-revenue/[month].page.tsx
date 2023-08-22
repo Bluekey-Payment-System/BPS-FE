@@ -62,7 +62,7 @@ const UploadRevenuePage = (
           <SectionHr isThick />
           <SectionLayout title="업로드 내역">
             {(isLoading || isFetching)
-              ? <Loading width="100%" height={218} />
+              ? <Loading height={218} />
               : <UploadHistroyTable uploadList={revenueUploadHistory?.contents} />}
           </SectionLayout>
         </div>

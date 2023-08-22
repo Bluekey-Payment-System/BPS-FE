@@ -3,16 +3,16 @@ import classNames from "classnames/bind";
 import styles from "./Loading.module.scss";
 
 interface LoadingProps {
-  width: number | string,
-  height: number | string,
+  width?: number | string,
+  height?: number | string,
 }
 
 const cx = classNames.bind(styles);
 
 /**
  * @author [hayoung-99](https://github.com/hayoung-99)
- * @param {number | string} width 로딩 박스 width
- * @param {number | string} height 로딩 박스 height
+ * @param width 로딩 박스 width (default: 100%)
+ * @param height 로딩 박스 height (default: 100%)
  * @returns 로딩 UI 컴포넌트
  */
 const Loading = ({ width, height }: LoadingProps) => {

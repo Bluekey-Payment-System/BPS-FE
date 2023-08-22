@@ -56,7 +56,7 @@ const ExcelFileUploader = () => {
   };
 
   if (isLoading) {
-    return <Loading width={730} height={222} />;
+    return <Loading height={222} />;
   }
 
   return (
