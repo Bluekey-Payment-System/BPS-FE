@@ -21,6 +21,11 @@ interface FileData {
   fileName: string
 }
 
+/**
+ * @author [hayoung-99](https://github.com/hayoung-99)
+ * @param uploadList 정산 내역들이 담긴 배열
+ * @returns 정산 내역 테이블
+ */
 const UploadHistroyTable = (
   { uploadList }: { uploadList?: ITransactionUpload[] },
 ) => {
