@@ -73,9 +73,9 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
               </TableCellUI>
               <TableCellUI>
                 <div className={cx("buttonContainer")}>
-                  <ChipButton onClick={() => { }}>비밀번호 재발급</ChipButton>
-                  <ChipButton onClick={() => { }}>계정 탈퇴</ChipButton>
                   <ChipButton onClick={() => { }}>수정</ChipButton>
+                  <ChipButton onClick={() => { }}>계정 탈퇴</ChipButton>
+                  <ChipButton onClick={() => { }}>비밀번호 재발급</ChipButton>
                 </div>
               </TableCellUI>
             </TableRowUI>
