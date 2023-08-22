@@ -5,7 +5,7 @@ import Link from "next/link";
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
-import useDashboardCards, { getDashboardCards } from "@/services/queries/useDashboardCards";
+import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 interface IanProps {

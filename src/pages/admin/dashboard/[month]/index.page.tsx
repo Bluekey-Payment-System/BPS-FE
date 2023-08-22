@@ -1,44 +1,71 @@
+/* eslint-disable max-len */
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import { GetServerSideProps } from "next";
 
-import { DashboardCardProps } from "@/components/common/DashboardCard/DashboardCard.type";
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
+import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/MonthlyTrendsChart";
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
 import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
-import { MOCK_ADMIN_TABLE } from "@/constants/mock";
-import { getDashboardTopFiveRevenueChart, useDashboardTopFiveRevenueChart } from "@/services/queries/useDashboardTopFiveRevenueChart";
-import useDashboardTrendsChart, { getDashboardTrendsChart } from "@/services/queries/useDashboardTrendsChart";
+import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
+import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
+import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
+import useDashboardTable, { getDashboardTable } from "@/services/queries/dashboard/useDashboardTable";
+import { getDashboardTopFiveRevenueChart, useDashboardTopFiveRevenueChart } from "@/services/queries/dashboard/useDashboardTopFiveRevenueChart";
+import useDashboardTrendsChart, { getDashboardTrendsChart } from "@/services/queries/dashboard/useDashboardTrendsChart";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
-import formatMoney from "@/utils/formatMoney";
+import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
 import styles from "./index.module.scss";
 
 const cx = classNames.bind(styles);
 
-const cardsData: DashboardCardProps[] = [
-  { title: "당월 총 매출액", content: formatMoney(1000000, "card"), growthRate: 2.1 },
-  { title: "당월 총 회사 이익", content: formatMoney(1000000, "card"), growthRate: 2.1 },
-  { title: "당월 총 정산액", content: formatMoney(1000000, "card"), growthRate: 2.1 },
-  { title: "이 달의 아티스트", content: formatMoney(1000000, "card"), growthRate: 2.1 },
-];
-const AdminDashboardPage = ({ month }: { month: string }) => {
-  // eslint-disable-next-line max-len
-  const { trendsChartData, istrendsChartLoading, istrendsChartError } = useDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month);
+interface AdminDashboardPageProps {
+  month: string,
+  page: number,
+  sortBy: string,
+  searchBy: string,
+  keyword: string,
+}
+
+const AdminDashboardPage = ({
+  month, page, sortBy, searchBy, keyword,
+}: AdminDashboardPageProps) => {
+  const {
+    cardsData,
+    isCardsError,
+    isCardsLoading,
+  } = useDashboardCards(DASHBOARD_TYPE.ADMIN, month);
+
+  const {
+    trendsChartData,
+    istrendsChartLoading, istrendsChartError,
+  } = useDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month);
+
   const {
     topFiveRevenueData: topFiveChartData,
     istopFiveRevenueDataLoading,
     istopFiveRevenueDataError,
   } = useDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month);
 
-  if (istrendsChartLoading || istopFiveRevenueDataLoading) return <div>로딩 중...</div>;
-  if (istrendsChartError || istopFiveRevenueDataError) return <div>에러 발생!</div>;
-  if (!trendsChartData || !topFiveChartData) return <div>데이터가 없다</div>;
+  const {
+    tableData,
+    isTableError,
+    isTableLoading,
+  } = useDashboardTable(DASHBOARD_TYPE.ADMIN, month, page, sortBy, searchBy, keyword);
+
+  const formattedMonth = convertToYearMonthFormat(month);
+
+  if (istrendsChartLoading || istopFiveRevenueDataLoading || isCardsLoading || isTableLoading) return <div>로딩 중...</div>;
+  if (istrendsChartError || istopFiveRevenueDataError || isCardsError || isTableError) return <div>에러 발생!</div>;
+  if (!trendsChartData || !topFiveChartData || !cardsData || !tableData) return <div>데이터가 없다</div>;
+
+  const { totalItems, contents: tableContents } = tableData as IGetAdminTrackTransactionResponse;
 
   return (
     <MainLayoutWithDropdown title="대시보드" dropdownElement={<MonthPickerDropdown />}>
@@ -48,13 +75,15 @@ const AdminDashboardPage = ({ month }: { month: string }) => {
         <TopFiveRevenueChart topFiveChartData={topFiveChartData} />
       </div>
       <AdminTrackStatusTable
-        title="2023년 8월의 트랙별 현황"
-        data={MOCK_ADMIN_TABLE.contents}
+        title={`${formattedMonth}의 트랙별 현황`}
+        data={tableContents}
+        // TODO: tableData 형태에 따라 isEmpty 체크 변경
+        isEmpty={!tableContents}
         paginationElement={(
           <Pagination
-            activePage={1}
-            totalItems={MOCK_ADMIN_TABLE.totalItems}
-            itemsPerPage={6}
+            activePage={page}
+            totalItems={totalItems}
+            itemsPerPage={ITEMS_PER_DASHBOARD_TABLE}
           />
         )}
       />
@@ -67,14 +96,40 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   const month = query?.month as string;
 
+  const pageParam = (query?.page ?? null) as (string | null);
+  const page = convertPageParamToNum(pageParam);
+  const sortBy = (query?.sortBy ?? "createdAt") as string;
+  const searchBy = (query?.searchBy ?? "track") as string;
+  const keyword = (query?.keyword ?? "") as string;
+
   try {
     await Promise.all([
       queryClient.prefetchQuery(
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
+        () => {
+          return getDashboardCards(DASHBOARD_TYPE.ADMIN, month);
+        },
+      ),
+      queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart"],
         () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month); },
-      ), queryClient.prefetchQuery(
+      ),
+      queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ADMIN, "dashboard", "topFiveRevenueChart"],
         () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month); },
+      ),
+      queryClient.prefetchQuery(
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "table"],
+        () => {
+          return getDashboardTable(
+            DASHBOARD_TYPE.ADMIN,
+            month,
+            page,
+            sortBy,
+            searchBy,
+            keyword,
+          );
+        },
       ),
     ]);
 
@@ -82,6 +137,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       props: {
         dehydratedState: dehydrate(queryClient),
         month,
+        page,
+        sortBy,
+        searchBy,
+        keyword,
       },
     };
   } catch (e) {
