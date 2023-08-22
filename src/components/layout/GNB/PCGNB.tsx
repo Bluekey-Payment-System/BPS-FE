@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { COMBINATION_COLORS, RANDOM_PROFILES } from "@/constants/randomProfileList";
+import getRandomProfileIndex from "@/utils/getRandomProfileIndex";
 
-import getRandomProfileIndex from "./GNB.utils";
 import styles from "./PCGNB.module.scss";
 
 interface GNBProps {
