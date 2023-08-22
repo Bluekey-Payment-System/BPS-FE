@@ -4,9 +4,12 @@ import Link from "next/link";
 
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
+import AlbumTrendsChart from "@/components/dashboard/AlbumTrendsChart/AlbumTrendsChart";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
-import useDashboardCards, { getDashboardCards } from "@/services/queries/useDashboardCards";
+import useDashboardAlbumTrendsChart, { getMemberAlbumTrendsChart } from "@/services/queries/dashboard/useDashboardAlbumTrendsChart";
+import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
+import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 interface IanProps {
   month: string
@@ -22,12 +25,19 @@ const Ian = ({
     isCardsLoading,
   } = useDashboardCards(DASHBOARD_TYPE.ALBUM, month, undefined, albumId);
 
-  if (isCardsLoading) return <div>로딩 중...</div>;
-  if (isCardsError) return <div>에러 발생!</div>;
-  if (!cardsData) return <div>데이터가 없다</div>;
+  const {
+    albumTrendsChart,
+    isalbumTrendsChartError, isAlbumTrendsChartLoading,
+  } = useDashboardAlbumTrendsChart(month, albumId);
+
+  if (isCardsLoading || isalbumTrendsChartError) return <div>로딩 중...</div>;
+  if (isCardsError || isAlbumTrendsChartLoading) return <div>에러 발생!</div>;
+  if (!cardsData || !albumTrendsChart) return <div>데이터가 없다</div>;
+
   return (
     <MainLayoutWithDropdown title="대쉬보드" dropdownElement={<MonthPickerDropdown />}>
       <DashboardCardList data={cardsData} />
+      <AlbumTrendsChart albumTrendsChartData={albumTrendsChart} memberType={MEMBER_TYPE.ARTIST} />
       <Link href="/ian/admin/dashboard/202308">어드민 대시보드 페이지 이동</Link>
     </MainLayoutWithDropdown>
   );
@@ -47,7 +57,14 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         () => {
           return getDashboardCards(DASHBOARD_TYPE.ARTIST, month, undefined, albumId);
         },
-      )]);
+      ),
+      queryClient.prefetchQuery(
+        ["dashboard", "albumTrendsChart"],
+        () => {
+          return getMemberAlbumTrendsChart(month, albumId);
+        },
+      ),
+    ]);
 
     return {
       props: {

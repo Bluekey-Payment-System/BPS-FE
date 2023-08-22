@@ -9,8 +9,8 @@ import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import ArtistTrackStatusTable from "@/components/dashboard/TrackStatusTable/ArtistTrackStatusTable";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
-import useDashboardCards, { getDashboardCards } from "@/services/queries/useDashboardCards";
-import useDashboardTable, { getDashboardTable } from "@/services/queries/useDashboardTable";
+import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
+import useDashboardTable, { getDashboardTable } from "@/services/queries/dashboard/useDashboardTable";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 

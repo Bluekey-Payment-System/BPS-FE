@@ -10,8 +10,8 @@ import DashboardCardList from "@/components/dashboard/DashboardCardList/Dashboar
 import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
 import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
-import useDashboardCards, { getDashboardCards } from "@/services/queries/useDashboardCards";
-import useDashboardTable, { getDashboardTable } from "@/services/queries/useDashboardTable";
+import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
+import useDashboardTable, { getDashboardTable } from "@/services/queries/dashboard/useDashboardTable";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 

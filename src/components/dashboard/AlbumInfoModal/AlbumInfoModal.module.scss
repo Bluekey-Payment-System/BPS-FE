@@ -1,0 +1,74 @@
+.container {
+  @include flexbox(column);
+
+  gap: 50px;
+
+  .title {
+    @include typo(16, bold);
+
+    color: $primary-black;
+  }
+
+  .contentContainer {
+    @include flexbox(row);
+
+    gap: 96px;
+    height: 523px;
+    padding-left: 46px;
+
+    .albumInfoContainer {
+      @include flexbox(column, flex-start, center);
+
+      gap: 32px;
+      color: $primary-black;
+
+      .imageWrapper {
+        @include flexbox(row, center, center);
+
+        width: 346px;
+        height: 341px;
+        overflow: hidden;
+        border-radius: 8px;
+        background-color: $primary-white;
+        filter: drop-shadow(0 2px 13px rgb(0 0 0 / 37%));
+
+        .defaultCover {
+          position: static !important;
+          width: 120px !important;
+        }
+      }
+
+      .albumTitle {
+        @include typo(24, bold);
+      }
+
+      .hr {
+        width: 100%;
+        height: 1px;
+        background-color: $sub-color1;
+      }
+
+      .artist {
+        @include flexbox(column, flex-start, center);
+
+        gap: 8px;
+
+        .name {
+          @include typo(16);
+
+          &.enName {
+            color: $sub-color3;
+          }
+        }
+      }
+    }
+
+    .tableWrapper {
+      width: 730px;
+    }
+  }
+
+  .buttonWrapper {
+    margin: 0 auto;
+  }
+}
