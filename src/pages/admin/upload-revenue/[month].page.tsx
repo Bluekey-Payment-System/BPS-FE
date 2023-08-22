@@ -14,26 +14,6 @@ import { useUploadHistoryGet } from "@/services/queries/upload-revenue/useRevenu
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 
-const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const queryClient = new QueryClient();
-
-  // TODO: [month] 값이 없는 url의 경우 에러로 리다이렉트 처리 필요
-  const { month } = query;
-  const monthToQueryString = convertYearMonthToQuery(month as string);
-
-  await queryClient.prefetchQuery(
-    [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
-    () => { return getRevenueUploadHistory(monthToQueryString); },
-  );
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      month: monthToQueryString,
-    },
-  };
-};
-
 const UploadRevenuePage = (
   { month } : { month: string },
 ): InferGetServerSidePropsType<typeof getServerSideProps> => {
@@ -69,6 +49,26 @@ const UploadRevenuePage = (
       </ArtboardLayout>
     </MainLayoutWithDropdown>
   );
+};
+
+const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const queryClient = new QueryClient();
+
+  // TODO: [month] 값이 없는 url의 경우 에러로 리다이렉트 처리 필요
+  const { month } = query;
+  const monthToQueryString = convertYearMonthToQuery(month as string);
+
+  await queryClient.prefetchQuery(
+    [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
+    () => { return getRevenueUploadHistory(monthToQueryString); },
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      month: monthToQueryString,
+    },
+  };
 };
 
 export { getServerSideProps };
