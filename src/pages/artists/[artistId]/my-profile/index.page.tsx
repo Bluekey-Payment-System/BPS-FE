@@ -7,16 +7,16 @@ import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import MainLayout from "@/components/common/Layouts/MainLayout";
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
-import AdminProfileForm from "@/components/my-profile/AdminProfileForm/AdminProfileForm";
-import { IAdminUpdateProfileFieldValues } from "@/types/dto";
+import ArtistProfileForm from "@/components/my-profile/ArtistProfileForm/ArtistProfileForm";
+import { IArtistUpdateProfileFieldValues } from "@/types/dto";
 
 import styles from "./index.module.scss";
 
 const cx = classNames.bind(styles);
 
-const AdminMyProfilePage = () => {
-  const methods = useForm<IAdminUpdateProfileFieldValues>();
-  const onSubmit:SubmitHandler<IAdminUpdateProfileFieldValues> = (data) => {
+const ArtistMyProfilePage = () => {
+  const methods = useForm<IArtistUpdateProfileFieldValues>();
+  const onSubmit:SubmitHandler<IArtistUpdateProfileFieldValues> = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
   };
@@ -35,7 +35,7 @@ const AdminMyProfilePage = () => {
             </SectionLayout>
             <SectionHr />
             <SectionLayout title="내 프로필 정보 수정">
-              <AdminProfileForm onSubmit={onSubmit} />
+              <ArtistProfileForm onSubmit={onSubmit} />
             </SectionLayout>
           </div>
         </FormProvider>
@@ -44,4 +44,4 @@ const AdminMyProfilePage = () => {
   );
 };
 
-export default AdminMyProfilePage;
+export default ArtistMyProfilePage;
