@@ -6,6 +6,8 @@ import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import { IArtistList } from "@/types/dto";
 
+import ArtistProfileImage from "../ArtistProfileImage/ArtistProfileImage";
+
 interface ArtistsStatusTableProps {
   artistList: IArtistList[],
   paginationElement: React.ReactNode
@@ -21,6 +23,7 @@ const ArtistsStatusTable = ({
       tableWidth={1200}
     >
       <TableHeaderUI>
+        <TableCellUI isHeader> </TableCellUI>
         <TableCellUI isHeader>아티스트명</TableCellUI>
         <TableCellUI isHeader>매출액</TableCellUI>
         <TableCellUI isHeader>회사 이익</TableCellUI>
@@ -32,6 +35,12 @@ const ArtistsStatusTable = ({
         {artistList.map((artistInfo) => {
           return (
             <TableRowUI key={artistInfo.artist.memberId}>
+              <TableCellUI>
+                <ArtistProfileImage
+                  memberId={artistInfo.artist.memberId}
+                  profileImageUrl={artistInfo.artist.profileImage}
+                />
+              </TableCellUI>
               <TableCellUI>{artistInfo.artist.koArtistName}</TableCellUI>
               <TableCellUI>{artistInfo.revenue}</TableCellUI>
               <TableCellUI>{artistInfo.netIncome}</TableCellUI>
