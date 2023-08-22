@@ -167,6 +167,8 @@ export interface IArtistProfile extends IProfile {
   isSameKoNameWithEnName: boolean,
 }
 
+export interface IArtistUpdateProfileFieldValues extends Partial<Pick<IArtistProfile, "profileImage" | "email">> {}
+
 // 정산액 업로드 관련
 interface ITransactionUploadAlert {
   "rowIndex": number,
