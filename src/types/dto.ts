@@ -156,6 +156,8 @@ export interface IAdminProfile extends IProfile {
   nickName: string
 }
 
+export interface IAdminUpdateProfileFieldValues extends Partial<Omit<IAdminProfile, "type" | "loginId">> {}
+
 export interface IArtistProfile extends IProfile {
   type: ArtistType,
   koName: string,
