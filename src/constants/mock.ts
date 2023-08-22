@@ -80,6 +80,11 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
           enArtistName: "Arin",
           commissionRate: 50,
         },
+        {
+          koArtistName: "아이유",
+          enArtistName: "IU",
+          commissionRate: 50,
+        },
       ],
     },
     {
