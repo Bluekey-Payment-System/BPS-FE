@@ -11,7 +11,7 @@ import { MOCK_ACCOUNTS } from "@/constants/mock";
 const ManageAccountsPage = () => {
   const { adminList, artistList } = MOCK_ACCOUNTS;
   return (
-    <MainLayout title="아티스트 계정 관리">
+    <MainLayout title="타 계정 관리">
       <ArtboardLayout>
         <div style={{ width: "1110px" }}>
           <SectionLayout title="아티스트 계정">
