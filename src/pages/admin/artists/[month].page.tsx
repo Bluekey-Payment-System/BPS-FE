@@ -1,4 +1,5 @@
 import ArtistsMainLayout from "@/components/artist/ArtistsMainLayout/ArtistsMainLayout";
+import ArtistsStatusTable from "@/components/artist/ArtistsStatusTable/ArtistsStatusTable";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
 
@@ -8,12 +9,15 @@ const ArtistsStatusPage = () => {
       title="아티스트 현황"
       dropdownElement={
         <MonthPickerDropdown />
-    }
-      searchBarElement={<SearchBar placeholder="검색어를 입력해주세요." onClick={() => { console.log("검색!"); }} />}
+      }
+      searchBarElement={(
+        <SearchBar
+          placeholder="검색어를 입력해주세요."
+          onClick={() => { console.log("검색!"); }}
+        />
+      )}
     >
-      <div>
-        아티스트 현황 테이블
-      </div>
+      <ArtistsStatusTable />
     </ArtistsMainLayout>
   );
 };
