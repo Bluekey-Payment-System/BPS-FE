@@ -23,7 +23,7 @@ const TrackListTable = ({ tracks }: TrackListTableProps) => {
       tableHeight={523}
     >
       <TableHeaderUI>
-        <TableCellUI isHeader>번호</TableCellUI>
+        <TableCellUI isHeader colWidth={74}>번호</TableCellUI>
         <TableCellUI isHeader>트랙명 (한글)</TableCellUI>
         <TableCellUI isHeader>트랙명 (영문)</TableCellUI>
       </TableHeaderUI>
