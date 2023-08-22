@@ -1,0 +1,9 @@
+.ellipsis {
+  @include table-ellipsis;
+}
+
+.buttonContainer {
+  @include flexbox(row-reverse, flex-start);
+
+  gap: 10px;
+}

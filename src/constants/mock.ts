@@ -20,6 +20,7 @@ import {
   IGetArtistTrackTransactionResponse,
   IGetArtistsResponse,
 } from "@/services/api/types/artist";
+import { IGetAccountsResponse } from "@/services/api/types/member";
 import { IGETTransactionUploadResponse } from "@/services/api/types/transaction";
 
 /* ##### 1. ALBUM ##### */
@@ -1091,5 +1092,104 @@ export const MOCK_ARTIST_ALBUMS: IGetArtistAlbumsResponse = {
       koAlbumName: "살짝설렜어",
     },
   ],
+};
+/* ########################## */
+
+/* ##### 5. MEMBER ##### */
+export const MOCK_ACCOUNTS: IGetAccountsResponse = {
+  artistList: {
+    totalItems: 100,
+    contents: [
+      {
+        memberId: 1,
+        name: "혁기",
+        enName: "hyuki",
+        loginId: "qwertyui1234",
+        email: "qwerty1234@bluekeymusic.com",
+        commissionRate: null,
+      },
+      {
+        memberId: 2,
+        name: "혁기2",
+        enName: "hyuki2",
+        loginId: "qwerty2ui1234",
+        email: null,
+        commissionRate: 90,
+      },
+      {
+        memberId: 3,
+        name: "혁기3",
+        enName: "hyuki",
+        loginId: "qwertyui1234",
+        email: "qwerty1234@bluekeymusic.com",
+        commissionRate: 86,
+      },
+      {
+        memberId: 4,
+        name: "혁기4",
+        enName: "hyuki2",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+        commissionRate: 90,
+      },
+      {
+        memberId: 5,
+        name: "혁기5",
+        enName: "hyuki",
+        loginId: "qwertyui1234",
+        email: "qwerty1234@bluekeymusic.com",
+        commissionRate: 86,
+      },
+      {
+        memberId: 6,
+        name: "혁기6",
+        enName: "hyuki2",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+        commissionRate: 90,
+      },
+    ],
+  },
+  adminList: {
+    totalItems: 100,
+    contents: [
+      {
+        memberId: 1,
+        nickName: "혁기1",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+      {
+        memberId: 2,
+        nickName: "혁기2",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+      {
+        memberId: 3,
+        nickName: "혁기1",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+      {
+        memberId: 4,
+        nickName: "혁기2",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+      {
+        memberId: 5,
+        nickName: "혁기1",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+      {
+        memberId: 6,
+        nickName: "혁기2",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+    ],
+  },
 };
 /* ########################## */
