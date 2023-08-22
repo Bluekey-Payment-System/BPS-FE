@@ -5,10 +5,12 @@ import Pagination from "@/components/common/Pagination/Pagination";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
 import { MOCK_ARTISTS } from "@/constants/mock";
 import { ITEMS_PER_ARTISTS_TABLE } from "@/constants/pagination";
+import useToast from "@/hooks/useToast";
 
 const ArtistsStatusPage = () => {
   // TODO: url의 pageParam을 받아 api fetch
   const mockArtists = MOCK_ARTISTS;
+  const { showToast } = useToast();
 
   return (
     <ArtistsMainLayout
@@ -19,7 +21,7 @@ const ArtistsStatusPage = () => {
       searchBarElement={(
         <SearchBar
           placeholder="검색어를 입력해주세요."
-          onClick={() => { console.log("검색!"); }}
+          onClick={() => { showToast("검색"); }}
         />
       )}
     >
