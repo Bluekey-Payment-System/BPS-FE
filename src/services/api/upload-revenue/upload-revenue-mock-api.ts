@@ -1,6 +1,6 @@
 import { MOCK_TRANSACTION_UPLOAD } from "@/constants/mock";
 
-import { IGETTransactionUploadResponse } from "./types/transaction";
+import { IGETTransactionUploadResponse } from "../types/transaction";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getRevenueUploadHistory = (month: string): Promise<IGETTransactionUploadResponse> => {

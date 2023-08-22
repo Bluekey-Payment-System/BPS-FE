@@ -4,7 +4,7 @@ import {
 
 import useToast from "@/hooks/useToast";
 import { IGETTransactionUploadResponse } from "@/services/api/types/transaction";
-import { deleteRevenueUploadHistory, getRevenueUploadHistory, postRevenueUploadHistory } from "@/services/api/upload-revenue-mock-api";
+import { deleteRevenueUploadHistory, getRevenueUploadHistory, postRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 /* 정산 업로드 내역 GET */
