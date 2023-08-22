@@ -1,6 +1,6 @@
 /**
- * 년/월을 api endpoint의 query string 형태로 변환하는 함수입니다.
- * 파라미터로 년/월을 받지 않는 경우, 현재 날짜를 기준으로 년/월을 query string으로 변환합니다.
+ * 년/월을 'yyyy-mm' 형태로 변환하는 함수입니다.
+ * 파라미터로 년/월을 받지 않는 경우, 현재 날짜를 기준으로 변환합니다.
  * @author [hayoung-99](https://github.com/hayoung-99)
  * @param {string | undefined} yearMonth 'yyyymm'으로 구성된 문자열 또는 undefined
  * @returns {string} 'yyyy-mm' 형태의 문자열
