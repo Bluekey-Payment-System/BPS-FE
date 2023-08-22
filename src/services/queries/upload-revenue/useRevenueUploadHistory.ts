@@ -41,7 +41,7 @@ const useUploadHistoryDelete = (
 };
 
 /* 정산 업로드 내역 POST */
-interface FileData {
+interface IFileData {
   file: File,
   uploadAt: string,
 }
@@ -50,7 +50,7 @@ const useUploadHistoryPost = (
   queryClient: QueryClient,
 ) => {
   const { showToast } = useToast();
-  const { mutate: postUploadHistory, isLoading } = useMutation((fileData: FileData) => {
+  const { mutate: postUploadHistory, isLoading } = useMutation((fileData: IFileData) => {
     return postRevenueUploadHistory(fileData.file, fileData.uploadAt);
   }, {
     // TODO: post 실패 또는 warnings 있을 경우 알림 모달 띄우기
