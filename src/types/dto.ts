@@ -74,6 +74,7 @@ export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차�
 
 // Info 관련
 export interface ITrackInfo {
+  trackId: number
   koTrackName: string,
   enTrackName: string,
   bluekeyOriginalTrack: boolean,
@@ -86,7 +87,7 @@ export interface ITrackInfo {
 
 // /api/v1/albums/{albumId}
 export interface IAlbumInfo {
-  albumImage: string,
+  albumImage: string | null,
   koAlbumName: string,
   enAlbumName: string,
   artist: IArtist | null, // 앨범 대표 아티스트가 없을 수도 있음
@@ -146,17 +147,18 @@ export interface IArtistList {
 
 // 프로필 관련
 interface IProfile {
-  email: string | null,
   loginId: string,
   profileImage: string | null
 }
 
 export interface IAdminProfile extends IProfile {
+  email: string,
   type: AdminType
   nickName: string
 }
 
 export interface IArtistProfile extends IProfile {
+  email: string | null,
   type: ArtistType,
   koName: string,
   enName: string,
@@ -180,4 +182,21 @@ export interface ITransactionUpload {
   name: string,
   uploadAt: string
   warnings: ITransactionUploadAlert[]
+}
+
+// 계정 관련
+export interface IAdminAccount {
+  memberId: number,
+  nickName: string,
+  loginId: string,
+  email: string,
+}
+
+export interface IArtistAccount {
+  memberId: number,
+  name: string,
+  enName: string,
+  loginId: string,
+  email: string | null,
+  commissionRate: number | null,
 }
