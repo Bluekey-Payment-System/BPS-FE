@@ -9,6 +9,12 @@ interface LoadingProps {
 
 const cx = classNames.bind(styles);
 
+/**
+ * @author [hayoung-99](https://github.com/hayoung-99)
+ * @param {number | string} width 로딩 박스 width
+ * @param {number | string} height 로딩 박스 height
+ * @returns 로딩 UI 컴포넌트
+ */
 const Loading = ({ width, height }: LoadingProps) => {
   return (
     <div
