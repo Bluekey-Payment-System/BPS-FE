@@ -186,14 +186,14 @@ export interface ITransactionUpload {
 
 // 계정 관련
 export interface IAdminAccount {
-  id: number,
+  memberId: number,
   nickName: string,
   loginId: string,
   email: string,
 }
 
 export interface IArtistAccount {
-  id: number,
+  memberId: number,
   name: string,
   enName: string,
   loginId: string,
