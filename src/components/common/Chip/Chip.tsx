@@ -1,24 +1,9 @@
 import classNames from "classnames/bind";
 
+import formatNumberToKilo from "@/utils/formatNumberToKilo";
+
 import styles from "./Chip.module.scss";
-
-type Fluctuation = "increase" | "decrease" | "zero";
-
-const getFluctuation = (percentage: number | null): Fluctuation => {
-  if (percentage === null || percentage === 0) {
-    return "zero";
-  } if (percentage > 0) {
-    return "increase";
-  }
-  return "decrease";
-};
-
-const formatPercentageToKilo = (percentage: number): string => {
-  let formatPercentage = Math.trunc(percentage / 1000).toString();
-  formatPercentage += "K";
-
-  return formatPercentage;
-};
+import { Fluctuation, getFluctuation } from "./Chip.utils";
 
 const cx = classNames.bind(styles);
 
@@ -39,7 +24,7 @@ const Chip = ({ percentage }: { percentage: number | null }) => {
   } else {
     percentageFormat = percentage.toString();
     if (Math.abs(percentage) >= 1000) {
-      percentageFormat = formatPercentageToKilo(percentage);
+      percentageFormat = formatNumberToKilo(percentage);
     }
     if (fluctuation === "increase") {
       percentageFormat = `+${percentageFormat}`;
