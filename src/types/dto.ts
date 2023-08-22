@@ -137,7 +137,7 @@ export interface IArtistList {
     memberId: number,
     koArtistName: string,
     enArtistName: string,
-    profileImage: string
+    profileImage: string | null
   },
   revenue: number | null,
   netIncome: number | null,
