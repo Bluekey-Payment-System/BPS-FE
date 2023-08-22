@@ -12,14 +12,14 @@ export const getMemberAlbumTrendsChart = (month: string, albumId: string): Promi
 };
 
 const useDashboardAlbumTrendsChart = (month: string, albumId: string) => {
-  const { data: albumTrendsChart, isLoading: isalbumTrendsChartLoading, isError: isalbumTrendsChartError } = useQuery(
+  const { data: albumTrendsChart, isLoading: isAlbumTrendsChartLoading, isError: isalbumTrendsChartError } = useQuery(
     ["dashboard", "albumTrendsChart"],
     () => { return getMemberAlbumTrendsChart(month, albumId); },
     { staleTime: 5000 },
   );
 
   return {
-    albumTrendsChart, isalbumTrendsChartLoading, isalbumTrendsChartError,
+    albumTrendsChart, isAlbumTrendsChartLoading, isalbumTrendsChartError,
   };
 };
 

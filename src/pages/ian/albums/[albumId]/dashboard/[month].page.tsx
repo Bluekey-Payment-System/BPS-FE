@@ -27,11 +27,11 @@ const Ian = ({
 
   const {
     albumTrendsChart,
-    isalbumTrendsChartError, isalbumTrendsChartLoading,
+    isalbumTrendsChartError, isAlbumTrendsChartLoading,
   } = useDashboardAlbumTrendsChart(month, albumId);
 
   if (isCardsLoading || isalbumTrendsChartError) return <div>로딩 중...</div>;
-  if (isCardsError || isalbumTrendsChartLoading) return <div>에러 발생!</div>;
+  if (isCardsError || isAlbumTrendsChartLoading) return <div>에러 발생!</div>;
   if (!cardsData || !albumTrendsChart) return <div>데이터가 없다</div>;
 
   return (
