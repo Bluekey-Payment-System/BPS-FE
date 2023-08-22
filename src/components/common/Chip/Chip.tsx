@@ -2,7 +2,23 @@ import classNames from "classnames/bind";
 
 import styles from "./Chip.module.scss";
 
-type Fluctuation = "increase" | "decrease" | "same";
+type Fluctuation = "increase" | "decrease" | "zero";
+
+const getFluctuation = (percentage: number | null): Fluctuation => {
+  if (percentage === null || percentage === 0) {
+    return "zero";
+  } if (percentage > 0) {
+    return "increase";
+  }
+  return "decrease";
+};
+
+const formatPercentageToKilo = (percentage: number): string => {
+  let formatPercentage = Math.trunc(percentage / 1000).toString();
+  formatPercentage += "K";
+
+  return formatPercentage;
+};
 
 const cx = classNames.bind(styles);
 
@@ -13,27 +29,25 @@ const cx = classNames.bind(styles);
  * @returns 백분율을 나타내는 Chip 컴포넌트
  */
 const Chip = ({ percentage }: { percentage: number | null }) => {
-  let fluctuation: Fluctuation;
+  const fluctuation: Fluctuation = getFluctuation(percentage);
+  let percentageFormat: string;
 
-  let percentageToString: string;
   if (percentage === null) {
-    percentageToString = "- ";
-    fluctuation = "same";
+    percentageFormat = "- ";
+  } else if (percentage === 0) {
+    percentageFormat = "0";
   } else {
-    percentageToString = percentage.toString();
-
-    if (percentage === 0) {
-      fluctuation = "same";
-    } else if (percentage > 0) {
-      percentageToString = `+${percentageToString}`;
-      fluctuation = "increase";
-    } else {
-      fluctuation = "decrease";
+    percentageFormat = percentage.toString();
+    if (Math.abs(percentage) >= 1000) {
+      percentageFormat = formatPercentageToKilo(percentage);
+    }
+    if (fluctuation === "increase") {
+      percentageFormat = `+${percentageFormat}`;
     }
   }
 
   return (
-    <div className={cx("chipBox", fluctuation)}>{`${percentageToString}%`}</div>
+    <div className={cx("chipBox", fluctuation)}>{`${percentageFormat}%`}</div>
   );
 };
 
