@@ -10,6 +10,7 @@ import { SideNavProps } from "../Layout.types";
 
 import styles from "./SideNav.module.scss";
 import { ISideNavList } from "./SideNav.type";
+import { isActive } from "./SideNav.util";
 import SideNavMobile from "./SideNavMobile";
 
 const cx = classNames.bind(styles);
@@ -35,7 +36,7 @@ const SideNav = ({ isOpen, setIsOpen, type }: SideNavProps) => {
           {sideNavList?.map((list) => {
             return (
               <li key={list.id}>
-                <Link className={cx("asideItem", router.pathname === list.path && "active")} href={list.path}>{list.content}</Link>
+                <Link className={cx("asideItem", isActive(router.asPath, list.path) && "active")} href={list.path}>{list.content}</Link>
               </li>
             );
           })}
