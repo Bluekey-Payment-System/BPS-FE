@@ -30,8 +30,7 @@ const TrackListTable = ({ tracks }: TrackListTableProps) => {
       <TableBodyUI>
         {tracks.map((track, idx) => {
           return (
-            // eslint-disable-next-line react/no-array-index-key
-            <TableRowUI key={idx}>
+            <TableRowUI key={track.trackId}>
               <TableCellUI>
                 {idx + 1}
               </TableCellUI>

@@ -74,6 +74,7 @@ export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차�
 
 // Info 관련
 export interface ITrackInfo {
+  trackId: number
   koTrackName: string,
   enTrackName: string,
   bluekeyOriginalTrack: boolean,
