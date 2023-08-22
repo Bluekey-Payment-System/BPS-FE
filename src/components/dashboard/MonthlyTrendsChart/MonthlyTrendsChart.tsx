@@ -17,7 +17,7 @@ const DynamicBarChart = dynamic(() => { return import("@/components/common/Chart
 
 /**
  * @author 임병욱
- * @param barChartData - 차트 데이터 {contents: [{month: 1, revenue: 1000000, settlement: 10000},]} 형식
+ * @param barChartData - 차트 데이터 contents 값 포함해서 가져오면 됩니다.
  * @param type - SUPER_ADMIN | ADMIN | ARTIST
 */
 const MonthlyTrendChart = ({ barChartData, type }: MonthlyTrendChartProps) => {
