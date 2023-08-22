@@ -9,7 +9,8 @@ import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import Loading from "@/components/common/Loading/Loading";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/UploadHistoryTable";
-import { getRevenueUploadHistory, useUploadHistoryGet } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
+import { getRevenueUploadHistory } from "@/services/api/upload-revenue-mock-api";
+import { useUploadHistoryGet } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 
