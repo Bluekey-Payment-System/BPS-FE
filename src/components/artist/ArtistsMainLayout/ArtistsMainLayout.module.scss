@@ -1,0 +1,23 @@
+.container {
+  @include flexbox(column);
+
+  width: 1200px;
+  margin-bottom: 140px;
+  gap: 50px;
+
+  .header {
+    @include flexbox(row, space-between, center);
+
+    .titleWithDropdown {
+      @include flexbox(row, space-between, center);
+
+      gap: 32px;
+    }
+  }
+
+  .title {
+    @include typo(24, bold);
+
+    color: $primary-black;
+  }
+}
