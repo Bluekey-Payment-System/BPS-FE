@@ -42,6 +42,15 @@
   white-space: nowrap;
 }
 
+@mixin table-ellipsis() {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
 @mixin tablet {
   @media only screen and (width <= 1199px) {
     @content;
