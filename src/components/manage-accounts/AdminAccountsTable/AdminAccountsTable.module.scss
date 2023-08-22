@@ -1,0 +1,9 @@
+.ellipsis {
+  @include table-ellipsis;
+}
+
+.buttonContainer {
+  @include flexbox(row, center);
+
+  gap: 10px;
+}

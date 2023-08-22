@@ -7,7 +7,7 @@ import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDrop
 import AlbumTrendsChart from "@/components/dashboard/AlbumTrendsChart/AlbumTrendsChart";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import useDashboardAlbumTrendsChart, { getMemberAlbumTrendsChart } from "@/services/queries/dashboard/useDashboardAlbumTrendsChart";
-import useDashboardCards, { getDashboardCards } from "@/services/queries/useDashboardCards";
+import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 

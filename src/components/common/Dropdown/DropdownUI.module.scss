@@ -13,7 +13,7 @@
       padding: 12px 20px 12px 12px;
       text-align: start;
 
-      @include typo(12);
+      @include typo(14);
       @include ellipsis;
 
       &.dark {
@@ -110,7 +110,7 @@
 
       cursor: pointer;
 
-      @include typo(12);
+      @include typo(14);
     }
 
     .searchBarContainer {
@@ -122,7 +122,7 @@
         height: 30px;
         padding: 11px 25px 11px 12px;
 
-        @include typo(12);
+        @include typo(14);
 
         border: 1px solid $sub-color1;
         border-radius: 6px;
@@ -140,28 +140,26 @@
     }
 
     &.dark {
+      @include scrollbar(6);
+
       width: 171px;
       max-height: 196px;
       overflow-y: scroll;
-
-      &::-webkit-scrollbar {
-        width: 5px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        border: transparent;
-        border-radius: 30px;
-        background-color: $sub-color2;
-      }
     }
 
     &.hasSearchBar {
-      top: 52px;
+      @include scrollbar(6);
+
+      position: static;
       width: 347px;
+      max-height: 294px;
+      margin-top: 5px;
+      overflow-y: auto;
+      transform: translateX(0);
     }
+  }
+
+  &.hasSearchBar {
+    height: auto;
   }
 }

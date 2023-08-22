@@ -20,6 +20,7 @@ import {
   IGetArtistTrackTransactionResponse,
   IGetArtistsResponse,
 } from "@/services/api/types/artist";
+import { IGetAccountsResponse } from "@/services/api/types/member";
 import { IGETTransactionUploadResponse } from "@/services/api/types/transaction";
 
 /* ##### 1. ALBUM ##### */
@@ -66,11 +67,12 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
   artist:
   {
     memberId: 1,
-    koArtistName: "아린",
-    enArtistName: "Arin",
+    koArtistName: "오마이걸",
+    enArtistName: "Ohmygirl",
   },
   tracks: [
     {
+      trackId: 1,
       koTrackName: "불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이",
       enTrackName: "Fireworks",
       bluekeyOriginalTrack: false,
@@ -83,9 +85,10 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       ],
     },
     {
+      trackId: 2,
       koTrackName: "던던댄스",
       enTrackName: "Dun Dun Dance",
-      bluekeyOriginalTrack: false,
+      bluekeyOriginalTrack: true,
       participants: [
         {
           koArtistName: "아린",
@@ -95,6 +98,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       ],
     },
     {
+      trackId: 3,
       koTrackName: "바나나 알러지 원숭이",
       enTrackName: "Banana Allergy Monkey",
       bluekeyOriginalTrack: true,
@@ -112,6 +116,51 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       ],
     },
     {
+      trackId: 4,
+      koTrackName: "불꽃놀이",
+      enTrackName: "Fireworks",
+      bluekeyOriginalTrack: true,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      trackId: 5,
+      koTrackName: "던던댄스",
+      enTrackName: "Dun Dun Dance",
+      bluekeyOriginalTrack: false,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+      ],
+    },
+    {
+      trackId: 6,
+      koTrackName: "바나나 알러지 원숭이",
+      enTrackName: "Banana Allergy Monkey",
+      bluekeyOriginalTrack: true,
+      participants: [
+        {
+          koArtistName: "아린",
+          enArtistName: "Arin",
+          commissionRate: 50,
+        },
+        {
+          koArtistName: "승희",
+          enArtistName: "Seunghee",
+          commissionRate: 30,
+        },
+      ],
+    },
+    {
+      trackId: 7,
       koTrackName: "불꽃놀이",
       enTrackName: "Fireworks",
       bluekeyOriginalTrack: false,
@@ -124,6 +173,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       ],
     },
     {
+      trackId: 8,
       koTrackName: "던던댄스",
       enTrackName: "Dun Dun Dance",
       bluekeyOriginalTrack: false,
@@ -136,6 +186,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       ],
     },
     {
+      trackId: 9,
       koTrackName: "바나나 알러지 원숭이",
       enTrackName: "Banana Allergy Monkey",
       bluekeyOriginalTrack: true,
@@ -153,6 +204,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       ],
     },
     {
+      trackId: 10,
       koTrackName: "불꽃놀이",
       enTrackName: "Fireworks",
       bluekeyOriginalTrack: false,
@@ -165,6 +217,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       ],
     },
     {
+      trackId: 11,
       koTrackName: "던던댄스",
       enTrackName: "Dun Dun Dance",
       bluekeyOriginalTrack: false,
@@ -177,6 +230,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       ],
     },
     {
+      trackId: 12,
       koTrackName: "바나나 알러지 원숭이",
       enTrackName: "Banana Allergy Monkey",
       bluekeyOriginalTrack: true,
@@ -194,47 +248,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       ],
     },
     {
-      koTrackName: "불꽃놀이",
-      enTrackName: "Fireworks",
-      bluekeyOriginalTrack: false,
-      participants: [
-        {
-          koArtistName: "아린",
-          enArtistName: "Arin",
-          commissionRate: 50,
-        },
-      ],
-    },
-    {
-      koTrackName: "던던댄스",
-      enTrackName: "Dun Dun Dance",
-      bluekeyOriginalTrack: false,
-      participants: [
-        {
-          koArtistName: "아린",
-          enArtistName: "Arin",
-          commissionRate: 50,
-        },
-      ],
-    },
-    {
-      koTrackName: "바나나 알러지 원숭이",
-      enTrackName: "Banana Allergy Monkey",
-      bluekeyOriginalTrack: true,
-      participants: [
-        {
-          koArtistName: "아린",
-          enArtistName: "Arin",
-          commissionRate: 50,
-        },
-        {
-          koArtistName: "승희",
-          enArtistName: "Seunghee",
-          commissionRate: 30,
-        },
-      ],
-    },
-    {
+      trackId: 13,
       koTrackName: "불꽃놀이",
       enTrackName: "Fireworks",
       bluekeyOriginalTrack: false,
@@ -1078,5 +1092,104 @@ export const MOCK_ARTIST_ALBUMS: IGetArtistAlbumsResponse = {
       koAlbumName: "살짝설렜어",
     },
   ],
+};
+/* ########################## */
+
+/* ##### 5. MEMBER ##### */
+export const MOCK_ACCOUNTS: IGetAccountsResponse = {
+  artistList: {
+    totalItems: 100,
+    contents: [
+      {
+        memberId: 1,
+        name: "혁기",
+        enName: "hyuki",
+        loginId: "qwertyui1234",
+        email: "qwerty1234@bluekeymusic.com",
+        commissionRate: null,
+      },
+      {
+        memberId: 2,
+        name: "혁기2",
+        enName: "hyuki2",
+        loginId: "qwerty2ui1234",
+        email: null,
+        commissionRate: 90,
+      },
+      {
+        memberId: 3,
+        name: "혁기3",
+        enName: "hyuki",
+        loginId: "qwertyui1234",
+        email: "qwerty1234@bluekeymusic.com",
+        commissionRate: 86,
+      },
+      {
+        memberId: 4,
+        name: "혁기4",
+        enName: "hyuki2",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+        commissionRate: 90,
+      },
+      {
+        memberId: 5,
+        name: "혁기5",
+        enName: "hyuki",
+        loginId: "qwertyui1234",
+        email: "qwerty1234@bluekeymusic.com",
+        commissionRate: 86,
+      },
+      {
+        memberId: 6,
+        name: "혁기6",
+        enName: "hyuki2",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+        commissionRate: 90,
+      },
+    ],
+  },
+  adminList: {
+    totalItems: 100,
+    contents: [
+      {
+        memberId: 1,
+        nickName: "혁기1",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+      {
+        memberId: 2,
+        nickName: "혁기2",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+      {
+        memberId: 3,
+        nickName: "혁기1",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+      {
+        memberId: 4,
+        nickName: "혁기2",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+      {
+        memberId: 5,
+        nickName: "혁기1",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+      {
+        memberId: 6,
+        nickName: "혁기2",
+        loginId: "qwerty2ui1234",
+        email: "qwerty12342@bluekeymusic.com",
+      },
+    ],
+  },
 };
 /* ########################## */

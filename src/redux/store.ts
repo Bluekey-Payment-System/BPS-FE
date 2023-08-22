@@ -46,7 +46,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   });
 };
 
-const store = createStore();
+export const store = createStore();
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppStore = ReturnType<typeof setupStore>;
