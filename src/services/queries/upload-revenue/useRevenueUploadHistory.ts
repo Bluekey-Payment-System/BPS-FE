@@ -2,6 +2,7 @@ import {
   QueryClient, UseQueryResult, useMutation, useQuery,
 } from "@tanstack/react-query";
 
+import useToast from "@/hooks/useToast";
 import { IGETTransactionUploadResponse } from "@/services/api/types/transaction";
 import { deleteRevenueUploadHistory, getRevenueUploadHistory, postRevenueUploadHistory } from "@/services/api/upload-revenue-mock-api";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
@@ -26,8 +27,8 @@ const useUploadHistoryGet = (month: string) => {
 /* 정산 업로드 내역 DELETE */
 const useUploadHistoryDelete = (
   queryClient: QueryClient,
-  showToast: (message: string) => void,
 ) => {
+  const { showToast } = useToast();
   const { mutate: deleteUploadHistory, isLoading } = useMutation(deleteRevenueUploadHistory, {
     // TODO: delete 실패 시 실패 문구 Toast 노출 처리
     onSuccess: async (data) => {
@@ -47,14 +48,15 @@ interface FileData {
 
 const useUploadHistoryPost = (
   queryClient: QueryClient,
-  showToast: (message: string) => void,
 ) => {
+  const { showToast } = useToast();
   const { mutate: postUploadHistory, isLoading } = useMutation((fileData: FileData) => {
     return postRevenueUploadHistory(fileData.file, fileData.uploadAt);
   }, {
     // TODO: post 실패 또는 warnings 있을 경우 알림 모달 띄우기
     onSuccess: (data) => {
       showToast(data as string);
+
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history"]);
     },

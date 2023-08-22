@@ -11,7 +11,6 @@ import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
 import TableContainerUI from "@/components/common/Table/Composition/TableContainerUI";
 import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
-import useToast from "@/hooks/useToast";
 import { useUploadHistoryDelete } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 import { ITransactionUpload } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
@@ -32,8 +31,7 @@ const UploadHistroyTable = (
   const queryClient = useQueryClient();
   const [isCancelUploadModalOpen, setIsCancelUploadModalOpen] = useState(false);
   const [fileData, setFileData] = useState<FileData>({} as FileData);
-  const { showToast } = useToast();
-  const { deleteUploadHistory, isLoading } = useUploadHistoryDelete(queryClient, showToast);
+  const { deleteUploadHistory, isLoading } = useUploadHistoryDelete(queryClient);
 
   const handleClickCancelUploadBtn = (fileId: number, fileName: string) => {
     setIsCancelUploadModalOpen(true);

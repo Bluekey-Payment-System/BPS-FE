@@ -21,7 +21,7 @@ const ExcelFileUploader = () => {
   const queryClient = useQueryClient();
 
   const { showToast } = useToast();
-  const { postUploadHistory, isLoading } = useUploadHistoryPost(queryClient, showToast);
+  const { postUploadHistory, isLoading } = useUploadHistoryPost(queryClient);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
