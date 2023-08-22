@@ -74,6 +74,7 @@ export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차�
 
 // Info 관련
 export interface ITrackInfo {
+  trackId: number
   koTrackName: string,
   enTrackName: string,
   bluekeyOriginalTrack: boolean,
@@ -86,7 +87,7 @@ export interface ITrackInfo {
 
 // /api/v1/albums/{albumId}
 export interface IAlbumInfo {
-  albumImage: string,
+  albumImage: string | null,
   koAlbumName: string,
   enAlbumName: string,
   artist: IArtist | null, // 앨범 대표 아티스트가 없을 수도 있음
