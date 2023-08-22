@@ -1,6 +1,6 @@
 export const NOTFOUND_TYPE_OBJ = {
   image: {
-    src: "/images/error-warning.svg",
+    src: "/images/error-warning.png",
     width: 166,
     height: 170,
     alt: "에러 워닝",
@@ -10,7 +10,7 @@ export const NOTFOUND_TYPE_OBJ = {
 
 export const ERROR_TYPE_OBJ = {
   image: {
-    src: "/images/error-warning.svg",
+    src: "/images/error-warning.png",
     width: 166,
     height: 170,
     alt: "에러 워닝",
