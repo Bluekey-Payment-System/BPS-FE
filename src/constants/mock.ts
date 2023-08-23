@@ -752,14 +752,14 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     {
       artist: {
         memberId: 1,
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
+        koArtistName: "김블루김블루김블루김블루김블루",
+        enArtistName: "bluekeybluekeybluekeybluekey",
         profileImage: null,
       },
       revenue: 300,
       netIncome: 1234,
       settlementAmount: 1234124,
-      representativeTrack: "love",
+      representativeTrack: "하루도 그대를 사랑하지 않은 적이 없었다. 하루도 그대를 사랑하지 않은 적이 없었다.",
       monthlyIncreaseRate: -7,
     },
     {

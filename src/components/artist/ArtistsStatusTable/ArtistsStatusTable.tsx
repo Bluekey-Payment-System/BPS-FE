@@ -6,6 +6,7 @@ import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
 import TableContainerUI from "@/components/common/Table/Composition/TableContainerUI";
 import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
+import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import { IArtistList } from "@/types/dto";
 import formatMoney from "@/utils/formatMoney";
 
@@ -50,14 +51,20 @@ const ArtistsStatusTable = ({
                 />
               </TableCellUI>
               <TableCellUI>
-                <p className={cx("koName")}>{artistInfo.artist.koArtistName}</p>
-                <p className={cx("enName")}>{artistInfo.artist.enArtistName}</p>
+                <TooltipRoot message={artistInfo.artist.koArtistName}>
+                  <p className={cx("ellipsis")}>{artistInfo.artist.koArtistName}</p>
+                  <p className={cx("enName", "ellipsis")}>{artistInfo.artist.enArtistName}</p>
+                </TooltipRoot>
               </TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.revenue, "table")}원`}</TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.netIncome, "table")}원`}</TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.settlementAmount, "table")}원`}</TableCellUI>
               <TableCellUI>
-                <p className={cx("representativeTrack")}>{artistInfo.representativeTrack}</p>
+                <div>
+                  <TooltipRoot message={artistInfo.representativeTrack}>
+                    <p className={cx("ellipsis")}>{artistInfo.representativeTrack}</p>
+                  </TooltipRoot>
+                </div>
               </TableCellUI>
               <TableCellUI>
                 <Chip percentage={artistInfo.monthlyIncreaseRate} />
