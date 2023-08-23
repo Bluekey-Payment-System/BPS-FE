@@ -1,4 +1,5 @@
 import classNames from "classnames/bind";
+import Link from "next/link";
 
 import Chip from "@/components/common/Chip/Chip";
 import TableBodyUI from "@/components/common/Table/Composition/TableBodyUI";
@@ -52,19 +53,19 @@ const ArtistsStatusTable = ({
               </TableCellUI>
               <TableCellUI>
                 <TooltipRoot message={artistInfo.artist.koArtistName}>
-                  <p className={cx("ellipsis")}>{artistInfo.artist.koArtistName}</p>
-                  <p className={cx("enName", "ellipsis")}>{artistInfo.artist.enArtistName}</p>
+                  <Link href={`/artist/${artistInfo.artist.memberId}/dashboard`} className={cx("artistNameSection")}>
+                    <p className={cx("artistName", "ellipsis")}>{artistInfo.artist.koArtistName}</p>
+                    <p className={cx("artistName", "enName", "ellipsis")}>{artistInfo.artist.enArtistName}</p>
+                  </Link>
                 </TooltipRoot>
               </TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.revenue, "table")}원`}</TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.netIncome, "table")}원`}</TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.settlementAmount, "table")}원`}</TableCellUI>
               <TableCellUI>
-                <div>
-                  <TooltipRoot message={artistInfo.representativeTrack}>
-                    <p className={cx("ellipsis")}>{artistInfo.representativeTrack}</p>
-                  </TooltipRoot>
-                </div>
+                <TooltipRoot message={artistInfo.representativeTrack}>
+                  <p className={cx("ellipsis")}>{artistInfo.representativeTrack}</p>
+                </TooltipRoot>
               </TableCellUI>
               <TableCellUI>
                 <Chip percentage={artistInfo.monthlyIncreaseRate} />
