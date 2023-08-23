@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 import ArtistsMainLayout from "@/components/artist/ArtistsMainLayout/ArtistsMainLayout";
 import ArtistsStatusTable from "@/components/artist/ArtistsStatusTable/ArtistsStatusTable";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
@@ -6,12 +8,16 @@ import SearchBar from "@/components/common/SearchBar/SearchBar";
 import { ITEMS_PER_ARTISTS_TABLE } from "@/constants/pagination";
 import useToast from "@/hooks/useToast";
 import { useArtistsStatusGet } from "@/services/queries/artists/useArtistsStatus";
+import convertPageParamToNum from "@/utils/convertPageParamToNum";
+import getPageFromUrl from "@/utils/getPageFromUrl";
 
 const ArtistsStatusPage = () => {
+  const router = useRouter();
+  const currPage = getPageFromUrl(router.asPath);
   const { showToast } = useToast();
   const {
     artistsStatus, isLoading, isError, isFetching,
-  } = useArtistsStatusGet(1, ITEMS_PER_ARTISTS_TABLE, "2023-08");
+  } = useArtistsStatusGet(convertPageParamToNum(currPage), ITEMS_PER_ARTISTS_TABLE, "2023-08");
 
   if (isLoading || isFetching) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생</div>;
@@ -34,7 +40,7 @@ const ArtistsStatusPage = () => {
         artistList={artistsStatus.contents}
         paginationElement={(
           <Pagination
-            activePage={1}
+            activePage={convertPageParamToNum(currPage)}
             totalItems={artistsStatus.totalItems}
             itemsPerPage={ITEMS_PER_ARTISTS_TABLE}
           />
