@@ -7,7 +7,10 @@ export interface IUserState {
   member: {
     email: string,
     loginId: string,
-    profileImage: string | null
+    profileImage: string | null,
+    nickName?: string,
+    name?: string,
+    enName?: string,
     type: MemberType,
   } | null,
   jwtInformation: {
@@ -20,6 +23,9 @@ const initialState: IUserState = {
     email: "bluekey@gmail.com",
     loginId: "bluekey",
     type: "SUPER_ADMIN",
+    nickName: "김관리자",
+    name: "혁기",
+    enName: "hucki",
     profileImage: null,
   },
   jwtInformation: {
