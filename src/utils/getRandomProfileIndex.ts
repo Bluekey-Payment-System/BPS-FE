@@ -10,6 +10,11 @@ const calculateAsciiSum = (loginId: string) => {
   return totalSum;
 };
 
+/**
+ * @author [hayoung-99](https://github.com/hayoung-99)
+ * @param userId 유저의 고유 id
+ * @returns 유저에게 할당되는 고유한 프로필 이미지(svg 요소)
+ */
 const getRandomProfileIndex = (userId: string | number) => {
   if (typeof userId === "string") {
     const totlaAsciiSum = calculateAsciiSum(userId);
