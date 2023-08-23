@@ -36,7 +36,7 @@ export const adminSignIn = async (
   return response;
 };
 
-export const artistSigniIn = async ({
+export const artistSignIn = async ({
   loginId,
   password,
 }: IPostArtistSignInRequest) => {
