@@ -9,10 +9,11 @@ $form-type-padding: 32px;
 $albuminfo-type-padding: 32px 32px 50px;
 
 .dialog {
+  max-width: calc(100vw + 20px);
+  max-height: 100vh;
   margin: auto;
+  overflow: hidden;
   background-color: transparent;
-
-  @include scrollbar(15);
 
   &::-webkit-scrollbar-track {
     border-radius: 20px;
@@ -20,28 +21,45 @@ $albuminfo-type-padding: 32px 32px 50px;
   }
 
   &::backdrop {
-    background-color: rgb(0 0 0 / 66%);
+    background-color: transparent;
   }
 
   &[open] {
-    animation: $fade-in, $float-up;
+    .container {
+      animation: $fade-in, $float-up;
+    }
 
-    &::backdrop {
+    .overlay {
       animation: $fade-in;
     }
 
     &.closing {
-      animation: $fade-out, $float-down;
+      .container {
+        animation: $fade-out, $float-down;
+      }
 
-      &::backdrop {
+      .overlay {
         animation: $fade-out;
       }
     }
   }
 }
 
+.overlay {
+  @include flexbox(row, center, center);
+
+  width: calc(100vw + 20px);
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgb(0 0 0 / 66%);
+}
+
 .container {
-  width: fit-content;
+  @include scrollbar(15);
+
+  max-width: 90%;
+  margin-right: 10px;
+  overflow: auto;
   border-radius: 8px;
   background-color: $primary-white;
   /* stylelint-disable-next-line scss/dollar-variable-colon-space-after */
