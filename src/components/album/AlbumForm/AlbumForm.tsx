@@ -9,6 +9,7 @@ import Dropdown from "@/components/common/Dropdown/Dropdown";
 import TextField from "@/components/common/Inputs/TextField/TextField";
 import Spacing from "@/components/common/Layouts/Spacing";
 import { IAlbumFieldValues } from "@/types/album.types";
+import formatDropdownList from "@/utils/formatDropdownList";
 
 import styles from "./AlbumForm.module.scss";
 
@@ -18,6 +19,16 @@ interface AlbumFormProps {
   submitBtnText: string;
   onSubmit: SubmitHandler<IAlbumFieldValues>;
 }
+
+const majorArtist = [
+  // TODO: db에 있는 모든 아티스트 names와 pk를 가져와서(api) 여기에 뿌리기
+  { artistId: 1, artistName: "혁기" },
+  { artistId: 2, artistName: "지미가드너" },
+  { artistId: 3, artistName: "53x" },
+  { artistId: 4, artistName: "송민섭" },
+  { artistId: 5, artistName: "김여름" },
+  { artistId: 6, artistName: "이은성" },
+];
 /**
  * 앨범 폼(앨범 등록, 수정시 렌더링할 폼) 컴포넌트
  * @author [SeyoungCho](https://github.com/seyoungcho)
@@ -56,13 +67,9 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
         <div className={cx("dropdownContainer")}>
           <span>대표 아티스트</span>
           <Dropdown
-            theme="hasSearchBar"
             hasSearchBar
-            dropdownListData={[
-              // TODO: db에 있는 모든 아티스트 names와 pk를 가져와서(api) 여기에 뿌리기
-              "혁기", "지미가드너", "53x", "송민섭", "김여름", "이은성",
-            ]}
-            onClick={(value) => { setValue("memberId", value); }}
+            dropdownListData={formatDropdownList(majorArtist)}
+            onClick={(value) => { setValue("memberId", (value.id)); }}
           />
           <input {...register("memberId")} type="hidden" />
           <Spacing size={14} />
