@@ -3,14 +3,19 @@ import ArtistsStatusTable from "@/components/artist/ArtistsStatusTable/ArtistsSt
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
-import { MOCK_ARTISTS } from "@/constants/mock";
 import { ITEMS_PER_ARTISTS_TABLE } from "@/constants/pagination";
 import useToast from "@/hooks/useToast";
+import { useArtistsStatusGet } from "@/services/queries/artists/useArtistsStatus";
 
 const ArtistsStatusPage = () => {
-  // TODO: url의 pageParam을 받아 api fetch
-  const mockArtists = MOCK_ARTISTS;
   const { showToast } = useToast();
+  const {
+    artistsStatus, isLoading, isError, isFetching,
+  } = useArtistsStatusGet(1, ITEMS_PER_ARTISTS_TABLE, "2023-08");
+
+  if (isLoading || isFetching) return <div>로딩 중...</div>;
+  if (isError) return <div>에러 발생</div>;
+  if (!artistsStatus) return <div>데이터 없음</div>;
 
   return (
     <ArtistsMainLayout
@@ -26,11 +31,11 @@ const ArtistsStatusPage = () => {
       )}
     >
       <ArtistsStatusTable
-        artistList={mockArtists.contents}
+        artistList={artistsStatus.contents}
         paginationElement={(
           <Pagination
             activePage={1}
-            totalItems={mockArtists.totalItems}
+            totalItems={artistsStatus.totalItems}
             itemsPerPage={ITEMS_PER_ARTISTS_TABLE}
           />
         )}
