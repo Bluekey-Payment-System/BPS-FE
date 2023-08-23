@@ -33,7 +33,6 @@ const ArtistsStatusTable = ({
     >
       <TableHeaderUI>
         <TableCellUI isHeader colWidth={90}> </TableCellUI>
-        {/* TODO: 아티스트 한영문 통합 & 프로필 이미지 테이블 cell width 조정 */}
         <TableCellUI isHeader>아티스트명</TableCellUI>
         <TableCellUI isHeader>매출액</TableCellUI>
         <TableCellUI isHeader>회사 이익</TableCellUI>
@@ -52,12 +51,12 @@ const ArtistsStatusTable = ({
                 />
               </TableCellUI>
               <TableCellUI>
-                <TooltipRoot message={artistInfo.artist.koArtistName}>
-                  <Link href={`/artist/${artistInfo.artist.memberId}/dashboard`} className={cx("artistNameSection")}>
+                <Link href={`/artist/${artistInfo.artist.memberId}/dashboard`} className={cx("artistNameSection")}>
+                  <TooltipRoot message={artistInfo.artist.koArtistName}>
                     <p className={cx("artistName", "ellipsis")}>{artistInfo.artist.koArtistName}</p>
                     <p className={cx("artistName", "enName", "ellipsis")}>{artistInfo.artist.enArtistName}</p>
-                  </Link>
-                </TooltipRoot>
+                  </TooltipRoot>
+                </Link>
               </TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.revenue, "table")}원`}</TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.netIncome, "table")}원`}</TableCellUI>
