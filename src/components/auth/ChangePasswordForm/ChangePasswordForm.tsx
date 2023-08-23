@@ -18,7 +18,11 @@ const ChangePasswordForm = ({ onComplete }: { onComplete: () => void }) => {
         <CurrentPasswordForm
           onSuccess={() => { setCurrentPage((prev) => { return prev + 1; }); }}
         />
-      ) : <NewPasswordForm onSuccess={onComplete} />}
+      ) : (
+        <NewPasswordForm
+          onSuccess={() => { onComplete(); setTimeout(() => { setCurrentPage(1); }, 500); }}
+        />
+      )}
     </div>
   );
 };
