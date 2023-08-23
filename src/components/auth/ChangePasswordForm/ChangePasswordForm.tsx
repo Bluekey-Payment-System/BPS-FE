@@ -8,8 +8,9 @@ import NewPasswordForm from "./NewPasswordForm/NewPasswordForm";
 
 const cx = classNames.bind(styles);
 
-const ChangePasswordForm = () => {
+const ChangePasswordForm = ({ onComplete }: { onComplete: () => void }) => {
   const [currentPage, setCurrentPage] = useState(1);
+
   return (
     <div className={cx("container")}>
       <h1 className={cx("title")}>비밀번호 재설정</h1>
@@ -17,7 +18,7 @@ const ChangePasswordForm = () => {
         <CurrentPasswordForm
           onSuccess={() => { setCurrentPage((prev) => { return prev + 1; }); }}
         />
-      ) : <NewPasswordForm />}
+      ) : <NewPasswordForm onSuccess={onComplete} />}
     </div>
   );
 };

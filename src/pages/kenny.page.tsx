@@ -220,7 +220,7 @@ const KennyPage = () => {
       <br />
       <Button size="large" theme="dark" onClick={()=>{setIsChangePasswordOpen(true)}}>비밀번호 변경</Button>
       <Modal type={MODAL_TYPE.FORM} open={isChangePassModalOpen} onClose={()=>{setIsChangePasswordOpen(false)}}>
-        <ChangePasswordForm />
+        <ChangePasswordForm onComplete={()=>{setIsChangePasswordOpen(false); showToast("비밀번호가 변경되었습니다.")}}/>
       </Modal>
     </div>
   );

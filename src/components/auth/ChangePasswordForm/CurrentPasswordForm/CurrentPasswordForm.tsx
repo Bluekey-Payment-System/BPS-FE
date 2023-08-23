@@ -35,7 +35,7 @@ const CurrentPasswordForm = ({ onSuccess }: CurrentPasswordFormProps) => {
     }
   };
   return (
-    <div className={cx("container")}>
+    <>
       {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
       <form onSubmit={handleSubmit(handleClickNext)} className={cx("container")}>
         <PasswordField
@@ -45,7 +45,7 @@ const CurrentPasswordForm = ({ onSuccess }: CurrentPasswordFormProps) => {
         />
         <Button theme="dark" size="medium" type="submit">다음</Button>
       </form>
-    </div>
+    </>
   );
 };
 
