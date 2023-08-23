@@ -27,7 +27,7 @@ const CurrentPasswordForm = ({ onSuccess }: CurrentPasswordFormProps) => {
     message: "입력하신 비밀번호와 현재 비밀번호가 일치하지 않습니다.",
   });
   const handleClickNext: SubmitHandler<IChangePasswordFieldValues> = (data) => {
-    // TODO: /api/v1/auth/member/password/confirm 에 POST효청
+    // TODO: /api/v1/auth/member/password/confirm 에 POST요청해서 response에 따라 성공, 에러 처리
     if (data.password === "1234qwer") {
       onSuccess();
     } else {
