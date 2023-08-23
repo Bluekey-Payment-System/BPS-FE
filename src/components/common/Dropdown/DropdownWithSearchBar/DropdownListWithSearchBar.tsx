@@ -3,12 +3,13 @@ import { useState } from "react";
 import classNames from "classnames/bind";
 import Image from "next/image";
 
+import { IHasSearchBarData } from "../Dropdown.type";
 import styles from "../DropdownUI.module.scss";
 
 const cx = classNames.bind(styles);
 
 interface DropdownListProps {
-  dropdownListData: string[],
+  dropdownListData: IHasSearchBarData[],
   onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>,
 }
 
@@ -22,8 +23,12 @@ const DropdownListWithSearchBar = ({
     setInputValue(event.target.value);
   };
 
-  const filteredDropDownList = dropdownListData.filter((dropdownItem) => {
-    return dropdownItem.includes(inputValue);
+  const extractingValueDropdownList = dropdownListData.map((dropdownItem: IHasSearchBarData) => {
+    return Object.values(dropdownItem)[1] as string;
+  });
+
+  const filteredDropDownList = extractingValueDropdownList.filter((dropdownItem) => {
+    return (dropdownItem).includes(inputValue);
   });
 
   return (
@@ -32,7 +37,7 @@ const DropdownListWithSearchBar = ({
         <input className={cx("searchDropdownSearchInput")} value={inputValue} onChange={handleChangeValue} placeholder="검색어를 입력해주세요" />
         <Image src="/images/search-bar.svg" alt="검색창" width={13} height={15} className={cx("searchDropdownSearchImage")} />
       </div>
-      {inputValue === "" && dropdownListData.map((dropdownItem) => {
+      {inputValue === "" && extractingValueDropdownList.map((dropdownItem) => {
         return (
           <div className={cx("select")} key={dropdownItem}>
             <input

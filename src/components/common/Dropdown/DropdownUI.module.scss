@@ -17,7 +17,7 @@
       @include ellipsis;
 
       &.dark {
-        width: 120px;
+        width: 139px;
       }
 
       &.hasSearchBar {
@@ -28,8 +28,8 @@
 
     .toggle {
       position: absolute;
-      top: 15px;
-      right: 5px;
+      top: 17px;
+      right: 10px;
       width: 15px;
       height: 8px;
       fill: $sub-color3;
@@ -159,7 +159,20 @@
     }
   }
 
+  &.bright {
+    width: 89px;
+  }
+
+  &.dark {
+    width: 139px;
+  }
+
+  &.withSearchBar {
+    width: 89px;
+  }
+
   &.hasSearchBar {
+    width: 348px;
     height: auto;
   }
 }
