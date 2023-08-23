@@ -206,3 +206,13 @@ export interface IArtistAccount {
   email: string | null,
   commissionRate: number | null,
 }
+
+export interface ISignIn {
+  loginId: string,
+  password: string,
+}
+
+export interface IAdminSignup extends ISignIn {
+  email: string,
+  nickname: string,
+}
