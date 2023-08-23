@@ -29,8 +29,8 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
         <TableCellUI isHeader>활동 예명 (한글)</TableCellUI>
         <TableCellUI isHeader>활동 예명 (영문)</TableCellUI>
         <TableCellUI isHeader>계정 ID</TableCellUI>
-        <TableCellUI isHeader>계정 이메일</TableCellUI>
-        <TableCellUI isHeader>기본 요율</TableCellUI>
+        <TableCellUI isHeader colWidth={250}>계정 이메일</TableCellUI>
+        <TableCellUI isHeader colWidth={100}>기본 요율</TableCellUI>
         <TableCellUI isHeader colWidth={280}>비고</TableCellUI>
       </TableHeaderUI>
       <TableBodyUI>
