@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 
 import Button from "@/components/common/CommonBtns/Button/Button";
+import TextFieldWithCopy from "@/components/common/Inputs/TextFieldWithCopy/TextFieldWithCopy";
 import Spacing from "@/components/common/Layouts/Spacing";
 import Modal from "@/components/common/Modals/Modal";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
@@ -26,7 +27,7 @@ const ReissuedPasswordModal = ({
         <h2 className={cx("title")}>비밀번호 재발급</h2>
         <Spacing size={32} />
         <div className={cx("passwordContainer")}>
-          {newPassword}
+          <TextFieldWithCopy errors={{}} label="새로 발급된 비밀번호" value={newPassword} disabled />
         </div>
         <Spacing size={50} />
         <div className={cx("buttonWrapper")}>
