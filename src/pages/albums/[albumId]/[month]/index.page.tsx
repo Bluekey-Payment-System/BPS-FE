@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import classNames from "classnames/bind";
 
-import AlbumDetailsInformationTooltip from "@/components/album/albumDetailsInformationTooltip/AlbumDetailsInformationTooltip";
+import AlbumDetailsInformationTooltip from "@/components/album/AlbumDetailsInformationTooltip/AlbumDetailsInformationTooltip";
 import { DashboardCardProps } from "@/components/common/DashboardCard/DashboardCard.type";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import AlbumTrendsChart from "@/components/dashboard/AlbumTrendsChart/AlbumTrendsChart";

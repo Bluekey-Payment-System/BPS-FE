@@ -1,6 +1,6 @@
 import FallbackPageLayout from "@/components/layout/FallbackPageLayout";
 
-const MainTenance = () => {
+const Maintenance = () => {
   // TODO: 점검 시간, 이유 반영
   const date = "2023/8/20";
   const duration = "오후 4:00 ~ 오후 8:00";
@@ -22,4 +22,4 @@ const MainTenance = () => {
   );
 };
 
-export default MainTenance;
+export default Maintenance;
