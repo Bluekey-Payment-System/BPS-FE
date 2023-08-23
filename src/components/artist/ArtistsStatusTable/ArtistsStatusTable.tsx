@@ -1,3 +1,5 @@
+import classNames from "classnames/bind";
+
 import Chip from "@/components/common/Chip/Chip";
 import TableBodyUI from "@/components/common/Table/Composition/TableBodyUI";
 import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
@@ -9,10 +11,14 @@ import formatMoney from "@/utils/formatMoney";
 
 import ArtistProfileImage from "../ArtistProfileImage/ArtistProfileImage";
 
+import styles from "./ArtistsStatusTable.module.scss";
+
 interface ArtistsStatusTableProps {
   artistList: IArtistList[],
   paginationElement: React.ReactNode
 }
+
+const cx = classNames.bind(styles);
 
 const ArtistsStatusTable = ({
   artistList, paginationElement,
@@ -43,11 +49,16 @@ const ArtistsStatusTable = ({
                   profileImageUrl={artistInfo.artist.profileImage}
                 />
               </TableCellUI>
-              <TableCellUI>{artistInfo.artist.koArtistName}</TableCellUI>
+              <TableCellUI>
+                <p className={cx("koName")}>{artistInfo.artist.koArtistName}</p>
+                <p className={cx("enName")}>{artistInfo.artist.enArtistName}</p>
+              </TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.revenue, "table")}원`}</TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.netIncome, "table")}원`}</TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.settlementAmount, "table")}원`}</TableCellUI>
-              <TableCellUI>{artistInfo.representativeTrack}</TableCellUI>
+              <TableCellUI>
+                <p className={cx("representativeTrack")}>{artistInfo.representativeTrack}</p>
+              </TableCellUI>
               <TableCellUI>
                 <Chip percentage={artistInfo.monthlyIncreaseRate} />
               </TableCellUI>

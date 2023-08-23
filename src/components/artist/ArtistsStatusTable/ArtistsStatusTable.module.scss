@@ -1,0 +1,9 @@
+.koName,
+.enName,
+.representativeTrack {
+  @include ellipsis;
+}
+
+.enName {
+  color: $sub-color3;
+}
