@@ -7,7 +7,7 @@ const useArtistsStatusGet = (page: number, size: number, month: string, keyword:
   const {
     data: artistsStatus, isLoading, isError, isFetching,
   } = useQuery(
-    [MEMBER_TYPE.ADMIN, "artists-status", month, `page=${page}`],
+    [MEMBER_TYPE.ADMIN, "artists-status", month, `page=${page}`, `keyword=${keyword}`],
     () => { return getArtistsStatus(page, size, month, keyword); },
     {
       staleTime: Infinity,
