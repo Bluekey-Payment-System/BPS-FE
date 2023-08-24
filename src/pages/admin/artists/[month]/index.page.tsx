@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
@@ -24,6 +24,7 @@ const ArtistsStatusPage = (
   query: InferGetServerSidePropsType<GetServerSideProps<IServerSideQuery>>,
 ) => {
   const { month, page, keyword }: IServerSideQuery = query;
+  const [searchKeyword, setSearchKeyword] = useState<string>(keyword || "");
   const {
     artistsStatus, isLoading, isError, isFetching,
   } = useArtistsStatusGet(
@@ -41,6 +42,7 @@ const ArtistsStatusPage = (
 
   const handleSearchKeyword = () => {
     if (searchKeywordRef.current) {
+      setSearchKeyword(searchKeywordRef.current.value);
       const result = updateQueryParam(router.query, "keyword", searchKeywordRef.current.value, "page", 1);
 
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -59,6 +61,7 @@ const ArtistsStatusPage = (
           placeholder="검색어를 입력해주세요."
           onClick={handleSearchKeyword}
           ref={searchKeywordRef}
+          value={searchKeyword}
         />
       )}
     >
