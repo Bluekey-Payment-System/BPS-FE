@@ -6,7 +6,16 @@
   padding-bottom: 35px;
   border-radius: 8px;
   background-color: $primary-white;
+
+  .content {
+    @include flexbox(column);
+
+    gap: 32px;
+    width: 850px;
+  }
 }
+
+// 850px
 
 .searchBarSection {
   @include flexbox(row, end);
