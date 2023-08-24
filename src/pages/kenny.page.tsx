@@ -18,11 +18,13 @@ import useAlertModal, { IUseAlertModalParam } from "@/hooks/useAlertModal";
 import Button from "@/components/common/CommonBtns/Button/Button";
 import Spacing from "@/components/common/Layouts/Spacing";
 import ImageUploader from "@/components/common/ImageUploader/ImageUploader";
+import ChangePasswordForm from "@/components/auth/ChangePasswordForm/ChangePasswordForm";
 
 const KennyPage = () => {
   const { showToast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isChangePassModalOpen, setIsChangePasswordOpen] = useState(false);
   const {
     register,
     formState: { errors, defaultValues },
@@ -212,6 +214,14 @@ const KennyPage = () => {
       <Button size="large" theme="bright" onClick={()=>{showAlertModal()}}>useAlert모달로 열기</Button>
       <Spacing size={100} />
       <ImageUploader shape="circle" {...register("profileImg")} type="file"/>
+      <br />
+      <br />
+      <br />
+      <br />
+      <Button size="large" theme="dark" onClick={()=>{setIsChangePasswordOpen(true)}}>비밀번호 변경</Button>
+      <Modal type={MODAL_TYPE.FORM} open={isChangePassModalOpen} onClose={()=>{setIsChangePasswordOpen(false)}}>
+        <ChangePasswordForm onComplete={()=>{setIsChangePasswordOpen(false); showToast("비밀번호가 변경되었습니다.")}}/>
+      </Modal>
     </div>
   );
 };
