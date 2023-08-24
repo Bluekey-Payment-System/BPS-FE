@@ -10,6 +10,7 @@ const AlertModalRoot = () => {
   const alertModalProps = useAppSelector((state) => { return state.alertModal.props; });
   const onClose = () => {
     dispatch(setShow(false));
+    alertModalProps?.onClose?.();
     setTimeout(() => {
       dispatch(resetAll());
     }, 500);
