@@ -1,0 +1,15 @@
+.artistNameSection {
+  &:hover {
+    .artistName {
+      text-decoration: underline;
+    }
+  }
+}
+
+.enName {
+  color: $sub-color3;
+}
+
+.ellipsis {
+  @include table-ellipsis;
+}
