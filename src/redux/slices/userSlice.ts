@@ -10,9 +10,6 @@ export interface IUserState {
     profileImage: string | null
     type: MemberType,
   } | null,
-  jwtInformation: {
-    accessToken: string
-  } | null
 }
 
 const initialState: IUserState = {
@@ -22,9 +19,7 @@ const initialState: IUserState = {
     type: "SUPER_ADMIN",
     profileImage: null,
   },
-  jwtInformation: {
-    accessToken: "asdfasdf",
-  },
+
 };
 
 export const userSlice = createSlice({
@@ -33,11 +28,9 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<IUserState>) => {
       state.member = action.payload.member;
-      state.jwtInformation = action.payload.jwtInformation;
     },
     resetUser: (state) => {
       state.member = null;
-      state.jwtInformation = null;
     },
   },
 });
