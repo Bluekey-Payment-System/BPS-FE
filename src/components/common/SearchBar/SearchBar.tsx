@@ -11,6 +11,7 @@ interface SearchBarProps {
   placeholder: string,
   onClick: () => void
   theme?: "withSearchBar"
+  value: string
 }
 
 /**
@@ -20,12 +21,14 @@ interface SearchBarProps {
  * @param {string} theme - withSearcBar를 넣으면 오른쪽 부분만 radius 처리됩니다.
  */
 const SearchBar = (
-  { placeholder, onClick, theme }: SearchBarProps,
+  {
+    placeholder, onClick, theme, value,
+  }: SearchBarProps,
   inputRef: React.ForwardedRef<HTMLInputElement>,
 ) => {
   return (
     <div className={cx("searchBarContainer", theme)}>
-      <input className={cx("searchInput", theme)} ref={inputRef} placeholder={placeholder} />
+      <input className={cx("searchInput", theme)} ref={inputRef} defaultValue={value} placeholder={placeholder} />
       <button type="button" className={cx("searchImage")} onClick={onClick}>
         <Image src="/images/search-bar.svg" alt="검색" width={13} height={15} />
       </button>
