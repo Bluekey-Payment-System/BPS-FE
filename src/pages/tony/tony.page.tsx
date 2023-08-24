@@ -3,7 +3,7 @@ import { MOCK_ALBUM_TRACKS } from "@/constants/mock";
 
 const TonyPage = () => {
   return (
-    <AlbumTrackListTable data={MOCK_ALBUM_TRACKS} />
+    <AlbumTrackListTable albumId={MOCK_ALBUM_TRACKS.albumId} tracks={MOCK_ALBUM_TRACKS.tracks} />
   );
 };
 
