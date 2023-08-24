@@ -26,7 +26,7 @@ const initialState: IUserState = {
     nickName: "김관리자",
     name: "혁기",
     enName: "hucki",
-    profileImage: null,
+    profileImage: "/images/logo.svg",
   },
   jwtInformation: {
     accessToken: "asdfasdf",
