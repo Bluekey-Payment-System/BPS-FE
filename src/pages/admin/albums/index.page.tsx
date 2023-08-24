@@ -2,7 +2,7 @@ import AlbumListSection from "@/components/album/AlbumListSection/AlbumListSecti
 
 const AdminAlbumListPage = () => {
   return (
-    <AlbumListSection />
+    <AlbumListSection userType="ARTIST" />
   );
 };
 

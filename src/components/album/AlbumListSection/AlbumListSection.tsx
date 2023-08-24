@@ -5,13 +5,13 @@ import Pagination from "@/components/common/Pagination/Pagination";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
 import useToast from "@/hooks/useToast";
 
-import AdminAlbumList from "../AdminAlbumList/AdminAlbumList";
+import AlbumList from "../AlbumList/AlbumList";
 
 import styles from "./AlbumListSection.module.scss";
 
 const cx = classNames.bind(styles);
 
-const AlbumListSection = () => {
+const AlbumListSection = ({ userType }: { userType: "ADMIN" | "ARTIST" }) => {
   const { showToast } = useToast();
 
   const handleSearchAlbumTitle = () => {
@@ -25,7 +25,8 @@ const AlbumListSection = () => {
           <div className={cx("searchBarSection")}>
             <SearchBar placeholder="앨범명을 검색해주세요." onClick={handleSearchAlbumTitle} />
           </div>
-          <AdminAlbumList
+          <AlbumList
+            userType={userType}
             paginationElement={(
               <Pagination
                 activePage={1}
