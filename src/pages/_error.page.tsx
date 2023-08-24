@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
+import { NextPage, NextPageContext } from "next/types";
 
 import Button from "@/components/common/CommonBtns/Button/Button";
 import FallbackPageLayout from "@/components/layout/FallbackPageLayout";
 
-const Error = () => {
+const Error: NextPage = ({ statusCode }: { statusCode?: number }) => {
   const router = useRouter();
   // TODO: 에러 상태 코드 및 메시지 받기
-  const statusCode = 500;
   const errorMessage = "서버 오류가 발생했습니다.";
 
   return (
@@ -22,6 +22,12 @@ const Error = () => {
       )}
     />
   );
+};
+
+Error.getInitialProps = ({ res, err }: NextPageContext) => {
+  // eslint-disable-next-line no-nested-ternary
+  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  return { statusCode };
 };
 
 export default Error;
