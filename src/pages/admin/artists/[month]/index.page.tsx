@@ -41,7 +41,7 @@ const ArtistsStatusPage = (
 
   const handleSearchKeyword = () => {
     if (searchKeywordRef.current) {
-      const result = updateQueryParam(router.query, "page", 1, "keyword", searchKeywordRef.current?.value);
+      const result = updateQueryParam(router.query, "keyword", searchKeywordRef.current.value, "page", 1);
 
       // eslint-disable-next-line @typescript-eslint/no-floating-promises
       router.push(result);
