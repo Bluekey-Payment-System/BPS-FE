@@ -10,10 +10,10 @@ export interface IPostAdminSignUpRequest extends IAdminSignup {
 export interface IPostArtistSignInRequest extends ISignIn {
 }
 
-export interface IPatchChangePasswordRequest extends Omit<ISignIn, "loginId"> {
+export interface IPatchChangePasswordRequest extends Pick<ISignIn, "password"> {
 }
 
-export interface IPostConfirmPasswordRequest extends Omit<ISignIn, "loginId"> {
+export interface IPostConfirmPasswordRequest extends Pick<ISignIn, "password"> {
 }
 
 interface ICommonSignInInfo {
@@ -24,12 +24,15 @@ interface ICommonSignInInfo {
 
 interface IAdminSignInInfo extends ICommonSignInInfo {
   email: string,
+  nickName: string,
   type: "ADMIN" | "USER" // 기존의 MEMBER_TYPE과의 관계가 불분명한 것 같고 사용하는 쪽이 아직 없어 enum 처리 안함
   role: AdminType,
 }
 
 interface IArtistSignInInfo extends ICommonSignInInfo {
   email: string,
+  name: string,
+  enName: string,
   type: "ADMIN" | "USER"
   role: ArtistType,
 }
