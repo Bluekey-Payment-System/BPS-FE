@@ -3,10 +3,14 @@ import {
   ForwardedRef, InputHTMLAttributes, forwardRef, useEffect, useId, useState,
 } from "react";
 
+import Avatar from "boring-avatars";
 import classNames from "classnames/bind";
 import Image from "next/image";
 
+import getRandomProfileIndex from "@/components/layout/GNB/GNB.utils";
+import { COMBINATION_COLORS, RANDOM_PROFILES } from "@/constants/randomProfileList";
 import useForwardRef from "@/hooks/useForwardRef";
+import { useAppSelector } from "@/redux/hooks";
 
 import styles from "./ImageUploader.module.scss";
 
@@ -14,11 +18,13 @@ const cx = classNames.bind(styles);
 
 interface ImageUploaderProps extends InputHTMLAttributes<HTMLInputElement> {
   shape: "circle" | "square";
+  defaultUrl?: string | null;
 }
 /**
  * 이미지 업로더 컴포넌트
  * @author [SeyoungCho](https://github.com/seyoungcho)
  * @param {string} shape 업로더의 모양 - `circle` 또는 `square`
+ * @param {string} defaultUrl 이미지 업로더에 디폴트 이미지가 있다면 해당 url
  * @param {InputHTMLAttributes} ...props input 엘리먼트의 attributes
  * @example
  * ```
@@ -27,10 +33,11 @@ interface ImageUploaderProps extends InputHTMLAttributes<HTMLInputElement> {
  * ```
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ImageUploader = forwardRef(({ shape = "square", ...props }: ImageUploaderProps, ref: ForwardedRef<HTMLInputElement>) => {
+const ImageUploader = forwardRef(({ shape = "square", defaultUrl, ...props }: ImageUploaderProps, ref: ForwardedRef<HTMLInputElement>) => {
   const fileRef = useForwardRef(ref);
-  const [previewUrl, setPreviewUrl] = useState<string>();
+  const [previewUrl, setPreviewUrl] = useState<string>(defaultUrl ?? "");
   const uploaderId = useId();
+  const loginId = useAppSelector((state) => { return state.user.member!.loginId; });
 
   const handleChangeFile:ChangeEventHandler<HTMLInputElement> = (e) => {
     const file = e.target.files?.[0];
@@ -56,6 +63,7 @@ const ImageUploader = forwardRef(({ shape = "square", ...props }: ImageUploaderP
         onClick={() => { fileRef?.current?.click(); }}
         id={uploaderId}
       >
+        {!previewUrl && <Avatar size={147} name={RANDOM_PROFILES[getRandomProfileIndex(loginId)]} variant="marble" colors={COMBINATION_COLORS} />}
         <div className={cx("deck")}>
           <div className={cx("uploadIcon")}>
             <Image src="/images/upload-small.svg" fill alt="업로드 아이콘" />

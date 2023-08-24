@@ -91,7 +91,7 @@ const KennyPage = () => {
           })}
           errors={errors}
           label="주소"
-          value={defaultValues?.username as string}
+          originalValue={defaultValues?.username as string}
         />
         <TextField
           {...register("email", {
@@ -102,7 +102,7 @@ const KennyPage = () => {
           })}
           errors={errors}
           label="이메일"
-          value={defaultValues?.email as string}
+          originalValue={defaultValues?.email as string}
         />
         <TextField
           {...register("email2", {

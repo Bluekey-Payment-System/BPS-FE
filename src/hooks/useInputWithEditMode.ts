@@ -43,6 +43,7 @@ const useInputWithEditMode = ({
     const onSaveWrapper = async () => {
       await onSave!(newValue);
     };
+    // 저장 버튼을 눌러 blur가 된 경우, onSave함수 실행
     if (e.relatedTarget?.id === editBtnId && !isError && newValue !== oldValue) {
       onSaveWrapper()
         .then(() => { setOldValue(newValue); })
