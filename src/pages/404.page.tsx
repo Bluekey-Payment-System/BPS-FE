@@ -1,7 +1,10 @@
+import { useRouter } from "next/router";
+
 import Button from "@/components/common/CommonBtns/Button/Button";
 import FallbackPageLayout from "@/components/layout/FallbackPageLayout";
 
 const Custom404 = () => {
+  const router = useRouter();
   return (
     <FallbackPageLayout
       pageType="notFound"
@@ -12,7 +15,7 @@ const Custom404 = () => {
         // TODO: 버튼 핸들러 달기
         <>
           <Button size="medium" theme="dark" onClick={() => { }}>홈(대시보드)으로 가기</Button>
-          <Button size="medium" theme="bright" onClick={() => { }}>뒤로가기</Button>
+          <Button size="medium" theme="bright" onClick={() => { router.back(); }}>뒤로가기</Button>
         </>
       )}
     />
