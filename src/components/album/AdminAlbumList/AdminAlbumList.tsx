@@ -7,22 +7,25 @@ import styles from "./AdminAlbumList.module.scss";
 
 const cx = classNames.bind(styles);
 
-const AdminAlbumList = () => {
+const AdminAlbumList = ({ paginationElement }: { paginationElement: React.ReactNode }) => {
   const albumList = MOCK_ALBUMS.contents;
 
   return (
     <div className={cx("container")}>
-      {albumList.map((album) => {
-        return (
-          <AlbumCard
-            key={album.albumId}
-            albumId={album.albumId}
-            albumCoverUrl={album.albumImage}
-            albumTitle={album.koAlbumName}
-            hasOptionsButton
-          />
-        );
-      })}
+      <div className={cx("albums")}>
+        {albumList.map((album) => {
+          return (
+            <AlbumCard
+              key={album.albumId}
+              albumId={album.albumId}
+              albumCoverUrl={album.albumImage}
+              albumTitle={album.koAlbumName}
+              hasOptionsButton
+            />
+          );
+        })}
+      </div>
+      {paginationElement}
     </div>
   );
 };

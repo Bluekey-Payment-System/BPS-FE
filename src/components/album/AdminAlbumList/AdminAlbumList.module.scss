@@ -1,4 +1,10 @@
 .container {
+  @include flexbox(column, center, center);
+
+  gap: 30px;
+}
+
+.albums {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
