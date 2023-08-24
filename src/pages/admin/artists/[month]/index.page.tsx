@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-import { useRouter } from "next/router";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import ArtistsMainLayout from "@/components/artist/ArtistsMainLayout/ArtistsMainLayout";
 import ArtistsStatusTable from "@/components/artist/ArtistsStatusTable/ArtistsStatusTable";
@@ -11,16 +11,27 @@ import { ITEMS_PER_ARTISTS_TABLE } from "@/constants/pagination";
 import useToast from "@/hooks/useToast";
 import { useArtistsStatusGet } from "@/services/queries/artists/useArtistsStatus";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
-import getPageFromUrl from "@/utils/getPageFromUrl";
+import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 
-const ArtistsStatusPage = () => {
-  const router = useRouter();
-  const currPage = getPageFromUrl(router.asPath);
-  const { showToast } = useToast();
+interface IServerSideQuery {
+  month: string,
+  page?: string,
+}
+
+const ArtistsStatusPage = (
+  query: InferGetServerSidePropsType<GetServerSideProps<IServerSideQuery>>,
+) => {
+  const { month, page }: IServerSideQuery = query;
+  const currPage = convertPageParamToNum(page);
   const {
     artistsStatus, isLoading, isError, isFetching,
-  } = useArtistsStatusGet(convertPageParamToNum(currPage), ITEMS_PER_ARTISTS_TABLE, "2023-08");
+  } = useArtistsStatusGet(
+    currPage,
+    ITEMS_PER_ARTISTS_TABLE,
+    convertYearMonthToQuery(month),
+  );
   const searchKeywordRef = useRef<HTMLInputElement>(null);
+  const { showToast } = useToast();
 
   if (isLoading || isFetching) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생</div>;
@@ -50,7 +61,7 @@ const ArtistsStatusPage = () => {
         artistList={artistsStatus.contents}
         paginationElement={(
           <Pagination
-            activePage={convertPageParamToNum(currPage)}
+            activePage={currPage}
             totalItems={artistsStatus.totalItems}
             itemsPerPage={ITEMS_PER_ARTISTS_TABLE}
           />
@@ -60,4 +71,17 @@ const ArtistsStatusPage = () => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/require-await
+const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const { month, page } = query;
+
+  return {
+    props: {
+      month,
+      page,
+    },
+  };
+};
+
+export { getServerSideProps };
 export default ArtistsStatusPage;
