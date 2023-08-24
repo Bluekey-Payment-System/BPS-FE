@@ -4,6 +4,7 @@ import MainLayout from "@/components/common/Layouts/MainLayout";
 import Pagination from "@/components/common/Pagination/Pagination";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
 import useToast from "@/hooks/useToast";
+import { MemberType } from "@/types/enums/user.enum";
 
 import AlbumList from "../AlbumList/AlbumList";
 
@@ -11,7 +12,7 @@ import styles from "./AlbumListSection.module.scss";
 
 const cx = classNames.bind(styles);
 
-const AlbumListSection = ({ userType }: { userType: "ADMIN" | "ARTIST" }) => {
+const AlbumListSection = ({ userType }: { userType: MemberType }) => {
   const { showToast } = useToast();
 
   const handleSearchAlbumTitle = () => {
