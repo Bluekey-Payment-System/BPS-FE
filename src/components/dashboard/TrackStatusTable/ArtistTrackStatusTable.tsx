@@ -61,7 +61,7 @@ const ArtistTrackStatusTable = ({
             theme="withSearchBar"
             onClick={handleClickSearchByDropdown}
           />
-          <SearchBar placeholder="검색어를 입력해주세요" theme="withSearchBar" onClick={handleClickSearchBar} />
+          <SearchBar placeholder="검색어를 입력해주세요" theme="withSearchBar" onClick={handleClickSearchBar} value="" />
         </div>
       </div>
       {isEmpty
