@@ -9,18 +9,18 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Head from "next/head";
+import { PersistGate } from "redux-persist/integration/react";
 
 import AlertModalRoot from "@/components/common/Modals/AlertModal/AlertModalRoot";
 import ToastRoot from "@/components/common/Toast/ToastRoot";
 import AuthPageLayout from "@/components/layout/AuthPageLayout";
 import Layout from "@/components/layout/Layout";
-import wrapper from "@/redux/store";
+import { wrapper, persistor } from "@/redux/store";
 import Pretendard from "@/styles/local.font";
 
 const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState }>) => {
   const { store } = wrapper.useWrappedStore(rest);
   const [queryClient] = useState(() => { return new QueryClient(); });
-
   const getContent = () => {
     if (["/admin/signin"].includes(rest.router.pathname)
       || ["/admin/signup"].includes(rest.router.pathname)
@@ -37,14 +37,16 @@ const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState
     <QueryClientProvider client={queryClient}>
       <Hydrate state={rest.pageProps.dehydratedState}>
         <Provider store={store}>
-          <Head>
-            <title>블루키뮤직 정산시스템</title>
-          </Head>
-          <main className={Pretendard.className}>
-            {getContent()}
-          </main>
-          <ToastRoot />
-          <AlertModalRoot />
+          <PersistGate persistor={persistor}>
+            <Head>
+              <title>블루키뮤직 정산시스템</title>
+            </Head>
+            <main className={Pretendard.className}>
+              {getContent()}
+            </main>
+            <ToastRoot />
+            <AlertModalRoot />
+          </PersistGate>
         </Provider>
       </Hydrate>
       <ReactQueryDevtools initialIsOpen />

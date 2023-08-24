@@ -19,7 +19,6 @@ const initialState: IUserState = {
     type: "SUPER_ADMIN",
     profileImage: null,
   },
-
 };
 
 export const userSlice = createSlice({
