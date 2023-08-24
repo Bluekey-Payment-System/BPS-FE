@@ -7,6 +7,7 @@ const getArtistsStatus = (
   page: number,
   size: number,
   month: string,
+  keyword: string,
 ): Promise<IGetArtistsResponse> => {
   // TODO: (GET) 아티스트 현황 데이터 가져오기
   return new Promise((resolve) => {

@@ -3,12 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getArtistsStatus } from "@/services/api/artists/artists-mock-api";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
-const useArtistsStatusGet = (page: number, size: number, month: string) => {
+const useArtistsStatusGet = (page: number, size: number, month: string, keyword: string = "") => {
   const {
     data: artistsStatus, isLoading, isError, isFetching,
   } = useQuery(
     [MEMBER_TYPE.ADMIN, "artists-status", month, page],
-    () => { return getArtistsStatus(page, size, month); },
+    () => { return getArtistsStatus(page, size, month, keyword); },
     {
       staleTime: Infinity,
     },
