@@ -63,6 +63,7 @@ const Popover = React.memo(({
         right: `${right ?? "auto"}`,
         bottom: `${bottom ?? "auto"}`,
         cursor: "default",
+        zIndex: 1,
       }}
       ref={popoverRef}
       role="presentation"
