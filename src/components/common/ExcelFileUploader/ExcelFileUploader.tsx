@@ -1,9 +1,13 @@
 import React from "react";
 
+import { useQueryClient } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import Image from "next/image";
 
 import useToast from "@/hooks/useToast";
+import { useUploadHistoryPost } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
+
+import Loading from "../Loading/Loading";
 
 import styles from "./ExcelFileUploader.module.scss";
 
@@ -14,7 +18,10 @@ const cx = classNames.bind(styles);
  * @returns 엑셀 파일 업로드 박스
  */
 const ExcelFileUploader = () => {
+  const queryClient = useQueryClient();
+
   const { showToast } = useToast();
+  const { postUploadHistory, isLoading } = useUploadHistoryPost(queryClient);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -28,7 +35,8 @@ const ExcelFileUploader = () => {
       showToast(`[Error] 감지된 파일 확장자 (${fileExtension})`);
     } else {
       // 파일 업로드 처리
-      showToast(`Dropped file: ${droppedFile.name}`);
+      postUploadHistory({ file: droppedFile, uploadAt: "2023-08" });
+      // showToast(`Dropped file: ${droppedFile.name}`);
     }
   };
 
@@ -46,6 +54,10 @@ const ExcelFileUploader = () => {
       handleUploadFile(selectedFiles[0]);
     }
   };
+
+  if (isLoading) {
+    return <Loading height={222} />;
+  }
 
   return (
     <div
