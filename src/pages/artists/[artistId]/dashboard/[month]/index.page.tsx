@@ -13,6 +13,7 @@ import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopF
 import ArtistTrackStatusTable from "@/components/dashboard/TrackStatusTable/ArtistTrackStatusTable";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
 import styles from "@/pages/admin/dashboard/[month]/index.module.scss";
+import { wrapper } from "@/redux/store";
 import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
 import useDashboardTable, { getDashboardTable } from "@/services/queries/dashboard/useDashboardTable";
@@ -90,65 +91,68 @@ const ArtistDashboardPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const queryClient = new QueryClient();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => {
+  return async ({ query }) => {
+    const queryClient = new QueryClient();
 
-  const month = query?.month as string;
+    const month = query?.month as string;
 
-  const pageParam = (query?.page ?? null) as (string | null);
-  const page = convertPageParamToNum(pageParam);
-  const sortBy = (query?.sortBy ?? "createdAt") as string;
-  const searchBy = (query?.searchBy ?? "track") as string;
-  const keyword = (query?.keyword ?? "") as string;
+    const pageParam = (query?.page ?? null) as (string | null);
+    const page = convertPageParamToNum(pageParam);
+    const sortBy = (query?.sortBy ?? "createdAt") as string;
+    const searchBy = (query?.searchBy ?? "track") as string;
+    const keyword = (query?.keyword ?? "") as string;
 
-  try {
-    await Promise.all([
-      queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "card"],
-        () => {
-          return getDashboardCards(DASHBOARD_TYPE.ARTIST, month);
+    try {
+      await Promise.all([
+        queryClient.prefetchQuery(
+          [DASHBOARD_TYPE.ARTIST, "dashboard", "card"],
+          () => {
+            return getDashboardCards(DASHBOARD_TYPE.ARTIST, month);
+          },
+        ),
+        queryClient.prefetchQuery(
+          [DASHBOARD_TYPE.ARTIST, "dashboard", "trendsChart"],
+          () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month); },
+        ),
+        queryClient.prefetchQuery(
+          [DASHBOARD_TYPE.ARTIST, "dashboard", "topFiveRevenueChart"],
+          () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month); },
+        ),
+        queryClient.prefetchQuery(
+          [DASHBOARD_TYPE.ARTIST, "dashboard", "table"],
+          () => {
+            return getDashboardTable(
+              DASHBOARD_TYPE.ARTIST,
+              month,
+              page,
+              sortBy,
+              searchBy,
+              keyword,
+            );
+          },
+        ),
+      ]);
+
+      return {
+        props: {
+          dehydratedState: dehydrate(queryClient),
+          month,
+          page,
+          sortBy,
+          searchBy,
+          keyword,
         },
-      ),
-      queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "trendsChart"],
-        () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month); },
-      ),
-      queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "topFiveRevenueChart"],
-        () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month); },
-      ),
-      queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "table"],
-        () => {
-          return getDashboardTable(
-            DASHBOARD_TYPE.ARTIST,
-            month,
-            page,
-            sortBy,
-            searchBy,
-            keyword,
-          );
-        },
-      ),
-    ]);
-
-    return {
-      props: {
-        dehydratedState: dehydrate(queryClient),
-        month,
-        page,
-        sortBy,
-        searchBy,
-        keyword,
-      },
-    };
-  } catch (e) {
-    return {
-      notFound: true,
-    };
-  } finally {
-    queryClient.clear();
-  }
-};
+      };
+    } catch (e) {
+      return {
+        notFound: true,
+      };
+    } finally {
+      queryClient.clear();
+    }
+  };
+});
 
 export default ArtistDashboardPage;

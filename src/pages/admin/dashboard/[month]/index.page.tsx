@@ -12,6 +12,7 @@ import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/Monthly
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
 import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
+import { wrapper } from "@/redux/store";
 import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
 import useDashboardTable, { getDashboardTable } from "@/services/queries/dashboard/useDashboardTable";
@@ -91,65 +92,68 @@ const AdminDashboardPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const queryClient = new QueryClient();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store) => {
+  return async ({ query }) => {
+    const queryClient = new QueryClient();
 
-  const month = query?.month as string;
+    const month = query?.month as string;
 
-  const pageParam = (query?.page ?? null) as (string | null);
-  const page = convertPageParamToNum(pageParam);
-  const sortBy = (query?.sortBy ?? "createdAt") as string;
-  const searchBy = (query?.searchBy ?? "track") as string;
-  const keyword = (query?.keyword ?? "") as string;
+    const pageParam = (query?.page ?? null) as (string | null);
+    const page = convertPageParamToNum(pageParam);
+    const sortBy = (query?.sortBy ?? "createdAt") as string;
+    const searchBy = (query?.searchBy ?? "track") as string;
+    const keyword = (query?.keyword ?? "") as string;
 
-  try {
-    await Promise.all([
-      queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
-        () => {
-          return getDashboardCards(DASHBOARD_TYPE.ADMIN, month);
+    try {
+      await Promise.all([
+        queryClient.prefetchQuery(
+          [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
+          () => {
+            return getDashboardCards(DASHBOARD_TYPE.ADMIN, month);
+          },
+        ),
+        queryClient.prefetchQuery(
+          [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart"],
+          () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month); },
+        ),
+        queryClient.prefetchQuery(
+          [DASHBOARD_TYPE.ADMIN, "dashboard", "topFiveRevenueChart"],
+          () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month); },
+        ),
+        queryClient.prefetchQuery(
+          [DASHBOARD_TYPE.ADMIN, "dashboard", "table"],
+          () => {
+            return getDashboardTable(
+              DASHBOARD_TYPE.ADMIN,
+              month,
+              page,
+              sortBy,
+              searchBy,
+              keyword,
+            );
+          },
+        ),
+      ]);
+
+      return {
+        props: {
+          dehydratedState: dehydrate(queryClient),
+          month,
+          page,
+          sortBy,
+          searchBy,
+          keyword,
         },
-      ),
-      queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart"],
-        () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month); },
-      ),
-      queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "topFiveRevenueChart"],
-        () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month); },
-      ),
-      queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "table"],
-        () => {
-          return getDashboardTable(
-            DASHBOARD_TYPE.ADMIN,
-            month,
-            page,
-            sortBy,
-            searchBy,
-            keyword,
-          );
-        },
-      ),
-    ]);
-
-    return {
-      props: {
-        dehydratedState: dehydrate(queryClient),
-        month,
-        page,
-        sortBy,
-        searchBy,
-        keyword,
-      },
-    };
-  } catch (e) {
-    return {
-      notFound: true,
-    };
-  } finally {
-    queryClient.clear();
-  }
-};
+      };
+    } catch (e) {
+      return {
+        notFound: true,
+      };
+    } finally {
+      queryClient.clear();
+    }
+  };
+});
 
 export default AdminDashboardPage;
