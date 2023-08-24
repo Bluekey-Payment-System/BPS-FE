@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 import { useRouter } from "next/router";
 
 import ArtistsMainLayout from "@/components/artist/ArtistsMainLayout/ArtistsMainLayout";
@@ -18,10 +20,17 @@ const ArtistsStatusPage = () => {
   const {
     artistsStatus, isLoading, isError, isFetching,
   } = useArtistsStatusGet(convertPageParamToNum(currPage), ITEMS_PER_ARTISTS_TABLE, "2023-08");
+  const searchKeywordRef = useRef<HTMLInputElement>(null);
 
   if (isLoading || isFetching) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생</div>;
   if (!artistsStatus) return <div>데이터 없음</div>;
+
+  const handleSearchKeyword = () => {
+    if (searchKeywordRef.current) {
+      showToast(searchKeywordRef.current.value);
+    }
+  };
 
   return (
     <ArtistsMainLayout
@@ -32,7 +41,8 @@ const ArtistsStatusPage = () => {
       searchBarElement={(
         <SearchBar
           placeholder="검색어를 입력해주세요."
-          onClick={() => { showToast("검색"); }}
+          onClick={handleSearchKeyword}
+          ref={searchKeywordRef}
         />
       )}
     >
