@@ -157,7 +157,8 @@ export interface IAdminProfile extends IProfile {
   nickName: string
 }
 
-export interface IAdminUpdateProfileFieldValues extends Partial<Omit<IAdminProfile, "type" | "loginId">> { }
+export interface IAdminUpdateProfileFieldValues extends Partial<Omit<IAdminProfile, "type" | "loginId">> {
+}
 
 export interface IArtistProfile extends IProfile {
   email: string | null,
@@ -167,7 +168,8 @@ export interface IArtistProfile extends IProfile {
   isSameKoNameWithEnName: boolean,
 }
 
-export interface IArtistUpdateProfileFieldValues extends Partial<Pick<IArtistProfile, "profileImage" | "email">> { }
+export interface IArtistUpdateProfileFieldValues extends Partial<Pick<IArtistProfile, "profileImage" | "email">> {
+}
 
 // 정산액 업로드 관련
 interface ITransactionUploadAlert {
