@@ -61,6 +61,7 @@ export const MOCK_ALBUMS: IGetAlbumsResponse = {
 };
 
 export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
+  albumId: 1,
   albumImage: "https://image.bugsm.co.kr/album/images/500/201408/20140893.jpg",
   koAlbumName: "비밀정원",
   enAlbumName: "Secret Garden",
