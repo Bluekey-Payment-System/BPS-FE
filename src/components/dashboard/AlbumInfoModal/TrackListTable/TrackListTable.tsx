@@ -5,6 +5,7 @@ import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
 import TableContainerUI from "@/components/common/Table/Composition/TableContainerUI";
 import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
+import ModalTooltipRoot from "@/components/common/Tooltip/ModalTooltip";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import { ITrackInfo } from "@/types/dto";
 
@@ -36,9 +37,9 @@ const TrackListTable = ({ tracks }: TrackListTableProps) => {
               </TableCellUI>
               <TableCellUI>
                 {/* TODO: z-index 문제로 툴팁 안보임 */}
-                <TooltipRoot message={track.koTrackName}>
+                <ModalTooltipRoot message={track.koTrackName}>
                   <p className={cx("ellipsis")}>{track.koTrackName}</p>
-                </TooltipRoot>
+                </ModalTooltipRoot>
               </TableCellUI>
               <TableCellUI>
                 <TooltipRoot message={track.enTrackName}>
