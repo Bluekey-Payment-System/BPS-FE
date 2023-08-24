@@ -1,6 +1,7 @@
 import { useRef } from "react";
 
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useRouter } from "next/router";
 
 import ArtistsMainLayout from "@/components/artist/ArtistsMainLayout/ArtistsMainLayout";
 import ArtistsStatusTable from "@/components/artist/ArtistsStatusTable/ArtistsStatusTable";
@@ -8,10 +9,10 @@ import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDrop
 import Pagination from "@/components/common/Pagination/Pagination";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
 import { ITEMS_PER_ARTISTS_TABLE } from "@/constants/pagination";
-import useToast from "@/hooks/useToast";
 import { useArtistsStatusGet } from "@/services/queries/artists/useArtistsStatus";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
+import updateQueryParam from "@/utils/updateQueryParam";
 
 interface IServerSideQuery {
   month: string,
@@ -32,7 +33,7 @@ const ArtistsStatusPage = (
     keyword,
   );
   const searchKeywordRef = useRef<HTMLInputElement>(null);
-  const { showToast } = useToast();
+  const router = useRouter();
 
   if (isLoading || isFetching) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생</div>;
@@ -40,7 +41,10 @@ const ArtistsStatusPage = (
 
   const handleSearchKeyword = () => {
     if (searchKeywordRef.current) {
-      showToast(searchKeywordRef.current.value);
+      const result = updateQueryParam(router.query, "page", 1, "keyword", searchKeywordRef.current?.value);
+
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      router.push(result);
     }
   };
 
