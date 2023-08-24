@@ -15,13 +15,44 @@ $albuminfo-type-padding: 32px 32px 50px;
   overflow: hidden;
   background-color: transparent;
 
-  &::-webkit-scrollbar-track {
-    border-radius: 20px;
-    background-color: $primary-white;
-  }
-
   &::backdrop {
     background-color: transparent;
+  }
+
+  .overlay {
+    @include flexbox(row, center, center);
+
+    width: calc(100vw + 20px);
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgb(0 0 0 / 66%);
+  }
+
+  .container {
+    @include scrollbar(15);
+
+    &::-webkit-scrollbar-track {
+      border-radius: 20px;
+      background-color: $primary-white;
+    }
+
+    max-width: 90%;
+    margin-right: 10px;
+    overflow: auto;
+    border-radius: 8px;
+    background-color: $primary-white;
+    /* stylelint-disable-next-line scss/dollar-variable-colon-space-after */
+    $modal-type-padding-map:
+      "error" $error-type-padding,
+      "confirm" $confirm-type-padding,
+      "form" $form-type-padding,
+      "albumInfo" $albuminfo-type-padding;
+
+    @each $type, $padding in $modal-type-padding-map {
+      &.#{$type} {
+        padding: $padding;
+      }
+    }
   }
 
   &[open] {
@@ -41,37 +72,6 @@ $albuminfo-type-padding: 32px 32px 50px;
       .overlay {
         animation: $fade-out;
       }
-    }
-  }
-}
-
-.overlay {
-  @include flexbox(row, center, center);
-
-  width: calc(100vw + 20px);
-  height: 100vh;
-  overflow: hidden;
-  background-color: rgb(0 0 0 / 66%);
-}
-
-.container {
-  @include scrollbar(15);
-
-  max-width: 90%;
-  margin-right: 10px;
-  overflow: auto;
-  border-radius: 8px;
-  background-color: $primary-white;
-  /* stylelint-disable-next-line scss/dollar-variable-colon-space-after */
-  $modal-type-padding-map:
-    "error" $error-type-padding,
-    "confirm" $confirm-type-padding,
-    "form" $form-type-padding,
-    "albumInfo" $albuminfo-type-padding;
-
-  @each $type, $padding in $modal-type-padding-map {
-    &.#{$type} {
-      padding: $padding;
     }
   }
 }
