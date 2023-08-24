@@ -10,17 +10,18 @@
   }
 
   .contentContainer {
-    @include flexbox(row);
-
-    gap: 96px;
+    width: 1255px;
     height: 523px;
     padding-left: 46px;
 
     .albumInfoContainer {
-      @include flexbox(column, flex-start, center);
-
-      gap: 32px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 96px;
       color: $primary-black;
+      vertical-align: top;
+      gap: 32px;
 
       .imageWrapper {
         @include flexbox(row, center, center);
@@ -64,6 +65,7 @@
     }
 
     .tableWrapper {
+      display: inline-block;
       width: 730px;
     }
   }
