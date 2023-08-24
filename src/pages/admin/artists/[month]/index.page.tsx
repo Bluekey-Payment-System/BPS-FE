@@ -15,20 +15,21 @@ import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 
 interface IServerSideQuery {
   month: string,
-  page?: string,
+  page: number,
+  keyword: string | null,
 }
 
 const ArtistsStatusPage = (
   query: InferGetServerSidePropsType<GetServerSideProps<IServerSideQuery>>,
 ) => {
-  const { month, page }: IServerSideQuery = query;
-  const currPage = convertPageParamToNum(page);
+  const { month, page, keyword }: IServerSideQuery = query;
   const {
     artistsStatus, isLoading, isError, isFetching,
   } = useArtistsStatusGet(
-    currPage,
+    page,
     ITEMS_PER_ARTISTS_TABLE,
     convertYearMonthToQuery(month),
+    keyword,
   );
   const searchKeywordRef = useRef<HTMLInputElement>(null);
   const { showToast } = useToast();
@@ -61,7 +62,7 @@ const ArtistsStatusPage = (
         artistList={artistsStatus.contents}
         paginationElement={(
           <Pagination
-            activePage={currPage}
+            activePage={page}
             totalItems={artistsStatus.totalItems}
             itemsPerPage={ITEMS_PER_ARTISTS_TABLE}
           />
@@ -73,12 +74,13 @@ const ArtistsStatusPage = (
 
 // eslint-disable-next-line @typescript-eslint/require-await
 const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { month, page } = query;
+  const { month, page, keyword } = query;
 
   return {
     props: {
       month,
-      page,
+      page: convertPageParamToNum(page as string || null),
+      keyword: keyword || null,
     },
   };
 };
