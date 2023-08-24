@@ -9,7 +9,7 @@ $form-type-padding: 32px;
 $albuminfo-type-padding: 32px 32px 50px;
 
 .dialog {
-  max-width: calc(100vw + 20px);
+  max-width: calc(100dvw + 20px);
   max-height: 100vh;
   margin: auto;
   overflow: hidden;
@@ -22,7 +22,7 @@ $albuminfo-type-padding: 32px 32px 50px;
   .overlay {
     @include flexbox(row, center, center);
 
-    width: calc(100vw + 20px);
+    width: calc(100dvw + 20px);
     height: 100vh;
     overflow: hidden;
     background-color: rgb(0 0 0 / 66%);
