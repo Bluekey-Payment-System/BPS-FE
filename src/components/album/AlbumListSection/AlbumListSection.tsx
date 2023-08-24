@@ -4,7 +4,7 @@ import MainLayout from "@/components/common/Layouts/MainLayout";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
 import useToast from "@/hooks/useToast";
 
-import styles from "./AlbumsListSection.module.scss";
+import styles from "./AlbumListSection.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +22,7 @@ const AlbumListSection = () => {
           <div className={cx("searchBarSection")}>
             <SearchBar placeholder="앨범명을 검색해주세요." onClick={handleSearchAlbumTitle} />
           </div>
+
         </div>
       </div>
     </MainLayout>
