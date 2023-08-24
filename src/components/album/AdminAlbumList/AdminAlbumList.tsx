@@ -19,7 +19,7 @@ const AdminAlbumList = () => {
             albumId={album.albumId}
             albumCoverUrl={album.albumImage}
             albumTitle={album.koAlbumName}
-            hasKebabButton
+            hasOptionsButton
           />
         );
       })}
