@@ -11,10 +11,9 @@ import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import useAlertModal from "@/hooks/useAlertModal";
 import useToast from "@/hooks/useToast";
-// TODO: 공통 utils로 위치 변경?
-import { generateRandomStringWithRegex } from "@/pages/admin/artists/new/index.utils";
 import { IAdminAccount } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
+import { generateRandomStringWithRegex } from "@/utils/generateRandomStringWithRegex";
 
 import ReissuedPasswordModal from "../PasswordReissueModal/ReissuedPasswordModal";
 
@@ -98,7 +97,6 @@ const AdminAccountsTable = ({ accounts, paginationElement }: AdminAccountsTableP
         <TableHeaderUI>
           <TableCellUI isHeader>닉네임</TableCellUI>
           <TableCellUI isHeader>계정 ID</TableCellUI>
-          {/* // TODO: 어드민 타입? */}
           <TableCellUI isHeader colWidth={330}>계정 이메일</TableCellUI>
           <TableCellUI isHeader colWidth={232}>비고</TableCellUI>
         </TableHeaderUI>

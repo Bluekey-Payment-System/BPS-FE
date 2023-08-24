@@ -10,9 +10,9 @@ import MainLayout from "@/components/common/Layouts/MainLayout";
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import { IArtistFieldValues } from "@/types/artist.types";
+import { generateRandomStringWithRegex } from "@/utils/generateRandomStringWithRegex";
 
 import styles from "./index.module.scss";
-import { generateRandomStringWithRegex } from "./index.utils";
 
 const cx = classNames.bind(styles);
 
