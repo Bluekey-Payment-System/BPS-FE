@@ -12,8 +12,8 @@ const calculateAsciiSum = (loginId: string) => {
 
 const getRandomProfileIndex = (userId: string | number) => {
   if (typeof userId === "string") {
-    const totlaAsciiSum = calculateAsciiSum(userId);
-    return totlaAsciiSum % RANDOM_PROFILES_LENGTH;
+    const totalAsciiSum = calculateAsciiSum(userId);
+    return totalAsciiSum % RANDOM_PROFILES_LENGTH;
   }
   return userId % RANDOM_PROFILES_LENGTH;
 };
