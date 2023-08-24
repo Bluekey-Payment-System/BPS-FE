@@ -34,13 +34,12 @@ interface AdminAccountsTableProps {
 
 const AdminAccountsTable = ({ accounts, paginationElement }: AdminAccountsTableProps) => {
   const [focusedAccount, setFocusedAccount] = useState<IFocusedAccount>();
-  const [isOpenDeleteAlertModal, setIsOpenDeleteAlertModal] = useState(false);
-  const [isOpenReissueAlertModal, setIsOpenReissueAlertModal] = useState(false);
   const [isOpenReissuedPwModal, setIsOpenReissuedPwModal] = useState(false);
   const [newPassword, setNewPassword] = useState<string>();
   const { showToast } = useToast();
   const handleDeleteAccount = (memberId: number, nickName: string) => {
     // TODO: 계정 delete api 달기
+    // TODO: 계정 행 삭제 useMutation
     showToast(`“${nickName}” 계정이 삭제되었습니다.`);
     setFocusedAccount(undefined);
   };
@@ -54,11 +53,10 @@ const AdminAccountsTable = ({ accounts, paginationElement }: AdminAccountsTableP
   };
 
   const deleteAlertModalProps = {
-    open: isOpenDeleteAlertModal,
     type: MODAL_TYPE.CONFIRM,
     title: "계정 탈퇴",
     message: "해당 어드민 계정 ID를 삭제 하시겠습니까?",
-    onClose: () => { setIsOpenDeleteAlertModal(false); },
+    onClose: () => { setFocusedAccount(undefined); },
     onClickProceed: () => {
       handleDeleteAccount(focusedAccount!.memberId, focusedAccount!.nickName);
     },
@@ -66,11 +64,10 @@ const AdminAccountsTable = ({ accounts, paginationElement }: AdminAccountsTableP
     closeBtnText: "아니요",
   };
   const reissueAlertModalProps = {
-    open: isOpenReissueAlertModal,
     type: MODAL_TYPE.CONFIRM,
     title: "비밀번호 재발급",
     message: `“${focusedAccount?.nickName}” 계정의 비밀번호를 재발급 하시겠습니까?`,
-    onClose: () => { setIsOpenReissueAlertModal(false); },
+    onClose: () => { setFocusedAccount(undefined); },
     onClickProceed: () => {
       handleReissuePassword(focusedAccount!.memberId, focusedAccount!.nickName);
     },
@@ -85,7 +82,7 @@ const AdminAccountsTable = ({ accounts, paginationElement }: AdminAccountsTableP
       if (focusedAccount.target === "reissue") showReissueAlertModal();
       if (focusedAccount.target === "delete") showDeleteAlertModal();
     }
-  }, [focusedAccount, showDeleteAlertModal, showReissueAlertModal]);
+  }, [focusedAccount, showReissueAlertModal, showDeleteAlertModal]);
 
   return (
     <>
