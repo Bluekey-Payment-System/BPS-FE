@@ -1,17 +1,18 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { MemberType } from "@/types/enums/user.enum";
+import { MemberRole, MemberType } from "@/types/enums/user.enum";
 
 export interface IUserState {
   member: {
     email: string,
     loginId: string,
     profileImage: string | null,
-    nickName?: string,
+    nickname?: string,
     name?: string,
     enName?: string,
-    type: MemberType,
+    role: MemberRole,
+    type: MemberType
   } | null,
   jwtInformation: {
     accessToken: string
@@ -22,8 +23,9 @@ const initialState: IUserState = {
   member: {
     email: "bluekey@gmail.com",
     loginId: "bluekey",
-    type: "SUPER_ADMIN",
-    nickName: "김관리자",
+    role: "SUPER_ADMIN",
+    type: "ADMIN",
+    nickname: "김관리자",
     name: "혁기",
     enName: "hucki",
     profileImage: null,

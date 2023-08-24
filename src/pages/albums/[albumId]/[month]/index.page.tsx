@@ -11,7 +11,7 @@ import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/Monthly
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
 import { MOCK_ALBUM_BAR, MOCK_ALBUM_DOUGHNUT, MOCK_ALBUM_LINE } from "@/constants/mock";
 import { IState } from "@/redux/store";
-import { MEMBER_TYPE } from "@/types/enums/user.enum";
+import { MEMBER_ROLE } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
 
 import styles from "./index.module.scss";
@@ -24,24 +24,24 @@ const cardsData: DashboardCardProps[] = [
 ];
 
 const AlbumDashboardPage = () => {
-  const memberType = useSelector<IState>((state) => { return state.user.member!.type; });
+  const memberRole = useSelector<IState>((state) => { return state.user.member!.type; });
 
   return (
     <section className={cx("container")}>
       <div className={cx("sectionHeader")}>
         <h1 className={cx("title")}>앨범명</h1>
-        {memberType === MEMBER_TYPE.ARTIST && <AlbumDetailsInformationTooltip />}
-        <div className={cx("monthPickerDropdownContainer", { artist: memberType === MEMBER_TYPE.ARTIST })}>
+        {memberRole === MEMBER_ROLE.ARTIST && <AlbumDetailsInformationTooltip />}
+        <div className={cx("monthPickerDropdownContainer", { artist: memberRole === MEMBER_ROLE.ARTIST })}>
           <MonthPickerDropdown />
         </div>
         <button className={cx("albumInfo")}>앨범 정보 보기</button>
       </div>
       <DashboardCardList data={cardsData} />
       <div className={cx("chartContainer")}>
-        <MonthlyTrendChart barChartData={MOCK_ALBUM_BAR} type={MEMBER_TYPE.ARTIST} />
+        <MonthlyTrendChart barChartData={MOCK_ALBUM_BAR} type={MEMBER_ROLE.ARTIST} />
         <TopFiveRevenueChart topFiveChartData={MOCK_ALBUM_DOUGHNUT} />
       </div>
-      <AlbumTrendsChart albumTrendsChartData={MOCK_ALBUM_LINE} memberType={MEMBER_TYPE.ARTIST} />
+      <AlbumTrendsChart albumTrendsChartData={MOCK_ALBUM_LINE} memberRole={MEMBER_ROLE.ARTIST} />
     </section>
   );
 };

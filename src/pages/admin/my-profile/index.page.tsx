@@ -20,7 +20,7 @@ const AdminMyProfilePage = () => {
   const methods = useForm<IAdminUpdateProfileFieldValues>({
     defaultValues: {
       email: userInfo?.email,
-      nickName: userInfo?.nickName,
+      nickname: userInfo?.nickname,
     },
   });
   const onSubmit:SubmitHandler<IAdminUpdateProfileFieldValues> = (data) => {

@@ -1155,37 +1155,37 @@ export const MOCK_ACCOUNTS: IGetAccountsResponse = {
     contents: [
       {
         memberId: 1,
-        nickName: "혁기1",
+        nickname: "관리자1",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
       },
       {
         memberId: 2,
-        nickName: "혁기2",
+        nickname: "관리쿤",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
       },
       {
         memberId: 3,
-        nickName: "혁기1",
+        nickname: "어드민1",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
       },
       {
         memberId: 4,
-        nickName: "혁기2",
+        nickname: "어드쿤",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
       },
       {
         memberId: 5,
-        nickName: "혁기1",
+        nickname: "애드민",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
       },
       {
         memberId: 6,
-        nickName: "혁기2",
+        nickname: "블루키 통",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
       },

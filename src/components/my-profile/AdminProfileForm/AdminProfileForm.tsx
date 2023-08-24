@@ -49,7 +49,7 @@ const AdminProfileForm = ({ loginId, onSubmit }: AdminProfileFormProps) => {
         />
         <TextField
           label="닉네임"
-          {...register("nickName", {
+          {...register("nickname", {
             pattern: {
               value: /^[가-힣a-zA-Z0-9]*$/,
               message: "*한글, 영문, 숫자만 사용해주세요.",
@@ -59,13 +59,13 @@ const AdminProfileForm = ({ loginId, onSubmit }: AdminProfileFormProps) => {
               isShorterThan20B: (v: string | undefined) => { return getStringBytes(v as string) <= 20 || "*20바이트 이하로 입력해주세요"; },
             },
             // eslint-disable-next-line no-void
-            onChange: () => { void trigger("nickName"); },
+            onChange: () => { void trigger("nickname"); },
             // eslint-disable-next-line no-void
-            onBlur: () => { void trigger("nickName"); },
+            onBlur: () => { void trigger("nickname"); },
           })}
           errors={errors}
           onSave={() => { showToast("닉네임이 변경되었습니다."); }}
-          originalValue={defaultValues?.nickName}
+          originalValue={defaultValues?.nickname}
           resetField={resetField}
         />
         <TextField

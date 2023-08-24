@@ -1,9 +1,9 @@
 import { SetStateAction } from "react";
 
-import { MemberType } from "@/types/enums/user.enum";
+import { MemberRole } from "@/types/enums/user.enum";
 
 export interface IUserInfo {
-  type: MemberType
+  type: MemberRole
 }
 
 export interface GnbInfoProps extends IUserInfo {
