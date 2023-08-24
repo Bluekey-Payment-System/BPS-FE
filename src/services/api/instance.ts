@@ -1,11 +1,10 @@
+/* eslint-disable no-console */
 import axios, {
   AxiosError,
   AxiosResponse,
   InternalAxiosRequestConfig,
   AxiosInstance,
 } from "axios";
-
-import { logOnDev } from "./util/log";
 
 export const instance: AxiosInstance = axios.create({
   baseURL: process.env.BASE_URL,
@@ -27,7 +26,7 @@ instance.interceptors.request.use(
 
     if (process.env.NODE_ENV === "development") {
       const { method, url } = config;
-      logOnDev(`🚀 [API] ${method?.toUpperCase()} ${url} | Request`);
+      console.log(`🚀 [API] ${method?.toUpperCase()} ${url} | Request`);
     }
 
     return config;
@@ -48,7 +47,7 @@ instance.interceptors.response.use(
     if (process.env.NODE_ENV === "development") {
       const { method, url } = response.config;
       const { status } = response;
-      logOnDev(`🚁 [API] ${method?.toUpperCase()} ${url} | Response ${status}`);
+      console.log(`🚁 [API] ${method?.toUpperCase()} ${url} | Response ${status}`);
     }
 
     return response;
@@ -63,11 +62,9 @@ instance.interceptors.response.use(
         const { method, url } = error.config as InternalAxiosRequestConfig;
         const { status, statusText } = error.response as AxiosResponse;
 
-        logOnDev(
-          `🚨 [API] ${method?.toUpperCase()} ${url} | Error ${status} ${statusText} | ${message}`,
-        );
+        console.log(`🚨 [API] ${method?.toUpperCase()} ${url} | Error ${status} ${statusText} | ${message}`);
       } else {
-        logOnDev(`🚨 [API] | Error ${error.message}`);
+        console.log(`🚨 [API] | Error ${error.message}`);
       }
     }
     return Promise.reject(error);
