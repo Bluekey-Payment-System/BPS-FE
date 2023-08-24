@@ -10,8 +10,9 @@ import Pagination from "@/components/common/Pagination/Pagination";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/MonthlyTrendsChart";
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
-import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
+import ArtistTrackStatusTable from "@/components/dashboard/TrackStatusTable/ArtistTrackStatusTable";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
+import styles from "@/pages/admin/dashboard/[month]/index.module.scss";
 import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
 import useDashboardTable, { getDashboardTable } from "@/services/queries/dashboard/useDashboardTable";
@@ -21,11 +22,9 @@ import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
-import styles from "./index.module.scss";
-
 const cx = classNames.bind(styles);
 
-interface AdminDashboardPageProps {
+interface ArtistDashboardPageProps {
   month: string,
   page: number,
   sortBy: string,
@@ -33,31 +32,31 @@ interface AdminDashboardPageProps {
   keyword: string,
 }
 
-const AdminDashboardPage = ({
+const ArtistDashboardPage = ({
   month, page, sortBy, searchBy, keyword,
-}: AdminDashboardPageProps) => {
+}: ArtistDashboardPageProps) => {
   const {
     cardsData,
     isCardsError,
     isCardsLoading,
-  } = useDashboardCards(DASHBOARD_TYPE.ADMIN, month);
+  } = useDashboardCards(DASHBOARD_TYPE.ARTIST, month);
 
   const {
-    trendsChartData,
-    istrendsChartLoading, istrendsChartError,
-  } = useDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month);
+    trendsChartData, istrendsChartLoading,
+    istrendsChartError,
+  } = useDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month);
 
   const {
     topFiveRevenueData: topFiveChartData,
     istopFiveRevenueDataLoading,
     istopFiveRevenueDataError,
-  } = useDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month);
+  } = useDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month);
 
   const {
     tableData,
     isTableError,
     isTableLoading,
-  } = useDashboardTable(DASHBOARD_TYPE.ADMIN, month, page, sortBy, searchBy, keyword);
+  } = useDashboardTable(DASHBOARD_TYPE.ARTIST, month, page, sortBy, searchBy, keyword);
 
   const formattedMonth = convertToYearMonthFormat(month);
 
@@ -71,10 +70,10 @@ const AdminDashboardPage = ({
     <MainLayoutWithDropdown title="대시보드" dropdownElement={<MonthPickerDropdown />}>
       <DashboardCardList data={cardsData} />
       <div className={cx("cardContainer")}>
-        <MonthlyTrendChart barChartData={trendsChartData} type={MEMBER_TYPE.ADMIN} />
+        <MonthlyTrendChart barChartData={trendsChartData} type={MEMBER_TYPE.ARTIST} />
         <TopFiveRevenueChart topFiveChartData={topFiveChartData} />
       </div>
-      <AdminTrackStatusTable
+      <ArtistTrackStatusTable
         title={`${formattedMonth}의 트랙별 현황`}
         data={tableContents}
         // TODO: tableData 형태에 따라 isEmpty 체크 변경
@@ -105,24 +104,24 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   try {
     await Promise.all([
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "card"],
         () => {
-          return getDashboardCards(DASHBOARD_TYPE.ADMIN, month);
+          return getDashboardCards(DASHBOARD_TYPE.ARTIST, month);
         },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart"],
-        () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month); },
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "trendsChart"],
+        () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month); },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "topFiveRevenueChart"],
-        () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month); },
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "topFiveRevenueChart"],
+        () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month); },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "table"],
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "table"],
         () => {
           return getDashboardTable(
-            DASHBOARD_TYPE.ADMIN,
+            DASHBOARD_TYPE.ARTIST,
             month,
             page,
             sortBy,
@@ -152,4 +151,4 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   }
 };
 
-export default AdminDashboardPage;
+export default ArtistDashboardPage;

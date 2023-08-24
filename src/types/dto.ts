@@ -157,6 +157,8 @@ export interface IAdminProfile extends IProfile {
   nickName: string
 }
 
+export interface IAdminUpdateProfileFieldValues extends Partial<Omit<IAdminProfile, "type" | "loginId">> {}
+
 export interface IArtistProfile extends IProfile {
   email: string | null,
   type: ArtistType,
@@ -165,15 +167,17 @@ export interface IArtistProfile extends IProfile {
   isSameKoNameWithEnName: boolean,
 }
 
+export interface IArtistUpdateProfileFieldValues extends Partial<Pick<IArtistProfile, "profileImage" | "email">> {}
+
 // 정산액 업로드 관련
 interface ITransactionUploadAlert {
-  "rowIndex": number,
-  "columnIndex": number,
-  "columnName": string,
-  "cellValue": string,
-  "type": string,
-  "severity": string,
-  "message": string
+  rowIndex: number,
+  columnIndex: number,
+  columnName: string,
+  cellValue: string,
+  type: string,
+  severity: string,
+  message: string
 }
 
 // /api/v1/transactions

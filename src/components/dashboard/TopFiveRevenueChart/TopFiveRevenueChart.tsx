@@ -15,6 +15,10 @@ const cx = classNames.bind(styles);
 
 type TopFiveRevenueChartProps = IGetAdminEarningsTopArtistResponse | IGetAlbumRevenueTopTrackResponse;
 
+/**
+ * @author 임병욱
+ * @param topFiveChartData - 차트 데이터 contents 값 포함해서 가져오면 됩니다
+*/
 const TopFiveRevenueChart = ({ topFiveChartData }: { topFiveChartData: TopFiveRevenueChartProps }) => {
   const router = useRouter();
 
