@@ -17,7 +17,7 @@ export interface IPostConfirmPasswordRequest extends Pick<ISignIn, "password"> {
 }
 
 interface ICommonSignInInfo {
-  id: number,
+  membeId: number,
   loginId: string,
   profileImage: string | null,
 }
