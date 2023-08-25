@@ -66,6 +66,7 @@ const useArtistSignin = () => {
     artistSignIn,
     {
       onSuccess: (data) => {
+        setCookie("token", data.jwtInformation.accessToken);
         dispatch(setUser({ ...data.member, profileImage: null }));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.push(`/artists/${data.member.memberId}/dashboard/${getLatestYearMonthString()}`);
