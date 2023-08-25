@@ -174,7 +174,10 @@ export interface IArtistProfile extends IProfile {
   enName: string,
 }
 
-export interface IArtistUpdateProfileFieldValues extends Partial<Pick<IArtistProfile, "profileImage" | "email">> {}
+export interface IArtistUpdateProfileFieldValues {
+  email?: string
+  profileImage: File | null;
+}
 
 // 정산액 업로드 관련
 interface ITransactionUploadAlert {

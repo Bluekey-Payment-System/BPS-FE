@@ -84,7 +84,7 @@ const AdminProfileForm = ({ loginId, onSubmit }: AdminProfileFormProps) => {
           })}
           errors={errors}
           onSave={() => { onSubmit(getValues()); }}
-          originalValue={defaultValues?.email}
+          originalValue={defaultValues?.email ?? ""}
           resetField={resetField as UseFormResetField<FieldValues>}
         />
         <Spacing size={0} />
