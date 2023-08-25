@@ -11,8 +11,8 @@ import AlbumTrendsChart from "@/components/dashboard/AlbumTrendsChart/AlbumTrend
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/MonthlyTrendsChart";
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
-import { MOCK_ALBUM_TRACKS } from "@/constants/mock";
 import { IState } from "@/redux/store";
+import useDashboardAlbumInfo from "@/services/queries/dashboard/useDashboardAlbumInfo";
 import useDashboardAlbumTrendsChart from "@/services/queries/dashboard/useDashboardAlbumTrendsChart";
 import useDashboardCards from "@/services/queries/dashboard/useDashboardCards";
 import { useDashboardTopFiveRevenueChart } from "@/services/queries/dashboard/useDashboardTopFiveRevenueChart";
@@ -45,24 +45,32 @@ const AlbumDashboardPage = ({ month, albumId }: AlbumDashboardPageProps) => {
     trendsChartData,
     istrendsChartLoading,
     istrendsChartError,
-  } = useDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month, undefined, albumId);
+  } = useDashboardTrendsChart(DASHBOARD_TYPE.ALBUM, month, undefined, albumId);
   const {
     topFiveRevenueData,
     istopFiveRevenueDataLoading,
     istopFiveRevenueDataError,
-  } = useDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month, undefined, albumId);
+  } = useDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ALBUM, month, undefined, albumId);
   const {
     albumTrendsChart,
     isAlbumTrendsChartLoading,
     isalbumTrendsChartError,
   } = useDashboardAlbumTrendsChart(month, albumId);
+  const {
+    albumInfo,
+    isAlbumInfoLoading,
+    isalbumInfoError,
+  } = useDashboardAlbumInfo(month, albumId);
 
   if (isCardsLoading
     || istrendsChartLoading
-    || istopFiveRevenueDataLoading || isAlbumTrendsChartLoading) return <div>로딩 중</div>;
+    || istopFiveRevenueDataLoading
+    || isAlbumTrendsChartLoading || isAlbumInfoLoading) return <div>로딩 중</div>;
+
   if (isCardsError
     || istrendsChartError
-    || istopFiveRevenueDataError || isalbumTrendsChartError) return <div>에러 발생</div>;
+    || istopFiveRevenueDataError
+    || isalbumTrendsChartError || isalbumInfoError) return <div>에러 발생</div>;
 
   return (
     <section className={cx("container")}>
@@ -76,12 +84,12 @@ const AlbumDashboardPage = ({ month, albumId }: AlbumDashboardPageProps) => {
       </div>
       <DashboardCardList data={cardsData!} />
       <div className={cx("chartContainer")}>
-        <MonthlyTrendChart barChartData={trendsChartData!} type={memberType} />
+        <MonthlyTrendChart barChartData={trendsChartData!} type={MEMBER_TYPE.ARTIST} />
         <TopFiveRevenueChart topFiveChartData={topFiveRevenueData!} />
       </div>
-      <AlbumTrendsChart albumTrendsChartData={albumTrendsChart!} memberType={memberType} />
+      <AlbumTrendsChart albumTrendsChartData={albumTrendsChart!} memberType={MEMBER_TYPE.ARTIST} />
       <AlbumInfoModal
-        data={MOCK_ALBUM_TRACKS}
+        data={albumInfo!}
         open={isOpenAlbumInfoModal}
         onClose={() => { setIsOpenAlbumInfoModal(false); }}
       />
