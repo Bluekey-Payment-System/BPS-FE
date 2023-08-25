@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { SubmitHandler, useFormContext } from "react-hook-form";
+import {
+  FieldValues, SubmitHandler, UseFormResetField, useFormContext,
+} from "react-hook-form";
 
 import classNames from "classnames/bind";
 
@@ -24,7 +26,7 @@ interface AdminProfileFormProps {
 
 const AdminProfileForm = ({ loginId, onSubmit }: AdminProfileFormProps) => {
   const {
-    register, handleSubmit, resetField, trigger, formState: { errors, defaultValues },
+    register, handleSubmit, resetField, trigger, formState: { errors, defaultValues }, getValues,
   } = useFormContext<IAdminUpdateProfileFieldValues>();
   const { showToast } = useToast();
   const [isChangePasswordFormOpen, setIsChangePasswordFormOpen] = useState(false);
@@ -64,9 +66,9 @@ const AdminProfileForm = ({ loginId, onSubmit }: AdminProfileFormProps) => {
             onBlur: () => { void trigger("nickname"); },
           })}
           errors={errors}
-          onSave={() => { showToast("닉네임이 변경되었습니다."); }}
+          onSave={() => { onSubmit(getValues()); }}
           originalValue={defaultValues?.nickname}
-          resetField={resetField}
+          resetField={resetField as UseFormResetField<FieldValues>}
         />
         <TextField
           label="계정 이메일"
@@ -81,9 +83,9 @@ const AdminProfileForm = ({ loginId, onSubmit }: AdminProfileFormProps) => {
             onBlur: () => { void trigger("email"); },
           })}
           errors={errors}
-          onSave={() => { showToast("계정 이메일이 변경되었습니다."); }}
+          onSave={() => { onSubmit(getValues()); }}
           originalValue={defaultValues?.email}
-          resetField={resetField}
+          resetField={resetField as UseFormResetField<FieldValues>}
         />
         <Spacing size={0} />
       </form>
