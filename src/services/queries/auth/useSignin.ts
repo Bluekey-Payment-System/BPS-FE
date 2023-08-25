@@ -33,9 +33,9 @@ const useAdminSignin = () => {
     adminSignIn,
     {
       onSuccess: (data) => {
-        dispatch(setUser(data));
+        dispatch(setUser({ ...data.member, profileImage: null }));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        router.push(`/admin/dashboard/${getLatestYearMonthString()}`);
+        router.push(`/admin/dashboard/${getLatestYearMonthString()}`, undefined, { shallow: true });
       },
       onError: () => {
         showAlertModal();
@@ -64,7 +64,7 @@ const useArtistSignin = () => {
     artistSignIn,
     {
       onSuccess: (data) => {
-        dispatch(setUser(data));
+        dispatch(setUser({ ...data.member, profileImage: null }));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.push(`/artists/${data.member.memberId}/dashboard/${getLatestYearMonthString()}`);
       },
@@ -80,7 +80,7 @@ const useArtistSignin = () => {
 const useSignin = (type: MemberType) => {
   const adminSigninMutation = useAdminSignin();
   const artistSigninMutation = useArtistSignin();
-  if (type === MEMBER_TYPE.ARTIST) {
+  if (type === MEMBER_TYPE.USER) {
     return artistSigninMutation;
   }
   return adminSigninMutation;
