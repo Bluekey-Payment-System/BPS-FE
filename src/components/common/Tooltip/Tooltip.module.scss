@@ -8,6 +8,7 @@
   @include typo(14);
 
   width: fit-content;
+  min-width: 117px;
   max-width: 220px;
   padding: 12px 15px;
   border-radius: 6px;
@@ -30,5 +31,3 @@
     border-color: $primary-black transparent;
   }
 }
-
-/* ModalTooltip styles */
