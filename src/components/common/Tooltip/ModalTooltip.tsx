@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 
 import Tooltip from "./Tooltip";
 import styles from "./Tooltip.module.scss";
+import { PosType, checkTextOverflow, getPosition } from "./Tooltip.utils";
 
 interface ModalTooltipProps {
   message: string,
@@ -15,10 +16,15 @@ const cx = classNames.bind(styles);
 const ModalTooltipRoot = ({ message, children }: ModalTooltipProps) => {
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const pos = useRef<PosType | null>(null);
 
   const handleMouseOver = (e: MouseEvent<HTMLDivElement>) => {
-    console.log(e.currentTarget?.children[0]);
-    setIsVisible(true);
+    const visible = checkTextOverflow(e.currentTarget.children[0]);
+
+    if (visible) {
+      pos.current = getPosition(tooltipRef);
+      setIsVisible(true);
+    }
   };
 
   const handleMouseLeave = () => {
@@ -35,7 +41,7 @@ const ModalTooltipRoot = ({ message, children }: ModalTooltipProps) => {
     >
       {children}
       {isVisible
-      && <Tooltip message={message} style={{ x: 100, y: 100 }} />}
+      && <Tooltip message={message} style={pos.current?.style} />}
     </div>
   );
 };
