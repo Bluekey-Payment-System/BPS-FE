@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { COMBINATION_COLORS, RANDOM_PROFILES } from "@/constants/randomProfileList";
+import { MemberRole } from "@/types/enums/user.enum";
 
 import getRandomProfileIndex from "./GNB.utils";
 import styles from "./PCGNB.module.scss";
@@ -11,7 +12,7 @@ import styles from "./PCGNB.module.scss";
 interface GNBProps {
   loginId: string,
   profileImage: string | null,
-  type: "SUPER_ADMIN" | "ADMIN" | "ARTIST",
+  role: MemberRole,
   onClickNotification: () => void,
   onClickLogout: () => void,
 }
@@ -19,7 +20,7 @@ interface GNBProps {
 const cx = classNames.bind(styles);
 
 const PCGNB = ({
-  loginId, profileImage, type, onClickNotification, onClickLogout,
+  loginId, profileImage, role, onClickNotification, onClickLogout,
 }: GNBProps) => {
   return (
     <div className={cx("container")}>
@@ -27,7 +28,7 @@ const PCGNB = ({
         <Image className={cx("logo")} src="/images/bluekey-music-insight-logo.svg" width={206} height={30} alt="블루키 뮤직" />
       </Link>
       <div className={cx("rightSide")}>
-        {type === "SUPER_ADMIN"
+        {role === "SUPER_ADMIN"
           && (
             <button type="button" onClick={onClickNotification}>
               <Image src="/images/bell.svg" width={20} height={20} alt="알림" />

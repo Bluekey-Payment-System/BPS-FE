@@ -3,7 +3,7 @@ import { SetStateAction } from "react";
 import { MemberRole } from "@/types/enums/user.enum";
 
 export interface IUserInfo {
-  type: MemberRole
+  role: MemberRole
 }
 
 export interface GnbInfoProps extends IUserInfo {

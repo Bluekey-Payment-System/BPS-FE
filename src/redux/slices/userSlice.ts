@@ -1,51 +1,46 @@
-/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { MemberRole, MemberType } from "@/types/enums/user.enum";
+/* eslint-disable no-param-reassign */
 
+import { IAdminProfile, IArtistProfile } from "@/types/dto";
+
+export type MemberProfile = IArtistProfile | IAdminProfile;
 export interface IUserState {
-  member: {
-    email: string,
-    loginId: string,
-    profileImage: string | null,
-    nickname?: string,
-    name?: string,
-    enName?: string,
-    role: MemberRole,
-    type: MemberType
-  } | null,
-  jwtInformation: {
-    accessToken: string
-  } | null
+  member : MemberProfile
 }
 
-const initialState: IUserState = {
+const initialState = {
   member: {
+    memberId: -1,
     email: "bluekey@gmail.com",
     loginId: "bluekey",
-    role: "SUPER_ADMIN",
+    role: "ADMIN",
     type: "ADMIN",
     nickname: "김관리자",
-    name: "혁기",
-    enName: "hucki",
     profileImage: null,
-  },
-  jwtInformation: {
-    accessToken: "asdfasdf",
   },
 };
 
 export const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: initialState as { member: MemberProfile },
   reducers: {
-    setUser: (state, action: PayloadAction<IUserState>) => {
-      state.member = action.payload.member;
-      state.jwtInformation = action.payload.jwtInformation;
+    setUser: (state, action: PayloadAction<MemberProfile>) => {
+      state.member = action.payload;
     },
     resetUser: (state) => {
-      state.member = null;
-      state.jwtInformation = null;
+      state.member = {
+        memberId: -1,
+        email: "",
+        loginId: "",
+        type: "ADMIN",
+        role: "ADMIN",
+        nickname: "",
+        profileImage: null,
+      };
+      sessionStorage.removeItem("persist:root");
+      // eslint-disable-next-line no-void
+      void state;
     },
   },
 });

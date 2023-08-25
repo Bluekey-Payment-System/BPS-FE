@@ -15,19 +15,19 @@ import SideNavMobile from "./SideNavMobile";
 
 const cx = classNames.bind(styles);
 
-const userTypeToSideNavMap = {
+const userRoleToSideNavMap = {
   SUPER_ADMIN: SIDE_NAV_ITEMS_SUPER_ADMIN,
   ADMIN: SIDE_NAV_ITEMS_ADMIN,
   ARTIST: SIDE_NAV_ITEMS_ARTIST,
 };
 
-const SideNav = ({ isOpen, setIsOpen, type }: SideNavProps) => {
+const SideNav = ({ isOpen, setIsOpen, role }: SideNavProps) => {
   const [sideNavList, setSideNavList] = useState<ISideNavList[]>([]);
   const router = useRouter();
 
   useEffect(() => {
-    setSideNavList(userTypeToSideNavMap[type]);
-  }, [type]);
+    setSideNavList(userRoleToSideNavMap[role]);
+  }, [role]);
 
   return (
     <>
