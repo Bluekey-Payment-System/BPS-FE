@@ -11,12 +11,13 @@ export interface IUserState {
 
 const initialState = {
   member: {
-    memberId: -1,
-    email: "bluekey@gmail.com",
-    loginId: "bluekey",
-    role: "ADMIN",
-    type: "ADMIN",
-    nickname: "김관리자",
+    memberId: 1,
+    email: "hucki@naver.com",
+    loginId: "hucki123",
+    role: "ARTIST",
+    type: "USER",
+    name: "혁기",
+    enName: "hucki",
     profileImage: null,
   },
 };

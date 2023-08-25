@@ -36,7 +36,7 @@ const patchAdminMyProfile = (
         nickname: "블루키",
         profileImage: "https://s3...",
       });
-      reject(new Error("fucked"));
+      reject(new Error("에러가 발생했습니다."));
     }, 2000);
   });
 };
