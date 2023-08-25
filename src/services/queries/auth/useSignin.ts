@@ -1,14 +1,28 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
+import useAlertModal from "@/hooks/useAlertModal";
 import { useAppDispatch } from "@/redux/hooks";
-import { adminSignIn } from "@/services/api/requests/auth/auth.post.api";
-import { IPostAdminSignInRequest, IPostAdminSignInResponse } from "@/services/api/types/auth";
+import { setUser } from "@/redux/slices/userSlice";
+import { adminSignIn, artistSignIn } from "@/services/api/requests/auth/auth.post.api";
+import {
+  IPostAdminSignInRequest,
+  IPostAdminSignInResponse,
+  IPostArtistSignInRequest,
+  IPostArtistSignInResponse,
+} from "@/services/api/types/auth";
+import { MODAL_TYPE } from "@/types/enums/modal.enum";
+import { MEMBER_TYPE, MemberType } from "@/types/enums/user.enum";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
-export const useAdminSignin = () => {
+const useAdminSignin = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const { showAlertModal } = useAlertModal({
+    type: MODAL_TYPE.ERROR,
+    title: "로그인 실패",
+    message: "아이디와 비밀번호를 확인하세요",
+  });
   const mutation = useMutation<
   IPostAdminSignInResponse,
   unknown,
@@ -19,12 +33,57 @@ export const useAdminSignin = () => {
     adminSignIn,
     {
       onSuccess: (data) => {
-        dispatch(data.member);
+        dispatch(setUser(data));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.push(`/admin/dashboard/${getLatestYearMonthString()}`);
+      },
+      onError: () => {
+        showAlertModal();
       },
     },
   );
 
   return mutation;
 };
+
+const useArtistSignin = () => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { showAlertModal } = useAlertModal({
+    type: MODAL_TYPE.ERROR,
+    title: "로그인 실패",
+    message: "아이디와 비밀번호를 확인하세요",
+  });
+  const mutation = useMutation<
+  IPostArtistSignInResponse,
+  unknown,
+  IPostArtistSignInRequest,
+  unknown
+  >(
+    ["artist", "signin"],
+    artistSignIn,
+    {
+      onSuccess: (data) => {
+        dispatch(setUser(data));
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        router.push(`/artists/${data.member.memberId}/dashboard/${getLatestYearMonthString()}`);
+      },
+      onError: () => {
+        showAlertModal();
+      },
+    },
+  );
+
+  return mutation;
+};
+
+const useSignin = (type: MemberType) => {
+  const adminSigninMutation = useAdminSignin();
+  const artistSigninMutation = useArtistSignin();
+  if (type === MEMBER_TYPE.ARTIST) {
+    return artistSigninMutation;
+  }
+  return adminSigninMutation;
+};
+
+export default useSignin;
