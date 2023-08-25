@@ -1,9 +1,9 @@
 import Home from "@/pages/index.page";
-import { renderWithProviders } from "@/utils/test.utils";
+import { render } from "@/utils/test.utils";
 
 describe("index.page.tsx test", () => {
   it("renders Home Page", () => {
-    const { container } = renderWithProviders(<Home />);
+    const { container } = render(<Home />);
 
     expect(container).toBeInTheDocument();
   });

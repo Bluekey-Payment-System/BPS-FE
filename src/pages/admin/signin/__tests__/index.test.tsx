@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/dom";
 import { useRouter } from "next/router";
 
-import { renderWithProviders } from "@/utils/test.utils";
+import { render } from "@/utils/test.utils";
 
 import AdminSigninPage from "../index.page";
 
@@ -23,7 +23,7 @@ describe("어드민 로그인 페이지 렌더링 테스트", () => {
         query: "",
       };
     });
-    renderWithProviders(<AdminSigninPage />);
+    render(<AdminSigninPage />);
 
     expect(screen.getByText("로그인")).toBeInTheDocument();
   });
