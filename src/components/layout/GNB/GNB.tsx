@@ -25,7 +25,7 @@ const GNB = ({
   const handleLogout = async () => {
     // showToast("로그아웃 되었습니다.");
     setTimeout(() => { dispatch(resetUser()); }, 500);
-    await route.push("/login");
+    await route.push("/signin");
   };
 
   return (
