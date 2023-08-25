@@ -7,7 +7,7 @@ import axios, {
 } from "axios";
 
 export const instance: AxiosInstance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
     "Content-Type": "application/json",
     Accept: "*/*",
