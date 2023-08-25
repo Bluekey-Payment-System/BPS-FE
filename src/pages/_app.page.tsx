@@ -2,6 +2,7 @@ import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
 
 import { useState } from "react";
+import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
 
 import {
@@ -37,14 +38,16 @@ const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState
     <QueryClientProvider client={queryClient}>
       <Hydrate state={rest.pageProps.dehydratedState}>
         <Provider store={store}>
-          <Head>
-            <title>블루키뮤직 정산시스템</title>
-          </Head>
-          <main className={Pretendard.className}>
-            {getContent()}
-          </main>
-          <ToastRoot />
-          <AlertModalRoot />
+          <CookiesProvider>
+            <Head>
+              <title>블루키뮤직 정산시스템</title>
+            </Head>
+            <main className={Pretendard.className}>
+              {getContent()}
+            </main>
+            <ToastRoot />
+            <AlertModalRoot />
+          </CookiesProvider>
         </Provider>
       </Hydrate>
       <ReactQueryDevtools initialIsOpen />
