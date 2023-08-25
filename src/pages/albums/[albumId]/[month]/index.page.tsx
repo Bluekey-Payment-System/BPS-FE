@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 import classNames from "classnames/bind";
@@ -5,11 +6,14 @@ import classNames from "classnames/bind";
 import AlbumDetailsInformationTooltip from "@/components/album/AlbumDetailsInformationTooltip/AlbumDetailsInformationTooltip";
 import { DashboardCardProps } from "@/components/common/DashboardCard/DashboardCard.type";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
+import AlbumInfoModal from "@/components/dashboard/AlbumInfoModal/AlbumInfoModal";
 import AlbumTrendsChart from "@/components/dashboard/AlbumTrendsChart/AlbumTrendsChart";
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/MonthlyTrendsChart";
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
-import { MOCK_ALBUM_BAR, MOCK_ALBUM_DOUGHNUT, MOCK_ALBUM_LINE } from "@/constants/mock";
+import {
+  MOCK_ALBUM_BAR, MOCK_ALBUM_DOUGHNUT, MOCK_ALBUM_LINE, MOCK_ALBUM_TRACKS,
+} from "@/constants/mock";
 import { IState } from "@/redux/store";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
@@ -25,6 +29,7 @@ const cardsData: DashboardCardProps[] = [
 
 const AlbumDashboardPage = () => {
   const memberType = useSelector<IState>((state) => { return state.user.member!.type; });
+  const [isOpenAlbumInfoModal, setIsOpenAlbumInfoModal] = useState(false);
 
   return (
     <section className={cx("container")}>
@@ -34,7 +39,7 @@ const AlbumDashboardPage = () => {
         <div className={cx("monthPickerDropdownContainer", { artist: memberType === MEMBER_TYPE.ARTIST })}>
           <MonthPickerDropdown />
         </div>
-        <button className={cx("albumInfo")}>앨범 정보 보기</button>
+        <button className={cx("albumInfo")} onClick={() => { setIsOpenAlbumInfoModal(true); }}>앨범 정보 보기</button>
       </div>
       <DashboardCardList data={cardsData} />
       <div className={cx("chartContainer")}>
@@ -42,6 +47,11 @@ const AlbumDashboardPage = () => {
         <TopFiveRevenueChart topFiveChartData={MOCK_ALBUM_DOUGHNUT} />
       </div>
       <AlbumTrendsChart albumTrendsChartData={MOCK_ALBUM_LINE} memberType={MEMBER_TYPE.ARTIST} />
+      <AlbumInfoModal
+        data={MOCK_ALBUM_TRACKS}
+        open={isOpenAlbumInfoModal}
+        onClose={() => { setIsOpenAlbumInfoModal(false); }}
+      />
     </section>
   );
 };
