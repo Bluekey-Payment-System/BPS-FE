@@ -8,8 +8,8 @@ import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import Pagination from "@/components/common/Pagination/Pagination";
 import AdminAccountsTable from "@/components/manage-accounts/AdminAccountsTable/AdminAccountsTable";
 import ArtistAccountsTable from "@/components/manage-accounts/ArtistAccountsTable/ArtistAccountsTable";
-import { MOCK_ACCOUNTS } from "@/constants/mock";
 import { ITEMS_PER_ACCOUNTS_TABLE } from "@/constants/pagination";
+import useAccounts from "@/services/queries/manage-accounts/useAccounts";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
 interface ManageAccountsPageProps {
@@ -18,7 +18,12 @@ interface ManageAccountsPageProps {
 }
 
 const ManageAccountsPage = ({ artistPage, adminPage }: ManageAccountsPageProps) => {
-  const { adminList, artistList } = MOCK_ACCOUNTS;
+  const { accounts, isAccountsLoading, isAccountsError } = useAccounts(artistPage, adminPage);
+
+  if (isAccountsLoading) return <div>로딩 중</div>;
+  if (isAccountsError) return <div>에러 발생</div>;
+
+  const { adminList, artistList } = accounts!;
   return (
     <MainLayout title="타 계정 관리">
       <ArtboardLayout>
