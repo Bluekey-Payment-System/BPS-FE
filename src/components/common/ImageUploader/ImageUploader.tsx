@@ -3,15 +3,13 @@ import {
   ForwardedRef, InputHTMLAttributes, forwardRef, useEffect, useId, useState,
 } from "react";
 
-import Avatar from "boring-avatars";
 import classNames from "classnames/bind";
 import Image from "next/image";
 
-import getRandomProfileIndex from "@/components/layout/GNB/GNB.utils";
-import { COMBINATION_COLORS, RANDOM_PROFILES } from "@/constants/randomProfileList";
 import useForwardRef from "@/hooks/useForwardRef";
 import { useAppSelector } from "@/redux/hooks";
 
+import DefaultProfileImage from "../DefaultProfileImage/DefaultProfileImage";
 import Orbit from "../Loading/Orbit";
 
 import styles from "./ImageUploader.module.scss";
@@ -84,7 +82,7 @@ const ImageUploader = forwardRef(({
       >
         {!previewUrl && (
         <div className={cx("avatarContainer")}>
-          <Avatar size={147} name={RANDOM_PROFILES[getRandomProfileIndex(loginId)]} variant="marble" colors={COMBINATION_COLORS} />
+          <DefaultProfileImage userId={loginId} size={147} />
         </div>
         )}
         {isUploading && <div className={cx("loadingContainer")}><Orbit /></div>}

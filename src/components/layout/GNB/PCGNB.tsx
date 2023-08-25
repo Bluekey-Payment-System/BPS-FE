@@ -1,12 +1,10 @@
-import Avatar from "boring-avatars";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
 
-import { COMBINATION_COLORS, RANDOM_PROFILES } from "@/constants/randomProfileList";
+import DefaultProfileImage from "@/components/common/DefaultProfileImage/DefaultProfileImage";
 import { MemberRole } from "@/types/enums/user.enum";
 
-import getRandomProfileIndex from "./GNB.utils";
 import styles from "./PCGNB.module.scss";
 
 interface GNBProps {
@@ -37,7 +35,7 @@ const PCGNB = ({
         <Link href="/my-profile" className={cx("profile")}>
           {profileImage
             ? <Image src={profileImage} width={30} height={30} alt="프로필 이미지" />
-            : <Avatar size={30} name={RANDOM_PROFILES[getRandomProfileIndex(loginId)]} variant="marble" colors={COMBINATION_COLORS} />}
+            : <DefaultProfileImage size={30} userId={loginId} />}
           <span className={cx("profileName")}>{`${loginId} 님`}</span>
         </Link>
         <button className={cx("logoutButton")} type="button" onClick={onClickLogout}>

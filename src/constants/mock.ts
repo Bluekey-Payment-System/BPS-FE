@@ -61,6 +61,7 @@ export const MOCK_ALBUMS: IGetAlbumsResponse = {
 };
 
 export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
+  albumId: 1,
   albumImage: "https://image.bugsm.co.kr/album/images/500/201408/20140893.jpg",
   koAlbumName: "비밀정원",
   enAlbumName: "Secret Garden",
@@ -80,6 +81,11 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
         {
           koArtistName: "아린",
           enArtistName: "Arin",
+          commissionRate: 50,
+        },
+        {
+          koArtistName: "아이유",
+          enArtistName: "IU",
           commissionRate: 50,
         },
       ],
@@ -751,6 +757,33 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
   contents: [
     {
       artist: {
+        memberId: 1,
+        koArtistName: "김블루김블루김블루김블루김블루",
+        enArtistName: "bluekeybluekeybluekeybluekey",
+        profileImage: null,
+      },
+      revenue: 300,
+      netIncome: 1234,
+      settlementAmount: 1234124,
+      representativeTrack: "하루도 그대를 사랑하지 않은 적이 없었다. 하루도 그대를 사랑하지 않은 적이 없었다.",
+      monthlyIncreaseRate: -7,
+    },
+    {
+      artist: {
+        memberId: 2,
+        koArtistName: "김블루",
+        enArtistName: "bluekey",
+        profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
+      },
+      revenue: 300,
+      netIncome: 1234,
+      settlementAmount: 1234124,
+      representativeTrack: "love",
+      monthlyIncreaseRate: 0,
+    },
+    {
+      artist: {
+        memberId: 3,
         koArtistName: "김블루",
         enArtistName: "bluekey",
         profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
@@ -763,30 +796,33 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     },
     {
       artist: {
+        memberId: 4,
         koArtistName: "김블루",
         enArtistName: "bluekey",
-        profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
+        profileImage: null,
       },
       revenue: 300,
       netIncome: 1234,
       settlementAmount: 1234124,
       representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
+      monthlyIncreaseRate: 0.4,
     },
     {
       artist: {
+        memberId: 5,
         koArtistName: "김블루",
         enArtistName: "bluekey",
-        profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
+        profileImage: null,
       },
       revenue: 300,
       netIncome: 1234,
       settlementAmount: 1234124,
       representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
+      monthlyIncreaseRate: 55.5,
     },
     {
       artist: {
+        memberId: 6,
         koArtistName: "김블루",
         enArtistName: "bluekey",
         profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
@@ -795,10 +831,11 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
       netIncome: 1234,
       settlementAmount: 1234124,
       representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
+      monthlyIncreaseRate: -200,
     },
     {
       artist: {
+        memberId: 7,
         koArtistName: "김블루",
         enArtistName: "bluekey",
         profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
@@ -807,22 +844,24 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
       netIncome: 1234,
       settlementAmount: 1234124,
       representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
+      monthlyIncreaseRate: 16.8,
     },
     {
       artist: {
+        memberId: 8,
         koArtistName: "김블루",
         enArtistName: "bluekey",
-        profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
+        profileImage: null,
       },
       revenue: 300,
       netIncome: 1234,
       settlementAmount: 1234124,
       representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
+      monthlyIncreaseRate: -2.5,
     },
     {
       artist: {
+        memberId: 9,
         koArtistName: "김블루",
         enArtistName: "bluekey",
         profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
@@ -831,10 +870,11 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
       netIncome: 1234,
       settlementAmount: 1234124,
       representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
+      monthlyIncreaseRate: null,
     },
     {
       artist: {
+        memberId: 10,
         koArtistName: "김블루",
         enArtistName: "bluekey",
         profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
@@ -843,43 +883,7 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
       netIncome: 1234,
       settlementAmount: 1234124,
       representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
-    },
-    {
-      artist: {
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
-        profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
-      },
-      revenue: 300,
-      netIncome: 1234,
-      settlementAmount: 1234124,
-      representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
-    },
-    {
-      artist: {
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
-        profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
-      },
-      revenue: 300,
-      netIncome: 1234,
-      settlementAmount: 1234124,
-      representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
-    },
-    {
-      artist: {
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
-        profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
-      },
-      revenue: 300,
-      netIncome: 1234,
-      settlementAmount: 1234124,
-      representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
+      monthlyIncreaseRate: 129,
     },
   ],
 };

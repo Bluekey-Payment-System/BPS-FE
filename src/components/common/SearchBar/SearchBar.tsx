@@ -26,7 +26,9 @@ const SearchBar = (
   return (
     <div className={cx("searchBarContainer", theme)}>
       <input className={cx("searchInput", theme)} ref={inputRef} placeholder={placeholder} />
-      <Image src="/images/search-bar.svg" className={cx("searchImage")} alt="검색" width={13} height={15} onClick={onClick} />
+      <button type="button" className={cx("searchImage")} onClick={onClick}>
+        <Image src="/images/search-bar.svg" alt="검색" width={13} height={15} />
+      </button>
     </div>
   );
 };

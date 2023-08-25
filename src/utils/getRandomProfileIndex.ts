@@ -10,10 +10,12 @@ const calculateAsciiSum = (loginId: string) => {
   return totalSum;
 };
 
-const getRandomProfileIndex = (loginId: string) => {
-  const totlaAsciiSum = calculateAsciiSum(loginId);
-
-  return totlaAsciiSum % RANDOM_PROFILES_LENGTH;
+const getRandomProfileIndex = (userId: string | number) => {
+  if (typeof userId === "string") {
+    const totalAsciiSum = calculateAsciiSum(userId);
+    return totalAsciiSum % RANDOM_PROFILES_LENGTH;
+  }
+  return userId % RANDOM_PROFILES_LENGTH;
 };
 
 export default getRandomProfileIndex;

@@ -90,6 +90,7 @@ export interface ITrackInfo {
 
 // /api/v1/albums/{albumId}
 export interface IAlbumInfo {
+  albumId: number,
   albumImage: string | null,
   koAlbumName: string,
   enAlbumName: string,
@@ -137,9 +138,10 @@ export interface IAlbumDashboardCard {
 // /api/v1/artist
 export interface IArtistList {
   artist: {
+    memberId: number,
     koArtistName: string,
     enArtistName: string,
-    profileImage: string
+    profileImage: string | null
   },
   revenue: number | null,
   netIncome: number | null,
@@ -213,4 +215,14 @@ export interface IArtistAccount {
   loginId: string,
   email: string | null,
   commissionRate: number | null,
+}
+
+export interface ISignIn {
+  loginId: string,
+  password: string,
+}
+
+export interface IAdminSignup extends ISignIn {
+  email: string,
+  nickname: string,
 }
