@@ -40,7 +40,7 @@ const NewPasswordForm = ({ onSuccess }: { onSuccess: () => void }) => {
       <form className={cx("container", "newPasswordForm")} onSubmit={handleSubmit(handleClickDone)}>
         <div className={cx("inputGroupContainer")}>
           <PasswordField
-            label="새 비밀번호 입력aaa"
+            label="새 비밀번호 입력"
             {...register("password", {
               required: "*비밀번호를 입력하세요.",
               minLength: {

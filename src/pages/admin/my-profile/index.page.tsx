@@ -7,19 +7,43 @@ import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import MainLayout from "@/components/common/Layouts/MainLayout";
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
+import Orbit from "@/components/common/Loading/Orbit";
 import AdminProfileForm from "@/components/my-profile/AdminProfileForm/AdminProfileForm";
-import { IAdminUpdateProfileFieldValues } from "@/types/dto";
+import { useAppSelector } from "@/redux/hooks";
+import { useUpdateAdminMyProfileInfo, useUpdateAdminProfileImage } from "@/services/queries/my-profile/useUpdateProfile";
+import { IAdminProfile, IAdminUpdateProfileFieldValues } from "@/types/dto";
 
 import styles from "./index.module.scss";
 
 const cx = classNames.bind(styles);
 
 const AdminMyProfilePage = () => {
-  const methods = useForm<IAdminUpdateProfileFieldValues>();
+  const userInfo = useAppSelector((state) => { return state.user.member as IAdminProfile; });
+  // 프로필 정보(닉네임, 이메일) 수정 쿼리
+  const {
+    mutate, isLoading,
+  } = useUpdateAdminMyProfileInfo();
+  // 프로밀 이미지 수정 쿼리
+  const {
+    mutateAsync: mutateImageAsync,
+  } = useUpdateAdminProfileImage();
+  const methods = useForm<IAdminUpdateProfileFieldValues>({
+    defaultValues: {
+      email: userInfo.email,
+      nickname: userInfo.nickname,
+    },
+  });
+
   const onSubmit:SubmitHandler<IAdminUpdateProfileFieldValues> = (data) => {
+    mutate(data);
     // eslint-disable-next-line no-console
     console.log(data);
   };
+
+  const handleUploadImage = async (file: File) => {
+    await mutateImageAsync({ profileImage: file });
+  };
+
   return (
     <MainLayout title="내 프로필">
       <ArtboardLayout>
@@ -29,16 +53,20 @@ const AdminMyProfilePage = () => {
               <div className={cx("imageUploadContainer")}>
                 <ImageUploader
                   shape="circle"
+                  {...methods.register("profileImage")}
+                  onUpload={handleUploadImage}
+                  defaultUrl={userInfo.profileImage}
                 />
                 <span className={cx("sizeLimitText")}>*이미지 크기는 6MB 이하로 업로드 해주세요.</span>
               </div>
             </SectionLayout>
             <SectionHr />
             <SectionLayout title="내 프로필 정보 수정">
-              <AdminProfileForm onSubmit={onSubmit} />
+              <AdminProfileForm onSubmit={onSubmit} loginId={userInfo.loginId} />
             </SectionLayout>
           </div>
         </FormProvider>
+        {isLoading && <div className={cx("loadingContainer")}><Orbit /></div>}
       </ArtboardLayout>
     </MainLayout>
   );

@@ -12,7 +12,7 @@ import MobileGNB from "./MobileGNB";
 import PCGNB from "./PCGNB";
 
 const GNB = ({
-  loginId, profileImage, type, onClickMenu,
+  loginId, profileImage, role, onClickMenu,
 }: GnbInfoProps) => {
   const { showToast } = useToast();
   const dispatch = useDispatch();
@@ -33,14 +33,14 @@ const GNB = ({
       <PCGNB
         loginId={loginId}
         profileImage={profileImage}
-        type={type}
+        role={role}
         onClickNotification={handleClickNotification}
         onClickLogout={handleLogout}
       />
       <MobileGNB
         loginId={loginId}
         profileImage={profileImage}
-        type={type}
+        role={role}
         onClickNotification={handleClickNotification}
         onClickLogout={handleLogout}
         onClickMenu={onClickMenu}

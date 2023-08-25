@@ -7,6 +7,10 @@ import classNames from "classnames/bind";
 import Image from "next/image";
 
 import useForwardRef from "@/hooks/useForwardRef";
+import { useAppSelector } from "@/redux/hooks";
+
+import DefaultProfileImage from "../DefaultProfileImage/DefaultProfileImage";
+import Orbit from "../Loading/Orbit";
 
 import styles from "./ImageUploader.module.scss";
 
@@ -14,6 +18,8 @@ const cx = classNames.bind(styles);
 
 interface ImageUploaderProps extends InputHTMLAttributes<HTMLInputElement> {
   shape: "circle" | "square";
+  onUpload: (file: File) => Promise<void>;
+  defaultUrl?: string | null;
 }
 /**
  * 이미지 업로더 컴포넌트
@@ -27,15 +33,33 @@ interface ImageUploaderProps extends InputHTMLAttributes<HTMLInputElement> {
  * ```
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const ImageUploader = forwardRef(({ shape = "square", ...props }: ImageUploaderProps, ref: ForwardedRef<HTMLInputElement>) => {
+const ImageUploader = forwardRef(({
+  shape = "square", onUpload, defaultUrl, ...props
+}: ImageUploaderProps, ref: ForwardedRef<HTMLInputElement>) => {
   const fileRef = useForwardRef(ref);
-  const [previewUrl, setPreviewUrl] = useState<string>();
+  const [previewUrl, setPreviewUrl] = useState<string>(defaultUrl ?? "");
+  const [previousPreviewUrl, setPreviousPreviewUrl] = useState<string>(previewUrl);
+  const [isUploading, setIsUploading] = useState(false);
   const uploaderId = useId();
+  const loginId = useAppSelector((state) => { return state.user.member.loginId; });
 
   const handleChangeFile:ChangeEventHandler<HTMLInputElement> = (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      setPreviewUrl(URL.createObjectURL(file));
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+      setIsUploading(true);
+      onUpload(file)
+        .then(() => {
+          setPreviousPreviewUrl(url);
+        })
+        .catch((err) => {
+          setPreviewUrl(previousPreviewUrl);
+          console.error(err);
+        })
+        .finally(() => {
+          setIsUploading(false);
+        });
     }
     props.onChange?.(e);
   };
@@ -56,6 +80,12 @@ const ImageUploader = forwardRef(({ shape = "square", ...props }: ImageUploaderP
         onClick={() => { fileRef?.current?.click(); }}
         id={uploaderId}
       >
+        {!previewUrl && (
+        <div className={cx("avatarContainer")}>
+          <DefaultProfileImage userId={loginId} size={147} />
+        </div>
+        )}
+        {isUploading && <div className={cx("loadingContainer")}><Orbit /></div>}
         <div className={cx("deck")}>
           <div className={cx("uploadIcon")}>
             <Image src="/images/upload-small.svg" fill alt="업로드 아이콘" />

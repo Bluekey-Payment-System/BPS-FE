@@ -1,7 +1,7 @@
 import { ResponsiveLine } from "@nivo/line";
 
 import { ILineTrackSettlementTrends } from "@/types/dto";
-import { MemberType } from "@/types/enums/user.enum";
+import { MemberRole } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
 
 import { mapLineDataToMonthlySummary, getMaxValueInLineChart } from "./LineChart.utils";
@@ -16,16 +16,16 @@ const yAxisFormat = (item: number) => {
 
 interface LineChartProps {
   albumTrendsChartData: ILineTrackSettlementTrends,
-  memberType: MemberType,
+  memberRole: MemberRole,
 }
 
 /**
  * @author 임병욱
  * @param {IGetAlbumTrackSettlementTrendsResponse} albumTrendsChartData - 차트 데이터
- * @param {MemberType} memberType - SUPER_ADMIN | ADMIN | ARTIST
+ * @param {MemberRole} memberRole - SUPER_ADMIN | ADMIN | ARTIST
 */
-const LineChart = ({ albumTrendsChartData, memberType }: LineChartProps) => {
-  const monthlySummaryData = mapLineDataToMonthlySummary(albumTrendsChartData, memberType);
+const LineChart = ({ albumTrendsChartData, memberRole }: LineChartProps) => {
+  const monthlySummaryData = mapLineDataToMonthlySummary(albumTrendsChartData, memberRole);
 
   return (
     <ResponsiveLine
@@ -47,7 +47,7 @@ const LineChart = ({ albumTrendsChartData, memberType }: LineChartProps) => {
       yScale={{
         type: "linear",
         min: "auto",
-        max: getMaxValueInLineChart(albumTrendsChartData, memberType) * 1.2,
+        max: getMaxValueInLineChart(albumTrendsChartData, memberRole) * 1.2,
         stacked: true,
         reverse: false,
       }}

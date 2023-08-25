@@ -1,4 +1,7 @@
-import { AdminType, ArtistType } from "./enums/user.enum";
+import {
+  AdminRole,
+  AdminType, ArtistRole, UserType,
+} from "@/types/enums/user.enum";
 
 // 이름 관련
 export interface IArtist {
@@ -149,28 +152,33 @@ export interface IArtistList {
 
 // 프로필 관련
 interface IProfile {
+  memberId: number,
   loginId: string,
   profileImage: string | null
 }
 
 export interface IAdminProfile extends IProfile {
   email: string,
-  type: AdminType
-  nickName: string
+  type: AdminType,
+  role: AdminRole,
+  nickname: string
 }
 
-export interface IAdminUpdateProfileFieldValues extends Partial<Omit<IAdminProfile, "type" | "loginId">> {
+export interface IAdminUpdateProfileFieldValues extends Partial<Pick<IAdminProfile, "email" | "nickname">> {
+  profileImage: File | null,
 }
 
 export interface IArtistProfile extends IProfile {
   email: string | null,
-  type: ArtistType,
-  koName: string,
+  type: UserType,
+  role: ArtistRole,
+  name: string,
   enName: string,
-  isSameKoNameWithEnName: boolean,
 }
 
-export interface IArtistUpdateProfileFieldValues extends Partial<Pick<IArtistProfile, "profileImage" | "email">> {
+export interface IArtistUpdateProfileFieldValues {
+  email?: string
+  profileImage: File | null;
 }
 
 // 정산액 업로드 관련
@@ -195,7 +203,7 @@ export interface ITransactionUpload {
 // 계정 관련
 export interface IAdminAccount {
   memberId: number,
-  nickName: string,
+  nickname: string,
   loginId: string,
   email: string,
 }

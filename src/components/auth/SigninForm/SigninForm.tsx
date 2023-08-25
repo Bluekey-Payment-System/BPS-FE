@@ -10,7 +10,7 @@ import Spacing from "@/components/common/Layouts/Spacing";
 import { IPostAdminSignInRequest, IPostArtistSignInRequest } from "@/services/api/types/auth";
 import useSignin from "@/services/queries/auth/useSignin";
 import {
-  AdminType, ArtistType, MEMBER_TYPE,
+  MEMBER_TYPE, MemberType,
 } from "@/types/enums/user.enum";
 
 import styles from "./SigninForm.module.scss";
@@ -19,7 +19,7 @@ const cx = classNames.bind(styles);
 
 interface SigninFormProps {
   title: string;
-  type: AdminType | ArtistType;
+  type: MemberType;
 }
 
 const SigninForm = ({ title, type }:SigninFormProps) => {
