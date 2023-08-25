@@ -15,6 +15,7 @@
   color: $primary-white;
   line-height: 18px;
   word-break: break-all;
+  white-space: pre-line;
 
   &::before {
     content: "";
