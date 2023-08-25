@@ -26,7 +26,7 @@ interface ICommonSignInInfo {
 
 interface IAdminSignInInfo extends ICommonSignInInfo {
   email: string,
-  nickName: string,
+  nickname: string,
   type: AdminType, // 기존의 MEMBER_TYPE과의 관계가 불분명한 것 같고 사용하는 쪽이 아직 없어 enum 처리 안함
   role: AdminRole,
 }
