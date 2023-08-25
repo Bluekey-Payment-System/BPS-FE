@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { MOCK_ALBUM_TRACKS } from "@/constants/mock";
 import { IGetAlbumTracksResponse } from "@/services/api/types/albums";
+import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 export const getDashboardAlbumInfo = (
   month: string,
@@ -15,7 +16,7 @@ export const getDashboardAlbumInfo = (
 
 const useDashboardAlbumInfo = (month: string, albumId: string) => {
   const { data: albumInfo, isLoading: isAlbumInfoLoading, isError: isalbumInfoError } = useQuery(
-    ["dashboard", "albumInfo"],
+    [DASHBOARD_TYPE.ALBUM, "dashboard", "albumInfo"],
     () => { return getDashboardAlbumInfo(month, albumId); },
     { staleTime: 5000 },
   );
