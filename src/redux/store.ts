@@ -2,19 +2,19 @@ import {
   AnyAction,
   Action,
   configureStore,
-  EnhancedStore,
   ThunkAction,
   Store,
   combineReducers,
+  PreloadedState,
+  Reducer,
 } from "@reduxjs/toolkit";
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
 import { persistStore, persistReducer } from "redux-persist";
 import storageSession from "redux-persist/lib/storage/session";
 
+import alertModalReducer, { IAlertModalState } from "@/redux/slices/alertModalSlice";
 import toastReducer, { IToastState } from "@/redux/slices/toastSlice";
 import userReducer, { IUserState } from "@/redux/slices/userSlice";
-
-import alertModalReducer, { IAlertModalState } from "./slices/alertModalSlice";
 
 export interface IState {
   toast: IToastState;
@@ -53,7 +53,15 @@ export const store = configureStore({
   },
 });
 
-const setupStore = (): EnhancedStore => { return store; };
+export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
+  return configureStore({
+    reducer: rootReducer as Reducer<IState, AnyAction>,
+    preloadedState,
+    middleware: (getDefaultMiddleware) => {
+      return getDefaultMiddleware({ serializableCheck: false });
+    },
+  });
+};
 
 const makeStore = () => { return setupStore(); };
 
