@@ -1,3 +1,4 @@
 next.config.js
 jest.*.js
 kenny.page.tsx
+src/mock/*
