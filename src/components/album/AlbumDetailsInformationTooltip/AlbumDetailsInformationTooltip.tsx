@@ -9,7 +9,12 @@ const cx = classNames.bind(styles);
 
 const AlbumDetailsInformationTooltip = () => {
   return (
-    <TooltipRoot message="본 페이지의 모든 지표는 본인이 참여한 트랙에 대한 수치만 반영한 값입니다." alwaysVisible>
+    <TooltipRoot
+      message={`본 페이지의 모든 지표는
+    본인이 참여한 트랙에 대한 수치만
+    반영한 값입니다.`}
+      alwaysVisible
+    >
       <Image src="/images/information.svg" alt="정보" width={22} height={22} className={cx("information")} />
     </TooltipRoot>
   );
