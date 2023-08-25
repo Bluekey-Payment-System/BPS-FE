@@ -213,7 +213,7 @@ const KennyPage = () => {
       <br />
       <Button size="large" theme="bright" onClick={()=>{showAlertModal()}}>useAlert모달로 열기</Button>
       <Spacing size={100} />
-      <ImageUploader shape="circle" {...register("profileImg")} type="file"/>
+      <ImageUploader shape="circle" {...register("profileImg")} type="file" onUpload={()=>Promise.resolve()}/>
       <br />
       <br />
       <br />

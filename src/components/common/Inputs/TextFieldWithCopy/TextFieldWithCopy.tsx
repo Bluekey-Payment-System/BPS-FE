@@ -1,11 +1,10 @@
 import {
-  ForwardedRef, MouseEventHandler, forwardRef,
+  ForwardedRef, MouseEventHandler, forwardRef, useId,
 } from "react";
 
 import classNames from "classnames/bind";
 
 import useForwardRef from "@/hooks/useForwardRef";
-import useInputWithEditMode from "@/hooks/useInputWithEditMode";
 import useToast from "@/hooks/useToast";
 
 import InputLayout from "../InputLayout";
@@ -16,29 +15,14 @@ const cx = classNames.bind(styles);
 
 const TextFieldWithCopy = forwardRef((
   {
-    label, errors, onSave, resetField, bottomText, value, ...props
+    label, errors, bottomText, ...props
   }: TextFieldProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) => {
   const error = !!errors[props.name!];
-  const {
-    focused,
-    focusInput,
-    inputId,
-    editBtnId,
-    handleChangeWithEditMode,
-    handleBlurWithEditMode,
-  } = useInputWithEditMode({
-    value,
-    onChange: props.onChange,
-    onSave,
-    resetField,
-    name: props.name as string,
-    isError: error,
-  });
   const { showToast } = useToast();
   const inputRef = useForwardRef<HTMLInputElement>(ref);
-
+  const id = useId();
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const handleClickCopyToClipboard: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
@@ -53,10 +37,10 @@ const TextFieldWithCopy = forwardRef((
   return (
     <InputLayout
       label={label}
-      hasEditMode={!!onSave}
-      focused={focused}
-      editBtnId={editBtnId}
-      inputId={inputId}
+      hasEditMode={false}
+      focused={false}
+      editBtnId={id}
+      inputId={id}
       name={props.name as string}
       errors={errors}
       bottomText={bottomText}
@@ -64,12 +48,9 @@ const TextFieldWithCopy = forwardRef((
       <div className={cx("container")}>
         <input
           {...props}
-          id={inputId}
+          id={id}
           className={cx("input", { error }, "copy")}
           ref={inputRef}
-          onFocus={focusInput}
-          onChange={onSave ? handleChangeWithEditMode : props.onChange}
-          onBlur={onSave ? handleBlurWithEditMode : props.onBlur}
           type={props.type ?? "text"}
         />
         <button

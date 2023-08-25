@@ -9,7 +9,7 @@ import TextField from "@/components/common/Inputs/TextField/TextField";
 import Spacing from "@/components/common/Layouts/Spacing";
 import useToast from "@/hooks/useToast";
 import {
-  AdminType, ArtistType, MEMBER_TYPE,
+  MEMBER_TYPE, MemberType,
 } from "@/types/enums/user.enum";
 
 import styles from "./SigninForm.module.scss";
@@ -18,7 +18,7 @@ const cx = classNames.bind(styles);
 
 interface SigninFormProps {
   title: string;
-  type: AdminType | ArtistType;
+  type: MemberType;
 }
 
 const SigninForm = ({ title, type }:SigninFormProps) => {
@@ -26,7 +26,7 @@ const SigninForm = ({ title, type }:SigninFormProps) => {
   const { showToast } = useToast();
   const onSubmit:SubmitHandler<FieldValues> = (data) => {
     // TODO: try - catch 문 적용, artist로그인의 경우 response의 id값을 이용하여 router.push할 경로를 생성
-    if (type === MEMBER_TYPE.ARTIST) {
+    if (type === MEMBER_TYPE.USER) {
       // TODO: 아티스트 로그인 api 호출
       // TODO: /api/v1/auth/member/login 에 POST 요청, router.push admin홈
       showToast("아티스트 로그인");

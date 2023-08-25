@@ -3,7 +3,7 @@ import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 const ArtistSigninPage = () => {
   return (
-    <SigninForm title="아티스트 로그인" type={MEMBER_TYPE.ARTIST} />
+    <SigninForm title="아티스트 로그인" type={MEMBER_TYPE.USER} />
   );
 };
 
