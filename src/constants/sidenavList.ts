@@ -23,10 +23,10 @@ export const SIDE_NAV_ITEMS_ADMIN = [
   { id: 8, content: "내 프로필", path: "/admin/my-profile" },
 ];
 
-const userId = store.getState().user.member?.loginId;
+const userId = store.getState().user.member?.memberId;
 
 export const SIDE_NAV_ITEMS_ARTIST = [
   { id: 1, content: "대시보드", path: `/artists/${userId}/dashboard/${getLatestYearMonthString()}` },
   { id: 2, content: "앨범 상세", path: `/artists/${userId}/albums` },
-  { id: 3, content: "내 프로필", path: "/artists/my-profile" },
+  { id: 3, content: "내 프로필", path: `/artists/${userId}/my-profile` },
 ];
