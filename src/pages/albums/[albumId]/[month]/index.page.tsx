@@ -24,7 +24,7 @@ const cardsData: DashboardCardProps[] = [
 ];
 
 const AlbumDashboardPage = () => {
-  const memberRole = useSelector<IState>((state) => { return state.user.member!.type; });
+  const memberRole = useSelector<IState>((state) => { return state.user.member.role; });
 
   return (
     <section className={cx("container")}>

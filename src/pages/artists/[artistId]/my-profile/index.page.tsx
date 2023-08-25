@@ -29,6 +29,7 @@ const ArtistMyProfilePage = () => {
               <div className={cx("imageUploadContainer")}>
                 <ImageUploader
                   shape="circle"
+                  onUpload={() => { return Promise.resolve(); }}
                 />
                 <span className={cx("sizeLimitText")}>*이미지 크기는 6MB 이하로 업로드 해주세요.</span>
               </div>
