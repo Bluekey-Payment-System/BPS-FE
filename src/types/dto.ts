@@ -162,7 +162,9 @@ export interface IAdminProfile extends IProfile {
   nickname: string
 }
 
-export interface IAdminUpdateProfileFieldValues extends Partial<Omit<IAdminProfile, "type" | "loginId">> {}
+export interface IAdminUpdateProfileFieldValues extends Partial<Pick<IAdminProfile, "email" | "nickname">> {
+  profileImage: File | null,
+}
 
 export interface IArtistProfile extends IProfile {
   email: string | null,
@@ -170,7 +172,6 @@ export interface IArtistProfile extends IProfile {
   role: ArtistRole,
   name: string,
   enName: string,
-  isSameKoNameWithEnName: boolean,
 }
 
 export interface IArtistUpdateProfileFieldValues extends Partial<Pick<IArtistProfile, "profileImage" | "email">> {}

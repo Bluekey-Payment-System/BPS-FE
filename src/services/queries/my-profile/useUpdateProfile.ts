@@ -1,16 +1,19 @@
 /* eslint-disable no-void */
 import { useMutation } from "@tanstack/react-query";
 
+import useAlertModal from "@/hooks/useAlertModal";
+import useToast from "@/hooks/useToast";
 import { useAppDispatch } from "@/redux/hooks";
-import { IUserState, setUser } from "@/redux/slices/userSlice";
+import { setUser } from "@/redux/slices/userSlice";
 import { IAdminProfile, IArtistProfile } from "@/types/dto";
+import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_ROLE, MEMBER_TYPE } from "@/types/enums/user.enum";
 
-interface IPatchAdminMyProfileRequest extends Partial<{
-  profileImage: File,
-  email: string,
-  nickname: string,
-}> { }
+interface IPatchAdminMyProfileRequest {
+  profileImage: File | null,
+  email?: string,
+  nickname?: string,
+}
 
 interface IPatchAdminMyProfileResponse extends IAdminProfile { }
 
@@ -21,7 +24,7 @@ interface IPatchArtistMyProfileResponse extends IArtistProfile { }
 const patchAdminMyProfile = (
   body: IPatchAdminMyProfileRequest,
 ): Promise<IPatchAdminMyProfileResponse> => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       void body;
       return resolve({
@@ -29,10 +32,11 @@ const patchAdminMyProfile = (
         role: MEMBER_ROLE.ADMIN,
         type: MEMBER_TYPE.ADMIN,
         email: "example@bluekey_domain.com",
-        loginId: "dfjalke",
+        loginId: "sapidjsaio",
         nickname: "블루키",
         profileImage: "https://s3...",
       });
+      reject(new Error("fucked"));
     }, 2000);
   });
 };
@@ -52,14 +56,19 @@ const patchArtistMyProfile = (
         name: "블루키",
         enName: "bluekey",
         profileImage: "https://s3...",
-        isSameKoNameWithEnName: false,
       });
     }, 2000);
   });
 };
 
-export const useUpdateAdminMyProfile = () => {
+export const useUpdateAdminMyProfileInfo = () => {
   const dispatch = useAppDispatch();
+  const { showToast } = useToast();
+  const { showAlertModal } = useAlertModal({
+    type: MODAL_TYPE.ERROR,
+    title: "프로필 수정 에러",
+    message: "알 수 없는 에러가 발생하였습니다. 잠시 후에 다시 시도해주세요.",
+  });
   const mutation = useMutation<
   IPatchAdminMyProfileResponse,
   unknown,
@@ -70,15 +79,41 @@ export const useUpdateAdminMyProfile = () => {
     patchAdminMyProfile,
     {
       onSuccess: (data) => {
-        dispatch(setUser(data as unknown as IUserState));
+        showToast("프로필 정보가 수정되었습니다.");
+        dispatch(setUser(data));
+      },
+      onError: () => {
+        showAlertModal();
       },
     },
   );
   return mutation;
 };
 
-export const useUpdateArtistMyProfile = () => {
+export const useUpdateAdminProfileImage = () => {
   const dispatch = useAppDispatch();
+  const { showToast } = useToast();
+  const mutation = useMutation<
+  IPatchAdminMyProfileResponse,
+  unknown,
+  Pick<IPatchAdminMyProfileRequest, "profileImage">,
+  unknown
+  >(
+    ["admin", "my-profile", "profile-image"],
+    patchAdminMyProfile,
+    {
+      onSuccess: (data) => {
+        showToast("프로필 이미지가 변경되었습니다.");
+        dispatch(setUser(data));
+      },
+    },
+  );
+  return mutation;
+};
+
+export const useUpdateArtistMyProfileInfo = () => {
+  const dispatch = useAppDispatch();
+  const { showToast } = useToast();
   const mutation = useMutation<
   IPatchArtistMyProfileResponse,
   unknown,
@@ -89,7 +124,29 @@ export const useUpdateArtistMyProfile = () => {
     patchArtistMyProfile,
     {
       onSuccess: (data) => {
-        dispatch(setUser(data as unknown as IUserState));
+        showToast("프로필 정보가 수정되었습니다.");
+        dispatch(setUser(data));
+      },
+    },
+  );
+  return mutation;
+};
+
+export const useUpdateArtistMyProfileImage = () => {
+  const dispatch = useAppDispatch();
+  const { showToast } = useToast();
+  const mutation = useMutation<
+  IPatchArtistMyProfileResponse,
+  unknown,
+  Pick<IPatchArtistMyProfileRequest, "profileImage">,
+  unknown
+  >(
+    ["artist", "my-profile", "profile-image"],
+    patchArtistMyProfile,
+    {
+      onSuccess: (data) => {
+        showToast("프로필 이미지가 변경되었습니다.");
+        dispatch(setUser(data));
       },
     },
   );
