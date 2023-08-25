@@ -1,9 +1,7 @@
-import Avatar from "boring-avatars";
 import classNames from "classnames/bind";
 import Image from "next/image";
 
-import { COMBINATION_COLORS, RANDOM_PROFILES } from "@/constants/randomProfileList";
-import getRandomProfileIndex from "@/utils/getRandomProfileIndex";
+import DefaultProfileImage from "@/components/common/DefaultProfileImage/DefaultProfileImage";
 
 import styles from "./ArtistProfileImage.module.scss";
 
@@ -17,11 +15,9 @@ const cx = classNames.bind(styles);
 const ArtistProfileImage = ({ memberId, profileImageUrl }: ArtistProfileImageProps) => {
   if (!profileImageUrl) {
     return (
-      <Avatar
+      <DefaultProfileImage
         size={30}
-        name={RANDOM_PROFILES[getRandomProfileIndex(memberId)]}
-        variant="marble"
-        colors={COMBINATION_COLORS}
+        userId={memberId}
       />
     );
   }
