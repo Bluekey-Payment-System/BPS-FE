@@ -13,6 +13,7 @@ import {
 } from "@/services/api/types/auth";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_TYPE, MemberType } from "@/types/enums/user.enum";
+import { setCookie } from "@/utils/cookies";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
 const useAdminSignin = () => {
@@ -33,6 +34,7 @@ const useAdminSignin = () => {
     adminSignIn,
     {
       onSuccess: (data) => {
+        setCookie("token", data.jwtInformation.accessToken);
         dispatch(setUser({ ...data.member, profileImage: null }));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.push(`/admin/dashboard/${getLatestYearMonthString()}`, undefined, { shallow: true });
