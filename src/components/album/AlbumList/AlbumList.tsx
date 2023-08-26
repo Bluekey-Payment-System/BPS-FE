@@ -19,28 +19,17 @@ const AlbumList = ({ userType, paginationElement }: AlbumListProps) => {
   return (
     <div className={cx("container")}>
       <div className={cx("albums")}>
-        {userType === MEMBER_TYPE.ARTIST
-          ? albumList.map((album) => {
-            return (
-              <AlbumCard
-                key={album.albumId}
-                albumId={album.albumId}
-                albumCoverUrl={album.albumImage}
-                albumTitle={album.koAlbumName}
-              />
-            );
-          })
-          : albumList.map((album) => {
-            return (
-              <AlbumCard
-                key={album.albumId}
-                albumId={album.albumId}
-                albumCoverUrl={album.albumImage}
-                albumTitle={album.koAlbumName}
-                hasOptionsButton
-              />
-            );
-          })}
+        {albumList.map((album) => {
+          return (
+            <AlbumCard
+              key={album.albumId}
+              albumId={album.albumId}
+              albumCoverUrl={album.albumImage}
+              albumTitle={album.koAlbumName}
+              hasOptionsButton={userType !== MEMBER_TYPE.ARTIST}
+            />
+          );
+        })}
       </div>
       {paginationElement}
     </div>
