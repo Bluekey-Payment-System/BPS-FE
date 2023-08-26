@@ -159,20 +159,20 @@
     }
   }
 
-  &.bright {
-    width: 89px;
-  }
+  /* stylelint-disable-next-line scss/dollar-variable-colon-space-after */
+  $width-map:
+    bright 89px,
+    dark 139px,
+    withsearchbar 89px,
+    hassearchbar 348px;
 
-  &.dark {
-    width: 139px;
-  }
+  @each $class, $width in $width-map {
+    &.#{$class} {
+      width: $width;
 
-  &.withSearchBar {
-    width: 89px;
-  }
-
-  &.hasSearchBar {
-    width: 348px;
-    height: auto;
+      @if $class == hasSearchBar {
+        height: auto;
+      }
+    }
   }
 }

@@ -20,7 +20,7 @@ interface AlbumFormProps {
   onSubmit: SubmitHandler<IAlbumFieldValues>;
 }
 
-const majorArtist = [
+const artist = [
   // TODO: db에 있는 모든 아티스트 names와 pk를 가져와서(api) 여기에 뿌리기
   { artistId: 1, artistName: "혁기" },
   { artistId: 2, artistName: "지미가드너" },
@@ -68,7 +68,7 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
           <span>대표 아티스트</span>
           <Dropdown
             hasSearchBar
-            dropdownListData={formatDropdownList(majorArtist)}
+            dropdownListData={formatDropdownList(artist)}
             onClick={(value) => { setValue("memberId", (value.id)); }}
           />
           <input {...register("memberId")} type="hidden" />

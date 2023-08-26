@@ -2,8 +2,8 @@ import classNames from "classnames/bind";
 import Image from "next/image";
 
 import { IHasSearchBarData } from "./Dropdown.type";
+import setDropdownItemValue from "./Dropdown.utils";
 import styles from "./DropdownUI.module.scss";
-import setDropdownItemValue from "./setDropdownItemValue";
 
 const cx = classNames.bind(styles);
 
