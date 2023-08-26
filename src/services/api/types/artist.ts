@@ -1,5 +1,6 @@
 import {
   IAlbumCard,
+  IArtist,
   IArtistDashboardCard,
   IArtistList,
   IBarMonthlySettlement,
@@ -31,4 +32,8 @@ export interface IGetArtistMonthlySettlementResponse {
 export interface IGetArtistAlbumsResponse {
   totalItems: number,
   contents: IAlbumCard[]
+}
+
+export interface IGetArtistsSimpleResponse {
+  artists: IArtist[]
 }
