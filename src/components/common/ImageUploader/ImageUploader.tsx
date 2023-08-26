@@ -37,7 +37,7 @@ const ImageUploader = forwardRef(({
   shape = "square", onUpload, defaultUrl, ...props
 }: ImageUploaderProps, ref: ForwardedRef<HTMLInputElement>) => {
   const fileRef = useForwardRef(ref);
-  const [previewUrl, setPreviewUrl] = useState<string>(defaultUrl ?? "");
+  const [previewUrl, setPreviewUrl] = useState<string>(defaultUrl || "");
   const [previousPreviewUrl, setPreviousPreviewUrl] = useState<string>(previewUrl);
   const [isUploading, setIsUploading] = useState(false);
   const uploaderId = useId();
@@ -71,7 +71,10 @@ const ImageUploader = forwardRef(({
       uploaderElem.style.backgroundSize = "cover";
       uploaderElem.style.backgroundPosition = "center";
     }
-  }, [previewUrl, uploaderId]);
+    if (defaultUrl && !previewUrl) {
+      setPreviewUrl(defaultUrl);
+    }
+  }, [previewUrl, uploaderId, defaultUrl]);
 
   return (
     <>
