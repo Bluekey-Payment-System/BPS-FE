@@ -1,4 +1,6 @@
-import { IGetAlbumTracksResponse, IGetAlbumsResponse } from "../../types/albums";
+import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
+
+import { IGetAlbumMonthlySettlementResponse, IGetAlbumTracksResponse, IGetAlbumsResponse } from "../../types/albums";
 import { getRequest } from "../requests.api";
 
 /* 앨범 리스트 조회 */
@@ -13,4 +15,10 @@ const getAlbumTracks = async (albumId: number) => {
   return response;
 };
 
-export { getAlbums, getAlbumTracks };
+/* 앨범의 월별 정산액 */
+const getAlbumMonthlySettlement = async (albumId: number, startDate: string, endDate: string) => {
+  const response = getRequest<IGetAlbumMonthlySettlementResponse>(`albums/${albumId}/dashboard?startDate=${convertYearMonthToQuery(startDate)}&endDate=${convertYearMonthToQuery(endDate)}`);
+  return response;
+};
+
+export { getAlbums, getAlbumTracks, getAlbumMonthlySettlement };
