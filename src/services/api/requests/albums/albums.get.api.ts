@@ -4,6 +4,7 @@ import {
   IGetAlbumDashboardResponse,
   IGetAlbumMonthlySettlementResponse,
   IGetAlbumRevenueTopTrackResponse,
+  IGetAlbumTrackSettlementTrendsResponse,
   IGetAlbumTracksResponse,
   IGetAlbumsResponse,
 } from "../../types/albums";
@@ -41,6 +42,6 @@ export const getAlbumDashboardDoughnut = async (albumId: number, month: string, 
 
 /* 앨범의 트랙별 정산 리스트 */
 export const getAlbumDashboardLine = (albumId: number, startDate: string, endDate: string) => {
-  const response = getRequest(`/albums/${albumId}/dashboard/track?startDate=${convertYearMonthToQuery(startDate)}&endDate=${convertYearMonthToQuery(endDate)}`);
+  const response = getRequest<IGetAlbumTrackSettlementTrendsResponse>(`/albums/${albumId}/dashboard/track?startDate=${convertYearMonthToQuery(startDate)}&endDate=${convertYearMonthToQuery(endDate)}`);
   return response;
 };
