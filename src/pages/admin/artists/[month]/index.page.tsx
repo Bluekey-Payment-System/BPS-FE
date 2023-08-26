@@ -28,9 +28,8 @@ const ArtistsStatusPage = (
   const {
     artistsStatus, isLoading, isError, isFetching,
   } = useArtistsStatus(
-    page,
-    ITEMS_PER_ARTISTS_TABLE,
     convertYearMonthToQuery(month),
+    page,
     keyword,
   );
   const searchKeywordRef = useRef<HTMLInputElement>(null);
