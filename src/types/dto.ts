@@ -82,6 +82,7 @@ export interface ITrackInfo {
   enTrackName: string,
   bluekeyOriginalTrack: boolean,
   participants: {
+    memberId: number,
     koArtistName: string,
     enArtistName: string,
     commissionRate: number | null

@@ -85,11 +85,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
         },
         {
+          memberId: 1,
           koArtistName: "아이유",
           enArtistName: "IU",
           commissionRate: 50,
@@ -103,6 +105,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -116,11 +119,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
         },
         {
+          memberId: 1,
           koArtistName: "승희",
           enArtistName: "Seunghee",
           commissionRate: 30,
@@ -134,6 +139,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -147,6 +153,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -160,11 +167,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
         },
         {
+          memberId: 1,
           koArtistName: "승희",
           enArtistName: "Seunghee",
           commissionRate: 30,
@@ -178,6 +187,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -191,6 +201,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -204,11 +215,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
         },
         {
+          memberId: 1,
           koArtistName: "승희",
           enArtistName: "Seunghee",
           commissionRate: 30,
@@ -222,6 +235,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -235,6 +249,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -248,11 +263,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
         },
         {
+          memberId: 1,
           koArtistName: "승희",
           enArtistName: "Seunghee",
           commissionRate: 30,
@@ -266,6 +283,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
