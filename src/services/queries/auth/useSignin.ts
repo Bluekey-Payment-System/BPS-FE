@@ -24,17 +24,16 @@ const useAdminSignin = () => {
     title: "로그인 실패",
     message: "아이디와 비밀번호를 확인하세요",
   });
-  const mutation = useMutation<
-  IPostAdminSignInResponse,
-  unknown,
-  IPostAdminSignInRequest,
-  unknown
-  >(
+  const mutation = useMutation<IPostAdminSignInResponse, unknown, IPostAdminSignInRequest, unknown>(
     ["admin", "signin"],
     adminSignIn,
     {
       onSuccess: (data) => {
-        setCookie("token", data.jwtInformation.accessToken);
+        setCookie("token", data.jwtInformation.accessToken, {
+          maxAge: 900000,
+          secure: true,
+          httpOnly: true,
+        });
         dispatch(setUser({ ...data.member, profileImage: null }));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.push(`/admin/dashboard/${getLatestYearMonthString()}`, undefined, { shallow: true });
@@ -56,17 +55,17 @@ const useArtistSignin = () => {
     title: "로그인 실패",
     message: "아이디와 비밀번호를 확인하세요",
   });
-  const mutation = useMutation<
-  IPostArtistSignInResponse,
-  unknown,
-  IPostArtistSignInRequest,
-  unknown
-  >(
+  // eslint-disable-next-line max-len
+  const mutation = useMutation<IPostArtistSignInResponse, unknown, IPostArtistSignInRequest, unknown>(
     ["artist", "signin"],
     artistSignIn,
     {
       onSuccess: (data) => {
-        setCookie("token", data.jwtInformation.accessToken);
+        setCookie("token", data.jwtInformation.accessToken, {
+          maxAge: 900000,
+          secure: true,
+          httpOnly: true,
+        });
         dispatch(setUser({ ...data.member, profileImage: null }));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.push(`/artists/${data.member.memberId}/dashboard/${getLatestYearMonthString()}`);
