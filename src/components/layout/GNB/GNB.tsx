@@ -28,11 +28,11 @@ const GNB = ({
     setTimeout(() => { dispatch(resetUser()); }, 500);
     removeCookie("token");
     showToast("로그아웃 되었습니다.");
-    if (role === MEMBER_ROLE.ADMIN) {
-      await router.push("/admin/signin");
+    if (role === MEMBER_ROLE.ARTIST) {
+      await router.push("/signin");
       return;
     }
-    await router.push("/signin");
+    await router.push("/admin/signin");
   };
 
   return (
