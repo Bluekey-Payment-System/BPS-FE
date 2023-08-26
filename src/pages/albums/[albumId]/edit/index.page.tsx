@@ -25,7 +25,7 @@ const AlbumEditPage = () => {
   const router = useRouter();
   const albumId = parseInt(router.query.albumId as string, 10);
   const { data, isLoading: isAlbumInfoLoading } = useAlbumInfo(albumId);
-  const { mutate, isLoading: isUpdateLoading } = useUpdateAlbumInfo();
+  const { mutate, mutateAsync, isLoading: isUpdateLoading } = useUpdateAlbumInfo();
   const methods = useForm<IAlbumFieldValues>({
     mode: "onBlur",
     defaultValues: {
@@ -49,6 +49,10 @@ const AlbumEditPage = () => {
     mutate(formData);
   };
 
+  const handleUploadImage = async (file: File) => {
+    await mutateAsync({ ...methods.getValues(), albumImage: file });
+  };
+
   return (
     <section className={ml("container")}>
       <h1 className={ml("title")}>앨범 수정</h1>
@@ -61,7 +65,7 @@ const AlbumEditPage = () => {
                   <div>
                     <ImageUploader
                       shape="square"
-                      onUpload={() => { return Promise.resolve(); }}
+                      onUpload={handleUploadImage}
                       defaultUrl={data?.albumImage}
                     />
                     <span className={cx("sizeLimitText")}>*이미지 크기는 6MB 이하로 업로드 해주세요.</span>

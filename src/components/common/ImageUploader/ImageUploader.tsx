@@ -71,10 +71,13 @@ const ImageUploader = forwardRef(({
       uploaderElem.style.backgroundSize = "cover";
       uploaderElem.style.backgroundPosition = "center";
     }
-    if (defaultUrl && !previewUrl) {
+  }, [previewUrl, uploaderId]);
+
+  useEffect(() => {
+    if (defaultUrl) {
       setPreviewUrl(defaultUrl);
     }
-  }, [previewUrl, uploaderId, defaultUrl]);
+  }, [defaultUrl]);
 
   return (
     <>
