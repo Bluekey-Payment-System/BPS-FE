@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 
 import useToast from "@/hooks/useToast";
 import { resetUser } from "@/redux/slices/userSlice";
+import { MEMBER_ROLE } from "@/types/enums/user.enum";
+import { removeCookie } from "@/utils/cookies";
 
 import { GnbInfoProps } from "../Layout.types";
 
@@ -12,20 +14,25 @@ import MobileGNB from "./MobileGNB";
 import PCGNB from "./PCGNB";
 
 const GNB = ({
-  loginId, profileImage, type, onClickMenu,
+  loginId, profileImage, role, onClickMenu,
 }: GnbInfoProps) => {
   const { showToast } = useToast();
   const dispatch = useDispatch();
-  const route = useRouter();
+  const router = useRouter();
 
   const handleClickNotification = () => {
     showToast("알림창 오픈");
   };
 
-  const handleLogout = async () => {
-    // showToast("로그아웃 되었습니다.");
+  const handleSignout = async () => {
     setTimeout(() => { dispatch(resetUser()); }, 500);
-    await route.push("/login");
+    removeCookie("token");
+    showToast("로그아웃 되었습니다.");
+    if (role === MEMBER_ROLE.ARTIST) {
+      await router.push("/signin");
+      return;
+    }
+    await router.push("/admin/signin");
   };
 
   return (
@@ -33,16 +40,16 @@ const GNB = ({
       <PCGNB
         loginId={loginId}
         profileImage={profileImage}
-        type={type}
+        role={role}
         onClickNotification={handleClickNotification}
-        onClickLogout={handleLogout}
+        onClickLogout={handleSignout}
       />
       <MobileGNB
         loginId={loginId}
         profileImage={profileImage}
-        type={type}
+        role={role}
         onClickNotification={handleClickNotification}
-        onClickLogout={handleLogout}
+        onClickLogout={handleSignout}
         onClickMenu={onClickMenu}
       />
     </>

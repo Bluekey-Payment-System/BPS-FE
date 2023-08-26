@@ -1,10 +1,8 @@
 import {
-  ForwardedRef, forwardRef, useState,
+  ForwardedRef, forwardRef, useId, useState,
 } from "react";
 
 import classNames from "classnames/bind";
-
-import useInputWithEditMode from "@/hooks/useInputWithEditMode";
 
 import InputLayout from "../InputLayout";
 import { TextFieldProps } from "../TextField/TextField";
@@ -16,35 +14,20 @@ const cx = classNames.bind(styles);
 
 const PasswordField = forwardRef((
   {
-    label, errors, onSave, resetField, bottomText, value, ...props
+    label, errors, bottomText, ...props
   }: TextFieldProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) => {
   const error = !!errors[props.name!];
-  const {
-    focused,
-    focusInput,
-    inputId,
-    editBtnId,
-    handleChangeWithEditMode,
-    handleBlurWithEditMode,
-  } = useInputWithEditMode({
-    value,
-    onChange: props.onChange,
-    onSave,
-    resetField,
-    name: props.name as string,
-    isError: error,
-  });
   const [isShowing, setIsShowing] = useState(false);
-
+  const id = useId();
   return (
     <InputLayout
       label={label}
-      hasEditMode={!!onSave}
-      focused={focused}
-      editBtnId={editBtnId}
-      inputId={inputId}
+      hasEditMode={false}
+      focused={false}
+      editBtnId={id}
+      inputId={id}
       name={props.name as string}
       errors={errors}
       bottomText={bottomText}
@@ -52,12 +35,9 @@ const PasswordField = forwardRef((
       <div className={cx("container")}>
         <input
           {...props}
-          id={inputId}
+          id={id}
           className={cx("input", { error }, "password")}
           ref={ref}
-          onFocus={focusInput}
-          onChange={onSave ? handleChangeWithEditMode : props.onChange}
-          onBlur={onSave ? handleBlurWithEditMode : props.onBlur}
           type={isShowing ? "text" : "password"}
         />
         <button

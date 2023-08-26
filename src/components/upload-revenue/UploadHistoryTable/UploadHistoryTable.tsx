@@ -1,14 +1,17 @@
 import { useState } from "react";
 
+import { useQueryClient } from "@tanstack/react-query";
+
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
 import EmptyData from "@/components/common/EmptyData/EmptyData";
+import Loading from "@/components/common/Loading/Loading";
 import AlertModal from "@/components/common/Modals/AlertModal/AlertModal";
 import TableBodyUI from "@/components/common/Table/Composition/TableBodyUI";
 import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
 import TableContainerUI from "@/components/common/Table/Composition/TableContainerUI";
 import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
-import useToast from "@/hooks/useToast";
+import { useUploadHistoryDelete } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 import { ITransactionUpload } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
@@ -17,12 +20,18 @@ interface FileData {
   fileName: string
 }
 
+/**
+ * @author [hayoung-99](https://github.com/hayoung-99)
+ * @param uploadList 정산 내역들이 담긴 배열
+ * @returns 정산 내역 테이블
+ */
 const UploadHistroyTable = (
   { uploadList }: { uploadList: ITransactionUpload[] },
 ) => {
+  const queryClient = useQueryClient();
   const [isCancelUploadModalOpen, setIsCancelUploadModalOpen] = useState(false);
   const [fileData, setFileData] = useState<FileData>({} as FileData);
-  const { showToast } = useToast();
+  const { deleteUploadHistory, isLoading } = useUploadHistoryDelete(queryClient);
 
   const handleClickCancelUploadBtn = (fileId: number, fileName: string) => {
     setIsCancelUploadModalOpen(true);
@@ -36,13 +45,17 @@ const UploadHistroyTable = (
     // TODO: 업로드 취소 API 작업
     // eslint-disable-next-line no-console
     console.log(`(${fileId}) ${fileName} 파일 삭제`);
+    deleteUploadHistory();
 
     setIsCancelUploadModalOpen(false);
-    showToast("업로드 내역이 삭제되었습니다.");
   };
 
   if (uploadList.length === 0) {
     return <EmptyData type="no-data" text="업로드 내역이 없습니다." />;
+  }
+
+  if (isLoading) {
+    return <Loading height={218} />;
   }
 
   return (

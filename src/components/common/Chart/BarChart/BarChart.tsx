@@ -2,7 +2,7 @@ import { ResponsiveBar } from "@nivo/bar";
 import classNames from "classnames/bind";
 
 import { IGetAdminMonthlyEarningsTrendsResponse, IGetArtistMonthlyEarningsTrendsResponse } from "@/services/api/types/admin";
-import { MEMBER_TYPE, MemberType } from "@/types/enums/user.enum";
+import { MEMBER_ROLE, MemberRole } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
 
 import styles from "./BarChart.module.scss";
@@ -45,11 +45,11 @@ const yAxisFormat = (item: number) => {
 */
 const BarChart = ({ barChartData, type }: {
   barChartData: IGetAdminMonthlyEarningsTrendsResponse | IGetArtistMonthlyEarningsTrendsResponse,
-  type: MemberType
+  type: MemberRole
 }) => {
   const maxValue: number = getMaxValue(barChartData, type);
   const formattedData = mapChartDataToMonthlySummary(barChartData, type);
-  const keyType = type === MEMBER_TYPE.ARTIST ? ["settlement", "revenue"] : ["netIncome", "revenue"];
+  const keyType = type === MEMBER_ROLE.ARTIST ? ["settlement", "revenue"] : ["netIncome", "revenue"];
   return (
     <ResponsiveBar
       theme={{

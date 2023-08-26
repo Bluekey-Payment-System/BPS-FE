@@ -20,7 +20,7 @@ import useDashboardTable, { getDashboardTable } from "@/services/queries/dashboa
 import { getDashboardTopFiveRevenueChart, useDashboardTopFiveRevenueChart } from "@/services/queries/dashboard/useDashboardTopFiveRevenueChart";
 import useDashboardTrendsChart, { getDashboardTrendsChart } from "@/services/queries/dashboard/useDashboardTrendsChart";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
-import { MEMBER_TYPE } from "@/types/enums/user.enum";
+import { MEMBER_ROLE } from "@/types/enums/user.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
 const cx = classNames.bind(styles);
@@ -71,7 +71,7 @@ const ArtistDashboardPage = ({
     <MainLayoutWithDropdown title="대시보드" dropdownElement={<MonthPickerDropdown />}>
       <DashboardCardList data={cardsData} />
       <div className={cx("cardContainer")}>
-        <MonthlyTrendChart barChartData={trendsChartData} type={MEMBER_TYPE.ARTIST} />
+        <MonthlyTrendChart barChartData={trendsChartData} type={MEMBER_ROLE.ARTIST} />
         <TopFiveRevenueChart topFiveChartData={topFiveChartData} />
       </div>
       <ArtistTrackStatusTable

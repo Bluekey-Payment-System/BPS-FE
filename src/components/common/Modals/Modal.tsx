@@ -15,7 +15,7 @@ const MODAL_TYPE_CLASSNAME_MAP = {
   [MODAL_TYPE.ERROR]: "error",
   [MODAL_TYPE.CONFIRM]: "confirm",
   [MODAL_TYPE.FORM]: "form",
-  [MODAL_TYPE.ALBUM_INFO]: "albumInfo",
+  [MODAL_TYPE.INFO]: "info",
 };
 
 interface ModalProps extends DialogHTMLAttributes<HTMLDialogElement> {
@@ -50,13 +50,14 @@ const Modal = ({
   type, open, onClose, children, ...props
 }: ModalProps) => {
   const modalRef = useRef<HTMLDialogElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   const handleAnimationEnd = () => {
     if (!open) modalRef.current?.close();
   };
 
   const handleClick: MouseEventHandler<HTMLDialogElement> = ({ target }) => {
-    if (target === modalRef.current) onClose();
+    if (target === modalRef.current || target === overlayRef.current) onClose();
   };
 
   useEffect(() => {
@@ -65,7 +66,7 @@ const Modal = ({
       document.body.style.overflow = "hidden";
     }
     return () => {
-      document.body.style.overflow = "scroll";
+      document.body.style.overflow = "auto";
     };
   }, [open]);
 
@@ -81,8 +82,10 @@ const Modal = ({
       onAnimationEnd={handleAnimationEnd}
       {...props}
     >
-      <div className={cx("container", [MODAL_TYPE_CLASSNAME_MAP[type]])}>
-        {children}
+      <div className={cx("overlay")} ref={overlayRef}>
+        <div className={cx("container", [MODAL_TYPE_CLASSNAME_MAP[type]])}>
+          {children}
+        </div>
       </div>
     </dialog>
   );

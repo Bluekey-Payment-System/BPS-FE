@@ -1,4 +1,4 @@
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
 import Link from "next/link";
@@ -7,9 +7,10 @@ import Button from "@/components/common/CommonBtns/Button/Button";
 import PasswordField from "@/components/common/Inputs/PasswordInput/PasswordField";
 import TextField from "@/components/common/Inputs/TextField/TextField";
 import Spacing from "@/components/common/Layouts/Spacing";
-import useToast from "@/hooks/useToast";
+import { IPostAdminSignInRequest, IPostArtistSignInRequest } from "@/services/api/types/auth";
+import useSignin from "@/services/queries/auth/useSignin";
 import {
-  AdminType, ArtistType, MEMBER_TYPE,
+  MEMBER_TYPE, MemberType,
 } from "@/types/enums/user.enum";
 
 import styles from "./SigninForm.module.scss";
@@ -18,25 +19,22 @@ const cx = classNames.bind(styles);
 
 interface SigninFormProps {
   title: string;
-  type: AdminType | ArtistType;
+  type: MemberType;
 }
 
 const SigninForm = ({ title, type }:SigninFormProps) => {
-  const { register, formState: { errors }, handleSubmit } = useForm();
-  const { showToast } = useToast();
-  const onSubmit:SubmitHandler<FieldValues> = (data) => {
-    // TODO: try - catch 문 적용, artist로그인의 경우 response의 id값을 이용하여 router.push할 경로를 생성
-    if (type === MEMBER_TYPE.ARTIST) {
-      // TODO: 아티스트 로그인 api 호출
-      // TODO: /api/v1/auth/member/login 에 POST 요청, router.push admin홈
-      showToast("아티스트 로그인");
-    } else {
-      // TODO: 어드민 로그인 api 호출
-      // TODO: /api/v1/auth/admin/login 에 POST 요청, router.push artist홈
-      showToast("어드민 로그인");
-    }
-    // eslint-disable-next-line no-alert
-    alert(JSON.stringify(data));
+  const {
+    mutateAsync: signin,
+    isLoading,
+  } = useSignin(type);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<IPostAdminSignInRequest | IPostArtistSignInRequest>();
+  const onSubmit:SubmitHandler<IPostAdminSignInRequest | IPostArtistSignInRequest> = (data) => {
+    // eslint-disable-next-line no-void
+    void signin(data);
   };
 
   return (
@@ -48,7 +46,9 @@ const SigninForm = ({ title, type }:SigninFormProps) => {
       <Spacing size={16} />
       <PasswordField {...register("password")} errors={errors} placeholder="비밀번호 입력" />
       <Spacing size={36} />
-      <Button size="large" theme="dark" type="submit">로그인</Button>
+      <Button size="large" theme="dark" type="submit">
+        {isLoading ? "로그인 중..." : "로그인"}
+      </Button>
       {type === MEMBER_TYPE.ADMIN && (
         <>
           <Spacing size={24} />

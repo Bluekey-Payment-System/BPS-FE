@@ -1,26 +1,30 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 
+import { IHasSearchBarData } from "./Dropdown.type";
+import setDropdownItemValue from "./Dropdown.utils";
 import styles from "./DropdownUI.module.scss";
 
 const cx = classNames.bind(styles);
 
 interface DropdownSelectedValueProps {
-  selectedDropdownValue: string,
+  selectedDropdownValue: string | IHasSearchBarData,
   toggle: boolean,
   handleToggle: React.MouseEventHandler<HTMLImageElement | HTMLButtonElement>,
-  theme?: "bright" | "dark" | "withSearchBar" | "hasSearchBar",
+  theme?: "bright" | "dark" | "withSearchBar",
+  hasSearchBar?: boolean
 }
 
 const DropdownSelectedValue = ({
-  selectedDropdownValue, toggle, handleToggle, theme = "bright",
+  selectedDropdownValue, toggle, handleToggle, theme = "bright", hasSearchBar = false,
 }: DropdownSelectedValueProps) => {
+  const formattedValue = setDropdownItemValue(selectedDropdownValue, hasSearchBar);
   return (
-    <button onClick={handleToggle} type="button" className={cx("dropdownValueContainer", theme)}>
+    <button onClick={handleToggle} type="button" className={cx("dropdownValueContainer", theme, { hasSearchBar })}>
       <div
-        className={cx("selectedValue", theme)}
+        className={cx("selectedValue", theme, { hasSearchBar })}
       >
-        {selectedDropdownValue}
+        {formattedValue}
       </div>
       <Image
         className={cx("toggle", theme)}

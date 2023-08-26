@@ -3,9 +3,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AlertModalProps } from "@/components/common/Modals/AlertModal/AlertModal";
 
+type PropsType = (Omit<AlertModalProps, "open" | "onClose"> & { onClose?: () => void }) | null;
 export interface IAlertModalState {
   isShowing: boolean;
-  props: Omit<AlertModalProps, "open" | "onClose"> | null;
+  props: PropsType;
 }
 
 const initialState: IAlertModalState = {
@@ -20,7 +21,7 @@ export const alertModalSlice = createSlice({
     setShow: (state, action: PayloadAction<boolean>) => {
       state.isShowing = action.payload;
     },
-    setProps: (state, action: PayloadAction<Omit<AlertModalProps, "open" | "onClose">>) => {
+    setProps: (state, action: PayloadAction<PropsType>) => {
       state.props = action.payload;
     },
     resetAll: (state) => {

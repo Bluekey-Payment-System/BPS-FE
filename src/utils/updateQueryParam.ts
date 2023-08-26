@@ -32,9 +32,15 @@ const updateQueryParam = (
   queryObject: ParsedUrlQuery,
   param: string,
   newValue: string | number,
+  ...args: (string | number)[]
 ) => {
   const searchParams = new URLSearchParams(queryObject as Record<string, string>);
   searchParams.set(param, newValue.toString());
+
+  for (let i = 0; i < args.length; i += 2) {
+    searchParams.set(args[i] as string, args[i + 1].toString());
+  }
+
   return `?${searchParams.toString()}`;
 };
 

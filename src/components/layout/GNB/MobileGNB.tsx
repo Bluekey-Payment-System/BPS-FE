@@ -1,11 +1,10 @@
-import Avatar from "boring-avatars";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
 
-import { COMBINATION_COLORS, RANDOM_PROFILES } from "@/constants/randomProfileList";
+import DefaultProfileImage from "@/components/common/DefaultProfileImage/DefaultProfileImage";
+import { MEMBER_ROLE } from "@/types/enums/user.enum";
 
-import getRandomProfileIndex from "./GNB.utils";
 import styles from "./MobileGNB.module.scss";
 import { GNBProps } from "./PCGNB";
 
@@ -16,7 +15,7 @@ interface MobileGNBProps extends GNBProps {
 }
 
 const MobileGNB = ({
-  loginId, profileImage, type, onClickNotification, onClickLogout, onClickMenu,
+  loginId, profileImage, role, onClickNotification, onClickLogout, onClickMenu,
 }: MobileGNBProps) => {
   const handleClickMenu = () => {
     onClickMenu(true);
@@ -32,7 +31,7 @@ const MobileGNB = ({
       </Link>
       <div className={cx("rightSide")}>
         {
-          type === "SUPER_ADMIN"
+          role === MEMBER_ROLE.SUPER_ADMIN
         && (
         <button type="button" onClick={onClickNotification}>
           <Image src="/images/bell.svg" width={20} height={20} alt="알림" />
@@ -42,7 +41,7 @@ const MobileGNB = ({
         <Link href="/my-profile">
           {profileImage
             ? <Image src={profileImage} width={30} height={30} alt="프로필 이미지" />
-            : <Avatar size={20} name={RANDOM_PROFILES[getRandomProfileIndex(loginId)]} variant="marble" colors={COMBINATION_COLORS} />}
+            : <DefaultProfileImage size={20} userId={loginId} />}
         </Link>
         <button type="button" onClick={onClickLogout}>
           <Image src="/images/logout.svg" width={20} height={17} alt="로그아웃" />

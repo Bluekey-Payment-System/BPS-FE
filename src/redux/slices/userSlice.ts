@@ -1,35 +1,47 @@
-/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { MemberType } from "@/types/enums/user.enum";
+/* eslint-disable no-param-reassign */
 
+import { IAdminProfile, IArtistProfile } from "@/types/dto";
+
+export type MemberProfile = IArtistProfile | IAdminProfile;
 export interface IUserState {
-  member: {
-    email: string,
-    loginId: string,
-    profileImage: string | null
-    type: MemberType,
-  } | null,
+  member: MemberProfile
 }
 
-const initialState: IUserState = {
+const initialState = {
   member: {
-    email: "bluekey@gmail.com",
-    loginId: "bluekey",
-    type: "SUPER_ADMIN",
+    memberId: 1,
+    email: "hucki@naver.com",
+    loginId: "hucki123",
+    role: "ARTIST",
+    type: "USER",
+    name: "혁기",
+    enName: "hucki",
     profileImage: null,
   },
 };
 
 export const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: initialState as { member: MemberProfile },
   reducers: {
-    setUser: (state, action: PayloadAction<IUserState>) => {
-      state.member = action.payload.member;
+    setUser: (state, action: PayloadAction<MemberProfile>) => {
+      state.member = action.payload;
     },
     resetUser: (state) => {
-      state.member = null;
+      state.member = {
+        memberId: -1,
+        email: "",
+        loginId: "",
+        type: "ADMIN",
+        role: "ADMIN",
+        nickname: "",
+        profileImage: null,
+      };
+      sessionStorage.removeItem("persist:root");
+      // eslint-disable-next-line no-void
+      void state;
     },
   },
 });
