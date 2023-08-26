@@ -91,7 +91,7 @@ const KennyPage = () => {
           })}
           errors={errors}
           label="주소"
-          value={defaultValues?.username as string}
+          originalValue={defaultValues?.username as string}
         />
         <TextField
           {...register("email", {
@@ -102,7 +102,7 @@ const KennyPage = () => {
           })}
           errors={errors}
           label="이메일"
-          value={defaultValues?.email as string}
+          originalValue={defaultValues?.email as string}
         />
         <TextField
           {...register("email2", {
@@ -213,7 +213,7 @@ const KennyPage = () => {
       <br />
       <Button size="large" theme="bright" onClick={()=>{showAlertModal()}}>useAlert모달로 열기</Button>
       <Spacing size={100} />
-      <ImageUploader shape="circle" {...register("profileImg")} type="file"/>
+      <ImageUploader shape="circle" {...register("profileImg")} type="file" onUpload={()=>Promise.resolve()}/>
       <br />
       <br />
       <br />

@@ -6,8 +6,10 @@ import axios, {
   AxiosInstance,
 } from "axios";
 
+import { getCookie } from "@/utils/cookies";
+
 export const instance: AxiosInstance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
     "Content-Type": "application/json",
     Accept: "*/*",
@@ -23,7 +25,10 @@ instance.interceptors.request.use(
      */
     // TODO: 로컬 스토리지에서 토큰 가져와서 아래에 설정
     // config.headers.Authorization = `Bearer ${token}`;
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const token = getCookie("token");
+    // eslint-disable-next-line no-param-reassign
+    config.headers.Authorization = `Bearer ${token}`;
     if (process.env.NODE_ENV === "development") {
       const { method, url } = config;
       console.log(`🚀 [API] ${method?.toUpperCase()} ${url} | Request`);

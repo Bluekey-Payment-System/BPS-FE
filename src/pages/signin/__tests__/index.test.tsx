@@ -2,7 +2,7 @@ import { screen } from "@testing-library/dom";
 import { useRouter } from "next/router";
 
 import ArtistSigninPage from "@/pages/signin/index.page";
-import { renderWithProviders } from "@/utils/test.utils";
+import { render } from "@/utils/test.utils";
 
 jest.mock("next/router", () => {
   return {
@@ -22,7 +22,7 @@ describe("아티스트 로그인 페이지 렌더링 테스트", () => {
         query: "",
       };
     });
-    renderWithProviders(<ArtistSigninPage />);
+    render(<ArtistSigninPage />);
 
     expect(screen.getByText("로그인")).toBeInTheDocument();
   });

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import DefaultProfileImage from "@/components/common/DefaultProfileImage/DefaultProfileImage";
+import { MEMBER_ROLE } from "@/types/enums/user.enum";
 
 import styles from "./MobileGNB.module.scss";
 import { GNBProps } from "./PCGNB";
@@ -14,7 +15,7 @@ interface MobileGNBProps extends GNBProps {
 }
 
 const MobileGNB = ({
-  loginId, profileImage, type, onClickNotification, onClickLogout, onClickMenu,
+  loginId, profileImage, role, onClickNotification, onClickLogout, onClickMenu,
 }: MobileGNBProps) => {
   const handleClickMenu = () => {
     onClickMenu(true);
@@ -30,7 +31,7 @@ const MobileGNB = ({
       </Link>
       <div className={cx("rightSide")}>
         {
-          type === "SUPER_ADMIN"
+          role === MEMBER_ROLE.SUPER_ADMIN
         && (
         <button type="button" onClick={onClickNotification}>
           <Image src="/images/bell.svg" width={20} height={20} alt="알림" />

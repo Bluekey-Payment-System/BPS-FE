@@ -1,10 +1,8 @@
 import {
-  ForwardedRef, forwardRef,
+  ForwardedRef, forwardRef, useId,
 } from "react";
 
 import classNames from "classnames/bind";
-
-import useInputWithEditMode from "@/hooks/useInputWithEditMode";
 
 import InputLayout from "../InputLayout";
 import { TextFieldProps } from "../TextField/TextField";
@@ -18,34 +16,20 @@ interface TextFieldWithUnitProps extends TextFieldProps {
 
 const TextFieldWithUnit = forwardRef((
   {
-    label, errors, onSave, resetField, bottomText, value, unit, ...props
+    label, errors, bottomText, unit, ...props
   }: TextFieldWithUnitProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) => {
   const error = !!errors[props.name!];
-  const {
-    focused,
-    focusInput,
-    inputId,
-    editBtnId,
-    handleChangeWithEditMode,
-    handleBlurWithEditMode,
-  } = useInputWithEditMode({
-    value,
-    onChange: props.onChange,
-    onSave,
-    resetField,
-    name: props.name as string,
-    isError: error,
-  });
+  const id = useId();
 
   return (
     <InputLayout
       label={label}
-      hasEditMode={!!onSave}
-      focused={focused}
-      editBtnId={editBtnId}
-      inputId={inputId}
+      hasEditMode={false}
+      focused={false}
+      editBtnId={id}
+      inputId={id}
       name={props.name as string}
       errors={errors}
       bottomText={bottomText}
@@ -53,12 +37,9 @@ const TextFieldWithUnit = forwardRef((
       <div className={cx("container")}>
         <input
           {...props}
-          id={inputId}
+          id={id}
           className={cx("input", { error }, "unit")}
           ref={ref}
-          onFocus={focusInput}
-          onChange={onSave ? handleChangeWithEditMode : props.onChange}
-          onBlur={onSave ? handleBlurWithEditMode : props.onBlur}
           type={props.type ?? "text"}
         />
         <span className={cx("unitText")}>{unit}</span>

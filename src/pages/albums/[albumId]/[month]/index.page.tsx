@@ -18,7 +18,7 @@ import useDashboardCards from "@/services/queries/dashboard/useDashboardCards";
 import { useDashboardTopFiveRevenueChart } from "@/services/queries/dashboard/useDashboardTopFiveRevenueChart";
 import useDashboardTrendsChart from "@/services/queries/dashboard/useDashboardTrendsChart";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
-import { MEMBER_TYPE, MemberType } from "@/types/enums/user.enum";
+import { MEMBER_ROLE, MemberRole } from "@/types/enums/user.enum";
 
 import styles from "./index.module.scss";
 
@@ -31,9 +31,9 @@ interface AlbumDashboardPageProps {
 
 const AlbumDashboardPage = ({ month, albumId }: AlbumDashboardPageProps) => {
   // TODO: 타입 추론 unknown으로 되는 문제 해결
-  const memberType = useSelector<IState>((state) => {
-    return state.user.member!.type;
-  }) as MemberType;
+  const memberRole = useSelector<IState>((state) => {
+    return state.user.member.role;
+  }) as MemberRole;
   const [isOpenAlbumInfoModal, setIsOpenAlbumInfoModal] = useState(false);
 
   const {
@@ -76,18 +76,18 @@ const AlbumDashboardPage = ({ month, albumId }: AlbumDashboardPageProps) => {
     <section className={cx("container")}>
       <div className={cx("sectionHeader")}>
         <h1 className={cx("title")}>앨범명</h1>
-        {memberType === MEMBER_TYPE.ARTIST && <AlbumDetailsInformationTooltip />}
-        <div className={cx("monthPickerDropdownContainer", { artist: memberType === MEMBER_TYPE.ARTIST })}>
+        {memberRole === MEMBER_ROLE.ARTIST && <AlbumDetailsInformationTooltip />}
+        <div className={cx("monthPickerDropdownContainer", { artist: memberRole === MEMBER_ROLE.ARTIST })}>
           <MonthPickerDropdown />
         </div>
         <button className={cx("albumInfo")} onClick={() => { setIsOpenAlbumInfoModal(true); }}>앨범 정보 보기</button>
       </div>
       <DashboardCardList data={cardsData!} />
       <div className={cx("chartContainer")}>
-        <MonthlyTrendChart barChartData={trendsChartData!} type={MEMBER_TYPE.ARTIST} />
+        <MonthlyTrendChart barChartData={trendsChartData!} type={MEMBER_ROLE.ARTIST} />
         <TopFiveRevenueChart topFiveChartData={topFiveRevenueData!} />
       </div>
-      <AlbumTrendsChart albumTrendsChartData={albumTrendsChart!} memberType={MEMBER_TYPE.ARTIST} />
+      <AlbumTrendsChart albumTrendsChartData={albumTrendsChart!} memberRole={MEMBER_ROLE.ARTIST} />
       <AlbumInfoModal
         data={albumInfo!}
         open={isOpenAlbumInfoModal}

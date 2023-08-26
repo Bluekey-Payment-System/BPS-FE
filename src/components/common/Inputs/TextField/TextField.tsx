@@ -19,7 +19,7 @@ export interface TextFieldProps
   InputHTMLAttributes<HTMLInputElement>,
   Partial<Pick<UseFormReturn, "resetField">> {
   label?: string;
-  value?: string;
+  originalValue?: string;
   errors: DeepMap<FieldValues, FieldError>;
   bottomText?: string;
   onSave?: (value: string) => Promise<void> | void;
@@ -31,12 +31,12 @@ export interface TextFieldProps
  * @param onSave {Function} 수정모드를 위한 수정버튼 누를 시 실행할 함수
  * @param resetField {Function} 필드를 리셋하는 함수
  * @param bottomText {string} input하단의 텍스트
- * @param value {string} input의 value
+ * @param originalValue {string} input의 value
  * @param ...props 나머지 input의 native 속성들
  */
 const TextField = forwardRef((
   {
-    label, errors, onSave, resetField, bottomText, value, ...props
+    label, errors, onSave, resetField, bottomText, originalValue, ...props
   }: TextFieldProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) => {
@@ -49,7 +49,7 @@ const TextField = forwardRef((
     handleChangeWithEditMode,
     handleBlurWithEditMode,
   } = useInputWithEditMode({
-    value,
+    value: originalValue,
     onChange: props.onChange,
     onSave,
     resetField,

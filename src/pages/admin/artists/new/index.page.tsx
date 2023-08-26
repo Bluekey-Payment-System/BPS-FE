@@ -1,4 +1,3 @@
-import { ChangeEvent } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
@@ -43,11 +42,8 @@ const ArtistCreatePage = () => {
               <div className={cx("imageUploadContainer")}>
                 <ImageUploader
                   shape="circle"
-                  {...methods.register("profileImage", {
-                    onChange: (e: ChangeEvent<HTMLInputElement>) => {
-                      methods.setValue("profileImage", e.target.files?.[0] ?? null);
-                    },
-                  })}
+                  {...methods.register("profileImage")}
+                  onUpload={() => { return Promise.resolve(); }}
                 />
                 <span className={cx("sizeLimitText")}>*이미지 크기는 6MB 이하로 업로드 해주세요.</span>
               </div>

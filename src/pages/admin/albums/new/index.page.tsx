@@ -28,7 +28,11 @@ const AlbumCreatePage = () => {
           <div className={cx("container")}>
             <SectionLayout title="앨범 아트 업로드">
               <div>
-                <ImageUploader shape="square" {...methods.register("albumImage")} />
+                <ImageUploader
+                  shape="square"
+                  {...methods.register("albumImage")}
+                  onUpload={() => { return Promise.resolve(); }}
+                />
                 <span className={cx("sizeLimitText")}>*이미지 크기는 6MB 이하로 업로드 해주세요.</span>
               </div>
             </SectionLayout>

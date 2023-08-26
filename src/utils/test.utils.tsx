@@ -5,6 +5,7 @@ import type { RenderOptions } from "@testing-library/react";
 import React, { PropsWithChildren } from "react";
 import { Provider } from "react-redux";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render } from "@testing-library/react";
 
 import { setupStore, type AppStore, type RootState } from "@/redux/store";
@@ -14,7 +15,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   store?: AppStore
 }
 
-export const renderWithProviders = (
+const renderWithProviders = (
   ui: React.ReactElement,
   {
     preloadedState,
@@ -23,8 +24,28 @@ export const renderWithProviders = (
     ...renderOptions
   }: ExtendedRenderOptions = {},
 ) => {
+  const queryClient = new QueryClient({
+    logger: {
+      // eslint-disable-next-line no-console
+      log: console.log,
+      warn: console.warn,
+      error: () => {},
+    },
+    defaultOptions: {
+      queries: {
+        retry: 0,
+        cacheTime: Infinity,
+      },
+    },
+  });
   const Wrapper = ({ children }: PropsWithChildren<object>): JSX.Element => {
-    return <Provider store={store}>{children}</Provider>;
+    return (
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      </Provider>
+    );
   };
 
   // Return an object with the store and all of RTL's query functions
@@ -36,3 +57,5 @@ export const delay = async (ms: number) => {
     setTimeout(resolve, ms);
   });
 };
+
+export { renderWithProviders as render };

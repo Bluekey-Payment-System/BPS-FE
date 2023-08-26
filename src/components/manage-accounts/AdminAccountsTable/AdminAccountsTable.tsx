@@ -102,8 +102,8 @@ const AdminAccountsTable = ({ accounts, paginationElement }: AdminAccountsTableP
             return (
               <TableRowUI key={account.memberId}>
                 <TableCellUI>
-                  <TooltipRoot message={account.nickName}>
-                    <p className={cx("ellipsis")}>{account.nickName}</p>
+                  <TooltipRoot message={account.nickname}>
+                    <p className={cx("ellipsis")}>{account.nickname}</p>
                   </TooltipRoot>
                 </TableCellUI>
                 <TableCellUI>
@@ -119,13 +119,13 @@ const AdminAccountsTable = ({ accounts, paginationElement }: AdminAccountsTableP
                 <TableCellUI>
                   <div className={cx("buttonContainer")}>
                     <ChipButton onClick={() => {
-                      setFocusedAccount({ memberId: account.memberId, nickName: account.nickName, target: "reissue" });
+                      setFocusedAccount({ memberId: account.memberId, nickName: account.nickname, target: "reissue" });
                     }}
                     >
                       비밀번호 재발급
                     </ChipButton>
                     <ChipButton onClick={() => {
-                      setFocusedAccount({ memberId: account.memberId, nickName: account.nickName, target: "delete" });
+                      setFocusedAccount({ memberId: account.memberId, nickName: account.nickname, target: "delete" });
                     }}
                     >
                       계정 탈퇴

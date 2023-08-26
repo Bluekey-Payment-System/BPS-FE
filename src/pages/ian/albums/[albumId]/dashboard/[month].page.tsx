@@ -9,7 +9,7 @@ import DashboardCardList from "@/components/dashboard/DashboardCardList/Dashboar
 import useDashboardAlbumTrendsChart, { getMemberAlbumTrendsChart } from "@/services/queries/dashboard/useDashboardAlbumTrendsChart";
 import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
-import { MEMBER_TYPE } from "@/types/enums/user.enum";
+import { MEMBER_ROLE } from "@/types/enums/user.enum";
 
 interface IanProps {
   month: string
@@ -37,7 +37,7 @@ const Ian = ({
   return (
     <MainLayoutWithDropdown title="대쉬보드" dropdownElement={<MonthPickerDropdown />}>
       <DashboardCardList data={cardsData} />
-      <AlbumTrendsChart albumTrendsChartData={albumTrendsChart} memberType={MEMBER_TYPE.ARTIST} />
+      <AlbumTrendsChart albumTrendsChartData={albumTrendsChart} memberRole={MEMBER_ROLE.ARTIST} />
       <Link href="/ian/admin/dashboard/202308">어드민 대시보드 페이지 이동</Link>
     </MainLayoutWithDropdown>
   );

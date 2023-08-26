@@ -20,7 +20,6 @@ const TextFieldWithCopy = forwardRef((
   ref: ForwardedRef<HTMLInputElement>,
 ) => {
   const error = !!errors[props.name!];
-
   const { showToast } = useToast();
   const inputRef = useForwardRef<HTMLInputElement>(ref);
   const id = useId();

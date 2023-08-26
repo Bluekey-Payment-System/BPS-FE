@@ -26,7 +26,7 @@ const AlbumList = ({ userType, paginationElement }: AlbumListProps) => {
               albumId={album.albumId}
               albumCoverUrl={album.albumImage}
               albumTitle={album.koAlbumName}
-              hasOptionsButton={userType !== MEMBER_TYPE.ARTIST}
+              hasOptionsButton={userType !== MEMBER_TYPE.ADMIN}
             />
           );
         })}
