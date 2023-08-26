@@ -792,7 +792,7 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
       netIncome: 1234,
       settlementAmount: 1234124,
       representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
+      monthlyIncreaseRate: -2.5,
     },
     {
       artist: {
