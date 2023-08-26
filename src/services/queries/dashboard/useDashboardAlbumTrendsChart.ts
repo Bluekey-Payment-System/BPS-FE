@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { MOCK_ALBUM_LINE } from "@/constants/mock";
 import { IGetAlbumTrackSettlementTrendsResponse } from "@/services/api/types/albums";
+import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 export const getMemberAlbumTrendsChart = (month: string, albumId: string): Promise<IGetAlbumTrackSettlementTrendsResponse> => {
   return new Promise((resolve) => {
@@ -13,7 +14,7 @@ export const getMemberAlbumTrendsChart = (month: string, albumId: string): Promi
 
 const useDashboardAlbumTrendsChart = (month: string, albumId: string) => {
   const { data: albumTrendsChart, isLoading: isAlbumTrendsChartLoading, isError: isalbumTrendsChartError } = useQuery(
-    ["dashboard", "albumTrendsChart"],
+    [DASHBOARD_TYPE.ALBUM, "dashboard", "albumTrendsChart"],
     () => { return getMemberAlbumTrendsChart(month, albumId); },
     { staleTime: 5000 },
   );
