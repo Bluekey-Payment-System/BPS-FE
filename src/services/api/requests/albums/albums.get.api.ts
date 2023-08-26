@@ -34,11 +34,22 @@ const getAlbumDashboard = async (albumId: number, month: string) => {
 };
 
 /* 앨범의 당월 매출 Top N 트랙 리스트 정보 */
-const getAlbumRevenueTopTrack = async (month: string, rank: number, albumId: number) => {
+const getAlbumRevenueTopTrack = async (albumId: number, month: string, rank: number) => {
   const response = getRequest<IGetAlbumRevenueTopTrackResponse>(`/albums/${albumId}/dashboard/topTrack?monthly=${convertYearMonthToQuery(month)}&rank=${rank}`);
   return response;
 };
 
+/* 앨범의 트랙별 정산 리스트 */
+const getAlbumTrackSettlementTrends = (albumId: number, startDate: string, endDate: string) => {
+  const response = getRequest(`/albums/${albumId}/dashboard/track?startDate=${convertYearMonthToQuery(startDate)}&endDate=${convertYearMonthToQuery(endDate)}`);
+  return response;
+};
+
 export {
-  getAlbums, getAlbumTracks, getAlbumMonthlySettlement, getAlbumDashboard, getAlbumRevenueTopTrack,
+  getAlbums,
+  getAlbumTracks,
+  getAlbumMonthlySettlement,
+  getAlbumDashboard,
+  getAlbumRevenueTopTrack,
+  getAlbumTrackSettlementTrends,
 };
