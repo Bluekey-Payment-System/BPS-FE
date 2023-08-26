@@ -3,6 +3,7 @@ import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 import {
   IGetAlbumDashboardResponse,
   IGetAlbumMonthlySettlementResponse,
+  IGetAlbumRevenueTopTrackResponse,
   IGetAlbumTracksResponse,
   IGetAlbumsResponse,
 } from "../../types/albums";
@@ -32,6 +33,12 @@ const getAlbumDashboard = async (albumId: number, month: string) => {
   return response;
 };
 
+/* 앨범의 당월 매출 Top N 트랙 리스트 정보 */
+const getAlbumRevenueTopTrack = async (month: string, rank: number, albumId: number) => {
+  const response = getRequest<IGetAlbumRevenueTopTrackResponse>(`/albums/${albumId}/dashboard/topTrack?monthly=${convertYearMonthToQuery(month)}&rank=${rank}`);
+  return response;
+};
+
 export {
-  getAlbums, getAlbumTracks, getAlbumMonthlySettlement, getAlbumDashboard,
+  getAlbums, getAlbumTracks, getAlbumMonthlySettlement, getAlbumDashboard, getAlbumRevenueTopTrack,
 };
