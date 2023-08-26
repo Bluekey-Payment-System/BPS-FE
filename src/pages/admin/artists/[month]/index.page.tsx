@@ -9,7 +9,7 @@ import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDrop
 import Pagination from "@/components/common/Pagination/Pagination";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
 import { ITEMS_PER_ARTISTS_TABLE } from "@/constants/pagination";
-import { useArtistsStatusGet } from "@/services/queries/artists/useArtistsStatus";
+import { useArtistsStatus } from "@/services/queries/artists/useArtistsStatus";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 import updateQueryParam from "@/utils/updateQueryParam";
@@ -27,7 +27,7 @@ const ArtistsStatusPage = (
   const [searchKeyword, setSearchKeyword] = useState<string>(keyword || "");
   const {
     artistsStatus, isLoading, isError, isFetching,
-  } = useArtistsStatusGet(
+  } = useArtistsStatus(
     page,
     ITEMS_PER_ARTISTS_TABLE,
     convertYearMonthToQuery(month),

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getArtistsStatus } from "@/services/api/artists/artists-mock-api";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
-const useArtistsStatusGet = (page: number, size: number, month: string, keyword: string | null) => {
+const useArtistsStatus = (page: number, size: number, month: string, keyword: string | null) => {
   const {
     data: artistsStatus, isLoading, isError, isFetching,
   } = useQuery(
@@ -19,4 +19,4 @@ const useArtistsStatusGet = (page: number, size: number, month: string, keyword:
   };
 };
 
-export { useArtistsStatusGet };
+export { useArtistsStatus };
