@@ -2,7 +2,9 @@ import { AlertModalProps } from "@/components/common/Modals/AlertModal/AlertModa
 import { useAppDispatch } from "@/redux/hooks";
 import { setShow, setProps } from "@/redux/slices/alertModalSlice";
 
-export interface IUseAlertModalParam extends Omit<AlertModalProps, "open" | "onClose"> {}
+export interface IUseAlertModalParam extends Omit<AlertModalProps, "open" | "onClose"> {
+  onClose?: () => void;
+}
 /**
  * 경고 모달 렌더링을 전역 상태를 이용하여 추상화한 훅
  * @author [SeyoungCho](https://github.com/seyoungcho)
@@ -10,11 +12,10 @@ export interface IUseAlertModalParam extends Omit<AlertModalProps, "open" | "onC
  * @example
  * ```tsx
  * const alertModalProps = {
- *   open: isOpen,
  *   type: MODAL_TYPE.ERROR,
  *   title: "로그인 에러",
  *   message: "로그인에 실패했습니다. 아이디/비밀번호를 다시 한번 확인해주세요.",
- *   onClose: ()=>{setIsOpen(false)},
+ *   onClose: ()=>{setIsOpen(false)}, // 옵셔널
  * }
  * const {showAlertModal} = useAlertModal(alertModalProps);
  * ...

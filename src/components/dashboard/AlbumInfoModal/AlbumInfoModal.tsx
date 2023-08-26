@@ -4,6 +4,7 @@ import Image from "next/image";
 import Button from "@/components/common/CommonBtns/Button/Button";
 import Modal from "@/components/common/Modals/Modal";
 import { IGetAlbumTracksResponse } from "@/services/api/types/albums";
+import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
 import styles from "./AlbumInfoModal.module.scss";
 import TrackListTable from "./TrackListTable/TrackListTable";
@@ -22,7 +23,7 @@ const AlbumInfoModal = ({
   onClose,
 }: AlbumInfoModalProps) => {
   return (
-    <Modal type="ALBUM_INFO" open={open} onClose={onClose}>
+    <Modal type={MODAL_TYPE.INFO} open={open} onClose={onClose}>
       <div className={cx("container")}>
         <h2 className={cx("title")}>앨범 정보</h2>
         <div className={cx("contentContainer")}>
