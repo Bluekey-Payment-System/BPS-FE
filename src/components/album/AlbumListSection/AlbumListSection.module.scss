@@ -15,8 +15,6 @@
   }
 }
 
-// 850px
-
 .searchBarSection {
-  @include flexbox(row, end);
+  @include flexbox(row, flex-end);
 }
