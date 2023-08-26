@@ -17,7 +17,7 @@
       @include ellipsis;
 
       &.dark {
-        width: 120px;
+        width: 139px;
       }
 
       &.hasSearchBar {
@@ -28,8 +28,8 @@
 
     .toggle {
       position: absolute;
-      top: 15px;
-      right: 5px;
+      top: 17px;
+      right: 10px;
       width: 15px;
       height: 8px;
       fill: $sub-color3;
@@ -159,7 +159,20 @@
     }
   }
 
-  &.hasSearchBar {
-    height: auto;
+  /* stylelint-disable-next-line scss/dollar-variable-colon-space-after */
+  $width-map:
+    bright 89px,
+    dark 139px,
+    withsearchbar 89px,
+    hassearchbar 348px;
+
+  @each $class, $width in $width-map {
+    &.#{$class} {
+      width: $width;
+
+      @if $class == hasSearchBar {
+        height: auto;
+      }
+    }
   }
 }

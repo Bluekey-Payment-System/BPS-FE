@@ -1,30 +1,31 @@
 import classNames from "classnames/bind";
 
+import { IHasSearchBarData } from "./Dropdown.type";
 import styles from "./DropdownUI.module.scss";
 import DropdownListWithSearchBar from "./DropdownWithSearchBar/DropdownListWithSearchBar";
 
 const cx = classNames.bind(styles);
 
-interface DropdownListProps {
-  dropdownListData: string[],
+interface DropdownListProps<T> {
+  dropdownListData: T[],
   onClickDropdownItem: React.MouseEventHandler<HTMLInputElement>,
   hasSearchBar: boolean
 }
 
-const DropdownList = ({
+const DropdownList = <T extends string | IHasSearchBarData>({
   dropdownListData,
   onClickDropdownItem,
-  hasSearchBar,
-}: DropdownListProps) => {
+  hasSearchBar = false,
+}: DropdownListProps<T>) => {
   return (
     <>
       {hasSearchBar && (
         <DropdownListWithSearchBar
-          dropdownListData={dropdownListData}
+          dropdownListData={dropdownListData as IHasSearchBarData[]}
           onClickDropdownItem={onClickDropdownItem}
         />
       )}
-      {!hasSearchBar && dropdownListData.map((dropdownItem) => {
+      {!hasSearchBar && (dropdownListData as string[]).map((dropdownItem: string) => {
         return (
           <div className={cx("select")} key={dropdownItem}>
             <input
