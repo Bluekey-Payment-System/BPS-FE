@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { MOCK_ALBUM_TRACKS } from "@/constants/mock";
+import useToast from "@/hooks/useToast";
 import { IAlbumFieldValues } from "@/types/album.types";
 import { IAlbumInfo } from "@/types/dto";
 
@@ -13,19 +14,19 @@ const patchAlbumInfo = (body: IAlbumFieldValues) => {
   });
 };
 
-const useUpdateAlbumInfo = (body: IAlbumFieldValues) => {
+const useUpdateAlbumInfo = () => {
   const queryClient = useQueryClient();
+  const { showToast } = useToast();
   const mutation = useMutation<
   IAlbumInfo,
   unknown,
   IAlbumFieldValues,
   unknown
   >(
-    () => {
-      return patchAlbumInfo(body);
-    },
+    patchAlbumInfo,
     {
       onSuccess: (data) => {
+        showToast("앨범 수정이 완료되었습니다.");
         queryClient.setQueryData(["albums", `${data.albumId}`], data);
       },
     },
