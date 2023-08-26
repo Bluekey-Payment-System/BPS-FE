@@ -13,6 +13,16 @@
   .albumInfoContainer {
     width: 728px;
   }
+
+  .trackListContainer {
+    position: relative;
+
+    .addBtnContainer {
+      position: absolute;
+      top: -65px;
+      right: 0;
+    }
+  }
 }
 
 .loadingContainer {

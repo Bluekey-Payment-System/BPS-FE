@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
 import { useRouter } from "next/router";
 
+import AddTrackModal from "@/components/album/AddTrackModal/AddTrackModal";
 import AlbumForm from "@/components/album/AlbumForm/AlbumForm";
 import AlbumTrackListTable from "@/components/album/AlbumTrackListTable/AlbumTrackListTable";
+import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
 import ImageUploader from "@/components/common/ImageUploader/ImageUploader";
 import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import mlStyles from "@/components/common/Layouts/MainLayout.module.scss";
@@ -34,6 +36,7 @@ const AlbumEditPage = () => {
       memberId: data?.artist?.memberId ?? -1,
     },
   });
+  const [isAddTrackModalOpen, setIsAddTrackModalOpen] = useState(false);
 
   useEffect(() => {
     if (data) {
@@ -78,15 +81,25 @@ const AlbumEditPage = () => {
               </div>
               <SectionHr isThick />
               <SectionLayout title="수록곡 목록">
-                <AlbumTrackListTable
-                  albumId={data?.albumId ?? -1}
-                  tracks={data?.tracks ?? []}
-                />
+                <div className={cx("trackListContainer")}>
+                  <div className={cx("addBtnContainer")}>
+                    <ChipButton size="large" onClick={() => { setIsAddTrackModalOpen(true); }}>수록곡 추가</ChipButton>
+                  </div>
+                  <AlbumTrackListTable
+                    albumId={data?.albumId ?? -1}
+                    tracks={data?.tracks ?? []}
+                  />
+                </div>
               </SectionLayout>
             </div>
           ) : <div className={cx("loadingContainer")}><Orbit dark /></div>}
         </FormProvider>
       </ArtboardLayout>
+      <AddTrackModal
+        open={isAddTrackModalOpen}
+        onClose={() => { setIsAddTrackModalOpen(false); }}
+        albumId={albumId}
+      />
     </section>
   );
 };
