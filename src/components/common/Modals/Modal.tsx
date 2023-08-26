@@ -15,7 +15,7 @@ const MODAL_TYPE_CLASSNAME_MAP = {
   [MODAL_TYPE.ERROR]: "error",
   [MODAL_TYPE.CONFIRM]: "confirm",
   [MODAL_TYPE.FORM]: "form",
-  [MODAL_TYPE.ALBUM_INFO]: "albumInfo",
+  [MODAL_TYPE.INFO]: "info",
 };
 
 interface ModalProps extends DialogHTMLAttributes<HTMLDialogElement> {

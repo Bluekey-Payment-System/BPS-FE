@@ -52,10 +52,11 @@ const TextFieldWithCopy = forwardRef((
           className={cx("input", { error }, "copy")}
           ref={inputRef}
           type={props.type ?? "text"}
+          value={props.value}
         />
         <button
           className={cx("copyBtn")}
-         // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onClick={handleClickCopyToClipboard}
         >
           <span className={cx("copyText")}>복사</span>

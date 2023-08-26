@@ -6,7 +6,7 @@ $fade-out: fade-out 300ms $bezier;
 $error-type-padding: 40px 55px 42px 55px;
 $confirm-type-padding: 40px 55px 50px 55px;
 $form-type-padding: 32px;
-$albuminfo-type-padding: 32px 32px 50px;
+$info-type-padding: 32px 32px 50px;
 
 .dialog {
   max-width: calc(100dvw + 20px);
@@ -46,7 +46,7 @@ $albuminfo-type-padding: 32px 32px 50px;
       "error" $error-type-padding,
       "confirm" $confirm-type-padding,
       "form" $form-type-padding,
-      "albumInfo" $albuminfo-type-padding;
+      "info" $info-type-padding;
 
     @each $type, $padding in $modal-type-padding-map {
       &.#{$type} {
