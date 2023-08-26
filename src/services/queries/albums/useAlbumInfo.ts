@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { MOCK_ALBUM_TRACKS } from "@/constants/mock";
+import { IGetAlbumTracksResponse } from "@/services/api/types/albums";
 
 const getAlbumInfoById = (albumId: number) => {
-  return new Promise((resolve, reject) => {
+  return new Promise<IGetAlbumTracksResponse>((resolve, reject) => {
     setTimeout(() => {
       // eslint-disable-next-line no-void
       void albumId;
@@ -14,7 +15,11 @@ const getAlbumInfoById = (albumId: number) => {
 };
 
 const useAlbumInfo = (albumId: number) => {
-  const query = useQuery(
+  const query = useQuery<
+  IGetAlbumTracksResponse,
+  unknown,
+  IGetAlbumTracksResponse
+  >(
     ["albums", `${albumId}`],
     () => { return getAlbumInfoById(albumId); },
   );
