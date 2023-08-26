@@ -792,7 +792,7 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
       netIncome: 1234,
       settlementAmount: 1234124,
       representativeTrack: "love",
-      monthlyIncreaseRate: 2.5,
+      monthlyIncreaseRate: -2.5,
     },
     {
       artist: {
@@ -1126,7 +1126,7 @@ export const MOCK_ACCOUNTS: IGetAccountsResponse = {
         enName: "hyuki",
         loginId: "qwertyui1234",
         email: "qwerty1234@bluekeymusic.com",
-        commissionRate: 86,
+        commissionRate: 0,
       },
       {
         memberId: 4,
@@ -1134,7 +1134,7 @@ export const MOCK_ACCOUNTS: IGetAccountsResponse = {
         enName: "hyuki2",
         loginId: "qwerty2ui1234",
         email: "qwerty12342@bluekeymusic.com",
-        commissionRate: 90,
+        commissionRate: 100,
       },
       {
         memberId: 5,
