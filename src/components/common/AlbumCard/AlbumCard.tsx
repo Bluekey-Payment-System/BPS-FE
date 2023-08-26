@@ -11,7 +11,7 @@ interface AlbumCardProps {
   albumId: number
   albumCoverUrl: string | null,
   albumTitle: string
-  hasKebabButton?: boolean
+  hasOptionsButton?: boolean
 }
 
 const cx = classNames.bind(styles);
@@ -21,7 +21,7 @@ const cx = classNames.bind(styles);
  * @param albumId 엘범 id
  * @param albumCoverUrl 앨범 커버 이미지 url
  * @param albumTitle 앨범 제목
- * @param hasKebabButton 어드민 접근 가능 여부 - 어드민일 시 kebab 버튼 노출
+ * @param hasOptionsButton 어드민 접근 가능 여부 - 어드민일 시 kebab 버튼 노출
  * @returns 앨범 리스트에 들어갈 앨범카드 컴포넌트
  */
 const AlbumCard = ({
@@ -29,7 +29,7 @@ const AlbumCard = ({
   albumId,
   albumCoverUrl,
   albumTitle,
-  hasKebabButton = false,
+  hasOptionsButton = false,
 }: AlbumCardProps) => {
   return (
     <Link href={`/albums/${albumId}`} className={cx("albumLink")}>
@@ -46,7 +46,7 @@ const AlbumCard = ({
         </div>
         <div className={cx("albumContent")}>
           <h3 className={cx("albumTitle")}>{albumTitle}</h3>
-          {hasKebabButton
+          {hasOptionsButton
           && (
             <OptionsButton albumId={albumId} albumTitle={albumTitle} />
           )}
