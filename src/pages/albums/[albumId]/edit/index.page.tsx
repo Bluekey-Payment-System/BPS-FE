@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
 import { useRouter } from "next/router";
@@ -13,6 +13,7 @@ import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import Orbit from "@/components/common/Loading/Orbit";
 import useAlbumInfo from "@/services/queries/albums/useAlbumInfo";
+import useUpdateAlbumInfo from "@/services/queries/albums/useUpdateAlbumInfo";
 import { IAlbumFieldValues } from "@/types/album.types";
 
 import styles from "./index.module.scss";
@@ -23,7 +24,8 @@ const cx = classNames.bind(styles);
 const AlbumEditPage = () => {
   const router = useRouter();
   const albumId = parseInt(router.query.albumId as string, 10);
-  const { data, isLoading } = useAlbumInfo(albumId);
+  const { data, isLoading: isAlbumInfoLoading } = useAlbumInfo(albumId);
+  const { mutate, isLoading: isUpdateLoading } = useUpdateAlbumInfo();
   const methods = useForm<IAlbumFieldValues>({
     mode: "onBlur",
     defaultValues: {
@@ -43,12 +45,16 @@ const AlbumEditPage = () => {
     }
   }, [data, methods]);
 
+  const onSubmit: SubmitHandler<IAlbumFieldValues> = (formData) => {
+    mutate(formData);
+  };
+
   return (
     <section className={ml("container")}>
       <h1 className={ml("title")}>앨범 수정</h1>
       <ArtboardLayout>
         <FormProvider {...methods}>
-          {!isLoading ? (
+          {!isAlbumInfoLoading ? (
             <div className={cx("container")}>
               <div className={cx("albumInfoContainer")}>
                 <SectionLayout title="앨범 아트 변경">
@@ -63,7 +69,7 @@ const AlbumEditPage = () => {
                 </SectionLayout>
                 <SectionHr />
                 <SectionLayout title="앨범 정보 수정">
-                  <AlbumForm submitBtnText="앨범 수정하기" onSubmit={() => {}} />
+                  <AlbumForm submitBtnText={!isUpdateLoading ? "앨범 수정하기" : "수정 요청중..."} onSubmit={onSubmit} />
                 </SectionLayout>
               </div>
               <SectionHr isThick />
