@@ -24,7 +24,7 @@ const AlbumListSection = ({ userType }: { userType: MemberType }) => {
       <div className={cx("artboardLayout")}>
         <div className={cx("content")}>
           <div className={cx("searchBarSection")}>
-            <SearchBar placeholder="앨범명을 검색해주세요." onClick={handleSearchAlbumTitle} />
+            <SearchBar placeholder="앨범명을 검색해주세요." onClick={handleSearchAlbumTitle} value="" />
           </div>
           <AlbumList
             userType={userType}
