@@ -27,7 +27,7 @@ const AlbumEditPage = () => {
         <FormProvider {...methods}>
           <div className={cx("container")}>
             <div className={cx("albumInfoContainer")}>
-              <SectionLayout title="앨범 아트 업로드">
+              <SectionLayout title="앨범 아트 변경">
                 <div>
                   <ImageUploader
                     shape="square"
