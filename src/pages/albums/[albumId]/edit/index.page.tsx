@@ -74,7 +74,7 @@ const AlbumEditPage = () => {
                 />
               </SectionLayout>
             </div>
-          ) : <div className={cx("loadingContainer")}><Orbit /></div>}
+          ) : <div className={cx("loadingContainer")}><Orbit dark /></div>}
         </FormProvider>
       </ArtboardLayout>
     </section>
