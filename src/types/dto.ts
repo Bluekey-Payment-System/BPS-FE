@@ -102,7 +102,8 @@ export interface IAlbumInfo {
 export interface IAlbumCard {
   albumId: number,
   albumImage: string,
-  koAlbumName: string
+  koAlbumName: string,
+  enName: string
 }
 
 // 대시보드 카드 관련
