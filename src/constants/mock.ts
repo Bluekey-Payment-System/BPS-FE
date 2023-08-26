@@ -21,7 +21,7 @@ import {
   IGetArtistsResponse,
 } from "@/services/api/types/artist";
 import { IGetAccountsResponse } from "@/services/api/types/member";
-import { IGETTransactionUploadResponse } from "@/services/api/types/transaction";
+import { IGetTransactionUploadResponse } from "@/services/api/types/transaction";
 
 /* ##### 1. ALBUM ##### */
 export const MOCK_ALBUMS: IGetAlbumsResponse = {
@@ -516,7 +516,7 @@ export const MOCK_ALBUM_DASHBOARD_CARD: IGetAlbumDashboardResponse = {
 /* ########################## */
 
 /* ##### 2. TRANSACTION ##### */
-export const MOCK_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
+export const MOCK_TRANSACTION_UPLOAD: IGetTransactionUploadResponse = {
   totalItems: 3,
   contents: [
     {
@@ -570,7 +570,7 @@ export const MOCK_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
   ],
 };
 
-export const MOCK_EMPTY_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
+export const MOCK_EMPTY_TRANSACTION_UPLOAD: IGetTransactionUploadResponse = {
   totalItems: 0,
   contents: [],
 };
