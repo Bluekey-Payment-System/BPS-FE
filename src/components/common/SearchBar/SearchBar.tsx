@@ -19,7 +19,9 @@ interface SearchBarProps {
  * @param {string} placeholder - 검색창에 사용될 placeholder
  * @param {string} onClick - 돋보기 아이콘을 클릭하면 실행되는 함수를 넣어주시면됩니다.
  * @param {string} theme - withSearcBar를 넣으면 오른쪽 부분만 radius 처리됩니다.
- */
+ * @param {string} value - 검색바에 보여줄 검색 키워드
+ * @returns 키워드를 검색할 수 있는 검색바 컴포넌트
+*/
 const SearchBar = (
   {
     placeholder, onClick, theme, value,
