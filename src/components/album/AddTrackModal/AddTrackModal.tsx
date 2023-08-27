@@ -18,7 +18,7 @@ const AddTrackModal = ({
   if (!albumInfo) return null;
   return (
     <Modal type={MODAL_TYPE.FORM} open={open} onClose={onClose}>
-      <AddTrackForm albumInfo={albumInfo} />
+      <AddTrackForm albumInfo={albumInfo} onClose={onClose} />
     </Modal>
   );
 };

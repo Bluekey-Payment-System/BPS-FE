@@ -16,9 +16,14 @@ import styles from "./AddTrackForm.module.scss";
 
 const cx = classNames.bind(styles);
 
-const AddTrackForm = ({ albumInfo }: { albumInfo: IAlbumInfo }) => {
+interface AddTrackFormProps {
+  albumInfo: IAlbumInfo;
+  onClose: () => void;
+}
+
+const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
   const {
-    register, formState: { errors }, handleSubmit, control,
+    register, formState: { errors }, handleSubmit, control, watch,
   } = useForm<ITrackFieldValues>({
     defaultValues: {
       artists: [{ name: "", memberId: 1 }],
@@ -30,9 +35,12 @@ const AddTrackForm = ({ albumInfo }: { albumInfo: IAlbumInfo }) => {
     control,
     name: "artists",
   });
-  const { mutate, isLoading } = useAddAlbumTrack(albumInfo.albumId);
-  const onSubmit: SubmitHandler<ITrackFieldValues> = (data) => {
-    mutate(data);
+  const { mutateAsync, isLoading, isError } = useAddAlbumTrack(albumInfo.albumId);
+  const onSubmit: SubmitHandler<ITrackFieldValues> = async (data) => {
+    await mutateAsync(data);
+    if (!isError) {
+      onClose();
+    }
   };
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -85,7 +93,8 @@ const AddTrackForm = ({ albumInfo }: { albumInfo: IAlbumInfo }) => {
                     label="요율"
                     {...register(`artists.${index}.commissionRate`)}
                     placeholder="영문 트랙명을 입력해주세요"
-                    errors={{}}
+                    disabled={watch("originalTrack") === true}
+                    errors={errors}
                     unit="%"
                   />
                   <div className={cx("deleteBtnContainer")}>
@@ -110,7 +119,7 @@ const AddTrackForm = ({ albumInfo }: { albumInfo: IAlbumInfo }) => {
         <Button size="medium" theme="dark" type="submit">
           {isLoading ? "추가하는 중..." : "추가하기"}
         </Button>
-        <Button size="medium" theme="bright" type="button">창 닫기</Button>
+        <Button size="medium" theme="bright" type="button" onClick={onClose}>창 닫기</Button>
       </div>
     </form>
   );
