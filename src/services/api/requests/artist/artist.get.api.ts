@@ -26,10 +26,11 @@ export const getArtistsStatus = async (
 export const getArtistAlbums = async (
   page: number,
   size: number,
+  keyword: string | null,
   memberId: number,
 ) => {
   const response = await getRequest<IGetArtistAlbumsResponse>(
-    `/artists/${memberId}/albums?page=${page}&size=${size}`,
+    `/artists/${memberId}/albums?page=${page}&size=${size}&keyword=${keyword ?? ""}`,
   );
   return response;
 };
