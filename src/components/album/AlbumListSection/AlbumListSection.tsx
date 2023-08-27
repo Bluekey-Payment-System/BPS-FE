@@ -1,13 +1,14 @@
 import { useRef, useState } from "react";
 
 import classNames from "classnames/bind";
+import { useRouter } from "next/router";
 
 import MainLayout from "@/components/common/Layouts/MainLayout";
 import Pagination from "@/components/common/Pagination/Pagination";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
 import { ITEMS_PER_ALBUM_LIST } from "@/constants/pagination";
-import useToast from "@/hooks/useToast";
 import { MemberType } from "@/types/enums/user.enum";
+import updateQueryParam from "@/utils/updateQueryParam";
 
 import AlbumList from "../AlbumList/AlbumList";
 
@@ -25,13 +26,18 @@ const cx = classNames.bind(styles);
 const AlbumListSection = ({
   userType, page, keyword, totalAlbumItems,
 }: AlbumListSectionProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [searchKeyword, setSearchKeyword] = useState<string>(keyword);
   const searchKeywordRef = useRef<HTMLInputElement>(null);
-  const { showToast } = useToast();
+  const router = useRouter();
 
   const handleSearchAlbumTitle = () => {
-    showToast("앨범명 검색!");
+    if (searchKeywordRef.current) {
+      setSearchKeyword(searchKeywordRef.current.value);
+      const result = updateQueryParam(router.query, "keyword", searchKeywordRef.current.value, "page", 1);
+
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      router.push(result);
+    }
   };
 
   return (
