@@ -55,7 +55,7 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
           {...register("name", {
             required: "*앨범명을 입력하세요.",
             validate: {
-              hasContent: (value) => { return !!value.trim() || "*앨범명을 입력하세요"; },
+              hasContent: (value) => { return !!value?.trim() || "*앨범명을 입력하세요"; },
             },
           })}
           errors={errors}
@@ -65,7 +65,7 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
           {...register("enName", {
             required: "*앨범명 (영문)을 입력하세요.",
             validate: {
-              hasContent: (value) => { return !!value.trim() || "*앨범명 (영문)을 입력하세요"; },
+              hasContent: (value) => { return !!value?.trim() || "*앨범명 (영문)을 입력하세요"; },
             },
           })}
           errors={errors}
