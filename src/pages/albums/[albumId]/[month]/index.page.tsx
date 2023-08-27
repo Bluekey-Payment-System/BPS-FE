@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 import classNames from "classnames/bind";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import AlbumDetailsInformationTooltip from "@/components/album/AlbumDetailsInformationTooltip/AlbumDetailsInformationTooltip";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
@@ -29,7 +29,8 @@ interface AlbumDashboardPageProps {
   albumId: string
 }
 
-const AlbumDashboardPage = ({ month, albumId }: AlbumDashboardPageProps) => {
+// eslint-disable-next-line max-len
+const AlbumDashboardPage = ({ month, albumId }: InferGetServerSidePropsType<GetServerSideProps<AlbumDashboardPageProps>>) => {
   // TODO: 타입 추론 unknown으로 되는 문제 해결
   const memberRole = useSelector<IState>((state) => {
     return state.user.member.role;
@@ -98,7 +99,7 @@ const AlbumDashboardPage = ({ month, albumId }: AlbumDashboardPageProps) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/require-await
-const getServerSideProps: GetServerSideProps = async ({ query }) => {
+const getServerSideProps: GetServerSideProps<AlbumDashboardPageProps> = async ({ query }) => {
   const { month, albumId } = query;
 
   return {

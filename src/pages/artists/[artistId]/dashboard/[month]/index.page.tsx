@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import classNames from "classnames/bind";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
@@ -35,7 +35,7 @@ interface ArtistDashboardPageProps {
 
 const ArtistDashboardPage = ({
   month, page, sortBy, searchBy, keyword, artistId,
-}: ArtistDashboardPageProps) => {
+}: InferGetServerSidePropsType<GetServerSideProps<ArtistDashboardPageProps>>) => {
   const {
     cardsData,
     isCardsError,
@@ -91,7 +91,7 @@ const ArtistDashboardPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = async ({ query }) => {
   const queryClient = new QueryClient();
 
   const month = query?.month as string;

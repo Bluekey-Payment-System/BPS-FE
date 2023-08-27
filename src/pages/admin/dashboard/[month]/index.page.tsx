@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import classNames from "classnames/bind";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
@@ -35,7 +35,7 @@ interface AdminDashboardPageProps {
 
 const AdminDashboardPage = ({
   month, page, sortBy, searchBy, keyword,
-}: AdminDashboardPageProps) => {
+}: InferGetServerSidePropsType<GetServerSideProps<AdminDashboardPageProps>>) => {
   const {
     cardsData,
     isCardsError,
@@ -91,7 +91,7 @@ const AdminDashboardPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps<AdminDashboardPageProps> = async ({ query }) => {
   const queryClient = new QueryClient();
 
   const month = query?.month as string;
