@@ -119,7 +119,7 @@ const useDashboardCards = (
   albumId?: string,
 ) => {
   const { data: cardsData, isError: isCardsError, isLoading: isCardsLoading } = useQuery(
-    [type, "dashboard", "card"],
+    [type, "dashboard", "card", artistId, albumId, { month }],
     () => { return getDashboardCards(type, month, artistId, albumId); },
     {
       staleTime: 5000,

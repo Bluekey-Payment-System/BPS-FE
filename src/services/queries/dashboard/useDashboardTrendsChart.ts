@@ -65,7 +65,7 @@ const useDashboardTrendsChart = (
   albumId?: string,
 ) => {
   const { data: trendsChartData, isError: istrendsChartError, isLoading: istrendsChartLoading } = useQuery(
-    [type, "dashboard", "trendsChart"],
+    [type, "dashboard", "trendsChart", artistId, albumId, { month }],
     () => { return getDashboardTrendsChart(type, month, artistId, albumId); },
 
     { staleTime: 5000 },

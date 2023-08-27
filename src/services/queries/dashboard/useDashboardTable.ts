@@ -78,7 +78,9 @@ const useDashboardTable = (
   artistId?: string,
 ) => {
   const { data: tableData, isError: isTableError, isLoading: isTableLoading } = useQuery(
-    [type, "dashboard", "table"],
+    [type, "dashboard", "table", artistId, {
+      month, page, sortBy, searchBy, keyword,
+    }],
     () => {
       return getDashboardTable(type, month, page, sortBy, searchBy, keyword, artistId);
     },

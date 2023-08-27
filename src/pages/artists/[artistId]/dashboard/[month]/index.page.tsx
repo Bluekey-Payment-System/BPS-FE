@@ -30,33 +30,34 @@ interface ArtistDashboardPageProps {
   sortBy: string,
   searchBy: string,
   keyword: string,
+  artistId: string,
 }
 
 const ArtistDashboardPage = ({
-  month, page, sortBy, searchBy, keyword,
+  month, page, sortBy, searchBy, keyword, artistId,
 }: ArtistDashboardPageProps) => {
   const {
     cardsData,
     isCardsError,
     isCardsLoading,
-  } = useDashboardCards(DASHBOARD_TYPE.ARTIST, month);
+  } = useDashboardCards(DASHBOARD_TYPE.ARTIST, month, artistId);
 
   const {
     trendsChartData, istrendsChartLoading,
     istrendsChartError,
-  } = useDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month);
+  } = useDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month, artistId);
 
   const {
     topFiveRevenueData: topFiveChartData,
     istopFiveRevenueDataLoading,
     istopFiveRevenueDataError,
-  } = useDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month);
+  } = useDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month, artistId);
 
   const {
     tableData,
     isTableError,
     isTableLoading,
-  } = useDashboardTable(DASHBOARD_TYPE.ARTIST, month, page, sortBy, searchBy, keyword);
+  } = useDashboardTable(DASHBOARD_TYPE.ARTIST, month, page, sortBy, searchBy, keyword, artistId);
 
   const formattedMonth = convertToYearMonthFormat(month);
 
@@ -94,31 +95,34 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const queryClient = new QueryClient();
 
   const month = query?.month as string;
+  const artistId = query?.artistId as string;
 
   const pageParam = (query?.page ?? null) as (string | null);
   const page = convertPageParamToNum(pageParam);
   const sortBy = (query?.sortBy ?? "createdAt") as string;
-  const searchBy = (query?.searchBy ?? "track") as string;
+  const searchBy = (query?.searchBy ?? "TRACK") as string;
   const keyword = (query?.keyword ?? "") as string;
 
   try {
     await Promise.all([
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "card"],
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "card", artistId, null, { month }],
         () => {
-          return getDashboardCards(DASHBOARD_TYPE.ARTIST, month);
+          return getDashboardCards(DASHBOARD_TYPE.ARTIST, month, artistId);
         },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "trendsChart"],
-        () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month); },
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "trendsChart", artistId, null, { month }],
+        () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month, artistId); },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "topFiveRevenueChart"],
-        () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month); },
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "TopFiveRevenue", artistId, null, { month }],
+        () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month, artistId); },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "table"],
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "table", artistId, {
+          month, page, sortBy, searchBy, keyword,
+        }],
         () => {
           return getDashboardTable(
             DASHBOARD_TYPE.ARTIST,
@@ -127,6 +131,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
             sortBy,
             searchBy,
             keyword,
+            artistId,
           );
         },
       ),
@@ -140,6 +145,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
         sortBy,
         searchBy,
         keyword,
+        artistId,
       },
     };
   } catch (e) {

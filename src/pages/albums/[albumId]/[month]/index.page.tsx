@@ -75,7 +75,7 @@ const AlbumDashboardPage = ({ month, albumId }: AlbumDashboardPageProps) => {
   return (
     <section className={cx("container")}>
       <div className={cx("sectionHeader")}>
-        <h1 className={cx("title")}>앨범명</h1>
+        <h1 className={cx("title")}>{albumInfo!.koAlbumName}</h1>
         {memberRole === MEMBER_ROLE.ARTIST && <AlbumDetailsInformationTooltip />}
         <div className={cx("monthPickerDropdownContainer", { artist: memberRole === MEMBER_ROLE.ARTIST })}>
           <MonthPickerDropdown />

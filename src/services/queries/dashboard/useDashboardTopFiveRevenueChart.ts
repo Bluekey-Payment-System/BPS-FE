@@ -62,7 +62,7 @@ export const useDashboardTopFiveRevenueChart = (
   albumId?: string,
 ) => {
   const { data: topFiveRevenueData, isLoading: istopFiveRevenueDataLoading, isError: istopFiveRevenueDataError } = useQuery(
-    [type, "dashboard", "TopFiveRevenue"],
+    [type, "dashboard", "TopFiveRevenue", artistId, albumId, { month }],
     () => { return getDashboardTopFiveRevenueChart(type, month, artistId, albumId); },
     {
       staleTime: 5000,

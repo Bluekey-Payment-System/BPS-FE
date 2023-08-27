@@ -99,27 +99,29 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const pageParam = (query?.page ?? null) as (string | null);
   const page = convertPageParamToNum(pageParam);
   const sortBy = (query?.sortBy ?? "createdAt") as string;
-  const searchBy = (query?.searchBy ?? "track") as string;
+  const searchBy = (query?.searchBy ?? "TRACK") as string;
   const keyword = (query?.keyword ?? "") as string;
 
   try {
     await Promise.all([
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "card", null, null, { month }],
         () => {
           return getDashboardCards(DASHBOARD_TYPE.ADMIN, month);
         },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart"],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart", null, null, { month }],
         () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month); },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "topFiveRevenueChart"],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "TopFiveRevenue", null, null, { month }],
         () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month); },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "table"],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "table", null, {
+          month, page, sortBy, searchBy, keyword,
+        }],
         () => {
           return getDashboardTable(
             DASHBOARD_TYPE.ADMIN,
