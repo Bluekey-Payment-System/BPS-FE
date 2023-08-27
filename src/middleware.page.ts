@@ -1,21 +1,29 @@
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-import { NextResponse } from "next/server";
+import { withAuthorityCheck } from "./utils/withAuthorityCheck";
 
-export const middleware = (request: NextRequest) => {
-  const { cookies } = request;
-  const token = cookies.get("token");
+const middleware = (request: NextRequest) => {
+  const { pathname } = request.nextUrl;
+  const cookie = request.cookies.get("token");
 
-  if (!request.nextUrl.pathname.includes("signin") && !token) {
-    return NextResponse.redirect(new URL("/signin", request.url));
+  let token;
+
+  if (cookie) {
+    token = cookie.value;
   }
 
-  if (request.nextUrl.pathname === "/admin/artists/new" || request.nextUrl.pathname === "/admin/albums/new") {
-    // health check와 같은 유저 정보  api 요청 로직 추가
+  if (pathname === "/admin/signin" || pathname.startsWith("/admin/dashboard")) {
+    return NextResponse.next();
+  }
+
+  if (!pathname.includes("/sign") && !token) {
+    return NextResponse.redirect(new URL("/signin", request.url));
   }
 
   return NextResponse.next();
 };
+
+export default withAuthorityCheck(middleware);
 
 export const config = {
   matcher: "/((?!api|_next/static|_next/image|images|favicon.ico).*)",

@@ -31,8 +31,8 @@ const useAdminSignin = () => {
       onSuccess: (data) => {
         setCookie("token", data.jwtInformation.accessToken, {
           maxAge: 900000,
-          secure: true,
-          httpOnly: true,
+          // secure: true,
+          // httpOnly: true,
         });
         dispatch(setUser({ ...data.member, profileImage: null }));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -63,8 +63,8 @@ const useArtistSignin = () => {
       onSuccess: (data) => {
         setCookie("token", data.jwtInformation.accessToken, {
           maxAge: 900000,
-          secure: true,
-          httpOnly: true,
+          // secure: true,
+          // httpOnly: true,
         });
         dispatch(setUser({ ...data.member, profileImage: null }));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
