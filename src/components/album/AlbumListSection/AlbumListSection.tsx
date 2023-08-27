@@ -10,9 +10,16 @@ import AlbumList from "../AlbumList/AlbumList";
 
 import styles from "./AlbumListSection.module.scss";
 
+interface AlbumListSectionProps {
+  userType: MemberType,
+  searchKeyword: string,
+
+}
+
 const cx = classNames.bind(styles);
 
-const AlbumListSection = ({ userType }: { userType: MemberType }) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const AlbumListSection = ({ userType, searchKeyword }: AlbumListSectionProps) => {
   const { showToast } = useToast();
 
   const handleSearchAlbumTitle = () => {

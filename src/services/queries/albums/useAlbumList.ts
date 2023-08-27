@@ -4,7 +4,7 @@ import { ITEMS_PER_ALBUM_LIST } from "@/constants/pagination";
 import { getAlbums } from "@/services/api/albums/albums-mock-api";
 import { MemberType } from "@/types/enums/user.enum";
 
-const useAlbums = (type: MemberType, page: number, keyword: string, memberId?: number) => {
+const useAlbums = (type: MemberType, page: number, keyword: string | null, memberId?: number) => {
   const query = useQuery(
     ["album-list", `memberId=${memberId}`],
     () => { return getAlbums(type, page, ITEMS_PER_ALBUM_LIST, keyword); },
