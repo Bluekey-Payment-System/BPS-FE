@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
 
@@ -17,7 +17,19 @@ import styles from "./AddTrackForm.module.scss";
 const cx = classNames.bind(styles);
 
 const AddTrackForm = ({ albumInfo }: { albumInfo: IAlbumInfo }) => {
-  const { register, formState: { errors }, handleSubmit } = useForm<ITrackFieldValues>();
+  const {
+    register, formState: { errors }, handleSubmit, control,
+  } = useForm<ITrackFieldValues>({
+    defaultValues: {
+      artists: [{ name: "", memberId: 1 }],
+    },
+  });
+  const {
+    fields, append, remove,
+  } = useFieldArray<ITrackFieldValues>({
+    control,
+    name: "artists",
+  });
   const { mutate, isLoading } = useAddAlbumTrack(albumInfo.albumId);
   const onSubmit: SubmitHandler<ITrackFieldValues> = (data) => {
     mutate(data);
@@ -49,14 +61,48 @@ const AddTrackForm = ({ albumInfo }: { albumInfo: IAlbumInfo }) => {
       <div className={cx("trackMemberSection")}>
         <h2>수록곡의 아티스트 추가</h2>
         <div className={cx("addBtnContainer")}>
-          <ChipButton size="large">아티스트 추가</ChipButton>
+          <ChipButton
+            size="large"
+            onClick={() => {
+              append({ memberId: null, name: "", commissionRate: 0 });
+            }}
+          >
+            아티스트 추가
+          </ChipButton>
         </div>
         <div className={cx("inputArea")}>
-          <div className={cx("deleteBtnContainer")}>
-            <ChipButton size="small">삭제</ChipButton>
-          </div>
-          <TextField label="아티스트명" placeholder="트랙명을 입력해주세요" errors={{}} />
-          <TextFieldWithUnit label="요율" placeholder="영문 트랙명을 입력해주세요" errors={{}} unit="%" />
+          <ul className={cx("artistInputList")}>
+            {fields.map((field, index) => {
+              return (
+                <li key={field.id} className={cx("artistInputRow")}>
+                  <TextField
+                    label="아티스트명"
+                    {...register(`artists.${index}.name`)}
+                    placeholder="아티스트를 입력해주세요"
+                    errors={errors}
+                  />
+                  <TextFieldWithUnit
+                    label="요율"
+                    {...register(`artists.${index}.commissionRate`)}
+                    placeholder="영문 트랙명을 입력해주세요"
+                    errors={{}}
+                    unit="%"
+                  />
+                  <div className={cx("deleteBtnContainer")}>
+                    <ChipButton
+                      size="small"
+                      disabled={fields.length === 1}
+                      onClick={() => {
+                        remove(index);
+                      }}
+                    >
+                      삭제
+                    </ChipButton>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
       <Spacing size={26} />

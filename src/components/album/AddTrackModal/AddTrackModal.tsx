@@ -7,7 +7,7 @@ import AddTrackForm from "./AddTrackForm";
 interface AddTrackModalProps {
   open: boolean;
   onClose: () => void;
-  albumInfo: IAlbumInfo;
+  albumInfo?: IAlbumInfo;
 }
 
 const AddTrackModal = ({
@@ -15,6 +15,7 @@ const AddTrackModal = ({
 }: AddTrackModalProps) => {
   // eslint-disable-next-line no-void
   void albumInfo;
+  if (!albumInfo) return null;
   return (
     <Modal type={MODAL_TYPE.FORM} open={open} onClose={onClose}>
       <AddTrackForm albumInfo={albumInfo} />

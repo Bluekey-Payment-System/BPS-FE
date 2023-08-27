@@ -14,7 +14,6 @@ import mlStyles from "@/components/common/Layouts/MainLayout.module.scss";
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import Orbit from "@/components/common/Loading/Orbit";
-import { IGetAlbumTracksResponse } from "@/services/api/types/albums";
 import useAlbumInfo from "@/services/queries/albums/useAlbumInfo";
 import useUpdateAlbumInfo from "@/services/queries/albums/useUpdateAlbumInfo";
 import { IAlbumFieldValues } from "@/types/album.types";
@@ -38,9 +37,11 @@ const AlbumEditPage = () => {
     },
   });
   const [isAddTrackModalOpen, setIsAddTrackModalOpen] = useState(false);
+  const [albumInfo, setAlbumInfo] = useState(data);
 
   useEffect(() => {
     if (data) {
+      setAlbumInfo(data);
       methods.reset({
         name: data?.koAlbumName ?? "",
         enName: data?.enAlbumName ?? "",
@@ -99,7 +100,7 @@ const AlbumEditPage = () => {
       <AddTrackModal
         open={isAddTrackModalOpen}
         onClose={() => { setIsAddTrackModalOpen(false); }}
-        albumInfo={data as IGetAlbumTracksResponse}
+        albumInfo={albumInfo}
       />
     </section>
   );

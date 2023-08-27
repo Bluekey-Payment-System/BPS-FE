@@ -46,9 +46,25 @@
   .inputArea {
     @include flexbox(row, flex-start);
 
-    position: relative;
     width: 728px;
     gap: 32px;
+
+    .artistInputList {
+      @include flexbox(column, flex-start, flex-start);
+
+      gap: 6px;
+      width: 100%;
+      max-height: 306px;
+      overflow-y: auto;
+
+      .artistInputRow {
+        @include flexbox(row);
+
+        position: relative;
+        gap: 32px;
+        width: 100%;
+      }
+    }
 
     .deleteBtnContainer {
       position: absolute;
