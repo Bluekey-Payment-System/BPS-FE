@@ -49,11 +49,16 @@
     width: 728px;
     gap: 32px;
 
+    &.trackMember {
+      width: 806px;
+      gap: 0;
+    }
+
     .artistInputList {
       @include flexbox(column, flex-start, flex-start);
 
       gap: 6px;
-      width: 100%;
+      width: 806px;
       max-height: 306px;
       overflow-y: auto;
 
@@ -61,17 +66,23 @@
         @include flexbox(row);
 
         position: relative;
-        gap: 32px;
         width: 100%;
+
+        & > div:first-child {
+          @include flexbox(row);
+
+          gap: 32px;
+          width: 728px;
+        }
       }
     }
+  }
 
-    .deleteBtnContainer {
-      position: absolute;
-      top: 50%;
-      right: -78px;
-      transform: translateY(-50%);
-    }
+  .deleteBtnContainer {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
   }
 
   .buttonSection {

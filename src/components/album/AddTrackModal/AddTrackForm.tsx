@@ -78,25 +78,27 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
             아티스트 추가
           </ChipButton>
         </div>
-        <div className={cx("inputArea")}>
+        <div className={cx("inputArea", "trackMember")}>
           <ul className={cx("artistInputList")}>
             {fields.map((field, index) => {
               return (
                 <li key={field.id} className={cx("artistInputRow")}>
-                  <TextField
-                    label="아티스트명"
-                    {...register(`artists.${index}.name`)}
-                    placeholder="아티스트를 입력해주세요"
-                    errors={errors}
-                  />
-                  <TextFieldWithUnit
-                    label="요율"
-                    {...register(`artists.${index}.commissionRate`)}
-                    placeholder="영문 트랙명을 입력해주세요"
-                    disabled={watch("originalTrack") === true}
-                    errors={errors}
-                    unit="%"
-                  />
+                  <div>
+                    <TextField
+                      label="아티스트명"
+                      {...register(`artists.${index}.name`)}
+                      placeholder="아티스트를 입력해주세요"
+                      errors={errors}
+                    />
+                    <TextFieldWithUnit
+                      label="요율"
+                      {...register(`artists.${index}.commissionRate`)}
+                      placeholder="영문 트랙명을 입력해주세요"
+                      disabled={watch("originalTrack") === true}
+                      errors={errors}
+                      unit="%"
+                    />
+                  </div>
                   <div className={cx("deleteBtnContainer")}>
                     <ChipButton
                       size="small"
