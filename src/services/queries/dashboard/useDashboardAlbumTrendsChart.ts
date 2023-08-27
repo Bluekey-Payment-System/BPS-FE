@@ -16,7 +16,6 @@ const useDashboardAlbumTrendsChart = (month: string, albumId: string) => {
   const { data: albumTrendsChart, isLoading: isAlbumTrendsChartLoading, isError: isalbumTrendsChartError } = useQuery(
     [DASHBOARD_TYPE.ALBUM, "dashboard", "albumTrendsChart", albumId, { month }],
     () => { return getMemberAlbumTrendsChart(month, albumId); },
-    { staleTime: 5000 },
   );
 
   return {

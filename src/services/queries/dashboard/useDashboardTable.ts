@@ -84,9 +84,6 @@ const useDashboardTable = (
     () => {
       return getDashboardTable(type, month, page, sortBy, searchBy, keyword, artistId);
     },
-    {
-      staleTime: 5000,
-    },
   );
 
   return ({

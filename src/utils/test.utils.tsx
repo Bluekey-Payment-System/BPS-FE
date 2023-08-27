@@ -29,12 +29,13 @@ const renderWithProviders = (
       // eslint-disable-next-line no-console
       log: console.log,
       warn: console.warn,
-      error: () => {},
+      error: () => { },
     },
     defaultOptions: {
       queries: {
         retry: 0,
-        cacheTime: Infinity,
+        staleTime: 900000,
+        cacheTime: 900000,
       },
     },
   });

@@ -14,9 +14,6 @@ const useUploadHistoryGet = (month: string) => {
   }: UseQueryResult<IGETTransactionUploadResponse> = useQuery(
     [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
     () => { return getRevenueUploadHistory(month); },
-    {
-      staleTime: Infinity,
-    },
   );
 
   return ({

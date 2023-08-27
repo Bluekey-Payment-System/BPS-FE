@@ -64,9 +64,6 @@ export const useDashboardTopFiveRevenueChart = (
   const { data: topFiveRevenueData, isLoading: istopFiveRevenueDataLoading, isError: istopFiveRevenueDataError } = useQuery(
     [type, "dashboard", "TopFiveRevenue", artistId, albumId, { month }],
     () => { return getDashboardTopFiveRevenueChart(type, month, artistId, albumId); },
-    {
-      staleTime: 5000,
-    },
   );
   return {
     topFiveRevenueData, istopFiveRevenueDataLoading, istopFiveRevenueDataError,

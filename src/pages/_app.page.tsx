@@ -20,7 +20,18 @@ import Pretendard from "@/styles/local.font";
 
 const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState }>) => {
   const { store } = wrapper.useWrappedStore(rest);
-  const [queryClient] = useState(() => { return new QueryClient(); });
+  const [queryClient] = useState(() => {
+    return new QueryClient(
+      {
+        defaultOptions: {
+          queries: {
+            staleTime: 900000,
+            cacheTime: 900000,
+          },
+        },
+      },
+    );
+  });
 
   const getContent = () => {
     if (["/admin/signin"].includes(rest.router.pathname)

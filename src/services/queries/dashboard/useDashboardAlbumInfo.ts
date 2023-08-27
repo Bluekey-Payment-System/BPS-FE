@@ -18,7 +18,6 @@ const useDashboardAlbumInfo = (month: string, albumId: string) => {
   const { data: albumInfo, isLoading: isAlbumInfoLoading, isError: isalbumInfoError } = useQuery(
     [DASHBOARD_TYPE.ALBUM, "dashboard", "albumInfo", albumId, { month }],
     () => { return getDashboardAlbumInfo(month, albumId); },
-    { staleTime: 5000 },
   );
 
   return {
