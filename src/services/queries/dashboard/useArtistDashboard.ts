@@ -24,19 +24,19 @@ const useArtistDashboard = (
   const queries = useQueries({
     queries: [
       {
-        queryKey: [DASHBOARD_TYPE.ARTIST, "dashboard", "card", artistId, null, { month }],
+        queryKey: [DASHBOARD_TYPE.ARTIST, "dashboard", "card", artistId, { month }],
         queryFn: () => {
           return getDashboardCards(DASHBOARD_TYPE.ARTIST, month, artistId);
         },
       },
       {
-        queryKey: [DASHBOARD_TYPE.ARTIST, "dashboard", "trendsChart", artistId, null, { month }],
+        queryKey: [DASHBOARD_TYPE.ARTIST, "dashboard", "trendsChart", artistId, { month }],
         queryFn: () => {
           return getDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month, artistId);
         },
       },
       {
-        queryKey: [DASHBOARD_TYPE.ARTIST, "dashboard", "TopFiveRevenue", artistId, null, { month }],
+        queryKey: [DASHBOARD_TYPE.ARTIST, "dashboard", "TopFiveRevenue", artistId, { month }],
         queryFn: () => {
           return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month, artistId);
         },

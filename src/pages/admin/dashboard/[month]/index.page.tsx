@@ -94,21 +94,21 @@ export const getServerSideProps: GetServerSideProps<AdminDashboardPageProps> = a
   try {
     await Promise.all([
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "card", null, null, { month }],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "card", { month }],
         () => {
           return getDashboardCards(DASHBOARD_TYPE.ADMIN, month);
         },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart", null, null, { month }],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart", { month }],
         () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month); },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "TopFiveRevenue", null, null, { month }],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "TopFiveRevenue", { month }],
         () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month); },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "table", null, {
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
           month, page, sortBy, searchBy, keyword,
         }],
         () => {

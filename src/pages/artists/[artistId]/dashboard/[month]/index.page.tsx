@@ -97,17 +97,17 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
   try {
     await Promise.all([
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "card", artistId, null, { month }],
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "card", artistId, { month }],
         () => {
           return getDashboardCards(DASHBOARD_TYPE.ARTIST, month, artistId);
         },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "trendsChart", artistId, null, { month }],
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "trendsChart", artistId, { month }],
         () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month, artistId); },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ARTIST, "dashboard", "TopFiveRevenue", artistId, null, { month }],
+        [DASHBOARD_TYPE.ARTIST, "dashboard", "TopFiveRevenue", artistId, { month }],
         () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month, artistId); },
       ),
       queryClient.prefetchQuery(

@@ -23,25 +23,25 @@ const useAdminDashboard = (
   const queries = useQueries({
     queries: [
       {
-        queryKey: [DASHBOARD_TYPE.ADMIN, "dashboard", "card", null, null, { month }],
+        queryKey: [DASHBOARD_TYPE.ADMIN, "dashboard", "card", { month }],
         queryFn: () => {
           return getDashboardCards(DASHBOARD_TYPE.ADMIN, month);
         },
       },
       {
-        queryKey: [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart", null, null, { month }],
+        queryKey: [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart", { month }],
         queryFn: () => {
           return getDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month);
         },
       },
       {
-        queryKey: [DASHBOARD_TYPE.ADMIN, "dashboard", "TopFiveRevenue", null, null, { month }],
+        queryKey: [DASHBOARD_TYPE.ADMIN, "dashboard", "TopFiveRevenue", { month }],
         queryFn: () => {
           return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month);
         },
       },
       {
-        queryKey: [DASHBOARD_TYPE.ADMIN, "dashboard", "table", null, {
+        queryKey: [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
           month, page, sortBy, searchBy, keyword,
         }],
         queryFn: () => {
@@ -58,7 +58,7 @@ const useAdminDashboard = (
     // 1. 끝 페이지
     if (endPage) {
       void queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "table", null, {
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
           month, page: endPage, sortBy, searchBy, keyword,
         }],
         () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, endPage, sortBy, searchBy, keyword); },
@@ -67,7 +67,7 @@ const useAdminDashboard = (
 
     // 2. 1페이지
     void queryClient.prefetchQuery(
-      [DASHBOARD_TYPE.ADMIN, "dashboard", "table", null, {
+      [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
         month, page: 1, sortBy, searchBy, keyword,
       }],
       () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, 1, sortBy, searchBy, keyword); },
@@ -80,7 +80,7 @@ const useAdminDashboard = (
     // 3. 현재 페이지네이션의 시작 페이지 ~ 다음 페이지네이션의 시작 페이지
     for (let i = curPaginationStartPage; i <= Math.min(endPage, nextPaginationStartPage); i += 1) {
       void queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "table", null, {
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
           month, page: i, sortBy, searchBy, keyword,
         }],
         () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, i, sortBy, searchBy, keyword); },
@@ -90,7 +90,7 @@ const useAdminDashboard = (
     // 4. 이전 페이지네이션의 시작 페이지
     if (prevPaginationstartPage >= 1) {
       void queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "table", null, {
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
           month, page: prevPaginationstartPage, sortBy, searchBy, keyword,
         }],
         () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, prevPaginationstartPage, sortBy, searchBy, keyword); },

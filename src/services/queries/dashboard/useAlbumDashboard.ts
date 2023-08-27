@@ -17,19 +17,19 @@ const useAlbumDashboard = (
   const queries = useQueries({
     queries: [
       {
-        queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "card", null, albumId, { month }],
+        queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "card", albumId, { month }],
         queryFn: () => {
           return getDashboardCards(DASHBOARD_TYPE.ALBUM, month, undefined, albumId);
         },
       },
       {
-        queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "trendsChart", null, albumId, { month }],
+        queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "trendsChart", albumId, { month }],
         queryFn: () => {
           return getDashboardTrendsChart(DASHBOARD_TYPE.ALBUM, month, undefined, albumId);
         },
       },
       {
-        queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "TopFiveRevenue", null, albumId, { month }],
+        queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "TopFiveRevenue", albumId, { month }],
         queryFn: () => {
           return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ALBUM, month, undefined, albumId);
         },
