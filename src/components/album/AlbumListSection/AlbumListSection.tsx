@@ -1,8 +1,11 @@
+import { useRef, useState } from "react";
+
 import classNames from "classnames/bind";
 
 import MainLayout from "@/components/common/Layouts/MainLayout";
 import Pagination from "@/components/common/Pagination/Pagination";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
+import { ITEMS_PER_ALBUM_LIST } from "@/constants/pagination";
 import useToast from "@/hooks/useToast";
 import { MemberType } from "@/types/enums/user.enum";
 
@@ -12,14 +15,19 @@ import styles from "./AlbumListSection.module.scss";
 
 interface AlbumListSectionProps {
   userType: MemberType,
-  searchKeyword: string,
-
+  page: number,
+  keyword: string,
+  totalAlbumItems: number,
 }
 
 const cx = classNames.bind(styles);
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const AlbumListSection = ({ userType, searchKeyword }: AlbumListSectionProps) => {
+const AlbumListSection = ({
+  userType, page, keyword, totalAlbumItems,
+}: AlbumListSectionProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [searchKeyword, setSearchKeyword] = useState<string>(keyword);
+  const searchKeywordRef = useRef<HTMLInputElement>(null);
   const { showToast } = useToast();
 
   const handleSearchAlbumTitle = () => {
@@ -31,15 +39,15 @@ const AlbumListSection = ({ userType, searchKeyword }: AlbumListSectionProps) =>
       <div className={cx("artboardLayout")}>
         <div className={cx("content")}>
           <div className={cx("searchBarSection")}>
-            <SearchBar placeholder="앨범명을 검색해주세요." onClick={handleSearchAlbumTitle} value="" />
+            <SearchBar placeholder="앨범명을 검색해주세요." onClick={handleSearchAlbumTitle} ref={searchKeywordRef} value={searchKeyword} />
           </div>
           <AlbumList
             userType={userType}
             paginationElement={(
               <Pagination
-                activePage={1}
-                totalItems={150}
-                itemsPerPage={6}
+                activePage={page}
+                totalItems={totalAlbumItems}
+                itemsPerPage={ITEMS_PER_ALBUM_LIST}
               />
           )}
           />

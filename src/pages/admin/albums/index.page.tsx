@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
-
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import AlbumListSection from "@/components/album/AlbumListSection/AlbumListSection";
@@ -17,12 +14,17 @@ const AdminAlbumListPage = (
   query: InferGetServerSidePropsType<GetServerSideProps<ServerSidePageProps>>,
 ) => {
   const { page, keyword }: ServerSidePageProps = query;
-  const [searchKeyword, setSearchKeyword] = useState<string>(keyword || "");
+  const albumsQuery = useAlbums(MEMBER_TYPE.ADMIN, page, keyword);
+  const {
+    data: albumsData, isLoading, isError, isFetching,
+  } = albumsQuery;
 
-  // const albumsQuery = useAlbums(MEMBER_TYPE.ADMIN, page, keyword);
+  if (isLoading || isFetching) return <div>로딩 중...</div>;
+  if (isError) return <div>에러 발생</div>;
+  if (!albumsData) return <div>데이터 없음</div>;
 
   return (
-    <AlbumListSection userType={MEMBER_TYPE.ADMIN} searchKeyword={searchKeyword} />
+    <AlbumListSection userType={MEMBER_TYPE.ADMIN} page={page} keyword={keyword ?? ""} totalAlbumItems={albumsData.totalItems} />
   );
 };
 
