@@ -69,9 +69,7 @@ const ArtistDashboardPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = async ({ query }) => {
-  const queryClient = new QueryClient();
-
+export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = async ({ query, req }) => {
   const month = query?.month as string;
   const artistId = query?.artistId as string;
 
@@ -81,6 +79,21 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
   const searchBy = (query?.searchBy ?? "TRACK") as string;
   const keyword = (query?.keyword ?? "") as string;
 
+  const isCSR = req.url?.startsWith("/_next");
+  if (isCSR) {
+    return {
+      props: {
+        month,
+        page,
+        sortBy,
+        searchBy,
+        keyword,
+        artistId,
+      },
+    };
+  }
+
+  const queryClient = new QueryClient();
   try {
     await Promise.all([
       queryClient.prefetchQuery(

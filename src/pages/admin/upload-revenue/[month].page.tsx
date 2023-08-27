@@ -15,7 +15,7 @@ import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 
 const UploadRevenuePage = (
-  { month } : { month: string },
+  { month }: { month: string },
 ): InferGetServerSidePropsType<typeof getServerSideProps> => {
   const {
     revenueUploadHistory, isLoading, isError, isFetching,
@@ -38,7 +38,7 @@ const UploadRevenuePage = (
       title="정산 내역 업로드"
       dropdownElement={(
         <MonthPickerDropdown />
-    )}
+      )}
     >
       <ArtboardLayout>
         <div style={{ width: 730 }}>
@@ -61,13 +61,21 @@ const UploadRevenuePage = (
   );
 };
 
-const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const queryClient = new QueryClient();
-
+const getServerSideProps: GetServerSideProps = async ({ query, req }) => {
   // TODO: [month] 값이 없는 url의 경우 에러로 리다이렉트 처리 필요
   const { month } = query;
   const monthToQueryString = convertYearMonthToQuery(month as string);
 
+  const isCSR = req.url?.startsWith("/_next");
+  if (isCSR) {
+    return {
+      props: {
+        month: monthToQueryString,
+      },
+    };
+  }
+
+  const queryClient = new QueryClient();
   await queryClient.prefetchQuery(
     [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
     () => { return getRevenueUploadHistory(monthToQueryString); },

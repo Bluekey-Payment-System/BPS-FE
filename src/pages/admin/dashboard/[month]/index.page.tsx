@@ -68,9 +68,7 @@ const AdminDashboardPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps<AdminDashboardPageProps> = async ({ query }) => {
-  const queryClient = new QueryClient();
-
+export const getServerSideProps: GetServerSideProps<AdminDashboardPageProps> = async ({ query, req }) => {
   const month = query?.month as string;
 
   const pageParam = (query?.page ?? null) as (string | null);
@@ -79,6 +77,20 @@ export const getServerSideProps: GetServerSideProps<AdminDashboardPageProps> = a
   const searchBy = (query?.searchBy ?? "TRACK") as string;
   const keyword = (query?.keyword ?? "") as string;
 
+  const isCSR = req.url?.startsWith("/_next");
+  if (isCSR) {
+    return {
+      props: {
+        month,
+        page,
+        sortBy,
+        searchBy,
+        keyword,
+      },
+    };
+  }
+
+  const queryClient = new QueryClient();
   try {
     await Promise.all([
       queryClient.prefetchQuery(
