@@ -1,4 +1,5 @@
 import Modal from "@/components/common/Modals/Modal";
+import { IAlbumInfo } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
 import AddTrackForm from "./AddTrackForm";
@@ -6,17 +7,17 @@ import AddTrackForm from "./AddTrackForm";
 interface AddTrackModalProps {
   open: boolean;
   onClose: () => void;
-  albumId: number;
+  albumInfo: IAlbumInfo;
 }
 
 const AddTrackModal = ({
-  open, albumId, onClose,
+  open, onClose, albumInfo,
 }: AddTrackModalProps) => {
   // eslint-disable-next-line no-void
-  void albumId;
+  void albumInfo;
   return (
     <Modal type={MODAL_TYPE.FORM} open={open} onClose={onClose}>
-      <AddTrackForm />
+      <AddTrackForm albumInfo={albumInfo} />
     </Modal>
   );
 };
