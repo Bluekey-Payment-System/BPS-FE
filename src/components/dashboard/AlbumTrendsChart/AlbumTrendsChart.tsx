@@ -22,7 +22,7 @@ interface AlbumTrendsChartProps {
  * @param memberRole - SUPER_ADMIN | ADMIN | ARTIST
 */
 const AlbumTrendsChart = ({ albumTrendsChartData, memberRole }: AlbumTrendsChartProps) => {
-  const trackList = albumTrendsChartData.tracks.map((track) => { return track.koTrackName; });
+  const trackList = albumTrendsChartData.tracks.map((track) => { return track.name; });
   const [selectedTrack, setSelectedTrack] = useState(trackList[0]);
 
   const handleSelectedTrack = (value: string) => {
@@ -30,7 +30,7 @@ const AlbumTrendsChart = ({ albumTrendsChartData, memberRole }: AlbumTrendsChart
   };
 
   const selectedTrackTrandsList = albumTrendsChartData.tracks.find(
-    (track) => { return track.koTrackName === selectedTrack; },
+    (track) => { return track.name === selectedTrack; },
   );
 
   if (!selectedTrackTrandsList) {

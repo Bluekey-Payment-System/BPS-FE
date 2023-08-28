@@ -30,37 +30,37 @@ export const MOCK_ALBUMS: IGetAlbumsResponse = {
     {
       albumId: 1,
       albumImage: "https://image.bugsm.co.kr/album/images/500/201408/20140893.jpg",
-      koAlbumName: "비밀정원",
+      name: "비밀정원",
       enName: "enName",
     },
     {
       albumId: 2,
       albumImage: "https://spnimage.edaily.co.kr/images/photo/files/NP/S/2023/05/PS23050700058.jpg",
-      koAlbumName: "클로저",
+      name: "클로저",
       enName: "enName",
     },
     {
       albumId: 3,
       albumImage: "https://cdn.obsnews.co.kr/news/photo/201605/974498_234531_5514.jpg",
-      koAlbumName: "윈디데이",
+      name: "윈디데이",
       enName: "enName",
     },
     {
       albumId: 4,
       albumImage: "https://image.bugsm.co.kr/album/images/500/201408/20140893.jpg",
-      koAlbumName: "번지",
+      name: "번지",
       enName: "enName",
     },
     {
       albumId: 5,
       albumImage: "https://spnimage.edaily.co.kr/images/photo/files/NP/S/2023/05/PS23050700058.jpg",
-      koAlbumName: "던던댄스",
+      name: "던던댄스",
       enName: "enName",
     },
     {
       albumId: 6,
       albumImage: "https://cdn.obsnews.co.kr/news/photo/201605/974498_234531_5514.jpg",
-      koAlbumName: "살짝설렜어",
+      name: "살짝설렜어",
       enName: "enName",
     },
   ],
@@ -69,19 +69,19 @@ export const MOCK_ALBUMS: IGetAlbumsResponse = {
 export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
   albumId: 1,
   albumImage: "https://image.bugsm.co.kr/album/images/500/201408/20140893.jpg",
-  koAlbumName: "비밀정원",
-  enAlbumName: "Secret Garden",
+  name: "비밀정원",
+  enName: "Secret Garden",
   artist:
   {
     memberId: 1,
-    koArtistName: "오마이걸",
-    enArtistName: "Ohmygirl",
+    name: "오마이걸",
+    enName: "Ohmygirl",
   },
   tracks: [
     {
       trackId: 1,
-      koTrackName: "불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이",
-      enTrackName: "Fireworks",
+      name: "불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이",
+      enName: "Fireworks",
       bluekeyOriginalTrack: false,
       participants: [
         {
@@ -98,8 +98,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 2,
-      koTrackName: "던던댄스",
-      enTrackName: "Dun Dun Dance",
+      name: "던던댄스",
+      enName: "Dun Dun Dance",
       bluekeyOriginalTrack: true,
       participants: [
         {
@@ -111,8 +111,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 3,
-      koTrackName: "바나나 알러지 원숭이",
-      enTrackName: "Banana Allergy Monkey",
+      name: "바나나 알러지 원숭이",
+      enName: "Banana Allergy Monkey",
       bluekeyOriginalTrack: true,
       participants: [
         {
@@ -129,8 +129,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 4,
-      koTrackName: "불꽃놀이",
-      enTrackName: "Fireworks",
+      name: "불꽃놀이",
+      enName: "Fireworks",
       bluekeyOriginalTrack: true,
       participants: [
         {
@@ -142,8 +142,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 5,
-      koTrackName: "던던댄스",
-      enTrackName: "Dun Dun Dance",
+      name: "던던댄스",
+      enName: "Dun Dun Dance",
       bluekeyOriginalTrack: false,
       participants: [
         {
@@ -155,8 +155,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 6,
-      koTrackName: "바나나 알러지 원숭이",
-      enTrackName: "Banana Allergy Monkey",
+      name: "바나나 알러지 원숭이",
+      enName: "Banana Allergy Monkey",
       bluekeyOriginalTrack: true,
       participants: [
         {
@@ -173,8 +173,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 7,
-      koTrackName: "불꽃놀이",
-      enTrackName: "Fireworks",
+      name: "불꽃놀이",
+      enName: "Fireworks",
       bluekeyOriginalTrack: false,
       participants: [
         {
@@ -186,8 +186,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 8,
-      koTrackName: "던던댄스",
-      enTrackName: "Dun Dun Dance",
+      name: "던던댄스",
+      enName: "Dun Dun Dance",
       bluekeyOriginalTrack: false,
       participants: [
         {
@@ -199,8 +199,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 9,
-      koTrackName: "바나나 알러지 원숭이",
-      enTrackName: "Banana Allergy Monkey",
+      name: "바나나 알러지 원숭이",
+      enName: "Banana Allergy Monkey",
       bluekeyOriginalTrack: true,
       participants: [
         {
@@ -217,8 +217,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 10,
-      koTrackName: "불꽃놀이",
-      enTrackName: "Fireworks",
+      name: "불꽃놀이",
+      enName: "Fireworks",
       bluekeyOriginalTrack: false,
       participants: [
         {
@@ -230,8 +230,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 11,
-      koTrackName: "던던댄스",
-      enTrackName: "Dun Dun Dance",
+      name: "던던댄스",
+      enName: "Dun Dun Dance",
       bluekeyOriginalTrack: false,
       participants: [
         {
@@ -243,8 +243,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 12,
-      koTrackName: "바나나 알러지 원숭이",
-      enTrackName: "Banana Allergy Monkey",
+      name: "바나나 알러지 원숭이",
+      enName: "Banana Allergy Monkey",
       bluekeyOriginalTrack: true,
       participants: [
         {
@@ -261,8 +261,8 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
     },
     {
       trackId: 13,
-      koTrackName: "불꽃놀이",
-      enTrackName: "Fireworks",
+      name: "불꽃놀이",
+      enName: "Fireworks",
       bluekeyOriginalTrack: false,
       participants: [
         {
@@ -308,8 +308,8 @@ export const MOCK_ALBUM_LINE: IGetAlbumTracksTrendsResponse = {
   tracks: [
     {
       trackId: 1,
-      koTrackName: "불꽃놀이",
-      enTrackName: "Fireworks",
+      name: "불꽃놀이",
+      enName: "Fireworks",
       monthlyTrend: [
         {
           month: 1,
@@ -387,8 +387,8 @@ export const MOCK_ALBUM_LINE: IGetAlbumTracksTrendsResponse = {
     },
     {
       trackId: 1,
-      koTrackName: "던던댄스",
-      enTrackName: "Dun Dun Dance",
+      name: "던던댄스",
+      enName: "Dun Dun Dance",
       monthlyTrend: [
         {
           month: 1,
@@ -418,8 +418,8 @@ export const MOCK_ALBUM_LINE: IGetAlbumTracksTrendsResponse = {
     },
     {
       trackId: 1,
-      koTrackName: "바나나 알러지 원숭이",
-      enTrackName: "Banana Allergy Monkey",
+      name: "바나나 알러지 원숭이",
+      enName: "Banana Allergy Monkey",
       monthlyTrend: [
         {
           month: 1,
@@ -455,8 +455,8 @@ export const MOCK_ALBUM_DOUGHNUT: IGetAlbumRevenueTopTrackResponse = {
     {
       track: {
         trackId: 1,
-        koTrackName: "트랙1",
-        enTrackName: "track1",
+        name: "트랙1",
+        enName: "track1",
       },
       revenue: 1000000,
       growthRate: 2.1,
@@ -465,8 +465,8 @@ export const MOCK_ALBUM_DOUGHNUT: IGetAlbumRevenueTopTrackResponse = {
     {
       track: {
         trackId: 2,
-        koTrackName: "트랙2",
-        enTrackName: "track2",
+        name: "트랙2",
+        enName: "track2",
       },
       revenue: 800000,
       growthRate: 6.1,
@@ -475,8 +475,8 @@ export const MOCK_ALBUM_DOUGHNUT: IGetAlbumRevenueTopTrackResponse = {
     {
       track: {
         trackId: 3,
-        koTrackName: "트랙3",
-        enTrackName: "track3",
+        name: "트랙3",
+        enName: "track3",
       },
       revenue: 600000,
       growthRate: -25.1,
@@ -485,8 +485,8 @@ export const MOCK_ALBUM_DOUGHNUT: IGetAlbumRevenueTopTrackResponse = {
     {
       track: {
         trackId: 4,
-        koTrackName: "트랙4",
-        enTrackName: "track4",
+        name: "트랙4",
+        enName: "track4",
       },
       revenue: 40000,
       growthRate: -13,
@@ -495,8 +495,8 @@ export const MOCK_ALBUM_DOUGHNUT: IGetAlbumRevenueTopTrackResponse = {
     {
       track: {
         trackId: 5,
-        koTrackName: "트랙5",
-        enTrackName: "track5",
+        name: "트랙5",
+        enName: "track5",
       },
       revenue: 300,
       growthRate: 2.5,
@@ -507,8 +507,8 @@ export const MOCK_ALBUM_DOUGHNUT: IGetAlbumRevenueTopTrackResponse = {
 
 export const MOCK_ALBUM_DASHBOARD_CARD: IGetAlbumDashboardResponse = {
   albumId: 1,
-  koAlbumName: "미녀 OST",
-  enAlbumName: "미녀 OST",
+  name: "미녀 OST",
+  enName: "미녀 OST",
   revenue: {
     totalAmount: 12345,
     growthRate: 12345,
@@ -525,8 +525,8 @@ export const MOCK_ALBUM_DASHBOARD_CARD: IGetAlbumDashboardResponse = {
   bestTrack:
   {
     trackId: 1,
-    koTrackName: "트랙명2",
-    enTrackName: "track2",
+    name: "트랙명2",
+    enName: "track2",
     growthRate: -30,
   },
 };
@@ -609,8 +609,8 @@ export const MOCK_ADMIN_DASHBOARD_CARD: IGetAdminDashboardResponse = {
   },
   bestArtist: {
     memberId: 1,
-    koArtistName: "아이유",
-    enArtistName: "IU",
+    name: "아이유",
+    enName: "IU",
     growthRate: 0.3,
   },
 };
@@ -657,29 +657,29 @@ export const MOCK_ADMIN_TABLE: IGetAdminTrackTransactionResponse = {
     {
       track: {
         trackId: 1,
-        koTrackName: "이름이 아주아주 매우매우 베리베리 긴 곡",
-        enTrackName: "track name",
+        name: "이름이 아주아주 매우매우 베리베리 긴 곡",
+        enName: "track name",
       },
       album: {
         albumId: 1,
-        koAlbumName: "앨범 이름",
-        enAlbumName: "Album name",
+        name: "앨범 이름",
+        enName: "Album name",
       },
       artists: [
         {
           memberId: 1,
-          koArtistName: "아이유~~참말로제가한게아닙니더",
-          enArtistName: "IU",
+          name: "아이유~~참말로제가한게아닙니더",
+          enName: "IU",
         },
         {
           memberId: 2,
-          koArtistName: "지드래곤",
-          enArtistName: "G-Dragon",
+          name: "지드래곤",
+          enName: "G-Dragon",
         },
         {
           memberId: 3,
-          koArtistName: "태양",
-          enArtistName: "Sun",
+          name: "태양",
+          enName: "Sun",
         },
       ],
       revenue: 1000000000,
@@ -690,19 +690,19 @@ export const MOCK_ADMIN_TABLE: IGetAdminTrackTransactionResponse = {
     {
       track: {
         trackId: 2,
-        koTrackName: "곡 제목",
-        enTrackName: "track name",
+        name: "곡 제목",
+        enName: "track name",
       },
       album: {
         albumId: 2,
-        koAlbumName: "앨범 이름",
-        enAlbumName: "Album name",
+        name: "앨범 이름",
+        enName: "Album name",
       },
       artists: [
         {
           memberId: 2,
-          koArtistName: "아이유",
-          enArtistName: "IU",
+          name: "아이유",
+          enName: "IU",
         },
       ],
       revenue: 17831413,
@@ -713,19 +713,19 @@ export const MOCK_ADMIN_TABLE: IGetAdminTrackTransactionResponse = {
     {
       track: {
         trackId: 3,
-        koTrackName: "곡 제목",
-        enTrackName: "track name",
+        name: "곡 제목",
+        enName: "track name",
       },
       album: {
         albumId: 3,
-        koAlbumName: "앨범 이름",
-        enAlbumName: "Album name",
+        name: "앨범 이름",
+        enName: "Album name",
       },
       artists: [
         {
           memberId: 3,
-          koArtistName: "아이유",
-          enArtistName: "IU",
+          name: "아이유",
+          enName: "IU",
         },
       ],
       revenue: 12,
@@ -741,8 +741,8 @@ export const MOCK_ADMIN_DOUGHNUT: IGetAdminEarningsTopArtistResponse = {
     {
       artist: {
         memberId: 1,
-        koArtistName: "아이유",
-        enArtistName: "IU",
+        name: "아이유",
+        enName: "IU",
       },
       revenue: 1000000000,
       growthRate: 250,
@@ -751,8 +751,8 @@ export const MOCK_ADMIN_DOUGHNUT: IGetAdminEarningsTopArtistResponse = {
     {
       artist: {
         memberId: 2,
-        koArtistName: "정국",
-        enArtistName: "Jungkuk",
+        name: "정국",
+        enName: "Jungkuk",
       },
       revenue: 10000000,
       growthRate: 24,
@@ -761,8 +761,8 @@ export const MOCK_ADMIN_DOUGHNUT: IGetAdminEarningsTopArtistResponse = {
     {
       artist: {
         memberId: 3,
-        koArtistName: "혁기",
-        enArtistName: "Hyucki",
+        name: "혁기",
+        enName: "Hyucki",
       },
       revenue: 10000,
       growthRate: 25,
@@ -771,8 +771,8 @@ export const MOCK_ADMIN_DOUGHNUT: IGetAdminEarningsTopArtistResponse = {
     {
       artist: {
         memberId: 4,
-        koArtistName: "SKY",
-        enArtistName: "SKY",
+        name: "SKY",
+        enName: "SKY",
       },
       revenue: 500,
       growthRate: -300,
@@ -781,8 +781,8 @@ export const MOCK_ADMIN_DOUGHNUT: IGetAdminEarningsTopArtistResponse = {
     {
       artist: {
         memberId: 5,
-        koArtistName: "지미 가드너",
-        enArtistName: "Jimmi Gardener",
+        name: "지미 가드너",
+        enName: "Jimmi Gardener",
       },
       revenue: 300,
       growthRate: 0,
@@ -799,8 +799,8 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     {
       artist: {
         memberId: 1,
-        koArtistName: "김블루김블루김블루김블루김블루",
-        enArtistName: "bluekeybluekeybluekeybluekey",
+        name: "김블루김블루김블루김블루김블루",
+        enName: "bluekeybluekeybluekeybluekey",
         profileImage: null,
       },
       revenue: 300,
@@ -812,8 +812,8 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     {
       artist: {
         memberId: 2,
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
+        name: "김블루",
+        enName: "bluekey",
         profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
       },
       revenue: 300,
@@ -825,8 +825,8 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     {
       artist: {
         memberId: 3,
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
+        name: "김블루",
+        enName: "bluekey",
         profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
       },
       revenue: 300,
@@ -838,8 +838,8 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     {
       artist: {
         memberId: 4,
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
+        name: "김블루",
+        enName: "bluekey",
         profileImage: null,
       },
       revenue: 300,
@@ -851,8 +851,8 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     {
       artist: {
         memberId: 5,
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
+        name: "김블루",
+        enName: "bluekey",
         profileImage: null,
       },
       revenue: 300,
@@ -864,8 +864,8 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     {
       artist: {
         memberId: 6,
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
+        name: "김블루",
+        enName: "bluekey",
         profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
       },
       revenue: 300,
@@ -877,8 +877,8 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     {
       artist: {
         memberId: 7,
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
+        name: "김블루",
+        enName: "bluekey",
         profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
       },
       revenue: 300,
@@ -890,8 +890,8 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     {
       artist: {
         memberId: 8,
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
+        name: "김블루",
+        enName: "bluekey",
         profileImage: null,
       },
       revenue: 300,
@@ -903,8 +903,8 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     {
       artist: {
         memberId: 9,
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
+        name: "김블루",
+        enName: "bluekey",
         profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
       },
       revenue: 300,
@@ -916,8 +916,8 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
     {
       artist: {
         memberId: 10,
-        koArtistName: "김블루",
-        enArtistName: "bluekey",
+        name: "김블루",
+        enName: "bluekey",
         profileImage: "https://biz.chosun.com/resizer/CMMnrLVaHCUa7dMliL1X58L4ah8=/530x640/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/WVRMPWAH7BOOJOZCMEKRV4CX5U.jpg",
       },
       revenue: 300,
@@ -938,15 +938,15 @@ export const MOCK_ARTIST_DASHBOARD_CARD: IGetArtistDashboardResponse = {
   bestAlbum:
   {
     albumId: 1,
-    koAlbumName: "앨범명2",
-    enAlbumName: "album2",
+    name: "앨범명2",
+    enName: "album2",
     growthRate: 300,
   },
   bestTrack:
   {
     trackId: 1,
-    koTrackName: "트랙명2",
-    enTrackName: "track2",
+    name: "트랙명2",
+    enName: "track2",
     growthRate: -30,
   },
 };
@@ -957,19 +957,19 @@ export const MOCK_ARTIST_TABLE: IGetArtistTrackTransactionResponse = {
     {
       track: {
         trackId: 1,
-        koTrackName: "아주아주 이름이 매우매우 긴 곡",
-        enTrackName: "track name",
+        name: "아주아주 이름이 매우매우 긴 곡",
+        enName: "track name",
       },
       album: {
         albumId: 1,
-        koAlbumName: "앨범 이름",
-        enAlbumName: "Album name",
+        name: "앨범 이름",
+        enName: "Album name",
       },
       artists: [
         {
           memberId: 1,
-          koArtistName: "아이유",
-          enArtistName: "IU",
+          name: "아이유",
+          enName: "IU",
         },
       ],
       revenue: 1000000000,
@@ -979,19 +979,19 @@ export const MOCK_ARTIST_TABLE: IGetArtistTrackTransactionResponse = {
     {
       track: {
         trackId: 2,
-        koTrackName: "곡 제목",
-        enTrackName: "track name",
+        name: "곡 제목",
+        enName: "track name",
       },
       album: {
         albumId: 2,
-        koAlbumName: "앨범 이름",
-        enAlbumName: "Album name",
+        name: "앨범 이름",
+        enName: "Album name",
       },
       artists: [
         {
           memberId: 2,
-          koArtistName: "아이유",
-          enArtistName: "IU",
+          name: "아이유",
+          enName: "IU",
         },
       ],
       revenue: 17831413,
@@ -1001,19 +1001,19 @@ export const MOCK_ARTIST_TABLE: IGetArtistTrackTransactionResponse = {
     {
       track: {
         trackId: 3,
-        koTrackName: "곡 제목",
-        enTrackName: "track name",
+        name: "곡 제목",
+        enName: "track name",
       },
       album: {
         albumId: 3,
-        koAlbumName: "앨범 이름",
-        enAlbumName: "Album name",
+        name: "앨범 이름",
+        enName: "Album name",
       },
       artists: [
         {
           memberId: 3,
-          koArtistName: "아이유",
-          enArtistName: "IU",
+          name: "아이유",
+          enName: "IU",
         },
       ],
       revenue: 12,
@@ -1028,8 +1028,8 @@ export const MOCK_ARTIST_DOUGHNUT: IGetArtistEarningsTopTrackResponse = {
     {
       track: {
         trackId: 1,
-        koTrackName: "트랙1",
-        enTrackName: "track1",
+        name: "트랙1",
+        enName: "track1",
       },
       revenue: 1000000,
       growthRate: 2.1,
@@ -1038,8 +1038,8 @@ export const MOCK_ARTIST_DOUGHNUT: IGetArtistEarningsTopTrackResponse = {
     {
       track: {
         trackId: 2,
-        koTrackName: "트랙2",
-        enTrackName: "track2",
+        name: "트랙2",
+        enName: "track2",
       },
       revenue: 800000,
       growthRate: 6.1,
@@ -1048,8 +1048,8 @@ export const MOCK_ARTIST_DOUGHNUT: IGetArtistEarningsTopTrackResponse = {
     {
       track: {
         trackId: 3,
-        koTrackName: "트랙3",
-        enTrackName: "track3",
+        name: "트랙3",
+        enName: "track3",
       },
       revenue: 600000,
       growthRate: -25.1,
@@ -1058,8 +1058,8 @@ export const MOCK_ARTIST_DOUGHNUT: IGetArtistEarningsTopTrackResponse = {
     {
       track: {
         trackId: 4,
-        koTrackName: "트랙4",
-        enTrackName: "track4",
+        name: "트랙4",
+        enName: "track4",
       },
       revenue: 40000,
       growthRate: -13,
@@ -1068,8 +1068,8 @@ export const MOCK_ARTIST_DOUGHNUT: IGetArtistEarningsTopTrackResponse = {
     {
       track: {
         trackId: 5,
-        koTrackName: "트랙5",
-        enTrackName: "track5",
+        name: "트랙5",
+        enName: "track5",
       },
       revenue: 300,
       growthRate: 2.5,
@@ -1113,37 +1113,37 @@ export const MOCK_ARTIST_ALBUMS: IGetArtistAlbumsResponse = {
     {
       albumId: 1,
       albumImage: "https://image.bugsm.co.kr/album/images/500/201408/20140893.jpg",
-      koAlbumName: "비밀정원",
+      name: "비밀정원",
       enName: "enName",
     },
     {
       albumId: 2,
       albumImage: "https://spnimage.edaily.co.kr/images/photo/files/NP/S/2023/05/PS23050700058.jpg",
-      koAlbumName: "클로저",
+      name: "클로저",
       enName: "enName",
     },
     {
       albumId: 3,
       albumImage: "https://cdn.obsnews.co.kr/news/photo/201605/974498_234531_5514.jpg",
-      koAlbumName: "윈디데이",
+      name: "윈디데이",
       enName: "enName",
     },
     {
       albumId: 4,
       albumImage: "https://image.bugsm.co.kr/album/images/500/201408/20140893.jpg",
-      koAlbumName: "번지",
+      name: "번지",
       enName: "enName",
     },
     {
       albumId: 5,
       albumImage: "https://spnimage.edaily.co.kr/images/photo/files/NP/S/2023/05/PS23050700058.jpg",
-      koAlbumName: "던던댄스",
+      name: "던던댄스",
       enName: "enName",
     },
     {
       albumId: 6,
       albumImage: "https://cdn.obsnews.co.kr/news/photo/201605/974498_234531_5514.jpg",
-      koAlbumName: "살짝설렜어",
+      name: "살짝설렜어",
       enName: "enName",
     },
   ],

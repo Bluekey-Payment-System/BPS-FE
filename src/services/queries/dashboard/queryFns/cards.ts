@@ -71,7 +71,7 @@ export const getDashboardCards = async (
     },
     {
       title: `${formattedMonth}의 아티스트`,
-      content: bestArtist.koArtistName,
+      content: bestArtist.name,
       growthRate: bestArtist.growthRate,
     }];
   } else if (type === DASHBOARD_TYPE.ARTIST) {
@@ -84,12 +84,12 @@ export const getDashboardCards = async (
     },
     {
       title: `${formattedMonth}의 앨범`,
-      content: bestAlbum.koAlbumName,
+      content: bestAlbum.name,
       growthRate: bestAlbum.growthRate,
     },
     {
       title: `${formattedMonth}의 트랙`,
-      content: bestTrack.koTrackName,
+      content: bestTrack.name,
       growthRate: bestTrack.growthRate,
     }];
   } else {
@@ -102,7 +102,7 @@ export const getDashboardCards = async (
     },
     {
       title: `${formattedMonth}의 트랙`,
-      content: bestTrack.koTrackName,
+      content: bestTrack.name,
       growthRate: bestTrack.growthRate,
     }];
   }

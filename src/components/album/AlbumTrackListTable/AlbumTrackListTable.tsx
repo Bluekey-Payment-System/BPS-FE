@@ -38,16 +38,16 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
       <TableBodyUI>
         {tracks.map((item, index) => {
           return (
-            <TableRowUI key={item.koTrackName}>
+            <TableRowUI key={item.name}>
               <TableCellUI>{index + 1}</TableCellUI>
               <TableCellUI>
-                <TooltipRoot message={item.koTrackName}>
-                  <p className={cx("ellipsis")}>{item.koTrackName}</p>
+                <TooltipRoot message={item.name}>
+                  <p className={cx("ellipsis")}>{item.name}</p>
                 </TooltipRoot>
               </TableCellUI>
               <TableCellUI>
-                <TooltipRoot message={item.enTrackName}>
-                  <p className={cx("ellipsis")}>{item.enTrackName}</p>
+                <TooltipRoot message={item.enName}>
+                  <p className={cx("ellipsis")}>{item.enName}</p>
                 </TooltipRoot>
               </TableCellUI>
               <TableCellUI>
