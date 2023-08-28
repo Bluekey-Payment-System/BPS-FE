@@ -4,6 +4,8 @@ import {
   IDoughnutArtistRevenue,
   ITrackTransaction,
   IBarMonthlySettlement,
+  IAdminAccount,
+  IArtistAccount,
 } from "@/types/dto";
 
 export interface IGetAdminDashboardResponse extends IAdminDashboardCard {
@@ -24,4 +26,14 @@ export interface IGetAdminTrackTransactionResponse {
 
 export interface IGetAdminEarningsTopArtistResponse {
   contents: IDoughnutArtistRevenue[]
+}
+
+export interface IGetAdminAccountsResponse {
+  totalItems: number,
+  contents: IAdminAccount[]
+}
+
+export interface IGetArtistAccountsResponse {
+  totalItems: number,
+  contents: IArtistAccount[]
 }

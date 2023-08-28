@@ -21,7 +21,7 @@ import {
   IGetArtistsResponse,
 } from "@/services/api/types/artist";
 import { IGetAccountsResponse } from "@/services/api/types/member";
-import { IGETTransactionUploadResponse } from "@/services/api/types/transaction";
+import { IGetTransactionUploadResponse } from "@/services/api/types/transaction";
 
 /* ##### 1. ALBUM ##### */
 export const MOCK_ALBUMS: IGetAlbumsResponse = {
@@ -31,31 +31,37 @@ export const MOCK_ALBUMS: IGetAlbumsResponse = {
       albumId: 1,
       albumImage: "https://image.bugsm.co.kr/album/images/500/201408/20140893.jpg",
       koAlbumName: "비밀정원",
+      enName: "enName",
     },
     {
       albumId: 2,
       albumImage: "https://spnimage.edaily.co.kr/images/photo/files/NP/S/2023/05/PS23050700058.jpg",
       koAlbumName: "클로저",
+      enName: "enName",
     },
     {
       albumId: 3,
       albumImage: "https://cdn.obsnews.co.kr/news/photo/201605/974498_234531_5514.jpg",
       koAlbumName: "윈디데이",
+      enName: "enName",
     },
     {
       albumId: 4,
       albumImage: "https://image.bugsm.co.kr/album/images/500/201408/20140893.jpg",
       koAlbumName: "번지",
+      enName: "enName",
     },
     {
       albumId: 5,
       albumImage: "https://spnimage.edaily.co.kr/images/photo/files/NP/S/2023/05/PS23050700058.jpg",
       koAlbumName: "던던댄스",
+      enName: "enName",
     },
     {
       albumId: 6,
       albumImage: "https://cdn.obsnews.co.kr/news/photo/201605/974498_234531_5514.jpg",
       koAlbumName: "살짝설렜어",
+      enName: "enName",
     },
   ],
 };
@@ -79,11 +85,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
         },
         {
+          memberId: 1,
           koArtistName: "아이유",
           enArtistName: "IU",
           commissionRate: 50,
@@ -97,6 +105,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -110,11 +119,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
         },
         {
+          memberId: 1,
           koArtistName: "승희",
           enArtistName: "Seunghee",
           commissionRate: 30,
@@ -128,6 +139,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -141,6 +153,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -154,11 +167,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
         },
         {
+          memberId: 1,
           koArtistName: "승희",
           enArtistName: "Seunghee",
           commissionRate: 30,
@@ -172,6 +187,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -185,6 +201,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -198,11 +215,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
         },
         {
+          memberId: 1,
           koArtistName: "승희",
           enArtistName: "Seunghee",
           commissionRate: 30,
@@ -216,6 +235,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -229,6 +249,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -242,11 +263,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: true,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
         },
         {
+          memberId: 1,
           koArtistName: "승희",
           enArtistName: "Seunghee",
           commissionRate: 30,
@@ -260,6 +283,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       bluekeyOriginalTrack: false,
       participants: [
         {
+          memberId: 1,
           koArtistName: "아린",
           enArtistName: "Arin",
           commissionRate: 50,
@@ -492,7 +516,7 @@ export const MOCK_ALBUM_DASHBOARD_CARD: IGetAlbumDashboardResponse = {
 /* ########################## */
 
 /* ##### 2. TRANSACTION ##### */
-export const MOCK_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
+export const MOCK_TRANSACTION_UPLOAD: IGetTransactionUploadResponse = {
   totalItems: 3,
   contents: [
     {
@@ -546,7 +570,7 @@ export const MOCK_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
   ],
 };
 
-export const MOCK_EMPTY_TRANSACTION_UPLOAD: IGETTransactionUploadResponse = {
+export const MOCK_EMPTY_TRANSACTION_UPLOAD: IGetTransactionUploadResponse = {
   totalItems: 0,
   contents: [],
 };
@@ -1069,31 +1093,37 @@ export const MOCK_ARTIST_ALBUMS: IGetArtistAlbumsResponse = {
       albumId: 1,
       albumImage: "https://image.bugsm.co.kr/album/images/500/201408/20140893.jpg",
       koAlbumName: "비밀정원",
+      enName: "enName",
     },
     {
       albumId: 2,
       albumImage: "https://spnimage.edaily.co.kr/images/photo/files/NP/S/2023/05/PS23050700058.jpg",
       koAlbumName: "클로저",
+      enName: "enName",
     },
     {
       albumId: 3,
       albumImage: "https://cdn.obsnews.co.kr/news/photo/201605/974498_234531_5514.jpg",
       koAlbumName: "윈디데이",
+      enName: "enName",
     },
     {
       albumId: 4,
       albumImage: "https://image.bugsm.co.kr/album/images/500/201408/20140893.jpg",
       koAlbumName: "번지",
+      enName: "enName",
     },
     {
       albumId: 5,
       albumImage: "https://spnimage.edaily.co.kr/images/photo/files/NP/S/2023/05/PS23050700058.jpg",
       koAlbumName: "던던댄스",
+      enName: "enName",
     },
     {
       albumId: 6,
       albumImage: "https://cdn.obsnews.co.kr/news/photo/201605/974498_234531_5514.jpg",
       koAlbumName: "살짝설렜어",
+      enName: "enName",
     },
   ],
 };
