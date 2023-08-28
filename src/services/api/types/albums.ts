@@ -29,3 +29,6 @@ export interface IGetAlbumTrackSettlementTrendsResponse {
 export interface IGetAlbumRevenueTopTrackResponse {
   contents: IDoughnutTrackRevenue[]
 }
+
+export interface IPostAlbumResponse extends IAlbumCard {
+}
