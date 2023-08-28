@@ -198,8 +198,9 @@ interface ITransactionUploadAlert {
 export interface ITransactionUpload {
   id: number,
   name: string,
-  uploadAt: string
-  warnings: ITransactionUploadAlert[]
+  uploadAt: string,
+  warnings?: ITransactionUploadAlert[],
+  errors?: ITransactionUploadAlert[],
 }
 
 // 계정 관련
