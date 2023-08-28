@@ -53,6 +53,7 @@ export interface IBarMonthlySettlement { // 아티스트가 보는 바 차트
   month: number,
   settlement: number | null,
   revenue: number | null,
+  netIncome: number | null,
 }
 
 interface IRevenue { // 도넛 차트

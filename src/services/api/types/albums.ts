@@ -20,11 +20,11 @@ export interface IGetAlbumDashboardResponse extends IAlbumDashboardCard {
 export interface IGetAlbumTracksResponse extends IAlbumInfo {
 }
 
-export interface IGetAlbumMonthlySettlementResponse {
+export interface IGetAlbumMonthlyTrendsResponse {
   contents: IBarMonthlySettlement[]
 }
 
-export interface IGetAlbumTrackSettlementTrendsResponse {
+export interface IGetAlbumTracksTrendsResponse {
   tracks: ILineTrackSettlementTrends[]
 }
 

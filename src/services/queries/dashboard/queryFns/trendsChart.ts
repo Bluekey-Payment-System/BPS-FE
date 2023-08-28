@@ -1,13 +1,14 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { MOCK_ADMIN_BAR, MOCK_ALBUM_BAR, MOCK_ARTIST_BAR } from "@/constants/mock";
-import { IGetAdminMonthlyEarningsTrendsResponse, IGetArtistMonthlyEarningsTrendsResponse } from "@/services/api/types/admin";
-import { IGetAlbumMonthlySettlementResponse } from "@/services/api/types/albums";
+import { IGetAdminMonthlyTrendsResponse } from "@/services/api/types/admin";
+import { IGetAlbumMonthlyTrendsResponse } from "@/services/api/types/albums";
+import { IGetArtistMonthlyTrendsResponse } from "@/services/api/types/artist";
 import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
 
-type DashBoardTrendsChart = IGetAdminMonthlyEarningsTrendsResponse | IGetArtistMonthlyEarningsTrendsResponse | IGetAlbumMonthlySettlementResponse;
+type DashBoardTrendsChart = IGetAdminMonthlyTrendsResponse | IGetArtistMonthlyTrendsResponse | IGetAlbumMonthlyTrendsResponse;
 
-const getAdminDashboardTrendsChart = (month: string): Promise<IGetAdminMonthlyEarningsTrendsResponse> => {
+const getAdminDashboardTrendsChart = (month: string): Promise<IGetAdminMonthlyTrendsResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ADMIN_BAR);
@@ -15,7 +16,7 @@ const getAdminDashboardTrendsChart = (month: string): Promise<IGetAdminMonthlyEa
   });
 };
 
-const getArtistDashboardTrendsChart = (month: string, artistId?: string): Promise<IGetArtistMonthlyEarningsTrendsResponse> => {
+const getArtistDashboardTrendsChart = (month: string, artistId?: string): Promise<IGetArtistMonthlyTrendsResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ARTIST_BAR);
@@ -23,7 +24,7 @@ const getArtistDashboardTrendsChart = (month: string, artistId?: string): Promis
   });
 };
 
-const getAlbumDashboardTrendsChart = (month: string, albumId?: string): Promise<IGetAlbumMonthlySettlementResponse> => {
+const getAlbumDashboardTrendsChart = (month: string, albumId?: string): Promise<IGetAlbumMonthlyTrendsResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ALBUM_BAR);

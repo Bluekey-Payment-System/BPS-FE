@@ -3,7 +3,6 @@ import {
   IBarMonthlyEarnings,
   IDoughnutArtistRevenue,
   ITrackTransaction,
-  IBarMonthlySettlement,
   IAdminAccount,
   IArtistAccount,
   IAdminProfile,
@@ -14,12 +13,8 @@ import { AtLeastOne } from "./global";
 export interface IGetAdminDashboardResponse extends IAdminDashboardCard {
 }
 
-export interface IGetAdminMonthlyEarningsTrendsResponse {
+export interface IGetAdminMonthlyTrendsResponse {
   contents: IBarMonthlyEarnings[]
-}
-
-export interface IGetArtistMonthlyEarningsTrendsResponse {
-  contents: IBarMonthlySettlement[]
 }
 
 export interface IGetAdminTrackTransactionResponse {

@@ -1,10 +1,10 @@
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
 
-import { IGetArtistMonthlyEarningsTrendsResponse } from "../../types/admin";
 import {
   IGetArtistAlbumsResponse,
   IGetArtistDashboardResponse,
   IGetArtistEarningsTopTrackResponse,
+  IGetArtistMonthlyTrendsResponse,
   IGetArtistProfileResponse,
   IGetArtistTrackTransactionResponse,
   IGetArtistsResponse,
@@ -44,7 +44,7 @@ export const getArtistDashboardBar = async (
   endDate: string,
   memberId: number,
 ) => {
-  const response = await getRequest<IGetArtistMonthlyEarningsTrendsResponse>(`/artists/${memberId}/dashboard?startDate=${convertToYearMonthFormat(startDate)}&endDate=${convertToYearMonthFormat(endDate)}`);
+  const response = await getRequest<IGetArtistMonthlyTrendsResponse>(`/artists/${memberId}/dashboard?startDate=${convertToYearMonthFormat(startDate)}&endDate=${convertToYearMonthFormat(endDate)}`);
   return response;
 };
 

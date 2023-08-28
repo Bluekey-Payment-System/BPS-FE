@@ -1,7 +1,8 @@
 import { ResponsiveBar } from "@nivo/bar";
 import classNames from "classnames/bind";
 
-import { IGetAdminMonthlyEarningsTrendsResponse, IGetArtistMonthlyEarningsTrendsResponse } from "@/services/api/types/admin";
+import { IGetAdminMonthlyTrendsResponse } from "@/services/api/types/admin";
+import { IGetArtistMonthlyTrendsResponse } from "@/services/api/types/artist";
 import { MEMBER_ROLE, MemberRole } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
 
@@ -44,7 +45,7 @@ const yAxisFormat = (item: number) => {
  * @param type - MEMBER_TYPE
 */
 const BarChart = ({ barChartData, type }: {
-  barChartData: IGetAdminMonthlyEarningsTrendsResponse | IGetArtistMonthlyEarningsTrendsResponse,
+  barChartData: IGetAdminMonthlyTrendsResponse | IGetArtistMonthlyTrendsResponse,
   type: MemberRole
 }) => {
   const maxValue: number = getMaxValue(barChartData, type);

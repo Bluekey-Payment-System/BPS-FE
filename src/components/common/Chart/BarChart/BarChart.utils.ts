@@ -1,4 +1,5 @@
-import { IGetAdminMonthlyEarningsTrendsResponse, IGetArtistMonthlyEarningsTrendsResponse } from "@/services/api/types/admin";
+import { IGetAdminMonthlyTrendsResponse } from "@/services/api/types/admin";
+import { IGetArtistMonthlyTrendsResponse } from "@/services/api/types/artist";
 import { MEMBER_ROLE, MemberRole } from "@/types/enums/user.enum";
 
 const monthNames: { [key: number]: string } = {
@@ -24,7 +25,7 @@ export const getMonthName = (num: number): string => {
 };
 
 export const mapChartDataToMonthlySummary = (
-  chartData: IGetAdminMonthlyEarningsTrendsResponse | IGetArtistMonthlyEarningsTrendsResponse,
+  chartData: IGetAdminMonthlyTrendsResponse | IGetArtistMonthlyTrendsResponse,
   type: MemberRole,
 ) => {
   const convertedBarChartData = chartData.contents.map((data) => {
@@ -35,17 +36,18 @@ export const mapChartDataToMonthlySummary = (
         revenue: data.revenue,
       };
     }
-    if ("netIncome" in data) {
-      return { month: getMonthName(data.month), netIncome: data.netIncome, revenue: data.revenue };
-    }
-    return { month: getMonthName(data.month), revenue: data.revenue };
+    return {
+      month: getMonthName(data.month),
+      netIncome: data.netIncome,
+      revenue: data.revenue,
+    };
   });
 
   return convertedBarChartData; // 함수에서 변환된 데이터를 반환
 };
 
 export const getMaxValue = (
-  chartData: IGetAdminMonthlyEarningsTrendsResponse | IGetArtistMonthlyEarningsTrendsResponse,
+  chartData: IGetAdminMonthlyTrendsResponse | IGetArtistMonthlyTrendsResponse,
   type: MemberRole,
 ): number => {
   let maxValue = 0;

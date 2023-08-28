@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import classNames from "classnames/bind";
 
-import { IGetAlbumTrackSettlementTrendsResponse } from "@/services/api/types/albums";
+import { IGetAlbumTracksTrendsResponse } from "@/services/api/types/albums";
 import { MEMBER_ROLE, MemberRole } from "@/types/enums/user.enum";
 
 import LineChart from "../../common/Chart/LineChart/LineChart";
@@ -13,7 +13,7 @@ import styles from "./AlbumTrendsChart.module.scss";
 const cx = classNames.bind(styles);
 
 interface AlbumTrendsChartProps {
-  albumTrendsChartData: IGetAlbumTrackSettlementTrendsResponse,
+  albumTrendsChartData: IGetAlbumTracksTrendsResponse,
   memberRole: MemberRole,
 }
 /**

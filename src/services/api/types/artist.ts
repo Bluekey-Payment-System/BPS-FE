@@ -29,7 +29,7 @@ export interface IGetArtistEarningsTopTrackResponse {
   contents: IDoughnutTrackRevenue[]
 }
 
-export interface IGetArtistMonthlySettlementResponse {
+export interface IGetArtistMonthlyTrendsResponse {
   contents: IBarMonthlySettlement[]
 }
 

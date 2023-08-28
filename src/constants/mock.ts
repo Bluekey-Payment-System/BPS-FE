@@ -1,14 +1,14 @@
 import {
   IGetAdminDashboardResponse,
   IGetAdminEarningsTopArtistResponse,
-  IGetAdminMonthlyEarningsTrendsResponse,
+  IGetAdminMonthlyTrendsResponse,
   IGetAdminTrackTransactionResponse,
 } from "@/services/api/types/admin";
 import {
   IGetAlbumDashboardResponse,
-  IGetAlbumMonthlySettlementResponse,
+  IGetAlbumMonthlyTrendsResponse,
   IGetAlbumRevenueTopTrackResponse,
-  IGetAlbumTrackSettlementTrendsResponse,
+  IGetAlbumTracksTrendsResponse,
   IGetAlbumTracksResponse,
   IGetAlbumsResponse,
 } from "@/services/api/types/albums";
@@ -16,7 +16,7 @@ import {
   IGetArtistAlbumsResponse,
   IGetArtistDashboardResponse,
   IGetArtistEarningsTopTrackResponse,
-  IGetArtistMonthlySettlementResponse,
+  IGetArtistMonthlyTrendsResponse,
   IGetArtistTrackTransactionResponse,
   IGetArtistsResponse,
 } from "@/services/api/types/artist";
@@ -275,32 +275,36 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
   ],
 };
 
-export const MOCK_ALBUM_BAR: IGetAlbumMonthlySettlementResponse = {
+export const MOCK_ALBUM_BAR: IGetAlbumMonthlyTrendsResponse = {
   contents: [
     {
       month: 1,
       settlement: 2142344,
       revenue: 732143,
+      netIncome: 100000,
     },
     {
       month: 2,
       settlement: 2132459,
       revenue: 732392,
+      netIncome: 100000,
     },
     {
       month: 3,
       settlement: 1836935,
       revenue: 632143,
+      netIncome: 100000,
     },
     {
       month: 4,
       settlement: 5142344,
       revenue: 1032143,
+      netIncome: 100000,
     },
   ],
 };
 
-export const MOCK_ALBUM_LINE: IGetAlbumTrackSettlementTrendsResponse = {
+export const MOCK_ALBUM_LINE: IGetAlbumTracksTrendsResponse = {
   tracks: [
     {
       trackId: 1,
@@ -311,61 +315,73 @@ export const MOCK_ALBUM_LINE: IGetAlbumTrackSettlementTrendsResponse = {
           month: 1,
           settlement: 1442344,
           revenue: 832143,
+          netIncome: 100000,
         },
         {
           month: 2,
           settlement: 5932459,
           revenue: 332392,
+          netIncome: 100000,
         },
         {
           month: 3,
           settlement: 1936935,
           revenue: 632143,
+          netIncome: 100000,
         },
         {
           month: 4,
           settlement: 5142344,
           revenue: 1032143,
+          netIncome: 100000,
         },
         {
           month: 5,
           settlement: 5142344,
           revenue: 1032143,
+          netIncome: 100000,
         },
         {
           month: 6,
           settlement: 5142344,
           revenue: 1032143,
+          netIncome: 100000,
         },
         {
           month: 7,
           settlement: 5142344,
           revenue: 1032143,
+          netIncome: 100000,
         },
         {
           month: 8,
           settlement: 5142344,
           revenue: 1032143,
+          netIncome: 100000,
         },
         {
           month: 9,
           settlement: 5142344,
           revenue: 1032143,
+          netIncome: 100000,
         },
         {
           month: 10,
           settlement: 5142344,
           revenue: 1032143,
+          netIncome: 100000,
         },
         {
           month: 11,
           settlement: 5142344,
           revenue: 1032143,
+          netIncome: 100000,
         },
         {
           month: 12,
           settlement: 5142344,
           revenue: 1032143,
+          netIncome: 100000,
         },
       ],
     },
@@ -378,21 +394,25 @@ export const MOCK_ALBUM_LINE: IGetAlbumTrackSettlementTrendsResponse = {
           month: 1,
           settlement: 2142344,
           revenue: 732143,
+          netIncome: 100000,
         },
         {
           month: 2,
           settlement: 2132459,
           revenue: 732392,
+          netIncome: 100000,
         },
         {
           month: 3,
           settlement: 1836935,
           revenue: 632143,
+          netIncome: 100000,
         },
         {
           month: 4,
           settlement: 5142344,
           revenue: 1032143,
+          netIncome: 100000,
         },
       ],
     },
@@ -405,21 +425,25 @@ export const MOCK_ALBUM_LINE: IGetAlbumTrackSettlementTrendsResponse = {
           month: 1,
           settlement: 2142344,
           revenue: 732143,
+          netIncome: 100000,
         },
         {
           month: 2,
           settlement: 2132459,
           revenue: 732392,
+          netIncome: 100000,
         },
         {
           month: 3,
           settlement: 1836935,
           revenue: 632143,
+          netIncome: 100000,
         },
         {
           month: 4,
           settlement: 5142344,
           revenue: 1032143,
+          netIncome: 100000,
         },
       ],
     },
@@ -580,7 +604,7 @@ export const MOCK_ADMIN_DASHBOARD_CARD: IGetAdminDashboardResponse = {
   },
 };
 
-export const MOCK_ADMIN_BAR: IGetAdminMonthlyEarningsTrendsResponse = {
+export const MOCK_ADMIN_BAR: IGetAdminMonthlyTrendsResponse = {
   contents: [
     {
       month: 1,
@@ -1043,27 +1067,31 @@ export const MOCK_ARTIST_DOUGHNUT: IGetArtistEarningsTopTrackResponse = {
   ],
 };
 
-export const MOCK_ARTIST_BAR: IGetArtistMonthlySettlementResponse = {
+export const MOCK_ARTIST_BAR: IGetArtistMonthlyTrendsResponse = {
   contents: [
     {
       month: 1,
       settlement: 2142344,
       revenue: 732143,
+      netIncome: 100000,
     },
     {
       month: 2,
       settlement: 2132459,
       revenue: 732392,
+      netIncome: 100000,
     },
     {
       month: 3,
       settlement: 1836935,
       revenue: 632143,
+      netIncome: 100000,
     },
     {
       month: 4,
       settlement: 5142344,
       revenue: 1032143,
+      netIncome: 100000,
     },
   ],
 };

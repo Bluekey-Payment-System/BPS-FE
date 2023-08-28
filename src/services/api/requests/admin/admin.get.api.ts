@@ -4,7 +4,7 @@ import {
   IGetAdminAccountsResponse,
   IGetAdminDashboardResponse,
   IGetAdminEarningsTopArtistResponse,
-  IGetAdminMonthlyEarningsTrendsResponse,
+  IGetAdminMonthlyTrendsResponse,
   IGetAdminProfileResponse,
   IGetAdminTrackTransactionResponse,
   IGetArtistAccountsResponse,
@@ -52,7 +52,7 @@ export const getAdminDashboardTable = async (
 
 /* 어드민 대시보드 막대 차트 내용 */
 export const getAdminDashboardBar = async (startDate: string, endDate: string) => {
-  const response = await getRequest<IGetAdminMonthlyEarningsTrendsResponse>(`/admin/dashboard/trend?startDate=${convertToYearMonthFormat(startDate)}&endDate=${convertToYearMonthFormat(endDate)}`);
+  const response = await getRequest<IGetAdminMonthlyTrendsResponse>(`/admin/dashboard/trend?startDate=${convertToYearMonthFormat(startDate)}&endDate=${convertToYearMonthFormat(endDate)}`);
   return response;
 };
 
