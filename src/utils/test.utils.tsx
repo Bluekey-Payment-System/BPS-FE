@@ -34,8 +34,7 @@ const renderWithProviders = (
     defaultOptions: {
       queries: {
         retry: 0,
-        staleTime: 900000,
-        cacheTime: 900000,
+        cacheTime: Infinity,
       },
     },
   });
