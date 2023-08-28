@@ -122,7 +122,7 @@ export interface IAdminDashboardCard {
 
 // /api/v1/artist/{memberId}/dashboard
 export interface IArtistDashboardCard {
-  settlement: IEarnings,
+  settlementAmount: IEarnings,
   bestAlbum: IAlbum & {
     growthRate: number | null
   },
@@ -131,8 +131,10 @@ export interface IArtistDashboardCard {
   }
 }
 
-export interface IAlbumDashboardCard {
-  settlement: IEarnings
+export interface IAlbumDashboardCard extends IAlbum {
+  revenue: IEarnings,
+  netIncome: IEarnings,
+  settlementAmount: IEarnings,
   bestTrack: ITrack & {
     growthRate: number | null
   }

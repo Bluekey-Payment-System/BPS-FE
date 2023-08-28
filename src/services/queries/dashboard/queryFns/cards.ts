@@ -76,7 +76,7 @@ export const getDashboardCards = async (
     }];
   } else if (type === DASHBOARD_TYPE.ARTIST) {
     response = await getArtistDashboardCards(month, artistId);
-    const { bestAlbum, bestTrack, settlement } = response;
+    const { bestAlbum, bestTrack, settlementAmount: settlement } = response;
     data = [{
       title: "당월 정산액",
       content: formatMoney(settlement.totalAmount, "card"),
@@ -94,7 +94,7 @@ export const getDashboardCards = async (
     }];
   } else {
     response = await getAlbumDashboardCards(month, albumId);
-    const { settlement, bestTrack } = response;
+    const { settlementAmount: settlement, bestTrack } = response;
     data = [{
       title: "이 앨범의 당월 정산액",
       content: formatMoney(settlement.totalAmount, "card"),

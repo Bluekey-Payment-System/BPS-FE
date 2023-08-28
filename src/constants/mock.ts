@@ -506,7 +506,18 @@ export const MOCK_ALBUM_DOUGHNUT: IGetAlbumRevenueTopTrackResponse = {
 };
 
 export const MOCK_ALBUM_DASHBOARD_CARD: IGetAlbumDashboardResponse = {
-  settlement:
+  albumId: 1,
+  koAlbumName: "미녀 OST",
+  enAlbumName: "미녀 OST",
+  revenue: {
+    totalAmount: 12345,
+    growthRate: 12345,
+  },
+  netIncome: {
+    totalAmount: 12345,
+    growthRate: 12345,
+  },
+  settlementAmount:
   {
     totalAmount: 1000,
     growthRate: 10.2,
@@ -919,7 +930,7 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
 };
 
 export const MOCK_ARTIST_DASHBOARD_CARD: IGetArtistDashboardResponse = {
-  settlement:
+  settlementAmount:
   {
     totalAmount: 1000,
     growthRate: 10.2,
