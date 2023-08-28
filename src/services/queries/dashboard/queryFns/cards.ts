@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useQuery } from "@tanstack/react-query";
-
 import { DashboardCardProps } from "@/components/common/DashboardCard/DashboardCard.type";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
 import { MOCK_ADMIN_DASHBOARD_CARD, MOCK_ALBUM_DASHBOARD_CARD, MOCK_ARTIST_DASHBOARD_CARD } from "@/constants/mock";
@@ -111,24 +109,3 @@ export const getDashboardCards = async (
 
   return data;
 };
-
-const useDashboardCards = (
-  type: DashboardType,
-  month: string,
-  artistId?: string,
-  albumId?: string,
-) => {
-  const { data: cardsData, isError: isCardsError, isLoading: isCardsLoading } = useQuery(
-    [type, "dashboard", "card"],
-    () => { return getDashboardCards(type, month, artistId, albumId); },
-    {
-      staleTime: 5000,
-    },
-  );
-
-  return ({
-    cardsData, isCardsLoading, isCardsError,
-  });
-};
-
-export default useDashboardCards;
