@@ -1,11 +1,12 @@
 import { IPatchAdminProfileData, IPatchAdminProfileResponse } from "../../types/admin";
 import { patchRequest } from "../requests.api";
 
+/* 어드민의 본인 프로필 수정 */
 export const patchAdminProfile = async (
   patchData: IPatchAdminProfileData,
 ) => {
   const formData = new FormData();
-  const dataList: { [key : string]: string } = {};
+  const dataList: { [key: string]: string } = {};
 
   Object.entries(patchData).forEach((item) => {
     const [key, value] = item;

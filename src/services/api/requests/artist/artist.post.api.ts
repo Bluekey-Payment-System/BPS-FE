@@ -1,11 +1,12 @@
 import { IPostArtistData, IPostArtistResponse } from "../../types/artist";
 import { postRequest } from "../requests.api";
 
+/* 아티스트 생성 */
 export const postArtist = async (
   postData: IPostArtistData,
 ) => {
   const formData = new FormData();
-  const dataList: { [key : string]: string | number | null } = {};
+  const dataList: { [key: string]: string | number | null } = {};
 
   Object.entries(postData).forEach((item) => {
     const [key, value] = item;

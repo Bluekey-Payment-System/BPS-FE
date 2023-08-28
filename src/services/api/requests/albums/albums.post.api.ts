@@ -1,11 +1,12 @@
 import { IPostAlbumData, IPostAlbumResponse } from "../../types/albums";
 import { postRequest } from "../requests.api";
 
+/* 앨범 추가 */
 export const postAlbum = async (
   postData: IPostAlbumData,
 ) => {
   const formData = new FormData();
-  const dataList: { [key : string]: string | number | null } = {};
+  const dataList: { [key: string]: string | number | null } = {};
 
   Object.entries(postData).forEach((item) => {
     const [key, value] = item;

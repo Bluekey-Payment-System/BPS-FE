@@ -1,12 +1,13 @@
 import { IPatchAlbumData, IPatchAlbumResponse } from "../../types/albums";
 import { patchRequest } from "../requests.api";
 
+/* 앨범 정보 수정 */
 export const patchAlbum = async (
   albumId: number,
   patchData: IPatchAlbumData,
 ) => {
   const formData = new FormData();
-  const dataList: { [key : string]: string | number | null } = {};
+  const dataList: { [key: string]: string | number | null } = {};
 
   Object.entries(patchData).forEach((item) => {
     const [key, value] = item;
