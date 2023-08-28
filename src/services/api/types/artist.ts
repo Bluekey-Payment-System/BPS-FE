@@ -4,6 +4,7 @@ import {
   IArtistAccount,
   IArtistDashboardCard,
   IArtistList,
+  IArtistProfile,
   IBarMonthlySettlement,
   IDoughnutTrackRevenue,
   ITrackTransaction,
@@ -50,6 +51,16 @@ export interface IGetArtistProfileResponse {
   profileImage: string
 }
 
+export type IPostArtistData = {
+  file: File | null,
+  email: string,
+  loginId: string,
+  name: string,
+  enName: string,
+  password: string,
+  commissionRate: number | null,
+};
+
 export interface IPostArtistResponse extends IGetArtistProfileResponse {
   commissionRate: number | null
 }
@@ -62,3 +73,11 @@ export type IPatchArtistProfileForAdminRequest = AtLeastOne<{
   enName: string,
   commissionRate: number | null,
 }>;
+
+export type IPatchArtistProfileData = AtLeastOne<{
+  file: File | null,
+  email: string,
+}>;
+
+export interface IPatchArtistProfileResponse extends Omit<IArtistProfile, "type"> {
+}

@@ -32,6 +32,13 @@ export interface IGetAlbumRevenueTopTrackResponse {
   contents: IDoughnutTrackRevenue[]
 }
 
+export type IPostAlbumData = {
+  file: File | null,
+  name: string,
+  enName: string,
+  memberId: number | null,
+};
+
 export interface IPostAlbumResponse extends IAlbumCard {
 }
 
@@ -39,7 +46,7 @@ export interface IDeleteAlbumResponse extends IAlbumCard {
 }
 
 export type IPatchAlbumData = AtLeastOne<{
-  file: string | null,
+  file: File | null,
   name: string,
   enName: string,
   memberId: number | null

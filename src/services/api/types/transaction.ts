@@ -5,6 +5,11 @@ export interface IGetTransactionUploadResponse {
   contents: ITransactionUpload[]
 }
 
+export type IPostTransactionUploadData = {
+  file: File,
+  uploadAt: string,
+};
+
 export interface IPostTransactionUploadResponse extends ITransactionUpload {
 }
 

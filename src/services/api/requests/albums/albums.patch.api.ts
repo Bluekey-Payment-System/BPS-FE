@@ -11,9 +11,9 @@ export const patchAlbum = async (
   Object.entries(patchData).forEach((item) => {
     const [key, value] = item;
     if (key === "file") {
-      formData.append("file", (value ?? "") as string);
+      formData.append("file", (value ?? "") as File | string);
     }
-    dataList[key] = value;
+    dataList[key] = value as string | number | null;
   });
   formData.append("data", JSON.stringify(dataList));
 

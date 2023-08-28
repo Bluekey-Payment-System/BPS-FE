@@ -1,26 +1,20 @@
-import { IPostArtistResponse } from "../../types/artist";
+import { IPostArtistData, IPostArtistResponse } from "../../types/artist";
 import { postRequest } from "../requests.api";
 
 export const postArtist = async (
-  file: File | null,
-  email: string,
-  loginId: string,
-  name: string,
-  enName: string,
-  password: string,
-  commissionRate: number | null,
+  postData: IPostArtistData,
 ) => {
   const formData = new FormData();
+  const dataList: { [key : string]: string | number | null } = {};
 
-  formData.append("file", file ?? "");
-  formData.append("data", JSON.stringify({
-    email,
-    loginId,
-    name,
-    enName,
-    password,
-    commissionRate, // null이 들어갈 때 정상 작동 확인 요망
-  }));
+  Object.entries(postData).forEach((item) => {
+    const [key, value] = item;
+    if (key === "file") {
+      formData.append("file", (value ?? "") as File | string);
+    }
+    dataList[key] = value as string | number | null;
+  });
+  formData.append("data", JSON.stringify(dataList)); // commissionRate null 들어갈 때 정상 작동하는지 확인 요망
 
   const response = await postRequest<IPostArtistResponse, FormData>("/artists", formData, {
     headers: {
