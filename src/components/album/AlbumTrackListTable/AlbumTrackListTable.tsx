@@ -55,10 +55,10 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
                   return (
                     <>
                       <TooltipRoot
-                        message={participant.koArtistName}
-                        key={participant.koArtistName}
+                        message={participant.name}
+                        key={participant.name}
                       >
-                        <p className={cx("ellipsis")}>{participant.koArtistName}</p>
+                        <p className={cx("ellipsis")}>{participant.name}</p>
                       </TooltipRoot>
                       <br />
                     </>
@@ -68,7 +68,7 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
               <TableCellUI>
                 {item.participants.map((participant) => {
                   return (
-                    <p key={participant.koArtistName}>{`${participant.commissionRate}%`}</p>
+                    <p key={participant.name}>{`${participant.commissionRate}%`}</p>
                   );
                 })}
               </TableCellUI>
