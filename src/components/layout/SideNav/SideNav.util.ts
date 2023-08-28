@@ -81,13 +81,15 @@ export const isAlbumExplorer = (currentPath: string, targetPath: string | string
         }
       }
 
-      // 어드민과 아티스트가 보는 앨범 상세
+      // 어드민과 아티스트가 보는 앨범 탐색
       if (targetPathSegment[1] === "albums") {
         if (currentPathSegment[1] === "albums" && isBeforeOrCurrentYearMonth(currentPathSegment[3])) {
           return true;
         }
       }
     }
+
+    // 어드민이 보는 앨범 탐색
     return currentPath === targetPath[0];
   }
   return false;
