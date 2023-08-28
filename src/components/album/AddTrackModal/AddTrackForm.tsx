@@ -27,11 +27,20 @@ interface AddTrackFormProps {
 
 const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
   const {
-    register, formState: { errors }, handleSubmit, control, watch, setValue,
+    register,
+    formState: { errors },
+    handleSubmit,
+    control,
+    watch,
+    trigger,
+    setValue,
+    clearErrors,
+    reset,
   } = useForm<ITrackFieldValues>({
     mode: "onBlur",
+    reValidateMode: "onBlur",
     defaultValues: {
-      artists: [{ name: "", memberId: 1 }],
+      artists: [{ name: "", memberId: -1, commissionRate: null }],
     },
   });
   const {
@@ -46,28 +55,43 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
     // eslint-disable-next-line no-console
     console.log(data);
     if (!isError) {
+      reset();
       onClose();
     }
   };
-
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form className={cx("container")} onSubmit={handleSubmit(onSubmit)}>
       <div className={cx("checkBoxContainer")}>
-        <Checkbox label="블루키 오리지널 트랙" {...register("originalTrack")} />
+        <Checkbox
+          label="블루키 오리지널 트랙"
+          {...register("originalTrack", {
+            onChange: (e: ChangeEvent<HTMLInputElement>) => {
+              if (e.target.checked) {
+                fields.forEach((_, index) => {
+                  setValue(`artists.${index}.commissionRate`, null);
+                });
+              }
+            },
+          })}
+        />
       </div>
       <div className={cx("trackNameSection")}>
         <h2>수록곡 추가</h2>
         <div className={cx("inputArea")}>
           <TextField
             label="트랙명 (한글)"
-            {...register("name")}
+            {...register("name", {
+              required: "*트랙명을 입력하세요.",
+            })}
             placeholder="트랙명을 입력해주세요"
             errors={errors}
           />
           <TextField
             label="트랙명 (영문)"
-            {...register("enName")}
+            {...register("enName", {
+              required: "*트랙명 (영문)을 입력하세요",
+            })}
             placeholder="영문 트랙명을 입력해주세요"
             errors={errors}
           />
@@ -80,7 +104,7 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
           <ChipButton
             size="large"
             onClick={() => {
-              append({ memberId: null, name: "", commissionRate: 0 });
+              append({ memberId: -1, name: "", commissionRate: watch("originalTrack") === true ? null : 0 });
             }}
           >
             아티스트 추가
@@ -92,20 +116,32 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
               return (
                 <li key={field.id} className={cx("artistInputRow")}>
                   <div>
-                    <div className={cx("dropdownContainer")}>
-                      <span>대표 아티스트</span>
-                      <Dropdown<IHasSearchBarData>
-                        hasSearchBar
-                        dropdownListData={DROPDOWN_ARTIST_LIST}
-                        onClick={(value) => {
-                          setValue(`artists.${index}.memberId`, value.id);
-                          setValue(`artists.${index}.name`, value.name);
-                        }}
-                      />
-                      <input {...register(`artists.${index}.memberId`)} type="hidden" />
-                      <input {...register(`artists.${index}.name`)} type="hidden" />
-                      <Spacing size={14} />
-                    </div>
+                    {watch(`artists.${index}.memberId`) === null
+                      ? (
+                        <TextField
+                          label="아티스트"
+                          {...register(`artists.${index}.name`)}
+                          placeholder="아티스트명을 입력하세요."
+                          errors={{}}
+                        />
+                      )
+                      : (
+                        <div className={cx("dropdownContainer")}>
+                          <span>아티스트</span>
+                          <Dropdown<IHasSearchBarData>
+                            hasSearchBar
+                            dropdownListData={DROPDOWN_ARTIST_LIST}
+                            onClick={(value) => {
+                              setValue(`artists.${index}.memberId`, value.id);
+                              setValue(`artists.${index}.name`, value.name);
+                            }}
+                          />
+                          <input {...register(`artists.${index}.memberId`)} type="hidden" />
+                          <input {...register(`artists.${index}.name`)} type="hidden" />
+                          <Spacing size={14} />
+                        </div>
+                      )}
+
                     <TextFieldWithUnit
                       label="요율"
                       {...register(`artists.${index}.commissionRate`, {
@@ -117,18 +153,46 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                           const val = parseInt(e.target.value.replace(/\D/g, ""), 10);
                           setValue(`artists.${index}.commissionRate`, Number.isNaN(val) ? null : val);
                         },
+                        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                        onBlur: async () => {
+                          await trigger(fields.map((_, idx) => { return `artists.${idx}.commissionRate` as const; }));
+                        },
                         min: {
                           value: 0,
-                          message: "*0~100 사이의 값을 입력하세요.",
+                          message: "*요율은 0 미만일 수 없습니다.",
                         },
                         max: {
                           value: 100,
-                          message: "*0~100 사이의 값을 입력하세요.",
+                          message: "*요울은 100 초과일 수 없습니다.",
+                        },
+                        validate: {
+                          totalLowerThan100: (v) => {
+                            if (v === null) return true;
+                            const result = fields.reduce((acc, _, idx) => {
+                              const watchTarget = watch(`artists.${idx}.commissionRate`) || 0;
+                              return acc + watchTarget;
+                            }, 0) <= 100;
+                            return result || "*아티스트별 요율의 총합은 100을 넘길 수 없습니다.";
+                          },
+                          shouldBeNumber: (v) => {
+                            if (watch(`artists.${index}.memberId`) && !watch("originalTrack")) {
+                              return v !== null || "*요율을 입력하세요.";
+                            } return true;
+                          },
                         },
                       })}
-                      placeholder={watch("originalTrack") === true ? "블루키 오리지널 트랙은 요율을 설정할 수 없습니다." : "요율을 입력하세요."}
-                      disabled={watch("originalTrack") === true}
+                      placeholder={
+                          // eslint-disable-next-line no-nested-ternary
+                          watch("originalTrack") === true
+                            ? "블루키 오리지널 트랙은 요율을 설정할 수 없습니다."
+                            : watch(`artists.${index}.memberId`) === null
+                              ? "계약 외 아티스트는 요율을 지정할 수 없습니다"
+                              : "요율을 입력하세요."
+                        }
+                      disabled={watch("originalTrack") === true || watch(`artists.${index}.memberId`) === null}
                       errors={errors}
+                      isError={!!errors.artists?.[index]?.commissionRate}
+                      bottomText={errors.artists?.[index]?.commissionRate?.message}
                       inputMode="numeric"
                       max={100}
                       step={10}
@@ -145,6 +209,18 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                     >
                       삭제
                     </ChipButton>
+                  </div>
+                  <div className={cx("checkUnregisteredArtistContainer")}>
+                    <Checkbox
+                      label="계약 외 아티스트"
+                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                        if (e.target.checked) {
+                          setValue(`artists.${index}.memberId`, null);
+                          setValue(`artists.${index}.commissionRate`, null);
+                          clearErrors(`artists.${index}.commissionRate`);
+                        } else setValue(`artists.${index}.memberId`, -1);
+                      }}
+                    />
                   </div>
                 </li>
               );

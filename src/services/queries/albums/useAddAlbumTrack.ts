@@ -41,9 +41,9 @@ const useAddAlbumTrack = (albumId: number) => {
   >(
     (body: IPostAlbumTrackRequest) => { return postAlbumTrackByAlbumId(albumId, body); },
     {
-      onSuccess: (data) => {
+      onSuccess: async (data) => {
+        await queryClient.invalidateQueries({ queryKey: ["albums", `${data.albumId}`] });
         showToast("수록곡 추가가 완료되었습니다.");
-        queryClient.setQueryData(["albums", `${data.albumId}`], data);
       },
     },
   );

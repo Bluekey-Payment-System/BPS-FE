@@ -81,8 +81,19 @@
             & > span {
               @include typo(14);
 
-              display: inline-block;
+              display: block;
               margin-bottom: 10px;
+            }
+          }
+
+          .commissionRateField {
+            width: 100%;
+
+            .commissionRateError {
+              @include typo(12);
+
+              margin-top: -10px;
+              color: $point-color-red2;
             }
           }
         }
@@ -95,6 +106,12 @@
     top: 50%;
     right: 0;
     transform: translateY(-50%);
+  }
+
+  .checkUnregisteredArtistContainer {
+    position: absolute;
+    z-index: 20;
+    left: 210px;
   }
 
   .buttonSection {

@@ -10,7 +10,7 @@
     .selectedValue {
       width: 89px;
       height: 40px;
-      padding: 12px 20px 12px 12px;
+      padding: 15px 20px 15px 18px;
       text-align: start;
 
       @include typo(14);
@@ -169,6 +169,10 @@
   @each $class, $width in $width-map {
     &.#{$class} {
       width: $width;
+
+      &.hasSearchBar {
+        width: 100%;
+      }
 
       @if $class == hasSearchBar {
         height: auto;
