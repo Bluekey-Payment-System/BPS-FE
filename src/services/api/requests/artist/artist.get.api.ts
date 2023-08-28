@@ -5,6 +5,7 @@ import {
   IGetArtistAlbumsResponse,
   IGetArtistDashboardResponse,
   IGetArtistEarningsTopTrackResponse,
+  IGetArtistProfileResponse,
   IGetArtistTrackTransactionResponse,
   IGetArtistsResponse,
   IGetArtistsSimpleResponse,
@@ -78,5 +79,11 @@ export const getArtistDashboardTable = async (
 /* 드롭다운에 나타나는 아티스트 목록 조회 */
 export const getDropdownArtists = async () => {
   const response = await getRequest<IGetArtistsSimpleResponse>("/artists/simple");
+  return response;
+};
+
+/* 아티스트 본인의 프로필 조회 */
+export const getArtistProfile = async () => {
+  const response = await getRequest<IGetArtistProfileResponse>("/artists/profile");
   return response;
 };

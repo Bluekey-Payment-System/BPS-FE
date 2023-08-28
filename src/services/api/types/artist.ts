@@ -42,15 +42,6 @@ export interface IGetArtistsSimpleResponse {
   artists: IArtist[]
 }
 
-export interface IGetArtistProfileResponse {
-  memberId: number,
-  name: string,
-  enName: string,
-  loginId: string,
-  email: string,
-  profileImage: string
-}
-
 export type IPostArtistData = {
   file: File | null,
   email: string,
@@ -80,4 +71,7 @@ export type IPatchArtistProfileData = AtLeastOne<{
 }>;
 
 export interface IPatchArtistProfileResponse extends Omit<IArtistProfile, "type"> {
+}
+
+export interface IGetArtistProfileResponse extends Omit<IArtistProfile, "type"> {
 }

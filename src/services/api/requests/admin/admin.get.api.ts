@@ -5,6 +5,7 @@ import {
   IGetAdminDashboardResponse,
   IGetAdminEarningsTopArtistResponse,
   IGetAdminMonthlyEarningsTrendsResponse,
+  IGetAdminProfileResponse,
   IGetAdminTrackTransactionResponse,
   IGetArtistAccountsResponse,
 } from "../../types/admin";
@@ -52,5 +53,17 @@ export const getAdminDashboardTable = async (
 /* 어드민 대시보드 막대 차트 내용 */
 export const getAdminDashboardBar = async (startDate: string, endDate: string) => {
   const response = await getRequest<IGetAdminMonthlyEarningsTrendsResponse>(`/admin/dashboard/trend?startDate=${convertToYearMonthFormat(startDate)}&endDate=${convertToYearMonthFormat(endDate)}`);
+  return response;
+};
+
+/* 어드민 본인의 프로필 조회 */
+export const getAdminProfile = async () => {
+  const response = await getRequest<IGetAdminProfileResponse>("/admin/profile");
+  return response;
+};
+
+/* 어드민 접근 페이지 허용 여부 조회 */
+export const checkAdminAuthority = async () => {
+  const response = await getRequest("/admin/authority-check");
   return response;
 };

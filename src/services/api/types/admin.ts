@@ -49,3 +49,6 @@ export type IPatchAdminProfileData = AtLeastOne<{
 
 export interface IPatchAdminProfileResponse extends Omit<IAdminProfile, "type"> {
 }
+
+export interface IGetAdminProfileResponse extends Omit<IAdminProfile, "type"> {
+}
