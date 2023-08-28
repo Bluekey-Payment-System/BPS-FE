@@ -1,4 +1,4 @@
-import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
+import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 
 import {
   IGetAdminAccountsResponse,
@@ -25,13 +25,13 @@ export const getArtistAccounts = async (page: number, size: number) => {
 
 /* 어드민 대시보드 카드 내용 */
 export const getAdminDashboardCards = async (month: string) => {
-  const response = await getRequest<IGetAdminDashboardResponse>(`/admin/dashboard?monthly=${convertToYearMonthFormat(month)}`);
+  const response = await getRequest<IGetAdminDashboardResponse>(`/admin/dashboard?monthly=${convertYearMonthToQuery(month)}`);
   return response;
 };
 
 /* 어드민 대시보드 도넛 차트 내용 */
 export const getAdminDashboardDoughnut = async (month: string, rank: number) => {
-  const response = await getRequest<IGetAdminEarningsTopArtistResponse>(`/admin/dashboard/artist?monthly=${convertToYearMonthFormat(month)}&rank=${rank}`);
+  const response = await getRequest<IGetAdminEarningsTopArtistResponse>(`/admin/dashboard/artist?monthly=${convertYearMonthToQuery(month)}&rank=${rank}`);
   return response;
 };
 
@@ -45,14 +45,14 @@ export const getAdminDashboardTable = async (
   keyword: string | null,
 ) => {
   const response = await getRequest<IGetAdminTrackTransactionResponse>(
-    `/admin/dashboard/track?monthly=${convertToYearMonthFormat(month)}&page=${page}&size=${size}&sortBy=${sortBy}&searchBy=${searchBy}&keyword=${keyword ?? ""}`,
+    `/admin/dashboard/track?monthly=${convertYearMonthToQuery(month)}&page=${page}&size=${size}&sortBy=${sortBy}&searchBy=${searchBy}&keyword=${keyword ?? ""}`,
   );
   return response;
 };
 
 /* 어드민 대시보드 막대 차트 내용 */
 export const getAdminDashboardBar = async (startDate: string, endDate: string) => {
-  const response = await getRequest<IGetAdminMonthlyTrendsResponse>(`/admin/dashboard/trend?startDate=${convertToYearMonthFormat(startDate)}&endDate=${convertToYearMonthFormat(endDate)}`);
+  const response = await getRequest<IGetAdminMonthlyTrendsResponse>(`/admin/dashboard/trend?startDate=${convertYearMonthToQuery(startDate)}&endDate=${convertYearMonthToQuery(endDate)}`);
   return response;
 };
 
