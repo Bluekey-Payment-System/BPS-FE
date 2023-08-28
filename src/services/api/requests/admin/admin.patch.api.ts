@@ -5,12 +5,12 @@ export const patchAdminProfile = async (
   patchData: IPatchAdminProfileData,
 ) => {
   const formData = new FormData();
-  const dataList: { [key : string]: string } = {};
+  const dataList: { [key : string]: string | null } = {};
 
   Object.entries(patchData).forEach((item) => {
     const [key, value] = item;
     if (key === "file") {
-      formData.append("file", key);
+      formData.append("file", value ?? "");
     }
     dataList[key] = value;
   });

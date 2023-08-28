@@ -42,7 +42,7 @@ export interface IGetArtistAccountsResponse {
 }
 
 export type IPatchAdminProfileData = AtLeastOne<{
-  file: string,
+  file: string | null,
   nickname: string,
   email: string,
 }>;

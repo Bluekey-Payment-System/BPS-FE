@@ -1,12 +1,15 @@
 import {
   IAlbumCard,
   IArtist,
+  IArtistAccount,
   IArtistDashboardCard,
   IArtistList,
   IBarMonthlySettlement,
   IDoughnutTrackRevenue,
   ITrackTransaction,
 } from "@/types/dto";
+
+import { AtLeastOne } from "./global";
 
 export interface IGetArtistsResponse {
   totalItems: number,
@@ -50,3 +53,12 @@ export interface IGetArtistProfileResponse {
 export interface IPostArtistResponse extends IGetArtistProfileResponse {
   commissionRate: number | null
 }
+
+export interface IPatchArtistProfileForAdminResponse extends IArtistAccount {
+}
+
+export type IPatchArtistProfileForAdminRequest = AtLeastOne<{
+  name: string,
+  enName: string,
+  commissionRate: number | null,
+}>;

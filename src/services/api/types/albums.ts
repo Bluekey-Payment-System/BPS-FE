@@ -39,7 +39,7 @@ export interface IDeleteAlbumResponse extends IAlbumCard {
 }
 
 export type IPatchAlbumData = AtLeastOne<{
-  file: string,
+  file: string | null,
   name: string,
   enName: string,
   memberId: number | null
