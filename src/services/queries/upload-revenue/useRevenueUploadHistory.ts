@@ -3,7 +3,7 @@ import {
 } from "@tanstack/react-query";
 
 import useToast from "@/hooks/useToast";
-import { IGETTransactionUploadResponse } from "@/services/api/types/transaction";
+import { IGetTransactionUploadResponse } from "@/services/api/types/transaction";
 import { deleteRevenueUploadHistory, getRevenueUploadHistory, postRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
@@ -11,12 +11,9 @@ import { MEMBER_TYPE } from "@/types/enums/user.enum";
 const useUploadHistoryGet = (month: string) => {
   const {
     data: revenueUploadHistory, isLoading, isError, isFetching,
-  }: UseQueryResult<IGETTransactionUploadResponse> = useQuery(
+  }: UseQueryResult<IGetTransactionUploadResponse> = useQuery(
     [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
     () => { return getRevenueUploadHistory(month); },
-    {
-      staleTime: Infinity,
-    },
   );
 
   return ({

@@ -20,7 +20,6 @@ const useAccounts = (artistPage: number, adminPage: number) => {
     // -> BE에 account api 분리 요청 중..
     [MEMBER_TYPE.ADMIN, "manage-accounts"],
     () => { return getAccounts(artistPage, adminPage); },
-    { staleTime: 5000 },
   );
 
   return {

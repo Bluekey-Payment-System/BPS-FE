@@ -82,6 +82,7 @@ export interface ITrackInfo {
   enTrackName: string,
   bluekeyOriginalTrack: boolean,
   participants: {
+    memberId: number,
     koArtistName: string,
     enArtistName: string,
     commissionRate: number | null
@@ -102,7 +103,8 @@ export interface IAlbumInfo {
 export interface IAlbumCard {
   albumId: number,
   albumImage: string,
-  koAlbumName: string
+  koAlbumName: string,
+  enName: string
 }
 
 // 대시보드 카드 관련

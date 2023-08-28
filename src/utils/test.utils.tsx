@@ -29,7 +29,7 @@ const renderWithProviders = (
       // eslint-disable-next-line no-console
       log: console.log,
       warn: console.warn,
-      error: () => {},
+      error: () => { },
     },
     defaultOptions: {
       queries: {
