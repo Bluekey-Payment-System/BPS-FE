@@ -76,17 +76,18 @@ export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차�
 }
 
 // Info 관련
+export interface ITrackParticipantInfo {
+  memberId: number,
+  name: string,
+  commissionRate: number | null
+}
+
 export interface ITrackInfo {
   trackId: number
   koTrackName: string,
   enTrackName: string,
   bluekeyOriginalTrack: boolean,
-  participants: {
-    memberId: number,
-    koArtistName: string,
-    enArtistName: string,
-    commissionRate: number | null
-  }[]
+  participants: ITrackParticipantInfo[],
 }
 
 // /api/v1/albums/{albumId}

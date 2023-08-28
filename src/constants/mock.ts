@@ -86,14 +86,12 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
         {
           memberId: 1,
-          koArtistName: "아이유",
-          enArtistName: "IU",
+          name: "아이유",
           commissionRate: 50,
         },
       ],
@@ -106,8 +104,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
       ],
@@ -120,14 +117,12 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
         {
           memberId: 1,
-          koArtistName: "승희",
-          enArtistName: "Seunghee",
+          name: "승희",
           commissionRate: 30,
         },
       ],
@@ -140,8 +135,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
       ],
@@ -154,8 +148,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
       ],
@@ -168,14 +161,12 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
         {
           memberId: 1,
-          koArtistName: "승희",
-          enArtistName: "Seunghee",
+          name: "승희",
           commissionRate: 30,
         },
       ],
@@ -188,8 +179,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
       ],
@@ -202,8 +192,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
       ],
@@ -216,14 +205,12 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
         {
           memberId: 1,
-          koArtistName: "승희",
-          enArtistName: "Seunghee",
+          name: "승희",
           commissionRate: 30,
         },
       ],
@@ -236,8 +223,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
       ],
@@ -250,8 +236,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
       ],
@@ -264,14 +249,12 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
         {
           memberId: 1,
-          koArtistName: "승희",
-          enArtistName: "Seunghee",
+          name: "승희",
           commissionRate: 30,
         },
       ],
@@ -284,8 +267,7 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       participants: [
         {
           memberId: 1,
-          koArtistName: "아린",
-          enArtistName: "Arin",
+          name: "아린",
           commissionRate: 50,
         },
       ],
