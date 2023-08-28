@@ -1,19 +1,16 @@
-import { ITrackParticipantInfo } from "@/types/dto";
-
-import { IPostTrackData, IPostTrackResponse } from "../../types/tracks";
+import { IPostTrackRequest, IPostTrackResponse } from "../../types/tracks";
 import { postRequest } from "../requests.api";
 
 /* 앨범의 트랙 등록 */
 export const postTrack = async (
   albumId: number,
-  trackKoName: string,
-  trackEnName: string,
-  isOriginalTrack: boolean,
-  artists: ITrackParticipantInfo[],
+  {
+    name, enName, isOriginalTrack, artists,
+  }: IPostTrackRequest,
 ) => {
-  const response = postRequest<IPostTrackResponse, IPostTrackData>(`albums/${albumId}`, {
-    name: trackKoName,
-    enName: trackEnName,
+  const response = postRequest<IPostTrackResponse, IPostTrackRequest>(`albums/${albumId}`, {
+    name,
+    enName,
     isOriginalTrack,
     artists,
   });

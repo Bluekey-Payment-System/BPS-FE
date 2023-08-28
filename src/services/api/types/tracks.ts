@@ -1,5 +1,7 @@
 import { ITrackInfo, ITrackParticipantInfo } from "@/types/dto";
 
+import { AtLeastOne } from "./global";
+
 export interface IDeleteTrackResponse {
   trackId: number,
 }
@@ -8,7 +10,7 @@ export interface IPostTrackResponse extends ITrackInfo {
   albumId: number,
 }
 
-export interface IPostTrackData {
+export interface IPostTrackRequest {
   name: string,
   enName: string,
   isOriginalTrack: boolean,
@@ -18,5 +20,4 @@ export interface IPostTrackData {
 export interface IPatchTrackResponse extends IPostTrackResponse {
 }
 
-export interface IPatchTrackData extends IPostTrackData {
-}
+export type IPatchTrackRequest = AtLeastOne<IPostTrackRequest>;
