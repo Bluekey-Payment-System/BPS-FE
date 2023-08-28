@@ -37,3 +37,16 @@ export interface IGetArtistAlbumsResponse {
 export interface IGetArtistsSimpleResponse {
   artists: IArtist[]
 }
+
+export interface IGetArtistProfileResponse {
+  memberId: number,
+  name: string,
+  enName: string,
+  loginId: string,
+  email: string,
+  profileImage: string
+}
+
+export interface IPostArtistResponse extends IGetArtistProfileResponse {
+  commissionRate: number | null
+}
