@@ -7,3 +7,6 @@ export interface IGetTransactionUploadResponse {
 
 export interface IPostTransactionUploadResponse extends ITransactionUpload {
 }
+
+export interface IDeleteTransactionUploadResponse extends ITransactionUpload {
+}
