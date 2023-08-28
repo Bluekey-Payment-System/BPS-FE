@@ -1,4 +1,6 @@
 /* eslint-disable max-len */
+import { ParsedUrlQuery } from "querystring";
+
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -69,14 +71,19 @@ const AlbumDashboardPage = ({ month, albumId }: InferGetServerSidePropsType<GetS
   );
 };
 
+interface AlbumDashboardPageQuery extends ParsedUrlQuery {
+  month: string,
+  albumId: string
+}
+
 // eslint-disable-next-line @typescript-eslint/require-await
 const getServerSideProps: GetServerSideProps<AlbumDashboardPageProps> = async ({ query }) => {
-  const { month, albumId } = query;
+  const { month, albumId } = query as AlbumDashboardPageQuery;
 
   return {
     props: {
-      month: month as string,
-      albumId: albumId as string,
+      month,
+      albumId,
     },
   };
 };
