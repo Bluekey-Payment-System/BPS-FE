@@ -73,6 +73,18 @@
 
           gap: 32px;
           width: 728px;
+
+          .dropdownContainer {
+            z-index: 10;
+            width: 100%;
+
+            & > span {
+              @include typo(14);
+
+              display: inline-block;
+              margin-bottom: 10px;
+            }
+          }
         }
       }
     }

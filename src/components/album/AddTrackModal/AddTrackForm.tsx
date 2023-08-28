@@ -1,13 +1,17 @@
+import { ChangeEvent } from "react";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
 
 import Button from "@/components/common/CommonBtns/Button/Button";
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
+import Dropdown from "@/components/common/Dropdown/Dropdown";
+import { IHasSearchBarData } from "@/components/common/Dropdown/Dropdown.type";
 import Checkbox from "@/components/common/Inputs/Checkbox/Checkbox";
 import TextField from "@/components/common/Inputs/TextField/TextField";
 import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/TextFieldWithUnit";
 import Spacing from "@/components/common/Layouts/Spacing";
+import { DROPDOWN_ARTIST_LIST } from "@/constants/artists";
 import useAddAlbumTrack from "@/services/queries/albums/useAddAlbumTrack";
 import { ITrackFieldValues } from "@/types/album.types";
 import { IAlbumInfo } from "@/types/dto";
@@ -23,8 +27,9 @@ interface AddTrackFormProps {
 
 const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
   const {
-    register, formState: { errors }, handleSubmit, control, watch,
+    register, formState: { errors }, handleSubmit, control, watch, setValue,
   } = useForm<ITrackFieldValues>({
+    mode: "onBlur",
     defaultValues: {
       artists: [{ name: "", memberId: 1 }],
     },
@@ -38,10 +43,13 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
   const { mutateAsync, isLoading, isError } = useAddAlbumTrack(albumInfo.albumId);
   const onSubmit: SubmitHandler<ITrackFieldValues> = async (data) => {
     await mutateAsync(data);
+    // eslint-disable-next-line no-console
+    console.log(data);
     if (!isError) {
       onClose();
     }
   };
+
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form className={cx("container")} onSubmit={handleSubmit(onSubmit)}>
@@ -84,18 +92,46 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
               return (
                 <li key={field.id} className={cx("artistInputRow")}>
                   <div>
-                    <TextField
-                      label="아티스트명"
-                      {...register(`artists.${index}.name`)}
-                      placeholder="아티스트를 입력해주세요"
-                      errors={errors}
-                    />
+                    <div className={cx("dropdownContainer")}>
+                      <span>대표 아티스트</span>
+                      <Dropdown<IHasSearchBarData>
+                        hasSearchBar
+                        dropdownListData={DROPDOWN_ARTIST_LIST}
+                        onClick={(value) => {
+                          setValue(`artists.${index}.memberId`, value.id);
+                          setValue(`artists.${index}.name`, value.name);
+                        }}
+                      />
+                      <input {...register(`artists.${index}.memberId`)} type="hidden" />
+                      <input {...register(`artists.${index}.name`)} type="hidden" />
+                      <Spacing size={14} />
+                    </div>
                     <TextFieldWithUnit
                       label="요율"
-                      {...register(`artists.${index}.commissionRate`)}
-                      placeholder="영문 트랙명을 입력해주세요"
+                      {...register(`artists.${index}.commissionRate`, {
+                        setValueAs: (v: string) => {
+                          const val = parseInt(v, 10);
+                          return Number.isNaN(val) ? null : val;
+                        },
+                        onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                          const val = parseInt(e.target.value.replace(/\D/g, ""), 10);
+                          setValue(`artists.${index}.commissionRate`, Number.isNaN(val) ? null : val);
+                        },
+                        min: {
+                          value: 0,
+                          message: "*0~100 사이의 값을 입력하세요.",
+                        },
+                        max: {
+                          value: 100,
+                          message: "*0~100 사이의 값을 입력하세요.",
+                        },
+                      })}
+                      placeholder={watch("originalTrack") === true ? "블루키 오리지널 트랙은 요율을 설정할 수 없습니다." : "요율을 입력하세요."}
                       disabled={watch("originalTrack") === true}
                       errors={errors}
+                      inputMode="numeric"
+                      max={100}
+                      step={10}
                       unit="%"
                     />
                   </div>
