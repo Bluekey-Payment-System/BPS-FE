@@ -14,3 +14,9 @@ export interface IPostTrackData {
   isOriginalTrack: boolean,
   artists: ITrackParticipantInfo[],
 }
+
+export interface IPatchTrackResponse extends IPostTrackResponse {
+}
+
+export interface IPatchTrackData extends IPostTrackData {
+}
