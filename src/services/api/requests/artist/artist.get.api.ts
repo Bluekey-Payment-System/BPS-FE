@@ -56,7 +56,7 @@ export const getArtistDashboardCards = async (month: string, memberId: number) =
 
 /* 아티스트 대시보드 도넛 차트 내용 */
 export const getArtistDashboardDoughnut = async (month: string, rank: number, memberId: number) => {
-  const response = await getRequest<IGetArtistEarningsTopTrackResponse>(`/artists/${memberId}/dashboard/topTrack?monthly=${convertYearMonthToQuery(month)}&rank=${rank}`);
+  const response = await getRequest<IGetArtistEarningsTopTrackResponse>(`/artists/${memberId}/dashboard/top-track?monthly=${convertYearMonthToQuery(month)}&rank=${rank}`);
   return response;
 };
 

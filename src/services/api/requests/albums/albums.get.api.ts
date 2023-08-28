@@ -36,7 +36,7 @@ export const getAlbumDashboardCards = async (albumId: number, month: string) => 
 
 /* 앨범의 당월 매출 Top N 트랙 리스트 정보 */
 export const getAlbumDashboardDoughnut = async (albumId: number, month: string, rank: number) => {
-  const response = getRequest<IGetAlbumRevenueTopTrackResponse>(`/albums/${albumId}/dashboard/topTrack?monthly=${convertYearMonthToQuery(month)}&rank=${rank}`);
+  const response = getRequest<IGetAlbumRevenueTopTrackResponse>(`/albums/${albumId}/dashboard/top-track?monthly=${convertYearMonthToQuery(month)}&rank=${rank}`);
   return response;
 };
 
