@@ -38,8 +38,11 @@ export interface IGetArtistAlbumsResponse {
   contents: IAlbumCard[]
 }
 
+interface IDropdownArtist extends IArtist {
+  commissionRate: number | null
+}
 export interface IGetArtistsSimpleResponse {
-  artists: IArtist[]
+  artists: IDropdownArtist[]
 }
 
 export type IPostArtistData = {
