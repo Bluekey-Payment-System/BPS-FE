@@ -32,3 +32,6 @@ export interface IGetAlbumRevenueTopTrackResponse {
 
 export interface IPostAlbumResponse extends IAlbumCard {
 }
+
+export interface IDeleteAlbumResponse extends IAlbumCard {
+}
