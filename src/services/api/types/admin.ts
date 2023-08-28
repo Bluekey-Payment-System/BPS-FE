@@ -6,7 +6,10 @@ import {
   IBarMonthlySettlement,
   IAdminAccount,
   IArtistAccount,
+  IAdminProfile,
 } from "@/types/dto";
+
+import { AtLeastOne } from "./global";
 
 export interface IGetAdminDashboardResponse extends IAdminDashboardCard {
 }
@@ -36,4 +39,13 @@ export interface IGetAdminAccountsResponse {
 export interface IGetArtistAccountsResponse {
   totalItems: number,
   contents: IArtistAccount[]
+}
+
+export type IPatchAdminProfileData = AtLeastOne<{
+  file: string,
+  nickname: string,
+  email: string,
+}>;
+
+export interface IPatchAdminProfileResponse extends Omit<IAdminProfile, "type"> {
 }
