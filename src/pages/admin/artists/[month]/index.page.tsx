@@ -16,16 +16,16 @@ import convertPageParamToNum from "@/utils/convertPageParamToNum";
 import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 import updateQueryParam from "@/utils/updateQueryParam";
 
-interface ServerSidePageProps {
+interface ArtistsStatusPageProps {
   month: string,
   page: number,
   keyword: string | null,
 }
 
 const ArtistsStatusPage = (
-  query: InferGetServerSidePropsType<GetServerSideProps<ServerSidePageProps>>,
+  query: InferGetServerSidePropsType<GetServerSideProps<ArtistsStatusPageProps>>,
 ) => {
-  const { month, page, keyword }: ServerSidePageProps = query;
+  const { month, page, keyword }: ArtistsStatusPageProps = query;
   const [searchKeyword, setSearchKeyword] = useState<string>(keyword || "");
   const {
     artistsStatus, isLoading, isError, isFetching,
@@ -80,15 +80,15 @@ const ArtistsStatusPage = (
   );
 };
 
-interface ServerSidePageQuery extends ParsedUrlQuery {
+interface ArtistsStatusPageQuery extends ParsedUrlQuery {
   month: string,
   page?: string,
   keyword?: string,
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
-const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { month, page, keyword } = query as ServerSidePageQuery;
+const getServerSideProps: GetServerSideProps<ArtistsStatusPageProps> = async ({ query }) => {
+  const { month, page, keyword } = query as ArtistsStatusPageQuery;
 
   return {
     props: {
