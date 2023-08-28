@@ -7,6 +7,8 @@ import {
   ILineTrackSettlementTrends,
 } from "@/types/dto";
 
+import { AtLeastOne } from "./global";
+
 export interface IGetAlbumsResponse {
   totalItems: number,
   contents: IAlbumCard[]
@@ -34,4 +36,14 @@ export interface IPostAlbumResponse extends IAlbumCard {
 }
 
 export interface IDeleteAlbumResponse extends IAlbumCard {
+}
+
+export type IPatchAlbumData = AtLeastOne<{
+  file: string,
+  name: string,
+  enName: string,
+  memberId: number | null
+}>;
+
+export interface IPatchAlbumResponse extends IAlbumCard {
 }
