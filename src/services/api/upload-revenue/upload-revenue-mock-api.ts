@@ -1,9 +1,9 @@
 import { MOCK_TRANSACTION_UPLOAD } from "@/constants/mock";
 
-import { IGETTransactionUploadResponse } from "../types/transaction";
+import { IGetTransactionUploadResponse } from "../types/transaction";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getRevenueUploadHistory = (month: string): Promise<IGETTransactionUploadResponse> => {
+const getRevenueUploadHistory = (month: string): Promise<IGetTransactionUploadResponse> => {
   // TODO: (GET) 정산 업로드 내역 가져오기
   return new Promise((resolve) => {
     setTimeout(() => {

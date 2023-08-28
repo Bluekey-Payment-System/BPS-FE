@@ -10,9 +10,6 @@ const useArtistsStatus = (month: string, page: number, keyword: string | null) =
   } = useQuery(
     [MEMBER_TYPE.ADMIN, "artists-status", month, `page=${page}`, `keyword=${keyword}`],
     () => { return getArtistsStatus(page, ITEMS_PER_ARTISTS_TABLE, month, keyword); },
-    {
-      staleTime: Infinity,
-    },
   );
 
   return {

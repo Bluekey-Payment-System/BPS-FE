@@ -1,8 +1,5 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
-import { useQuery } from "@tanstack/react-query";
-
 import { MOCK_ADMIN_BAR, MOCK_ALBUM_BAR, MOCK_ARTIST_BAR } from "@/constants/mock";
 import { IGetAdminMonthlyEarningsTrendsResponse, IGetArtistMonthlyEarningsTrendsResponse } from "@/services/api/types/admin";
 import { IGetAlbumMonthlySettlementResponse } from "@/services/api/types/albums";
@@ -57,22 +54,3 @@ export const getDashboardTrendsChart = async (
 
   return response;
 };
-
-const useDashboardTrendsChart = (
-  type: DashboardType,
-  month: string,
-  artistId?: string,
-  albumId?: string,
-) => {
-  const { data: trendsChartData, isError: istrendsChartError, isLoading: istrendsChartLoading } = useQuery(
-    [type, "dashboard", "trendsChart"],
-    () => { return getDashboardTrendsChart(type, month, artistId, albumId); },
-
-    { staleTime: 5000 },
-  );
-  return {
-    trendsChartData, istrendsChartError, istrendsChartLoading,
-  };
-};
-
-export default useDashboardTrendsChart;
