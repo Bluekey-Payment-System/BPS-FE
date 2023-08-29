@@ -14,7 +14,6 @@ import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/U
 import { getRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
 import { useUploadHistoryGet } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
-import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 
 interface UploadRevenuePageProps {
   month: string,
@@ -75,13 +74,11 @@ const getServerSideProps: GetServerSideProps<UploadRevenuePageProps> = async ({ 
   // TODO: [month] 값이 없는 url의 경우 에러로 리다이렉트 처리 필요
   const { month } = query as UploadRevenuePageQuery;
 
-  const monthToQueryString = convertYearMonthToQuery(month);
-
   const isCSR = req.url?.startsWith("/_next");
   if (isCSR) {
     return {
       props: {
-        month: monthToQueryString,
+        month,
       },
     };
   }
@@ -89,13 +86,13 @@ const getServerSideProps: GetServerSideProps<UploadRevenuePageProps> = async ({ 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(
     [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
-    () => { return getRevenueUploadHistory(monthToQueryString); },
+    () => { return getRevenueUploadHistory(month); },
   );
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      month: monthToQueryString,
+      month,
     },
   };
 };
