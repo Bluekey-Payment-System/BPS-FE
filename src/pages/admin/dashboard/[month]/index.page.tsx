@@ -84,8 +84,8 @@ export const getServerSideProps: GetServerSideProps<AdminDashboardPageProps> = a
   } = query as AdminDashboardPageQuery;
 
   const pageNum = convertPageParamToNum(page || null);
-  const sortByString = sortBy || "createdAt";
-  const searchByString = searchBy || "TRACK";
+  const sortByString = sortBy || "";
+  const searchByString = searchBy || "trackName";
   const keywordString = keyword || "";
 
   const isCSR = req.url?.startsWith("/_next");
