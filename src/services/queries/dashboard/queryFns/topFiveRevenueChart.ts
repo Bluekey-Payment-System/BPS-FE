@@ -6,7 +6,7 @@ import { IGetAlbumRevenueTopTrackResponse } from "@/services/api/types/albums";
 import { IGetArtistEarningsTopTrackResponse } from "@/services/api/types/artist";
 import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
 
-const getAdminDashboardTopFiveRevenueChart = (month: string): Promise<IGetAdminEarningsTopArtistResponse> => {
+const getAdminDashboardTopFiveRevenueChart = (month: string, rank: number): Promise<IGetAdminEarningsTopArtistResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       return resolve(MOCK_ADMIN_DOUGHNUT);
@@ -14,7 +14,7 @@ const getAdminDashboardTopFiveRevenueChart = (month: string): Promise<IGetAdminE
   });
 };
 
-const getArtistDashboardTopFiveRevenueChart = (month: string, artistId?: string): Promise<IGetArtistEarningsTopTrackResponse> => {
+const getArtistDashboardTopFiveRevenueChart = (month: string, rank: number, artistId?: string): Promise<IGetArtistEarningsTopTrackResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       return resolve(MOCK_ARTIST_DOUGHNUT);
@@ -22,7 +22,7 @@ const getArtistDashboardTopFiveRevenueChart = (month: string, artistId?: string)
   });
 };
 
-const getAlbumDashboardTopFiveRevenueChart = (month: string, albumId?: string): Promise<IGetAlbumRevenueTopTrackResponse> => {
+const getAlbumDashboardTopFiveRevenueChart = (month: string, rank: number, albumId?: string): Promise<IGetAlbumRevenueTopTrackResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       return resolve(MOCK_ALBUM_DOUGHNUT);
@@ -33,19 +33,20 @@ const getAlbumDashboardTopFiveRevenueChart = (month: string, albumId?: string): 
 export const getDashboardTopFiveRevenueChart = async (
   type: DashboardType,
   month: string,
+  rank: number = 5,
   artistId?: string,
   albumId?: string,
 ) => {
   let response;
   switch (type) {
     case DASHBOARD_TYPE.ADMIN:
-      response = await getAdminDashboardTopFiveRevenueChart(month);
+      response = await getAdminDashboardTopFiveRevenueChart(month, rank);
       break;
     case DASHBOARD_TYPE.ARTIST:
-      response = await getArtistDashboardTopFiveRevenueChart(month, artistId);
+      response = await getArtistDashboardTopFiveRevenueChart(month, rank, artistId);
       break;
     case DASHBOARD_TYPE.ALBUM:
-      response = await getAlbumDashboardTopFiveRevenueChart(month, albumId);
+      response = await getAlbumDashboardTopFiveRevenueChart(month, rank, albumId);
       break;
     default:
       response = {} as IGetAdminEarningsTopArtistResponse | IGetArtistEarningsTopTrackResponse | IGetAlbumRevenueTopTrackResponse;

@@ -1,5 +1,3 @@
-import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
-
 import {
   IGetArtistAlbumsResponse,
   IGetArtistDashboardResponse,
@@ -20,7 +18,7 @@ export const getArtistsStatus = async (
   keyword: string | null,
 ) => {
   const response = await getRequest<IGetArtistsResponse>(
-    `/artists?page=${page}&size=${size}&monthly=${convertYearMonthToQuery(month)}&keyword=${keyword ?? ""}`,
+    `/artists?page=${page - 1}&size=${size}&monthly=${month}&keyword=${keyword ?? ""}`,
   );
   return response;
 };
@@ -33,7 +31,7 @@ export const getArtistAlbums = async (
   memberId: number,
 ) => {
   const response = await getRequest<IGetArtistAlbumsResponse>(
-    `/artists/${memberId}/albums?page=${page}&size=${size}&keyword=${keyword ?? ""}`,
+    `/artists/${memberId}/albums?page=${page - 1}&size=${size}&keyword=${keyword ?? ""}`,
   );
   return response;
 };
@@ -44,19 +42,19 @@ export const getArtistDashboardBar = async (
   endDate: string,
   memberId: number,
 ) => {
-  const response = await getRequest<IGetArtistMonthlyTrendsResponse>(`/artists/${memberId}/dashboard?startDate=${convertYearMonthToQuery(startDate)}&endDate=${convertYearMonthToQuery(endDate)}`);
+  const response = await getRequest<IGetArtistMonthlyTrendsResponse>(`/artists/${memberId}/dashboard?startDate=${startDate}&endDate=${endDate}`);
   return response;
 };
 
 /* 아티스트 대시보드 카드 내용 */
 export const getArtistDashboardCards = async (month: string, memberId: number) => {
-  const response = await getRequest<IGetArtistDashboardResponse>(`/artists/${memberId}/dashboard/summary?monthly=${convertYearMonthToQuery(month)}`);
+  const response = await getRequest<IGetArtistDashboardResponse>(`/artists/${memberId}/dashboard/summary?monthly=${month}`);
   return response;
 };
 
 /* 아티스트 대시보드 도넛 차트 내용 */
 export const getArtistDashboardDoughnut = async (month: string, rank: number, memberId: number) => {
-  const response = await getRequest<IGetArtistEarningsTopTrackResponse>(`/artists/${memberId}/dashboard/top-track?monthly=${convertYearMonthToQuery(month)}&rank=${rank}`);
+  const response = await getRequest<IGetArtistEarningsTopTrackResponse>(`/artists/${memberId}/dashboard/top-track?monthly=${month}&rank=${rank}`);
   return response;
 };
 
@@ -71,7 +69,7 @@ export const getArtistDashboardTable = async (
   memberId: number,
 ) => {
   const response = await getRequest<IGetArtistTrackTransactionResponse>(
-    `/artists/${memberId}/dashboard/track?monthly=${convertYearMonthToQuery(month)}&page=${page}&size=${size}&sortBy=${sortBy ?? ""}&searchBy=${searchBy}&keyword=${keyword ?? ""}`,
+    `/artists/${memberId}/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy ?? ""}&searchBy=${searchBy}&keyword=${keyword ?? ""}`,
   );
   return response;
 };
