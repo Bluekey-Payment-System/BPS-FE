@@ -13,7 +13,7 @@ const middleware = (request: NextRequest) => {
   }
 
   if (!token && pathname !== "/admin/signin" && pathname !== "/signin") {
-    return NextResponse.rewrite(new URL("/signin", request.url));
+    return NextResponse.redirect(new URL("/signin", request.url));
   }
 
   return NextResponse.next();
