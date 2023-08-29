@@ -49,7 +49,7 @@ export const isActive = (currentPath: string, targetPath: string | string[]) => 
   }
 
   // 나머지
-  return currentPath === targetPath;
+  return currentPath.split("?")[0] === targetPath;
 };
 
 export const isAlbumExplorer = (currentPath: string, targetPath: string | string[]) => {
