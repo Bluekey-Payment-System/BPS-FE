@@ -12,12 +12,8 @@ const middleware = (request: NextRequest) => {
     token = cookie.value;
   }
 
-  if (pathname === "/admin/signin" || pathname.startsWith("/admin/dashboard")) {
-    return NextResponse.next();
-  }
-
-  if (!pathname.includes("/sign") && !token) {
-    return NextResponse.redirect(new URL("/signin", request.url));
+  if (!token && pathname !== "/admin/signin" && pathname !== "/signin") {
+    return NextResponse.rewrite(new URL("/signin", request.url));
   }
 
   return NextResponse.next();

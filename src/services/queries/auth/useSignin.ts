@@ -31,6 +31,7 @@ const useAdminSignin = () => {
       onSuccess: (data) => {
         setCookie("token", data.jwtInformation.accessToken, {
           maxAge: 900000,
+          path: "/",
           // secure: true,
           // httpOnly: true,
         });

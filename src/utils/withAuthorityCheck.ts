@@ -1,4 +1,3 @@
-// middlewares/withHeaders.ts
 import {
   NextFetchEvent, NextMiddleware, NextRequest, NextResponse,
 } from "next/server";
@@ -23,12 +22,12 @@ export const withAuthorityCheck: MiddlewareFactory = (next: NextMiddleware) => {
             Authorization: `Bearer ${token}`,
           },
         });
-
         if (response.status !== 200) {
-          return NextResponse.redirect(new URL("/signin", request.url));
+          return NextResponse.redirect(new URL("/404", request.url));
         }
+        // eslint-disable-next-line no-empty
       } catch (error) {
-        console.error("Network error:", error);
+        return NextResponse.redirect(new URL("/404", request.url));
       }
     }
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   AnyAction,
   Action,
@@ -12,7 +13,7 @@ import { HYDRATE, createWrapper } from "next-redux-wrapper";
 import {
   persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
 } from "redux-persist";
-import storageSession from "redux-persist/lib/storage/session";
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
 import alertModalReducer, { IAlertModalState } from "@/redux/slices/alertModalSlice";
 import toastReducer, { IToastState } from "@/redux/slices/toastSlice";
@@ -23,6 +24,24 @@ export interface IState {
   user: IUserState;
   alertModal: IAlertModalState;
 }
+
+const createNoopStorage = () => {
+  return {
+    getItem(key: string) {
+      return Promise.resolve(null);
+    },
+    setItem(key: string) {
+      return Promise.resolve();
+    },
+    removeItem(key: string) {
+      return Promise.resolve();
+    },
+  };
+};
+
+const storage = typeof window === "undefined"
+  ? createNoopStorage()
+  : createWebStorage("session");
 
 const rootReducer = (state: IState | undefined, action: AnyAction): IState => {
   switch (action.type) {
@@ -42,7 +61,7 @@ const rootReducer = (state: IState | undefined, action: AnyAction): IState => {
 
 const persistConfig = {
   key: "root",
-  storage: storageSession,
+  storage,
   whitelist: ["user"],
 };
 
