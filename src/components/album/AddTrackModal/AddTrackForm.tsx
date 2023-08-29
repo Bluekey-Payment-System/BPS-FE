@@ -66,11 +66,13 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
         <Checkbox
           label="블루키 오리지널 트랙"
           {...register("originalTrack", {
-            onChange: (e: ChangeEvent<HTMLInputElement>) => {
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onChange: async (e: ChangeEvent<HTMLInputElement>) => {
               if (e.target.checked) {
                 fields.forEach((_, index) => {
                   setValue(`artists.${index}.commissionRate`, null);
                 });
+                await trigger(fields.map((_, idx) => { return `artists.${idx}.commissionRate` as const; }));
               }
             },
           })}
@@ -120,9 +122,13 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                       ? (
                         <TextField
                           label="아티스트"
-                          {...register(`artists.${index}.name`)}
+                          {...register(`artists.${index}.name`, {
+                            required: "*아티스트명을 입력하세요.",
+                          })}
                           placeholder="아티스트명을 입력하세요."
-                          errors={{}}
+                          errors={errors}
+                          isError={!!errors.artists?.[index]?.name}
+                          bottomText={errors.artists?.[index]?.name?.message}
                         />
                       )
                       : (
@@ -145,10 +151,12 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                             type="hidden"
                           />
                           <input {...register(`artists.${index}.name`)} type="hidden" />
-                          <span className={cx("dropdownError")}>{errors.artists?.[index]?.memberId?.message ?? ""}</span>
+                          <span className={cx("dropdownError")}>
+                            {errors.artists?.[index]?.memberId?.message
+                            ?? errors.artists?.[index]?.name?.message ?? ""}
+                          </span>
                         </div>
                       )}
-
                     <TextFieldWithUnit
                       label="요율"
                       {...register(`artists.${index}.commissionRate`, {
