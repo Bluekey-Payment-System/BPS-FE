@@ -1,3 +1,6 @@
+import classNames from "classnames/bind";
+
+import ModalTooltipRoot from "@/components/common/Tooltip/ModalTooltip";
 import { ITransactionUploadAlert } from "@/types/dto";
 
 import TableBodyUI from "../../common/Table/Composition/TableBodyUI";
@@ -5,6 +8,8 @@ import TableCellUI from "../../common/Table/Composition/TableCellUI";
 import TableContainerUI from "../../common/Table/Composition/TableContainerUI";
 import TableHeaderUI from "../../common/Table/Composition/TableHeaderUI";
 import TableRowUI from "../../common/Table/Composition/TableRowUI";
+
+import styles from "./AlertDataTable.module.scss";
 
 const MOCK_WARNINGS = [
   {
@@ -20,7 +25,7 @@ const MOCK_WARNINGS = [
     rowIndex: 2,
     columnIndex: 2,
     columnName: "앨범명",
-    cellValue: "0.0",
+    cellValue: "ㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇ",
     type: "NULL_CELL",
     severity: "string",
     message: "값이 비어 있는 셀입니다.",
@@ -45,6 +50,8 @@ const MOCK_WARNINGS = [
   },
 ];
 
+const cx = classNames.bind(styles);
+
 const AlertDataTable = ({ data = MOCK_WARNINGS }: { data?: ITransactionUploadAlert[] }) => {
   return (
     <div>
@@ -65,7 +72,13 @@ const AlertDataTable = ({ data = MOCK_WARNINGS }: { data?: ITransactionUploadAle
               <TableRowUI key={`${item.columnIndex}${item.rowIndex}`}>
                 <TableCellUI>{item.columnIndex}</TableCellUI>
                 <TableCellUI>{item.columnName}</TableCellUI>
-                <TableCellUI>{item.cellValue}</TableCellUI>
+                <TableCellUI>
+                  <ModalTooltipRoot message={item.cellValue}>
+                    <p className={cx("ellipsis")}>
+                      {item.cellValue}
+                    </p>
+                  </ModalTooltipRoot>
+                </TableCellUI>
               </TableRowUI>
             );
           })}
