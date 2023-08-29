@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 interface SearchBarProps {
   placeholder: string,
-  onClick: () => void,
+  onClick: (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => void,
   theme?: "withSearchBar"
   value: string
 }
@@ -32,7 +32,7 @@ const SearchBar = (
     <div className={cx("searchBarContainer", theme)}>
       <input className={cx("searchInput", theme)} ref={inputRef} defaultValue={value} placeholder={placeholder} />
       <button type="button" className={cx("searchImage")} onClick={onClick}>
-        <Image src="/images/search-bar.svg" alt="검색" width={13} height={15} onClick={onClick} />
+        <Image src="/images/search-bar.svg" alt="검색" width={13} height={15} />
       </button>
     </div>
   );

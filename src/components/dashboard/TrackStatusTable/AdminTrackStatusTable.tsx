@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useRef } from "react";
@@ -50,7 +51,8 @@ const AdminTrackStatusTable = ({
   };
 
   // preventDefault 없을 시 URL 업데이트 안됨
-  const handleClickSearchBar = () => {
+  const handleClickSearchBar = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     router.push(updateQueryParam(
       router.query,
       "searchBy",

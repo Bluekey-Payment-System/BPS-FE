@@ -40,7 +40,9 @@ const ArtistsStatusPage = (
   if (isError) return <div>에러 발생</div>;
   if (!artistsStatus) return <div>데이터 없음</div>;
 
-  const handleSearchKeyword = () => {
+  // eslint-disable-next-line max-len
+  const handleSearchKeyword = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     if (searchKeywordRef.current) {
       setSearchKeyword(searchKeywordRef.current.value);
       const result = updateQueryParam(router.query, "keyword", searchKeywordRef.current.value, "page", 1);
@@ -57,12 +59,14 @@ const ArtistsStatusPage = (
         <MonthPickerDropdown />
       }
       searchBarElement={(
-        <SearchBar
-          placeholder="검색어를 입력해주세요."
-          onClick={handleSearchKeyword}
-          ref={searchKeywordRef}
-          value={searchKeyword}
-        />
+        <form onSubmit={handleSearchKeyword}>
+          <SearchBar
+            placeholder="검색어를 입력해주세요."
+            onClick={handleSearchKeyword}
+            ref={searchKeywordRef}
+            value={searchKeyword}
+          />
+        </form>
       )}
     >
       <ArtistsStatusTable
