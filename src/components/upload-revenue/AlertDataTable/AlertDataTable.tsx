@@ -14,7 +14,7 @@ import styles from "./AlertDataTable.module.scss";
 
 const cx = classNames.bind(styles);
 
-const AlertDataTable = ({ data }: { data: ITransactionUploadAlert[] }) => {
+const AlertDataTable = ({ data }: { data?: ITransactionUploadAlert[] }) => {
   const { showToast } = useToast();
 
   const handleCopyData = () => {
@@ -34,7 +34,7 @@ const AlertDataTable = ({ data }: { data: ITransactionUploadAlert[] }) => {
           <TableCellUI isHeader>값</TableCellUI>
         </TableHeaderUI>
         <TableBodyUI>
-          {data.map((item) => {
+          {data?.map((item) => {
             return (
               <TableRowUI key={`${item.columnIndex}${item.rowIndex}`}>
                 <TableCellUI>{item.columnIndex}</TableCellUI>

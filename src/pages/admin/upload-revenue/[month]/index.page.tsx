@@ -72,11 +72,6 @@ const UploadRevenuePage = (
       type: "warning",
       alertData: MOCK_WARNINGS,
     });
-    // showAlertModal({
-    //   type: "ERROR",
-    //   title: "비밀번호 오류",
-    //   message: "입력하신 비밀번호와 현재 비밀번호가 일치하지 않습니다.",
-    // });
   };
 
   if (isError) {
