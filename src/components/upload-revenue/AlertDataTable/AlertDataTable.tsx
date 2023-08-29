@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 
 import ModalTooltipRoot from "@/components/common/Tooltip/ModalTooltip";
+import useToast from "@/hooks/useToast";
 import { ITransactionUploadAlert } from "@/types/dto";
 
 import TableBodyUI from "../../common/Table/Composition/TableBodyUI";
@@ -53,9 +54,15 @@ const MOCK_WARNINGS = [
 const cx = classNames.bind(styles);
 
 const AlertDataTable = ({ data = MOCK_WARNINGS }: { data?: ITransactionUploadAlert[] }) => {
+  const { showToast } = useToast();
+
+  const handleCopyData = () => {
+    showToast("복사되었습니다.");
+  };
+
   return (
     <div className={cx("tableContainer")}>
-      <button className={cx("copyButton")} type="button">전체 복사</button>
+      <button className={cx("copyButton")} type="button" onClick={handleCopyData}>전체 복사</button>
       <TableContainerUI
         stickyHeader
         tableHeight={282}
