@@ -8,6 +8,7 @@ import TextField from "@/components/common/Inputs/TextField/TextField";
 import TextFieldWithMaxBytes from "@/components/common/Inputs/TextFieldWithMaxBytes/TextFieldWithMaxBytes";
 import Spacing from "@/components/common/Layouts/Spacing";
 import { IPostAdminSignUpRequest } from "@/services/api/types/auth";
+import useSignup from "@/services/queries/auth/useSignup";
 import getStringBytes from "@/utils/getStringBytes";
 
 import styles from "../SigninForm/SigninForm.module.scss";
@@ -22,11 +23,14 @@ const SignupForm = ({ title }:{ title: string }) => {
   const {
     register, formState: { errors }, handleSubmit, getValues,
   } = useForm<IAdminSignUpFieldValues>({ mode: "onBlur" });
+  const { mutate: signup, isLoading } = useSignup();
   const onSubmit: SubmitHandler<IAdminSignUpFieldValues> = (data) => {
     // TODO: 회원가입 api 뮤테이션 훅 사용
     // TODO: 관리자 권한 승인/거절 기능 추가 후 router.push("/admin/pending")
     // eslint-disable-next-line no-console
     console.log(data);
+    const { "password-confirm": passwordConfirm, ...body } = data;
+    signup(body);
   };
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -120,7 +124,7 @@ const SignupForm = ({ title }:{ title: string }) => {
         placeholder="비밀번호 확인"
       />
       <Spacing size={30} />
-      <Button size="large" theme="dark" type="submit">가입하기</Button>
+      <Button size="large" theme="dark" type="submit">{!isLoading ? "가입하기" : "회원가입 중..."}</Button>
     </form>
   );
 };
