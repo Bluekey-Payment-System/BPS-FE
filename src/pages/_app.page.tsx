@@ -51,12 +51,12 @@ const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState
   };
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={rest.pageProps.dehydratedState}>
-          <Provider store={store}>
-            <PersistGate persistor={persistor} loading={null}>
-              <CookiesProvider>
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={rest.pageProps.dehydratedState}>
+        <Provider store={store}>
+          <PersistGate persistor={persistor} loading={null}>
+            <CookiesProvider>
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
                 <Head>
                   <title>블루키뮤직 정산시스템</title>
                 </Head>
@@ -65,13 +65,13 @@ const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState
                 </main>
                 <ToastRoot />
                 <AlertModalRoot />
-              </CookiesProvider>
-            </PersistGate>
-          </Provider>
-        </Hydrate>
-        <ReactQueryDevtools initialIsOpen />
-      </QueryClientProvider>
-    </ErrorBoundary>
+              </ErrorBoundary>
+            </CookiesProvider>
+          </PersistGate>
+        </Provider>
+      </Hydrate>
+      <ReactQueryDevtools initialIsOpen />
+    </QueryClientProvider>
   );
 };
 
