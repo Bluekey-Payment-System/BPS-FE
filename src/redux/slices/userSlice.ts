@@ -6,18 +6,18 @@ import { IAdminProfile, IArtistProfile } from "@/types/dto";
 
 export type MemberProfile = IArtistProfile | IAdminProfile;
 export interface IUserState {
-  member : MemberProfile
+  member: MemberProfile
 }
 
 const initialState = {
   member: {
-    memberId: 1,
-    email: "hucki@naver.com",
-    loginId: "hucki123",
-    role: "ARTIST",
-    type: "USER",
-    name: "혁기",
-    enName: "hucki",
+    memberId: -1,
+    email: "",
+    loginId: "",
+    role: "",
+    type: "",
+    name: "",
+    enName: "",
     profileImage: null,
   },
 };
