@@ -2,7 +2,7 @@ import { AlertModalProps } from "@/components/common/Modals/AlertModal/AlertModa
 import { useAppDispatch } from "@/redux/hooks";
 import { setShow, setProps } from "@/redux/slices/alertModalSlice";
 
-export interface IUseAlertModalParam extends Omit<AlertModalProps, "open" | "onClose"> {
+export interface IShowAlertModalParam extends Omit<AlertModalProps, "open" | "onClose"> {
   onClose?: () => void;
 }
 /**
@@ -26,10 +26,10 @@ export interface IUseAlertModalParam extends Omit<AlertModalProps, "open" | "onC
   );
  * ```
  */
-const useAlertModal = ({ ...params }: IUseAlertModalParam) => {
+const useAlertModal = () => {
   const dispatch = useAppDispatch();
 
-  const showAlertModal = () => {
+  const showAlertModal = (params: IShowAlertModalParam) => {
     dispatch(setProps(params));
     dispatch(setShow(true));
   };

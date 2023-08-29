@@ -64,11 +64,7 @@ const patchArtistMyProfile = (
 export const useUpdateAdminMyProfileInfo = () => {
   const dispatch = useAppDispatch();
   const { showToast } = useToast();
-  const { showAlertModal } = useAlertModal({
-    type: MODAL_TYPE.ERROR,
-    title: "프로필 수정 에러",
-    message: "알 수 없는 에러가 발생하였습니다. 잠시 후에 다시 시도해주세요.",
-  });
+  const { showAlertModal } = useAlertModal();
   const mutation = useMutation<
   IPatchAdminMyProfileResponse,
   unknown,
@@ -83,7 +79,11 @@ export const useUpdateAdminMyProfileInfo = () => {
         dispatch(setUser(data));
       },
       onError: () => {
-        showAlertModal();
+        showAlertModal({
+          type: MODAL_TYPE.ERROR,
+          title: "프로필 수정 에러",
+          message: "알 수 없는 에러가 발생하였습니다. 잠시 후에 다시 시도해주세요.",
+        });
       },
     },
   );

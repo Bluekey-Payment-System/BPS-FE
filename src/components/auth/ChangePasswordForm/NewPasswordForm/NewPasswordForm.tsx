@@ -20,18 +20,18 @@ const NewPasswordForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const {
     register, formState: { errors }, handleSubmit, getValues,
   } = useForm<INewPasswordFieldValues>({ mode: "onBlur" });
-  const { showAlertModal } = useAlertModal({
-    type: MODAL_TYPE.ERROR,
-    title: "에러 발생",
-    message: `알 수 없는 에러가 발생하였습니다. 
-    잠시 후에 다시 시도해주세요.`,
-  });
+  const { showAlertModal } = useAlertModal();
   const handleClickDone: SubmitHandler<INewPasswordFieldValues> = (data) => {
     // TODO: /api/v1/auth/member/password 로 patch요청 try-catch
     if (data.password === "1234qwer") {
       onSuccess();
     } else {
-      showAlertModal();
+      showAlertModal({
+        type: MODAL_TYPE.ERROR,
+        title: "에러 발생",
+        message: `알 수 없는 에러가 발생하였습니다. 
+        잠시 후에 다시 시도해주세요.`,
+      });
     }
   };
   return (

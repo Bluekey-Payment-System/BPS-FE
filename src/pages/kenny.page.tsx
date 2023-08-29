@@ -14,7 +14,7 @@ import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/Text
 import Modal from "@/components/common/Modals/Modal";
 import AlertModal from "@/components/common/Modals/AlertModal/AlertModal";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
-import useAlertModal, { IUseAlertModalParam } from "@/hooks/useAlertModal";
+import useAlertModal, { IShowAlertModalParam } from "@/hooks/useAlertModal";
 import Button from "@/components/common/CommonBtns/Button/Button";
 import Spacing from "@/components/common/Layouts/Spacing";
 import ImageUploader from "@/components/common/ImageUploader/ImageUploader";
@@ -42,7 +42,7 @@ const KennyPage = () => {
       copy: "복사할내용",
     },
   });
-  const alertModalProps: IUseAlertModalParam = {
+  const alertModalProps: IShowAlertModalParam = {
     type:MODAL_TYPE.CONFIRM,
     title:"로그인 실패", 
     message: "로그인에 실패했습니다. 아이디/비밀번호를 다시 한번 확인해주세요.",
@@ -50,7 +50,7 @@ const KennyPage = () => {
     proceedBtnText: "재시도하기",
     closeBtnText: "닫기",
   }
-  const { showAlertModal} = useAlertModal(alertModalProps);
+  const { showAlertModal} = useAlertModal();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
@@ -211,7 +211,7 @@ const KennyPage = () => {
       />
       <br />
       <br />
-      <Button size="large" theme="bright" onClick={()=>{showAlertModal()}}>useAlert모달로 열기</Button>
+      <Button size="large" theme="bright" onClick={()=>{showAlertModal(alertModalProps)}}>useAlert모달로 열기</Button>
       <Spacing size={100} />
       <ImageUploader shape="circle" {...register("profileImg")} type="file" onUpload={()=>Promise.resolve()}/>
       <br />
