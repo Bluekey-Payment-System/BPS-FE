@@ -82,7 +82,9 @@ const ImageUploader = forwardRef(({
       >
         {!previewUrl && (
         <div className={cx("avatarContainer")}>
-          <DefaultProfileImage userId={loginId} size={147} />
+          {
+            shape === "circle" ? <DefaultProfileImage userId={loginId} size={147} /> : <Image src="/images/default-album-cover-small.png" fill alt="기본 앨범 커버 이미지" />
+          }
         </div>
         )}
         {isUploading && <div className={cx("loadingContainer")}><Orbit /></div>}

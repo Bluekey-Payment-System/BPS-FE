@@ -46,7 +46,7 @@ const AlbumDashboardPage = ({ month, albumId }: InferGetServerSidePropsType<GetS
   return (
     <section className={cx("container")}>
       <div className={cx("sectionHeader")}>
-        <h1 className={cx("title")}>{albumInfoQuery.data!.koAlbumName}</h1>
+        <h1 className={cx("title")}>{albumInfoQuery.data!.name}</h1>
         {memberRole === MEMBER_ROLE.ARTIST && <AlbumDetailsInformationTooltip />}
         <div className={cx("monthPickerDropdownContainer", { artist: memberRole === MEMBER_ROLE.ARTIST })}>
           <MonthPickerDropdown />
