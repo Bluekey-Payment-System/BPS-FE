@@ -21,10 +21,10 @@
 
       .legendItem {
         display: grid;
-        grid-template-columns: repeat(3, 55px);
+        grid-template-columns: 100px 55px 45px;
         align-items: center;
-        justify-items: center;
-        gap: 25px;
+        justify-items: self-start;
+        gap: 25px 5px;
 
         .formattedMoney {
           @include typo(12);
