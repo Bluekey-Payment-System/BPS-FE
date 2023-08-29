@@ -23,10 +23,12 @@ export const withAuthorityCheck: MiddlewareFactory = (next: NextMiddleware) => {
           },
         });
         if (response.status !== 200) {
-          return NextResponse.redirect(new URL("/404", request.url));
+          throw new Error("NOT AUTHORIZED");
         }
         // eslint-disable-next-line no-empty
       } catch (error) {
+        // const err = error as { message?: string };
+        // if (err.message === "NOT AUTHORIZED") throw new Error(err.message);
         return NextResponse.redirect(new URL("/404", request.url));
       }
     }
