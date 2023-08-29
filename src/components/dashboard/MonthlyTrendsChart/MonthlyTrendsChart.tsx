@@ -2,7 +2,8 @@ import classNames from "classnames/bind";
 import dynamic from "next/dynamic";
 
 import CustomLegend from "@/components/common/CustomLegend/CustomLegend";
-import { IGetAdminMonthlyEarningsTrendsResponse, IGetArtistMonthlyEarningsTrendsResponse } from "@/services/api/types/admin";
+import { IGetAdminMonthlyTrendsResponse } from "@/services/api/types/admin";
+import { IGetArtistMonthlyTrendsResponse } from "@/services/api/types/artist";
 import { MEMBER_ROLE, MemberRole } from "@/types/enums/user.enum";
 
 import styles from "./MonthlyTrendsChart.module.scss";
@@ -10,7 +11,7 @@ import styles from "./MonthlyTrendsChart.module.scss";
 const cx = classNames.bind(styles);
 
 interface MonthlyTrendChartProps {
-  barChartData: IGetAdminMonthlyEarningsTrendsResponse | IGetArtistMonthlyEarningsTrendsResponse,
+  barChartData: IGetAdminMonthlyTrendsResponse | IGetArtistMonthlyTrendsResponse,
   type: MemberRole,
 }
 const DynamicBarChart = dynamic(() => { return import("@/components/common/Chart/BarChart/BarChart"); }, { ssr: false });

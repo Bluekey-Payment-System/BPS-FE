@@ -10,6 +10,7 @@ import {
 import { postRequest } from "../requests.api";
 
 /**
+ * 어드민 로그인
  * 로그인 후 TODO
  * ```
  * const data = await signIn(
@@ -36,6 +37,7 @@ export const adminSignIn = async (
   return response;
 };
 
+/* 아티스트 로그인 */
 export const artistSignIn = async ({
   loginId,
   password,
@@ -47,6 +49,7 @@ export const artistSignIn = async ({
   return response;
 };
 
+/* 어드민 회원가입 */
 export const adminSignUp = async ({
   email,
   loginId,
@@ -62,6 +65,7 @@ export const adminSignUp = async ({
   return response;
 };
 
+/* 비밀번호 2차 검증 */
 export const confirmPassword = async ({
   password,
 }: IPostConfirmPasswordRequest) => {

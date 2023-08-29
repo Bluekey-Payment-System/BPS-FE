@@ -24,7 +24,7 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
   return (
     <TableContainerUI
       stickyLastCol
-      tableWidth={1200}
+      tableWidth={1078}
     >
       <TableHeaderUI>
         <TableCellUI colWidth={130} isHeader>번호</TableCellUI>
@@ -38,16 +38,16 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
       <TableBodyUI>
         {tracks.map((item, index) => {
           return (
-            <TableRowUI key={item.koTrackName}>
+            <TableRowUI key={item.name}>
               <TableCellUI>{index + 1}</TableCellUI>
               <TableCellUI>
-                <TooltipRoot message={item.koTrackName}>
-                  <p className={cx("ellipsis")}>{item.koTrackName}</p>
+                <TooltipRoot message={item.name}>
+                  <p className={cx("ellipsis")}>{item.name}</p>
                 </TooltipRoot>
               </TableCellUI>
               <TableCellUI>
-                <TooltipRoot message={item.enTrackName}>
-                  <p className={cx("ellipsis")}>{item.enTrackName}</p>
+                <TooltipRoot message={item.enName}>
+                  <p className={cx("ellipsis")}>{item.enName}</p>
                 </TooltipRoot>
               </TableCellUI>
               <TableCellUI>
@@ -55,10 +55,10 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
                   return (
                     <>
                       <TooltipRoot
-                        message={participant.koArtistName}
-                        key={participant.koArtistName}
+                        message={participant.name}
+                        key={participant.name}
                       >
-                        <p className={cx("ellipsis")}>{participant.koArtistName}</p>
+                        <p className={cx("ellipsis")}>{participant.name}</p>
                       </TooltipRoot>
                       <br />
                     </>
@@ -68,7 +68,7 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
               <TableCellUI>
                 {item.participants.map((participant) => {
                   return (
-                    <p key={participant.koArtistName}>{`${participant.commissionRate}%`}</p>
+                    <p key={participant.name}>{`${participant.commissionRate}%`}</p>
                   );
                 })}
               </TableCellUI>
