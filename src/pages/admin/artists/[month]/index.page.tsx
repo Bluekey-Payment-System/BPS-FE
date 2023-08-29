@@ -13,7 +13,6 @@ import SearchBar from "@/components/common/SearchBar/SearchBar";
 import { ITEMS_PER_ARTISTS_TABLE } from "@/constants/pagination";
 import { useArtistsStatus } from "@/services/queries/artists/useArtistsStatus";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
-import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 import updateQueryParam from "@/utils/updateQueryParam";
 
 interface ArtistsStatusPageProps {
@@ -30,7 +29,7 @@ const ArtistsStatusPage = (
   const {
     artistsStatus, isLoading, isError, isFetching,
   } = useArtistsStatus(
-    convertYearMonthToQuery(month),
+    month,
     page,
     keyword,
   );
