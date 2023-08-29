@@ -17,7 +17,7 @@ interface TopFiveChartLegendProps {
 
 const TopFiveRevenueChartLegend = ({ legendData, index }: TopFiveChartLegendProps) => {
   const isArtist = "artist" in legendData;
-  const legendText = isArtist ? legendData.artist.koArtistName : legendData.track.koTrackName;
+  const legendText = isArtist ? legendData.artist.name : legendData.track.name;
 
   return (
     <div key={index} className={cx("legendItem")}>

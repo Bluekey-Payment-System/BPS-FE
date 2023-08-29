@@ -35,13 +35,13 @@ const TrackListTable = ({ tracks }: TrackListTableProps) => {
                 {idx + 1}
               </TableCellUI>
               <TableCellUI>
-                <ModalTooltipRoot message={track.koTrackName}>
-                  <p className={cx("ellipsis")}>{track.koTrackName}</p>
+                <ModalTooltipRoot message={track.name}>
+                  <p className={cx("ellipsis")}>{track.name}</p>
                 </ModalTooltipRoot>
               </TableCellUI>
               <TableCellUI>
-                <ModalTooltipRoot message={track.enTrackName}>
-                  <p className={cx("ellipsis")}>{track.enTrackName}</p>
+                <ModalTooltipRoot message={track.enName}>
+                  <p className={cx("ellipsis")}>{track.enName}</p>
                 </ModalTooltipRoot>
               </TableCellUI>
             </TableRowUI>

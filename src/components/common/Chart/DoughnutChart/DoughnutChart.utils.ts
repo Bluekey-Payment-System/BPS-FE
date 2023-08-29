@@ -15,13 +15,13 @@ export const createChartDataFromContents = (doughnutData: DoughnutData): ChartDa
     if ("artist" in chartItem) {
       return {
         id: chartItem.artist.memberId.toString(),
-        label: chartItem.artist.koArtistName,
+        label: chartItem.artist.name,
         value: chartItem.proportion,
       };
     }
     return {
       id: chartItem.track.trackId.toString(),
-      label: chartItem.track.koTrackName,
+      label: chartItem.track.name,
       value: chartItem.proportion,
     };
   });
