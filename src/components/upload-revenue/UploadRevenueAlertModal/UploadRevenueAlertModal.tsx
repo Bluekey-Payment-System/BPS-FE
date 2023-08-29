@@ -10,9 +10,9 @@ import AlertDataTable from "../AlertDataTable/AlertDataTable";
 import styles from "./UploadRevenueAlertModal.module.scss";
 
 export interface UploadRevenueAlertModalProps {
-  type: "warning" | "error",
-  open: boolean,
-  alertData: ITransactionUploadAlert,
+  type: "warning" | "error";
+  open: boolean;
+  alertData: ITransactionUploadAlert[];
   onClose: () => void;
 }
 
@@ -33,9 +33,9 @@ const UploadRevenueAlertModal = ({
           그 외 정산 데이터를 성공적으로 업로드했습니다.
         </p>
         <Spacing direction="vertical" size={17} />
-        <AlertDataTable />
+        <AlertDataTable data={alertData} />
         <Spacing direction="vertical" size={30} />
-        <button className={cx("confirmButton")} type="button" onClick={() => { onClose(); }}>확인</button>
+        <button className={cx("confirmButton")} type="button" onClick={onClose}>확인</button>
       </div>
     </Modal>
   );

@@ -12,48 +12,9 @@ import TableRowUI from "../../common/Table/Composition/TableRowUI";
 
 import styles from "./AlertDataTable.module.scss";
 
-const MOCK_WARNINGS = [
-  {
-    rowIndex: 1,
-    columnIndex: 2,
-    columnName: "아티스트명",
-    cellValue: "0.0",
-    type: "NULL_CELL",
-    severity: "string",
-    message: "값이 비어 있는 셀입니다.",
-  },
-  {
-    rowIndex: 2,
-    columnIndex: 2,
-    columnName: "앨범명",
-    cellValue: "ㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇ",
-    type: "NULL_CELL",
-    severity: "string",
-    message: "값이 비어 있는 셀입니다.",
-  },
-  {
-    rowIndex: 3,
-    columnIndex: 3,
-    columnName: "곡명",
-    cellValue: "0.0",
-    type: "NULL_CELL",
-    severity: "string",
-    message: "값이 비어 있는 셀입니다.",
-  },
-  {
-    rowIndex: 2,
-    columnIndex: 3,
-    columnName: "앨범명",
-    cellValue: "0.0",
-    type: "NULL_CELL",
-    severity: "string",
-    message: "값이 비어 있는 셀입니다.",
-  },
-];
-
 const cx = classNames.bind(styles);
 
-const AlertDataTable = ({ data = MOCK_WARNINGS }: { data?: ITransactionUploadAlert[] }) => {
+const AlertDataTable = ({ data }: { data: ITransactionUploadAlert[] }) => {
   const { showToast } = useToast();
 
   const handleCopyData = () => {

@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// import { AlertModalProps } from "@/components/common/Modals/AlertModal/AlertModal";
 import { UploadRevenueAlertModalProps } from "@/components/upload-revenue/UploadRevenueAlertModal/UploadRevenueAlertModal";
 
 type PropsType = (Omit<UploadRevenueAlertModalProps, "open" | "onClose"> & { onClose?: () => void }) | null;
@@ -17,7 +16,7 @@ const initialState: IUploadRevenueAlertModalState = {
 };
 
 export const uploadRevenueAlertModalSlice = createSlice({
-  name: "uploadRevenueUploadModal",
+  name: "uploadRevenueAlertModal",
   initialState,
   reducers: {
     setShow: (state, action: PayloadAction<boolean>) => {
