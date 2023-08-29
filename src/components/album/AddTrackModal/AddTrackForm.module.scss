@@ -84,6 +84,14 @@
               display: block;
               margin-bottom: 10px;
             }
+
+            .dropdownError {
+              @include typo(12);
+
+              height: 14px;
+              margin: 14px 0 0;
+              color: $point-color-red2;
+            }
           }
 
           .commissionRateField {

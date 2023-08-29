@@ -136,9 +136,16 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                               setValue(`artists.${index}.name`, value.name);
                             }}
                           />
-                          <input {...register(`artists.${index}.memberId`)} type="hidden" />
+                          <input
+                            {...register(`artists.${index}.memberId`, {
+                              validate: (v) => {
+                                return (v && (v !== -1)) || "*아티스트를 선택하세요.";
+                              },
+                            })}
+                            type="hidden"
+                          />
                           <input {...register(`artists.${index}.name`)} type="hidden" />
-                          <Spacing size={14} />
+                          <span className={cx("dropdownError")}>{errors.artists?.[index]?.memberId?.message ?? ""}</span>
                         </div>
                       )}
 
