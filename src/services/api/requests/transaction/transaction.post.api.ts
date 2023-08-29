@@ -10,6 +10,7 @@ export const uploadTransaction = async (postData: IPostTransactionUploadData) =>
     const [key, value] = item;
     if (key === "file") {
       formData.append("file", value as File);
+      return;
     }
     dataList[key] = value as string;
   });

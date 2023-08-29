@@ -1,3 +1,5 @@
+import { ParsedUrlQuery } from "querystring";
+
 import { useRef, useState } from "react";
 
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -14,16 +16,16 @@ import convertPageParamToNum from "@/utils/convertPageParamToNum";
 import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
 import updateQueryParam from "@/utils/updateQueryParam";
 
-interface IServerSideQuery {
+interface ArtistsStatusPageProps {
   month: string,
   page: number,
   keyword: string | null,
 }
 
 const ArtistsStatusPage = (
-  query: InferGetServerSidePropsType<GetServerSideProps<IServerSideQuery>>,
+  query: InferGetServerSidePropsType<GetServerSideProps<ArtistsStatusPageProps>>,
 ) => {
-  const { month, page, keyword }: IServerSideQuery = query;
+  const { month, page, keyword }: ArtistsStatusPageProps = query;
   const [searchKeyword, setSearchKeyword] = useState<string>(keyword || "");
   const {
     artistsStatus, isLoading, isError, isFetching,
@@ -78,14 +80,20 @@ const ArtistsStatusPage = (
   );
 };
 
+interface ArtistsStatusPageQuery extends ParsedUrlQuery {
+  month: string,
+  page?: string,
+  keyword?: string,
+}
+
 // eslint-disable-next-line @typescript-eslint/require-await
-const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { month, page, keyword } = query;
+const getServerSideProps: GetServerSideProps<ArtistsStatusPageProps> = async ({ query }) => {
+  const { month, page, keyword } = query as ArtistsStatusPageQuery;
 
   return {
     props: {
       month,
-      page: convertPageParamToNum(page as string || null),
+      page: convertPageParamToNum(page || null),
       keyword: keyword || null,
     },
   };

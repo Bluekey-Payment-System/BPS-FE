@@ -1,3 +1,5 @@
+import { ParsedUrlQuery } from "querystring";
+
 import { GetServerSideProps } from "next";
 
 import EmptyData from "@/components/common/EmptyData/EmptyData";
@@ -74,14 +76,19 @@ const ManageAccountsPage = ({ artistPage, adminPage }: ManageAccountsPageProps) 
   );
 };
 
+interface ManageAccountsPageQuery extends ParsedUrlQuery {
+  artistPage?: string,
+  adminPage?: string,
+}
+
 // eslint-disable-next-line @typescript-eslint/require-await
-const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { artistPage, adminPage } = query;
+const getServerSideProps: GetServerSideProps<ManageAccountsPageProps> = async ({ query }) => {
+  const { artistPage, adminPage } = query as ManageAccountsPageQuery;
 
   return {
     props: {
-      artistPage: convertPageParamToNum(artistPage as string || null),
-      adminPage: convertPageParamToNum(adminPage as string || null),
+      artistPage: convertPageParamToNum(artistPage || null),
+      adminPage: convertPageParamToNum(adminPage || null),
     },
   };
 };
