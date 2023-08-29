@@ -3,7 +3,7 @@
 }
 
 .tableContainer {
-  @include flexbox(column, flex-start, end);
+  @include flexbox(column, flex-start, flex-end);
 
   width: 455px;
   gap: 18px;
