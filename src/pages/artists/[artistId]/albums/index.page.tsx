@@ -6,15 +6,16 @@ import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
 interface ServerSidePageProps {
+  memberId: number,
   page: number,
   keyword: string | null,
 }
 
-const AdminAlbumListPage = (
+const ArtistAlbumListPage = (
   query: InferGetServerSidePropsType<GetServerSideProps<ServerSidePageProps>>,
 ) => {
-  const { page, keyword }: ServerSidePageProps = query;
-  const albumsQuery = useAlbums(MEMBER_TYPE.ADMIN, page, keyword);
+  const { memberId, page, keyword }: ServerSidePageProps = query;
+  const albumsQuery = useAlbums(MEMBER_TYPE.USER, page, keyword, memberId);
   const {
     data: albumsData, isLoading, isError, isFetching,
   } = albumsQuery;
@@ -24,16 +25,17 @@ const AdminAlbumListPage = (
   if (!albumsData) return <div>데이터 없음</div>;
 
   return (
-    <AlbumListSection userType={MEMBER_TYPE.ADMIN} page={page} keyword={keyword ?? ""} totalAlbumItems={albumsData.totalItems} />
+    <AlbumListSection userType={MEMBER_TYPE.USER} page={page} keyword={keyword ?? ""} totalAlbumItems={albumsData.totalItems} />
   );
 };
 
 // eslint-disable-next-line @typescript-eslint/require-await
 const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { page, keyword } = query;
+  const { artistId, page, keyword } = query;
 
   return {
     props: {
+      memberId: Number(artistId),
       page: convertPageParamToNum(page as string || null),
       keyword: keyword || null,
     },
@@ -41,4 +43,4 @@ const getServerSideProps: GetServerSideProps = async ({ query }) => {
 };
 
 export { getServerSideProps };
-export default AdminAlbumListPage;
+export default ArtistAlbumListPage;
