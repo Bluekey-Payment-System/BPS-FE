@@ -63,6 +63,14 @@ export const isActive = (currentPath: string, targetPath: string | string[]) => 
     return false;
   }
 
+  // 아티스트 내 프로필 확인
+  if (targetPathSegment[1] === "artists" && targetPathSegment[3] === "my-profile") {
+    if (currentPathSegment[1] === "artists" && currentPathSegment[3] === "my-profile") {
+      return true;
+    }
+    return false;
+  }
+
   // 나머지
   return currentPath === targetPath;
 };
