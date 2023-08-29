@@ -33,9 +33,9 @@ const getAlbumDashboardTopFiveRevenueChart = (month: string, rank: number, album
 export const getDashboardTopFiveRevenueChart = async (
   type: DashboardType,
   month: string,
-  rank: number = 5,
   artistId?: string,
   albumId?: string,
+  rank: number = 5,
 ) => {
   let response;
   switch (type) {
