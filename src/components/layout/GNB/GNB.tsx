@@ -26,7 +26,7 @@ const GNB = ({
 
   const handleSignout = async () => {
     setTimeout(() => { dispatch(resetUser()); }, 500);
-    removeCookie("token");
+    removeCookie("token", { path: "/" });
     showToast("로그아웃 되었습니다.");
     if (role === MEMBER_ROLE.ARTIST) {
       await router.push("/signin");
