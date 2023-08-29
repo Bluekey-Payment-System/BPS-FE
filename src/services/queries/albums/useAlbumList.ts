@@ -8,9 +8,6 @@ const useAlbums = (type: MemberType, page: number, keyword: string | null, membe
   const query = useQuery(
     [type, "albums", `memberId=${memberId}`, { page, keyword }],
     () => { return getAlbums(type, page, ITEMS_PER_ALBUM_LIST, keyword); },
-    {
-      staleTime: Infinity,
-    },
   );
 
   return query;
