@@ -50,7 +50,7 @@ const BarChart = ({ barChartData, type }: {
 }) => {
   const maxValue: number = getMaxValue(barChartData, type);
   const formattedData = mapChartDataToMonthlySummary(barChartData, type);
-  const keyType = type === MEMBER_ROLE.ARTIST ? ["settlement", "revenue"] : ["netIncome", "revenue"];
+  const keyType = type === MEMBER_ROLE.ARTIST ? ["revenue", "settlement"] : ["revenue", "netIncome"];
   return (
     <ResponsiveBar
       theme={{
@@ -77,7 +77,7 @@ const BarChart = ({ barChartData, type }: {
       groupMode="grouped"
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
-      colors={["#bfd4f9", "#387ffd"]}
+      colors={["#387ffd", "#bfd4f9"]}
       colorBy="id"
       axisBottom={{
         tickSize: 0,

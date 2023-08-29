@@ -32,14 +32,14 @@ export const mapChartDataToMonthlySummary = (
     if (type === MEMBER_ROLE.ARTIST && "settlement" in data) {
       return {
         month: getMonthName(data.month),
-        settlement: data.settlement,
         revenue: data.revenue,
+        settlement: data.settlement,
       };
     }
     return {
       month: getMonthName(data.month),
-      netIncome: data.netIncome,
       revenue: data.revenue,
+      netIncome: data.netIncome,
     };
   });
 

@@ -56,8 +56,7 @@ const AdminDashboardPage = ({
       <AdminTrackStatusTable
         title={`${formattedMonth}의 트랙별 현황`}
         data={tableContents}
-        // TODO: tableData 형태에 따라 isEmpty 체크 변경
-        isEmpty={!tableContents}
+        isEmpty={totalItems === 0}
         paginationElement={(
           <Pagination
             activePage={page}

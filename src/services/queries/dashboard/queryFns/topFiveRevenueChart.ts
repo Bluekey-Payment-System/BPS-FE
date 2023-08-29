@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 import { MOCK_ADMIN_DOUGHNUT, MOCK_ALBUM_DOUGHNUT, MOCK_ARTIST_DOUGHNUT } from "@/constants/mock";
+import { getAdminDashboardDoughnut } from "@/services/api/requests/admin/admin.get.api";
 import { IGetAdminEarningsTopArtistResponse } from "@/services/api/types/admin";
 import { IGetAlbumRevenueTopTrackResponse } from "@/services/api/types/albums";
 import { IGetArtistEarningsTopTrackResponse } from "@/services/api/types/artist";
@@ -40,7 +41,7 @@ export const getDashboardTopFiveRevenueChart = async (
   let response;
   switch (type) {
     case DASHBOARD_TYPE.ADMIN:
-      response = await getAdminDashboardTopFiveRevenueChart(month, rank);
+      response = await getAdminDashboardDoughnut(month, rank);
       break;
     case DASHBOARD_TYPE.ARTIST:
       response = await getArtistDashboardTopFiveRevenueChart(month, rank, artistId);

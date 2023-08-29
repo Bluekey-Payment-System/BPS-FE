@@ -1,10 +1,12 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { MOCK_ADMIN_BAR, MOCK_ALBUM_BAR, MOCK_ARTIST_BAR } from "@/constants/mock";
+import { getAdminDashboardBar } from "@/services/api/requests/admin/admin.get.api";
 import { IGetAdminMonthlyTrendsResponse } from "@/services/api/types/admin";
 import { IGetAlbumMonthlyTrendsResponse } from "@/services/api/types/albums";
 import { IGetArtistMonthlyTrendsResponse } from "@/services/api/types/artist";
 import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
+import subtractMonths from "@/utils/subtractMonths";
 
 type DashBoardTrendsChart = IGetAdminMonthlyTrendsResponse | IGetArtistMonthlyTrendsResponse | IGetAlbumMonthlyTrendsResponse;
 
@@ -40,7 +42,7 @@ export const getDashboardTrendsChart = async (
   let response: DashBoardTrendsChart;
   switch (type) {
     case DASHBOARD_TYPE.ADMIN:
-      response = await getAdminDashboardTrendsChart(month);
+      response = await getAdminDashboardBar(subtractMonths(month, 6), month);
       break;
     case DASHBOARD_TYPE.ARTIST:
       response = await getArtistDashboardTrendsChart(month, artistId);

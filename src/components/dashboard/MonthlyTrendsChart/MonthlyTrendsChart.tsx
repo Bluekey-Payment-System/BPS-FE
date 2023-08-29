@@ -27,8 +27,8 @@ const MonthlyTrendChart = ({ barChartData, type }: MonthlyTrendChartProps) => {
       <div className={cx("description")}>
         <span>{`월별 ${type === MEMBER_ROLE.ARTIST ? "정산액" : "매출"} 추이`}</span>
         <div className={cx("legendContainer")}>
-          <CustomLegend color="#bfd4f9" text={type === MEMBER_ROLE.ARTIST ? "정산액" : "회사 이익"} type="bar" />
           <CustomLegend color="#387ffd" text="매출" type="bar" />
+          <CustomLegend color="#bfd4f9" text={type === MEMBER_ROLE.ARTIST ? "정산액" : "회사 이익"} type="bar" />
         </div>
       </div>
       <div className={cx("chartWrapper")}>

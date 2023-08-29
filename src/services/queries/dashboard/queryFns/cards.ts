@@ -1,22 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { DashboardCardProps } from "@/components/common/DashboardCard/DashboardCard.type";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
-import { MOCK_ADMIN_DASHBOARD_CARD, MOCK_ALBUM_DASHBOARD_CARD, MOCK_ARTIST_DASHBOARD_CARD } from "@/constants/mock";
-import { IGetAdminDashboardResponse } from "@/services/api/types/admin";
+import { MOCK_ALBUM_DASHBOARD_CARD, MOCK_ARTIST_DASHBOARD_CARD } from "@/constants/mock";
+import { getAdminDashboardCards } from "@/services/api/requests/admin/admin.get.api";
 import { IGetAlbumDashboardResponse } from "@/services/api/types/albums";
 import { IGetArtistDashboardResponse } from "@/services/api/types/artist";
 import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
 import formatMoney from "@/utils/formatMoney";
-
-const getAdminDashboardCards = (
-  month: string,
-): Promise<IGetAdminDashboardResponse> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(MOCK_ADMIN_DASHBOARD_CARD);
-    }, 2000);
-  });
-};
 
 const getArtistDashboardCards = (
   month: string,
@@ -71,8 +61,8 @@ export const getDashboardCards = async (
     },
     {
       title: `${formattedMonth}의 아티스트`,
-      content: bestArtist.name,
-      growthRate: bestArtist.growthRate,
+      content: bestArtist?.name ?? null,
+      growthRate: bestArtist?.growthRate ?? null,
     }];
   } else if (type === DASHBOARD_TYPE.ARTIST) {
     response = await getArtistDashboardCards(month, artistId);
