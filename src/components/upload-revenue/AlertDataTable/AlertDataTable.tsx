@@ -55,8 +55,8 @@ const AlertDataTable = ({ data = MOCK_WARNINGS }: { data?: ITransactionUploadAle
         tableWidth={455}
       >
         <TableHeaderUI>
-          <TableCellUI isHeader>행</TableCellUI>
-          <TableCellUI isHeader>분류</TableCellUI>
+          <TableCellUI isHeader colWidth={100}>행</TableCellUI>
+          <TableCellUI isHeader colWidth={120}>분류</TableCellUI>
           <TableCellUI isHeader>값</TableCellUI>
         </TableHeaderUI>
         <TableBodyUI>
