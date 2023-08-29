@@ -4,6 +4,6 @@ export interface IArtistFieldValues {
   name: string,
   enName: string,
   password: string,
-  profileImage: File | null,
+  file: File | null,
   commissionRate: number | null;
 }
