@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useQuery } from "@tanstack/react-query";
-
 import { MOCK_ADMIN_TABLE, MOCK_ARTIST_TABLE } from "@/constants/mock";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
 import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
@@ -67,29 +65,3 @@ export const getDashboardTable = (
     );
   return data;
 };
-
-const useDashboardTable = (
-  type: AdminDashboardType | ArtistDashboardType,
-  month: string,
-  page: number,
-  sortBy: string,
-  searchBy: string,
-  keyword: string,
-  artistId?: string,
-) => {
-  const { data: tableData, isError: isTableError, isLoading: isTableLoading } = useQuery(
-    [type, "dashboard", "table"],
-    () => {
-      return getDashboardTable(type, month, page, sortBy, searchBy, keyword, artistId);
-    },
-    {
-      staleTime: 5000,
-    },
-  );
-
-  return ({
-    tableData, isTableError, isTableLoading,
-  });
-};
-
-export default useDashboardTable;

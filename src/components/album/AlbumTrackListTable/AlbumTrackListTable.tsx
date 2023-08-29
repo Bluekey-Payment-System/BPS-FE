@@ -24,7 +24,7 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
   return (
     <TableContainerUI
       stickyLastCol
-      tableWidth={1200}
+      tableWidth={1078}
     >
       <TableHeaderUI>
         <TableCellUI colWidth={130} isHeader>번호</TableCellUI>
