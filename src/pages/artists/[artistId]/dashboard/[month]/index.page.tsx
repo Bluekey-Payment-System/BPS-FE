@@ -1,4 +1,6 @@
 /* eslint-disable max-len */
+import { ParsedUrlQuery } from "querystring";
+
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
@@ -69,25 +71,34 @@ const ArtistDashboardPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = async ({ query, req }) => {
-  const month = query?.month as string;
-  const artistId = query?.artistId as string;
+interface ArtistDashboardPageQuery extends ParsedUrlQuery {
+  month: string,
+  page?: string,
+  sortBy?: string,
+  searchBy?: string,
+  keyword?: string
+  artistId: string,
+}
 
-  const pageParam = (query?.page ?? null) as (string | null);
-  const page = convertPageParamToNum(pageParam);
-  const sortBy = (query?.sortBy ?? "createdAt") as string;
-  const searchBy = (query?.searchBy ?? "TRACK") as string;
-  const keyword = (query?.keyword ?? "") as string;
+export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = async ({ query, req }) => {
+  const {
+    month, page, sortBy, searchBy, keyword, artistId,
+  } = query as ArtistDashboardPageQuery;
+
+  const pageNum = convertPageParamToNum(page || null);
+  const sortByString = sortBy || "createdAt";
+  const searchByString = searchBy || "TRACK";
+  const keywordString = keyword || "";
 
   const isCSR = req.url?.startsWith("/_next");
   if (isCSR) {
     return {
       props: {
         month,
-        page,
-        sortBy,
-        searchBy,
-        keyword,
+        page: pageNum,
+        sortBy: sortByString,
+        searchBy: searchByString,
+        keyword: keywordString,
         artistId,
       },
     };
@@ -112,16 +123,16 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
       ),
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "table", artistId, {
-          month, page, sortBy, searchBy, keyword,
+          month, page: pageNum, sortBy: sortByString, searchBy: searchByString, keyword: keywordString,
         }],
         () => {
           return getDashboardTable(
             DASHBOARD_TYPE.ARTIST,
             month,
-            page,
-            sortBy,
-            searchBy,
-            keyword,
+            pageNum,
+            sortByString,
+            searchByString,
+            keywordString,
             artistId,
           );
         },
@@ -132,10 +143,10 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
       props: {
         dehydratedState: dehydrate(queryClient),
         month,
-        page,
-        sortBy,
-        searchBy,
-        keyword,
+        page: pageNum,
+        sortBy: sortByString,
+        searchBy: searchByString,
+        keyword: keywordString,
         artistId,
       },
     };

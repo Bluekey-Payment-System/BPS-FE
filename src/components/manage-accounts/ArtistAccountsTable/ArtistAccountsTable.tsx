@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import {
+  useState, useEffect, useMemo, useCallback,
+} from "react";
 
 import classNames from "classnames/bind";
 
@@ -39,52 +41,60 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
   const [newPassword, setNewPassword] = useState<string>();
   const { showToast } = useToast();
 
-  const handleDeleteAccount = (memberId: number, name: string) => {
+  const handleDeleteAccount = useCallback((memberId: number, name: string) => {
     // TODO: 계정 delete api 달기
     // TODO: 계정 행 삭제 useMutation
     showToast(`“${name}” 계정이 삭제되었습니다.`);
     setFocusedAccount(undefined);
-  };
+  }, [showToast]);
 
-  const handleReissuePassword = (memberId: number, name: string) => {
+  const handleReissuePassword = useCallback((memberId: number, name: string) => {
     setNewPassword(generateRandomStringWithRegex(/^[a-zA-Z0-9@$!%*?&_-]*$/, 6, 18));
     // TODO: 계정 pw 변경 api 달기
     showToast(`“${name}" 계정의 비밀번호가 재발급 되었습니다.`);
     setFocusedAccount(undefined);
     setIsOpenReissuedPwModal(true);
-  };
+  }, [showToast]);
 
-  const deleteAlertModalProps = {
-    type: MODAL_TYPE.CONFIRM,
-    title: "계정 탈퇴",
-    message: "해당 아티스트 계정 ID를 삭제 하시겠습니까?",
-    onClose: () => { setFocusedAccount(undefined); },
-    onClickProceed: () => {
-      handleDeleteAccount(focusedAccount!.memberId, focusedAccount!.name);
-    },
-    proceedBtnText: "네",
-    closeBtnText: "아니요",
-  };
-  const reissueAlertModalProps = {
-    type: MODAL_TYPE.CONFIRM,
-    title: "비밀번호 재발급",
-    message: `“${focusedAccount?.name}” 계정의 비밀번호를 재발급 하시겠습니까?`,
-    onClose: () => { setFocusedAccount(undefined); },
-    onClickProceed: () => {
-      handleReissuePassword(focusedAccount!.memberId, focusedAccount!.name);
-    },
-    proceedBtnText: "네",
-    closeBtnText: "아니요",
-  };
-  const { showAlertModal: showReissueAlertModal } = useAlertModal(reissueAlertModalProps);
-  const { showAlertModal: showDeleteAlertModal } = useAlertModal(deleteAlertModalProps);
+  const deleteAlertModalProps = useMemo(() => {
+    return {
+      type: MODAL_TYPE.CONFIRM,
+      title: "계정 탈퇴",
+      message: "해당 아티스트 계정 ID를 삭제 하시겠습니까?",
+      onClose: () => { setFocusedAccount(undefined); },
+      onClickProceed: () => {
+        handleDeleteAccount(focusedAccount!.memberId, focusedAccount!.name);
+      },
+      proceedBtnText: "네",
+      closeBtnText: "아니요",
+    };
+  }, [focusedAccount, handleDeleteAccount]);
+  const reissueAlertModalProps = useMemo(() => {
+    return {
+      type: MODAL_TYPE.CONFIRM,
+      title: "비밀번호 재발급",
+      message: `“${focusedAccount?.name}” 계정의 비밀번호를 재발급 하시겠습니까?`,
+      onClose: () => { setFocusedAccount(undefined); },
+      onClickProceed: () => {
+        handleReissuePassword(focusedAccount!.memberId, focusedAccount!.name);
+      },
+      proceedBtnText: "네",
+      closeBtnText: "아니요",
+    };
+  }, [focusedAccount, handleReissuePassword]);
+  const { showAlertModal: showReissueAlertModal } = useAlertModal();
+  const { showAlertModal: showDeleteAlertModal } = useAlertModal();
 
   useEffect(() => {
     if (focusedAccount) {
-      if (focusedAccount.target === "reissue") showReissueAlertModal();
-      if (focusedAccount.target === "delete") showDeleteAlertModal();
+      if (focusedAccount.target === "reissue") showReissueAlertModal(reissueAlertModalProps);
+      if (focusedAccount.target === "delete") showDeleteAlertModal(deleteAlertModalProps);
     }
-  }, [focusedAccount, showReissueAlertModal, showDeleteAlertModal]);
+  }, [focusedAccount,
+    showReissueAlertModal,
+    showDeleteAlertModal,
+    reissueAlertModalProps,
+    deleteAlertModalProps]);
 
   return (
     <>

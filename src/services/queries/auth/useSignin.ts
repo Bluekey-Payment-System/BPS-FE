@@ -19,11 +19,7 @@ import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 const useAdminSignin = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { showAlertModal } = useAlertModal({
-    type: MODAL_TYPE.ERROR,
-    title: "로그인 실패",
-    message: "아이디와 비밀번호를 확인하세요",
-  });
+  const { showAlertModal } = useAlertModal();
   const mutation = useMutation<IPostAdminSignInResponse, unknown, IPostAdminSignInRequest, unknown>(
     ["admin", "signin"],
     adminSignIn,
@@ -40,7 +36,11 @@ const useAdminSignin = () => {
         router.push(`/admin/dashboard/${getLatestYearMonthString()}`);
       },
       onError: () => {
-        showAlertModal();
+        showAlertModal({
+          type: MODAL_TYPE.ERROR,
+          title: "로그인 실패",
+          message: "아이디와 비밀번호를 확인하세요",
+        });
       },
     },
   );
@@ -51,11 +51,7 @@ const useAdminSignin = () => {
 const useArtistSignin = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { showAlertModal } = useAlertModal({
-    type: MODAL_TYPE.ERROR,
-    title: "로그인 실패",
-    message: "아이디와 비밀번호를 확인하세요",
-  });
+  const { showAlertModal } = useAlertModal();
   // eslint-disable-next-line max-len
   const mutation = useMutation<IPostArtistSignInResponse, unknown, IPostArtistSignInRequest, unknown>(
     ["artist", "signin"],
@@ -72,7 +68,11 @@ const useArtistSignin = () => {
         router.push(`/artists/${data.member.memberId}/dashboard/${getLatestYearMonthString()}`);
       },
       onError: () => {
-        showAlertModal();
+        showAlertModal({
+          type: MODAL_TYPE.ERROR,
+          title: "로그인 실패",
+          message: "아이디와 비밀번호를 확인하세요",
+        });
       },
     },
   );

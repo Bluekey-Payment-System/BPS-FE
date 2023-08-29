@@ -15,4 +15,5 @@ export interface GnbInfoProps extends IUserInfo {
 export interface SideNavProps extends IUserInfo {
   isOpen: boolean,
   setIsOpen: React.Dispatch<SetStateAction<boolean>>,
+  memberId: number,
 }

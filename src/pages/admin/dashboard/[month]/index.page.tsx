@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import { ParsedUrlQuery } from "querystring";
 
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -69,24 +70,33 @@ const AdminDashboardPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps<AdminDashboardPageProps> = async ({ query, req }) => {
-  const month = query?.month as string;
+interface AdminDashboardPageQuery extends ParsedUrlQuery {
+  month: string,
+  page?: string,
+  sortBy?: string,
+  searchBy?: string,
+  keyword?: string,
+}
 
-  const pageParam = (query?.page ?? null) as (string | null);
-  const page = convertPageParamToNum(pageParam);
-  const sortBy = (query?.sortBy ?? "createdAt") as string;
-  const searchBy = (query?.searchBy ?? "TRACK") as string;
-  const keyword = (query?.keyword ?? "") as string;
+export const getServerSideProps: GetServerSideProps<AdminDashboardPageProps> = async ({ query, req }) => {
+  const {
+    month, page, sortBy, searchBy, keyword,
+  } = query as AdminDashboardPageQuery;
+
+  const pageNum = convertPageParamToNum(page || null);
+  const sortByString = sortBy || "createdAt";
+  const searchByString = searchBy || "TRACK";
+  const keywordString = keyword || "";
 
   const isCSR = req.url?.startsWith("/_next");
   if (isCSR) {
     return {
       props: {
         month,
-        page,
-        sortBy,
-        searchBy,
-        keyword,
+        page: pageNum,
+        sortBy: sortByString,
+        searchBy: searchByString,
+        keyword: keywordString,
       },
     };
   }
@@ -110,16 +120,16 @@ export const getServerSideProps: GetServerSideProps<AdminDashboardPageProps> = a
       ),
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
-          month, page, sortBy, searchBy, keyword,
+          month, page: pageNum, sortBy: sortByString, searchBy: searchByString, keyword: keywordString,
         }],
         () => {
           return getDashboardTable(
             DASHBOARD_TYPE.ADMIN,
             month,
-            page,
-            sortBy,
-            searchBy,
-            keyword,
+            pageNum,
+            sortByString,
+            searchByString,
+            keywordString,
           );
         },
       ),
@@ -129,10 +139,10 @@ export const getServerSideProps: GetServerSideProps<AdminDashboardPageProps> = a
       props: {
         dehydratedState: dehydrate(queryClient),
         month,
-        page,
-        sortBy,
-        searchBy,
-        keyword,
+        page: pageNum,
+        sortBy: sortByString,
+        searchBy: searchByString,
+        keyword: keywordString,
       },
     };
   } catch (e) {
