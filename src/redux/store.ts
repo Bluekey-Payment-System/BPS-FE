@@ -9,7 +9,9 @@ import {
   Reducer,
 } from "@reduxjs/toolkit";
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
-import { persistStore, persistReducer } from "redux-persist";
+import {
+  persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,
+} from "redux-persist";
 import storageSession from "redux-persist/lib/storage/session";
 
 import alertModalReducer, { IAlertModalState } from "@/redux/slices/alertModalSlice";
@@ -49,7 +51,11 @@ const persistedReducer = persistReducer<RootReducer>(persistConfig, rootReducer)
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware({ serializableCheck: false });
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    });
   },
 });
 
@@ -63,7 +69,9 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
   });
 };
 
-const makeStore = () => { return setupStore(); };
+const setupAppStore = () => { return store; };
+
+const makeStore = () => { return setupAppStore(); };
 
 export const persistor = persistStore(store);
 

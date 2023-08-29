@@ -50,7 +50,7 @@ const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState
     <QueryClientProvider client={queryClient}>
       <Hydrate state={rest.pageProps.dehydratedState}>
         <Provider store={store}>
-          <PersistGate persistor={persistor}>
+          <PersistGate persistor={persistor} loading={null}>
             <CookiesProvider>
               <Head>
                 <title>블루키뮤직 정산시스템</title>

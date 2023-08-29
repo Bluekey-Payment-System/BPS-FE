@@ -36,7 +36,7 @@ const useAdminSignin = () => {
         });
         dispatch(setUser({ ...data.member, profileImage: null }));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        router.push(`/admin/dashboard/${getLatestYearMonthString()}`, undefined, { shallow: true });
+        router.push(`/admin/dashboard/${getLatestYearMonthString()}`);
       },
       onError: () => {
         showAlertModal();
