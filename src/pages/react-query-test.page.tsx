@@ -1,11 +1,11 @@
 // 페이지에서 어드민 대시보드 카드 데이터를 가져오는 예시
 import DashboardCard from "@/components/common/DashboardCard/DashboardCard";
 import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
-import { useAdminDashboardCard } from "@/services/queries/useTest";
+import { useTest } from "@/services/queries/useTest";
 import formatMoney from "@/utils/formatMoney";
 
 const AdminDashBoardPage = () => {
-  const { adminDashboardCard, isLoading, isError } = useAdminDashboardCard();
+  const { adminDashboardCard, isLoading, isError } = useTest();
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생</div>;

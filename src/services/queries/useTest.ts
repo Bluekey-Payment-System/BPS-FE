@@ -1,24 +1,27 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-console */
 import { useQuery } from "@tanstack/react-query";
 
 import { MOCK_ADMIN_DASHBOARD_CARD } from "@/constants/mock";
-import QUERY_KEYS from "@/constants/queryKeys";
+import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
-import { IGetAdminDashboardResponse } from "../api/types/admin";
+import { getAdminDashboardCards } from "../api/requests/admin/admin.get.api";
 
 // test용 fetch 함수
-const fetchAdminDashboardCard = (): Promise<IGetAdminDashboardResponse> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(MOCK_ADMIN_DASHBOARD_CARD);
-    }, 2000); // 2초 후에 resolve
-  });
+const fetchAdminDashboardCard = async () => {
+  console.log("쿼리 Fn 실행");
+  try {
+    await getAdminDashboardCards("2023-06");
+  } catch (e) {
+    return MOCK_ADMIN_DASHBOARD_CARD;
+  }
 };
 
-export function useAdminDashboardCard() {
-  const { data: adminDashboardCard, isError, isLoading } = useQuery<IGetAdminDashboardResponse>({
-    queryKey: [QUERY_KEYS.admin, QUERY_KEYS.dashboard, QUERY_KEYS.card],
-    queryFn: fetchAdminDashboardCard,
-  });
+export function useTest() {
+  const { data: adminDashboardCard, isError, isLoading } = useQuery(
+    [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
+    fetchAdminDashboardCard,
+  );
 
   return ({
     adminDashboardCard, isLoading, isError,
