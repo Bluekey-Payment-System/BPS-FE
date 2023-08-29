@@ -8,7 +8,7 @@ import AlertDataTable from "../AlertDataTable/AlertDataTable";
 
 import styles from "./UploadRevenueAlertModal.module.scss";
 
-interface UploadRevenueUploadModalProps {
+export interface UploadRevenueAlertModalProps {
   type: "warning" | "error",
   open: boolean,
   onClose: () => void;
@@ -17,7 +17,7 @@ interface UploadRevenueUploadModalProps {
 const cx = classNames.bind(styles);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const UploadRevenueAlertModal = ({ type, open, onClose }: UploadRevenueUploadModalProps) => {
+const UploadRevenueAlertModal = ({ type, open, onClose }: UploadRevenueAlertModalProps) => {
   return (
     <Modal type={MODAL_TYPE.INFO} open={open} onClose={onClose}>
       <div className={cx("container")}>
