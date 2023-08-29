@@ -13,6 +13,7 @@ export const patchAlbum = async (
     const [key, value] = item;
     if (key === "file") {
       formData.append("file", (value ?? "") as File | string);
+      return;
     }
     dataList[key] = value as string | number | null;
   });
