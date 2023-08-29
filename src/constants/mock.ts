@@ -22,6 +22,7 @@ import {
 } from "@/services/api/types/artist";
 import { IGetAccountsResponse } from "@/services/api/types/member";
 import { IGetTransactionUploadResponse } from "@/services/api/types/transaction";
+import { ITransactionUploadAlert } from "@/types/dto";
 
 /* ##### 1. ALBUM ##### */
 export const MOCK_ALBUMS: IGetAlbumsResponse = {
@@ -533,6 +534,45 @@ export const MOCK_ALBUM_DASHBOARD_CARD: IGetAlbumDashboardResponse = {
 /* ########################## */
 
 /* ##### 2. TRANSACTION ##### */
+export const MOCK_WARNINGS: ITransactionUploadAlert[] = [
+  {
+    rowIndex: 1,
+    columnIndex: 2,
+    columnName: "아티스트명",
+    cellValue: "0.0",
+    type: "NULL_CELL",
+    severity: "string",
+    message: "값이 비어 있는 셀입니다.",
+  },
+  {
+    rowIndex: 2,
+    columnIndex: 2,
+    columnName: "앨범명",
+    cellValue: "ㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇ",
+    type: "NULL_CELL",
+    severity: "string",
+    message: "값이 비어 있는 셀입니다.",
+  },
+  {
+    rowIndex: 3,
+    columnIndex: 3,
+    columnName: "곡명",
+    cellValue: "0.0",
+    type: "NULL_CELL",
+    severity: "string",
+    message: "값이 비어 있는 셀입니다.",
+  },
+  {
+    rowIndex: 2,
+    columnIndex: 3,
+    columnName: "앨범명",
+    cellValue: "0.0",
+    type: "NULL_CELL",
+    severity: "string",
+    message: "값이 비어 있는 셀입니다.",
+  },
+];
+
 export const MOCK_TRANSACTION_UPLOAD: IGetTransactionUploadResponse = {
   totalItems: 3,
   contents: [

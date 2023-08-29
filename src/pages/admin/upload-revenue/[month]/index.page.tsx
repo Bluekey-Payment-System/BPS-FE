@@ -11,7 +11,6 @@ import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import Loading from "@/components/common/Loading/Loading";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/UploadHistoryTable";
-import useUploadRevenueAlertModal from "@/hooks/useUploadRevenueAlertModal";
 import { getRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
 import { useUploadHistoryGet } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
@@ -20,60 +19,12 @@ interface UploadRevenuePageProps {
   month: string,
 }
 
-const MOCK_WARNINGS = [
-  {
-    rowIndex: 1,
-    columnIndex: 2,
-    columnName: "아티스트명",
-    cellValue: "0.0",
-    type: "NULL_CELL",
-    severity: "string",
-    message: "값이 비어 있는 셀입니다.",
-  },
-  {
-    rowIndex: 2,
-    columnIndex: 2,
-    columnName: "앨범명",
-    cellValue: "ㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇㅁ아러ㅣㅁㅇ",
-    type: "NULL_CELL",
-    severity: "string",
-    message: "값이 비어 있는 셀입니다.",
-  },
-  {
-    rowIndex: 3,
-    columnIndex: 3,
-    columnName: "곡명",
-    cellValue: "0.0",
-    type: "NULL_CELL",
-    severity: "string",
-    message: "값이 비어 있는 셀입니다.",
-  },
-  {
-    rowIndex: 2,
-    columnIndex: 3,
-    columnName: "앨범명",
-    cellValue: "0.0",
-    type: "NULL_CELL",
-    severity: "string",
-    message: "값이 비어 있는 셀입니다.",
-  },
-];
-
 const UploadRevenuePage = (
   { month }: InferGetServerSidePropsType<GetServerSideProps<UploadRevenuePageProps>>,
 ) => {
   const {
     revenueUploadHistory, isLoading, isError, isFetching,
   } = useUploadHistoryGet(month);
-  const { showUploadRevenueAlertModal } = useUploadRevenueAlertModal();
-
-  const handleClickTestButton = () => {
-    showUploadRevenueAlertModal({
-      type: "warning",
-      alertData: MOCK_WARNINGS,
-    });
-  };
-
   if (isError) {
     return (
       <div>에러 발생</div>
@@ -93,7 +44,6 @@ const UploadRevenuePage = (
         <MonthPickerDropdown />
       )}
     >
-      <button type="button" onClick={handleClickTestButton}>클릭!</button>
       <ArtboardLayout>
         <div style={{ width: 730 }}>
           <SectionLayout title="정산 내역 파일 업로드">
