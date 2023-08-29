@@ -1,29 +1,6 @@
 /* eslint-disable no-useless-escape */
-/* eslint-disable radix */
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
-
-/**
- * @author 임병욱
- * @param {string} yearMonth 현재 시간보다 미래의 시간이 오면 false를 반환합니다.
- * @return {boolean}
-*/
-const isBeforeOrCurrentYearMonth = (yearMonth: string): boolean => {
-  if (!/^\d{6}$/.test(yearMonth)) {
-    return false; // yyyymm 형식이 아닌 경우
-  }
-
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth();
-
-  const inputYear = parseInt(yearMonth.substring(0, 4));
-  const inputMonth = parseInt(yearMonth.substring(4, 6));
-
-  if (inputYear > currentYear || (inputYear === currentYear && inputMonth > currentMonth)) {
-    return false;
-  }
-
-  return true;
-};
+import isBeforeOrCurrentYearMonth from "@/utils/isBeforeOrCurrentYearMonth";
 
 export const isActive = (currentPath: string, targetPath: string | string[]) => {
   if (Array.isArray(targetPath)) return false;
@@ -98,7 +75,7 @@ export const isAlbumExplorer = (currentPath: string, targetPath: string | string
 
       // 어드민이 보는 앨범 탐색 수정
       if (targetPathSegment[1] === "admin" && targetPathSegment[2] === "albums" && targetPathSegment[4] === "edit") {
-        if (currentPathSegment[1] === "admin" && currentPathSegment[2] === "albums" && currentPathSegment[4] === "edit" && isBeforeOrCurrentYearMonth(currentPathSegment[3])) {
+        if (currentPathSegment[1] === "admin" && currentPathSegment[2] === "albums" && currentPathSegment[4] === "edit") {
           return true;
         }
       }
