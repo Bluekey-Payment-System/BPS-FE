@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
@@ -9,6 +11,7 @@ import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import Loading from "@/components/common/Loading/Loading";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/UploadHistoryTable";
+import UploadRevenueAlertModal from "@/components/upload-revenue/UploadRevenueAlertModal/UploadRevenueAlertModal";
 import { getRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
 import { useUploadHistoryGet } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
@@ -20,6 +23,7 @@ const UploadRevenuePage = (
   const {
     revenueUploadHistory, isLoading, isError, isFetching,
   } = useUploadHistoryGet(month);
+  const [showAlertModal, setShowAlertModal] = useState<boolean>(false);
 
   if (isError) {
     return (
@@ -40,6 +44,8 @@ const UploadRevenuePage = (
         <MonthPickerDropdown />
       )}
     >
+      <button type="button" onClick={() => { return setShowAlertModal(true); }}>클릭!</button>
+      <UploadRevenueAlertModal type="warning" open={showAlertModal} onClose={() => { setShowAlertModal(false); }} />
       <ArtboardLayout>
         <div style={{ width: 730 }}>
           <SectionLayout title="정산 내역 파일 업로드">
