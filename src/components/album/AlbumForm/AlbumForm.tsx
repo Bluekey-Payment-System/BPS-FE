@@ -8,13 +8,14 @@ import Button from "@/components/common/CommonBtns/Button/Button";
 import Dropdown from "@/components/common/Dropdown/Dropdown";
 import TextField from "@/components/common/Inputs/TextField/TextField";
 import Spacing from "@/components/common/Layouts/Spacing";
-import { IAlbumFieldValues } from "@/types/album.types";
+import { IPostAlbumData } from "@/services/api/types/albums";
 import formatDropdownList from "@/utils/formatDropdownList";
 
 import styles from "./AlbumForm.module.scss";
 
 const cx = classNames.bind(styles);
 
+interface IAlbumFieldValues extends IPostAlbumData {}
 interface AlbumFormProps {
   submitBtnText: string;
   onSubmit: SubmitHandler<IAlbumFieldValues>;
@@ -22,12 +23,12 @@ interface AlbumFormProps {
 
 const artist = [
   // TODO: db에 있는 모든 아티스트 names와 pk를 가져와서(api) 여기에 뿌리기
-  { artistId: 1, artistName: "혁기" },
-  { artistId: 2, artistName: "지미가드너" },
-  { artistId: 3, artistName: "53x" },
-  { artistId: 4, artistName: "송민섭" },
-  { artistId: 5, artistName: "김여름" },
-  { artistId: 6, artistName: "이은성" },
+  { id: 1, name: "혁기" },
+  { id: 2, name: "지미가드너" },
+  { id: 3, name: "53x" },
+  { id: 4, name: "송민섭" },
+  { id: 5, name: "김여름" },
+  { id: 6, name: "이은성" },
 ];
 /**
  * 앨범 폼(앨범 등록, 수정시 렌더링할 폼) 컴포넌트
