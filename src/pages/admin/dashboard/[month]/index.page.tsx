@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 

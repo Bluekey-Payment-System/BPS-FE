@@ -21,6 +21,13 @@
         border-radius: 6px;
         background-color: $point-color-blue1;
         color: $point-color-blue4;
+        pointer-events: none;
+      }
+
+      &.albumExplorer {
+        border-radius: 6px;
+        background-color: $point-color-blue1;
+        color: $point-color-blue4;
       }
 
       &:hover {
