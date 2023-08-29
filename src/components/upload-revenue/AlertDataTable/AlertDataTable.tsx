@@ -54,12 +54,11 @@ const cx = classNames.bind(styles);
 
 const AlertDataTable = ({ data = MOCK_WARNINGS }: { data?: ITransactionUploadAlert[] }) => {
   return (
-    <div>
-      <button>복사하기</button>
+    <div className={cx("tableContainer")}>
+      <button className={cx("copyButton")} type="button">전체 복사</button>
       <TableContainerUI
         stickyHeader
-        tableHeight={278}
-        tableWidth={455}
+        tableHeight={282}
       >
         <TableHeaderUI>
           <TableCellUI isHeader colWidth={100}>행</TableCellUI>

@@ -1,3 +1,16 @@
 .ellipsis {
   @include table-ellipsis;
 }
+
+.tableContainer {
+  @include flexbox(column, flex-start, end);
+
+  width: 455px;
+  gap: 18px;
+}
+
+.copyButton {
+  @include typo(14);
+
+  color: $point-color-blue4;
+}
