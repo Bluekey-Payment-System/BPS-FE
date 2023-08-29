@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { FallbackProps } from "react-error-boundary";
 
@@ -11,7 +10,7 @@ import { ERROR_MAP } from "@/constants/errorFallback";
 import { useAppSelector } from "@/redux/hooks";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
-const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
+const ErrorFallback = ({ error }: FallbackProps) => {
   const router = useRouter();
   const { type, memberId } = useAppSelector((state) => { return state.user.member; });
   const homeURL = type === "ADMIN"
@@ -37,9 +36,8 @@ const ErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
       pageType="error"
       description={errorDescription}
       buttonElements={(
-        // TODO: 홈으로 가기 두 번 눌러야 정상 작동함
         <>
-          <Button size="medium" theme="dark" onClick={() => { resetErrorBoundary(); router.push(homeURL); }}>홈(대시보드)으로 가기</Button>
+          <Button size="medium" theme="dark" onClick={() => { window.location.href = homeURL; }}>홈(대시보드)으로 가기</Button>
           <Button size="medium" theme="dark" onClick={() => { router.reload(); }}>새로고침</Button>
         </>
       )}

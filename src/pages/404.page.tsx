@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useRouter } from "next/router";
 
 import Button from "@/components/common/CommonBtns/Button/Button";
@@ -19,9 +18,8 @@ const Custom404 = () => {
         주소가 변경 혹은 삭제되어 현재 페이지를 찾을 수 없습니다.
         주소를 다시 확인해주세요.`}
       buttonElements={(
-        // TODO: 홈으로 가기 두 번 눌러야 정상 작동함
         <>
-          <Button size="medium" theme="dark" onClick={() => { router.push(homeURL); }}>홈(대시보드)으로 가기</Button>
+          <Button size="medium" theme="dark" onClick={() => { window.location.href = homeURL; }}>홈(대시보드)으로 가기</Button>
           <Button size="medium" theme="bright" onClick={() => { router.back(); }}>뒤로가기</Button>
         </>
       )}

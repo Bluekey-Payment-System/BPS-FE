@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useRouter } from "next/router";
 import { NextPage, NextPageContext } from "next/types";
 
@@ -20,9 +19,8 @@ const Error: NextPage = ({ statusCode }: { statusCode?: number }) => {
       pageType="error"
       description={`${statusCode}: 에러가 발생했습니다.`}
       buttonElements={(
-        // TODO: 홈으로 가기 두 번 눌러야 정상 작동함
         <>
-          <Button size="medium" theme="dark" onClick={() => { router.push(homeURL); }}>홈(대시보드)으로 가기</Button>
+          <Button size="medium" theme="dark" onClick={() => { window.location.href = homeURL; }}>홈(대시보드)으로 가기</Button>
           <Button size="medium" theme="dark" onClick={() => { router.reload(); }}>새로고침</Button>
         </>
       )}
