@@ -41,7 +41,7 @@ const AlbumListSection = ({
   };
 
   return (
-    <MainLayout title="앨범 상세">
+    <MainLayout title="앨범 탐색">
       <div className={cx("artboardLayout")}>
         <div className={cx("content")}>
           <div className={cx("searchBarSection")}>

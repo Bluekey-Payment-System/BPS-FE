@@ -1,12 +1,16 @@
 import {
   IAlbumCard,
   IArtist,
+  IArtistAccount,
   IArtistDashboardCard,
   IArtistList,
+  IArtistProfile,
   IBarMonthlySettlement,
   IDoughnutTrackRevenue,
   ITrackTransaction,
 } from "@/types/dto";
+
+import { AtLeastOne } from "./global";
 
 export interface IGetArtistsResponse {
   totalItems: number,
@@ -25,7 +29,7 @@ export interface IGetArtistEarningsTopTrackResponse {
   contents: IDoughnutTrackRevenue[]
 }
 
-export interface IGetArtistMonthlySettlementResponse {
+export interface IGetArtistMonthlyTrendsResponse {
   contents: IBarMonthlySettlement[]
 }
 
@@ -34,6 +38,43 @@ export interface IGetArtistAlbumsResponse {
   contents: IAlbumCard[]
 }
 
+interface IDropdownArtist extends IArtist {
+  commissionRate: number | null
+}
 export interface IGetArtistsSimpleResponse {
-  artists: IArtist[]
+  artists: IDropdownArtist[]
+}
+
+export type IPostArtistData = {
+  file: File | null,
+  email: string,
+  loginId: string,
+  name: string,
+  enName: string,
+  password: string,
+  commissionRate: number | null,
+};
+
+export interface IPostArtistResponse extends IGetArtistProfileResponse {
+  commissionRate: number | null
+}
+
+export interface IPatchArtistProfileForAdminResponse extends IArtistAccount {
+}
+
+export type IPatchArtistProfileForAdminRequest = AtLeastOne<{
+  name: string,
+  enName: string,
+  commissionRate: number | null,
+}>;
+
+export type IPatchArtistProfileData = AtLeastOne<{
+  file: File | null,
+  email: string,
+}>;
+
+export interface IPatchArtistProfileResponse extends Omit<IArtistProfile, "type"> {
+}
+
+export interface IGetArtistProfileResponse extends Omit<IArtistProfile, "type"> {
 }

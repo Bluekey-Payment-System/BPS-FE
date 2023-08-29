@@ -36,11 +36,11 @@ const AlbumInfoModal = ({
                 alt="앨범 커버"
               />
             </div>
-            <h3 className={cx("albumTitle")}>{data.koAlbumName}</h3>
+            <h3 className={cx("albumTitle")}>{data.name}</h3>
             <hr className={cx("hr")} />
             <div className={cx("artist")}>
-              <span className={cx("name")}>{data.artist?.koArtistName}</span>
-              <span className={cx("name", "enName")}>{data.artist?.enArtistName}</span>
+              <span className={cx("name")}>{data.artist?.name}</span>
+              <span className={cx("name", "enName")}>{data.artist?.enName}</span>
             </div>
           </div>
           <div className={cx("tableWrapper")}>
