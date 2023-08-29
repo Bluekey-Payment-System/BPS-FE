@@ -184,7 +184,7 @@ export interface IArtistUpdateProfileFieldValues {
 }
 
 // 정산액 업로드 관련
-interface ITransactionUploadAlert {
+export interface ITransactionUploadAlert {
   rowIndex: number,
   columnIndex: number,
   columnName: string,

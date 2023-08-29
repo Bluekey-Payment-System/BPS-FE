@@ -4,6 +4,8 @@ import Spacing from "@/components/common/Layouts/Spacing";
 import Modal from "@/components/common/Modals/Modal";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
+import AlertDataTable from "../AlertDataTable/AlertDataTable";
+
 import styles from "./UploadRevenueAlertModal.module.scss";
 
 interface UploadRevenueUploadModalProps {
@@ -27,7 +29,7 @@ const UploadRevenueAlertModal = ({ type, open, onClose }: UploadRevenueUploadMod
           그 외 정산 데이터를 성공적으로 업로드했습니다.
         </p>
         <Spacing direction="vertical" size={17} />
-        <div>데이터 테이블</div>
+        <AlertDataTable />
         <Spacing direction="vertical" size={30} />
         <button className={cx("confirmButton")} type="button" onClick={() => { onClose(); }}>확인</button>
       </div>
