@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
-import isBeforeOrCurrentYearMonth from "@/utils/isBeforeOrCurrentYearMonth";
+import isFormatYearMonth from "@/utils/isFormatYearMonth";
 
 export const isActive = (currentPath: string, targetPath: string | string[]) => {
   if (Array.isArray(targetPath)) return false;
@@ -10,7 +10,7 @@ export const isActive = (currentPath: string, targetPath: string | string[]) => 
 
   // 어드민 대시보드 형식 확인
   if (targetPath === `/admin/dashboard/${getLatestYearMonthString()}`) {
-    if (currentPathSegment[1] === "admin" && currentPathSegment[2] === "dashboard" && isBeforeOrCurrentYearMonth(currentPathSegment[3])) {
+    if (currentPathSegment[1] === "admin" && currentPathSegment[2] === "dashboard" && isFormatYearMonth(currentPathSegment[3])) {
       return true;
     }
     return false;
@@ -18,7 +18,7 @@ export const isActive = (currentPath: string, targetPath: string | string[]) => 
 
   // 아티스트 대시보드 형식 확인
   if (targetPathSegment[1] === "artists" && targetPathSegment[3] === "dashboard") {
-    if (currentPathSegment[1] === "artists" && currentPathSegment[3] === "dashboard" && isBeforeOrCurrentYearMonth(currentPathSegment[4])) {
+    if (currentPathSegment[1] === "artists" && currentPathSegment[3] === "dashboard" && isFormatYearMonth(currentPathSegment[4])) {
       return true;
     }
     return false;
@@ -26,7 +26,7 @@ export const isActive = (currentPath: string, targetPath: string | string[]) => 
 
   // 아티스트 현황 확인
   if (targetPath === `/admin/artists/${getLatestYearMonthString()}`) {
-    if (currentPathSegment[1] === "admin" && currentPathSegment[2] === "artists" && isBeforeOrCurrentYearMonth(currentPathSegment[3])) {
+    if (currentPathSegment[1] === "admin" && currentPathSegment[2] === "artists" && isFormatYearMonth(currentPathSegment[3])) {
       return true;
     }
     return false;
@@ -34,7 +34,7 @@ export const isActive = (currentPath: string, targetPath: string | string[]) => 
 
   // 정산 내역 업로드 확인
   if (targetPath === `/admin/upload-revenue/${getLatestYearMonthString()}`) {
-    if (currentPathSegment[1] === "admin" && currentPathSegment[2] === "upload-revenue" && isBeforeOrCurrentYearMonth(currentPathSegment[3])) {
+    if (currentPathSegment[1] === "admin" && currentPathSegment[2] === "upload-revenue" && isFormatYearMonth(currentPathSegment[3])) {
       return true;
     }
     return false;
@@ -68,7 +68,7 @@ export const isAlbumExplorer = (currentPath: string, targetPath: string | string
 
       // 어드민과 아티스트가 보는 앨범 탐색
       if (targetPathSegment[1] === "albums") {
-        if (currentPathSegment[1] === "albums" && isBeforeOrCurrentYearMonth(currentPathSegment[3])) {
+        if (currentPathSegment[1] === "albums" && isFormatYearMonth(currentPathSegment[3])) {
           return true;
         }
       }
