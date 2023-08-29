@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 
 import Spacing from "@/components/common/Layouts/Spacing";
 import Modal from "@/components/common/Modals/Modal";
+import { ITransactionUploadAlert } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
 import AlertDataTable from "../AlertDataTable/AlertDataTable";
@@ -11,13 +12,16 @@ import styles from "./UploadRevenueAlertModal.module.scss";
 export interface UploadRevenueAlertModalProps {
   type: "warning" | "error",
   open: boolean,
+  alertData: ITransactionUploadAlert,
   onClose: () => void;
 }
 
 const cx = classNames.bind(styles);
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const UploadRevenueAlertModal = ({ type, open, onClose }: UploadRevenueAlertModalProps) => {
+const UploadRevenueAlertModal = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  type, open, alertData, onClose,
+}: UploadRevenueAlertModalProps) => {
   return (
     <Modal type={MODAL_TYPE.INFO} open={open} onClose={onClose}>
       <div className={cx("container")}>
