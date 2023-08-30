@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "@/redux/hooks";
-import { resetAll, setShow } from "@/redux/slices/UploadRevenueAlertModalSlice";
+import { resetAll, setShow } from "@/redux/slices/uploadRevenueAlertModalSlice";
 
 import UploadRevenueAlertModal from "./UploadRevenueAlertModal";
 

@@ -19,7 +19,7 @@ import alertModalReducer, { IAlertModalState } from "@/redux/slices/alertModalSl
 import toastReducer, { IToastState } from "@/redux/slices/toastSlice";
 import userReducer, { IUserState } from "@/redux/slices/userSlice";
 
-import uploadRevenueAlertModalReducer, { IUploadRevenueAlertModalState } from "./slices/UploadRevenueAlertModalSlice";
+import uploadRevenueAlertModalReducer, { IUploadRevenueAlertModalState } from "./slices/uploadRevenueAlertModalSlice";
 
 export interface IState {
   toast: IToastState;

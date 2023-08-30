@@ -1,6 +1,6 @@
 import { UploadRevenueAlertModalProps } from "@/components/upload-revenue/UploadRevenueAlertModal/UploadRevenueAlertModal";
 import { useAppDispatch } from "@/redux/hooks";
-import { setShow, setProps } from "@/redux/slices/UploadRevenueAlertModalSlice";
+import { setShow, setProps } from "@/redux/slices/uploadRevenueAlertModalSlice";
 
 export interface IShowUploadRevenueAlertModalParam extends Omit<UploadRevenueAlertModalProps, "open" | "onClose"> {
   onClose?: () => void;
