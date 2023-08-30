@@ -47,6 +47,7 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
   const {
     register, formState: { errors }, handleSubmit, setValue,
   } = useFormContext<IAlbumFieldValues>();
+
   return (
     <div className={cx("container")}>
       {/*  eslint-disable-next-line @typescript-eslint/no-misused-promises */}
