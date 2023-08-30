@@ -53,7 +53,6 @@ export interface ILineMonthlySettlement { // 꺾은선 차트
   month: number,
   settlement: number | null,
   revenue: number | null,
-  netIncome: number | null,
 }
 
 interface IRevenue { // 도넛 차트

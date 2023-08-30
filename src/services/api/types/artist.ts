@@ -5,7 +5,7 @@ import {
   IArtistDashboardCard,
   IArtistList,
   IArtistProfile,
-  IBarMonthlySettlement,
+  IBarMonthlyEarnings,
   IDoughnutTrackRevenue,
   ITrackTransaction,
 } from "@/types/dto";
@@ -30,7 +30,7 @@ export interface IGetArtistEarningsTopTrackResponse {
 }
 
 export interface IGetArtistMonthlyTrendsResponse {
-  contents: IBarMonthlySettlement[]
+  contents: IBarMonthlyEarnings[]
 }
 
 export interface IGetArtistAlbumsResponse {
