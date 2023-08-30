@@ -19,7 +19,7 @@ const TopFiveRevenueChartLegend = ({ legendData, index }: TopFiveChartLegendProp
   const isArtist = "artist" in legendData;
   let legendText;
   if (!isArtist) {
-    legendText = legendData.track.name;
+    legendText = legendData.track === null ? "기타" : legendData.track.name;
   } else {
     legendText = legendData.artist === null ? "기타" : legendData.artist.name;
   }
