@@ -1,6 +1,7 @@
 $uib-size: 25px;
 $uib-speed: 1.5s;
 $uib-color: $primary-white;
+$uib-color-dark: $primary-black;
 
 %before-after {
   content: "";
@@ -32,6 +33,11 @@ $uib-color: $primary-white;
     @extend %before-after;
 
     animation: orbit $uib-speed linear infinite;
+  }
+
+  &.dark::after,
+  &.dark::before {
+    background-color: $uib-color-dark;
   }
 }
 

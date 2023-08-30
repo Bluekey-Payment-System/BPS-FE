@@ -12,15 +12,16 @@ const cx = classNames.bind(styles);
 
 interface TextFieldWithUnitProps extends TextFieldProps {
   unit: string;
+  isError?: boolean;
 }
 
 const TextFieldWithUnit = forwardRef((
   {
-    label, errors, bottomText, unit, ...props
+    label, errors, bottomText, unit, isError, ...props
   }: TextFieldWithUnitProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) => {
-  const error = !!errors[props.name!];
+  const error = !!errors[props.name!] || isError;
   const id = useId();
 
   return (
@@ -33,6 +34,7 @@ const TextFieldWithUnit = forwardRef((
       name={props.name as string}
       errors={errors}
       bottomText={bottomText}
+      isError={isError}
     >
       <div className={cx("container")}>
         <input

@@ -1,24 +1,41 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { FallbackProps } from "react-error-boundary";
+
+import { isAxiosError } from "axios";
 import { useRouter } from "next/router";
-import { NextPage, NextPageContext } from "next/types";
 
 import Button from "@/components/common/CommonBtns/Button/Button";
 import FallbackPageLayout from "@/components/layout/FallbackPageLayout";
+import { ERROR_MAP } from "@/constants/errorFallback";
 import { useAppSelector } from "@/redux/hooks";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
-const Error: NextPage = ({ statusCode }: { statusCode?: number }) => {
+const ErrorFallback = ({ error }: FallbackProps) => {
   const router = useRouter();
   const { type, memberId } = useAppSelector((state) => { return state.user.member; });
   const homeURL = (type === MEMBER_TYPE.ADMIN)
     ? `/admin/dashboard/${getLatestYearMonthString()}`
     : `/artists/${memberId}/dashboard/${getLatestYearMonthString()}`;
 
-  // 유의: 쿼리 훅 GET 에러는 해당 페이지가 아닌 에러 바운더리를 통해 ErrorFallback 컴포넌트가 렌더링 됨
+  let errorDescription;
+
+  if (!isAxiosError(error) || !error?.response?.status) {
+    errorDescription = "알 수 없는 에러가 발생했습니다.";
+  } else if (!error.response?.data?.message) {
+    if (!(error.response.status in ERROR_MAP)) {
+      errorDescription = `${error.response.status}: 알 수 없는 에러가 발생했습니다.`;
+    } else {
+      errorDescription = `${error.response.status}: ${ERROR_MAP[error.response.status]}`;
+    }
+  } else {
+    errorDescription = `${error.response.status}: ${error.response.data.message}`;
+  }
+
   return (
     <FallbackPageLayout
       pageType="error"
-      description={`${statusCode}: 에러가 발생했습니다.`}
+      description={errorDescription}
       buttonElements={(
         <>
           <Button size="medium" theme="dark" onClick={() => { window.location.href = homeURL; }}>홈(대쉬보드)으로 가기</Button>
@@ -29,10 +46,4 @@ const Error: NextPage = ({ statusCode }: { statusCode?: number }) => {
   );
 };
 
-Error.getInitialProps = ({ res, err }: NextPageContext) => {
-  // eslint-disable-next-line no-nested-ternary
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
-  return { statusCode, err };
-};
-
-export default Error;
+export default ErrorFallback;

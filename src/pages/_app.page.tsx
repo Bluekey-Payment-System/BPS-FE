@@ -1,8 +1,10 @@
+/* eslint-disable react/no-unstable-nested-components */
 import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
 
 import { useState } from "react";
 import { CookiesProvider } from "react-cookie";
+import { ErrorBoundary } from "react-error-boundary";
 import { Provider } from "react-redux";
 
 import {
@@ -15,6 +17,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import AlertModalRoot from "@/components/common/Modals/AlertModal/AlertModalRoot";
 import ToastRoot from "@/components/common/Toast/ToastRoot";
 import AuthPageLayout from "@/components/layout/AuthPageLayout";
+import ErrorFallback from "@/components/layout/ErrorFallback";
 import Layout from "@/components/layout/Layout";
 import UploadRevenueAlertModalRoot from "@/components/upload-revenue/UploadRevenueAlertModal/UploadRevenueAlertModalRoot";
 import { wrapper, persistor } from "@/redux/store";
@@ -29,6 +32,7 @@ const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState
           queries: {
             staleTime: 900000,
             cacheTime: 900000,
+            useErrorBoundary: true,
           },
         },
       },
@@ -53,15 +57,17 @@ const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState
         <Provider store={store}>
           <PersistGate persistor={persistor} loading={null}>
             <CookiesProvider>
-              <Head>
-                <title>블루키뮤직 정산시스템</title>
-              </Head>
-              <main className={Pretendard.className}>
-                {getContent()}
-              </main>
-              <ToastRoot />
-              <AlertModalRoot />
-              <UploadRevenueAlertModalRoot />
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <Head>
+                  <title>블루키뮤직 정산시스템</title>
+                </Head>
+                <main className={Pretendard.className}>
+                  {getContent()}
+                </main>
+                <ToastRoot />
+                <AlertModalRoot />
+                <UploadRevenueAlertModalRoot />
+              </ErrorBoundary>
             </CookiesProvider>
           </PersistGate>
         </Provider>

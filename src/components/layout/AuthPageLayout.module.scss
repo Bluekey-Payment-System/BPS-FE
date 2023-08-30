@@ -37,6 +37,7 @@
 
   .formSectionWrapper {
     @include typo(16);
+    @include scrollbar(15);
 
     display: flex;
     position: relative;

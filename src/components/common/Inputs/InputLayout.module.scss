@@ -2,6 +2,7 @@
 	@include flexbox(column, center, flex-start);
 	@include typo(14);
 
+	width: 100%;
 	gap: 10px;
 
 	.labelArea {
