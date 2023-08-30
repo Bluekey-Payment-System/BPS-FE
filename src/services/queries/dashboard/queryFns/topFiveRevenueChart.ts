@@ -2,6 +2,7 @@
 /* eslint-disable max-len */
 import { MOCK_ADMIN_DOUGHNUT, MOCK_ALBUM_DOUGHNUT, MOCK_ARTIST_DOUGHNUT } from "@/constants/mock";
 import { getAdminDashboardDoughnut } from "@/services/api/requests/admin/admin.get.api";
+import { getArtistDashboardDoughnut } from "@/services/api/requests/artist/artist.get.api";
 import { IGetAdminEarningsTopArtistResponse } from "@/services/api/types/admin";
 import { IGetAlbumRevenueTopTrackResponse } from "@/services/api/types/albums";
 import { IGetArtistEarningsTopTrackResponse } from "@/services/api/types/artist";
@@ -44,7 +45,7 @@ export const getDashboardTopFiveRevenueChart = async (
       response = await getAdminDashboardDoughnut(month, rank);
       break;
     case DASHBOARD_TYPE.ARTIST:
-      response = await getArtistDashboardTopFiveRevenueChart(month, rank, artistId);
+      response = await getArtistDashboardDoughnut(month, rank, artistId!);
       break;
     case DASHBOARD_TYPE.ALBUM:
       response = await getAlbumDashboardTopFiveRevenueChart(month, rank, albumId);

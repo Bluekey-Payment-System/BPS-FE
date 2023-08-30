@@ -50,7 +50,6 @@ const AdminTrackStatusTable = ({
     setSelectedValue(value === "곡 명" ? "trackName" : "albumName");
   };
 
-  // preventDefault 없을 시 URL 업데이트 안됨
   const handleClickSearchBar = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     router.push(updateQueryParam(

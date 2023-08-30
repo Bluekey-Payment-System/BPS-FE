@@ -2,9 +2,11 @@
 import { ParsedUrlQuery } from "querystring";
 
 import { QueryClient, dehydrate } from "@tanstack/react-query";
+import classNames from "classnames/bind";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
+import Orbit from "@/components/common/Loading/Orbit";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
@@ -22,6 +24,9 @@ import useArtistDashboard from "@/services/queries/dashboard/useArtistDashboard"
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
+import styles from "./index.module.scss";
+
+const cx = classNames.bind(styles);
 interface ArtistDashboardPageProps {
   month: string,
   page: number,
@@ -34,17 +39,23 @@ interface ArtistDashboardPageProps {
 const ArtistDashboardPage = ({
   month, page, sortBy, searchBy, keyword, artistId,
 }: InferGetServerSidePropsType<GetServerSideProps<ArtistDashboardPageProps>>) => {
+  const userRole = useAppSelector((state) => { return state.user.member.role; });
   const queries = useArtistDashboard(month, page, sortBy, searchBy, keyword, artistId);
   const [cardQuery, trendsChartQuery, topFiveChartQuery, tableQuery] = queries;
 
-  const isLoading = queries.some((query) => { return query.isLoading; });
-  const isError = queries.some((query) => { return query.isError; });
-  const userRole = useAppSelector((state) => { return state.user.member.role; });
+  const isLoading = queries.some((query, idx) => {
+    if (idx === 3) return false;
+    return query.isLoading;
+  });
+  const isTableLoading = tableQuery.isLoading;
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError) return <div>에러 발생!</div>;
-
-  const { totalItems, contents: tableContents } = tableQuery.data!;
+  if (isLoading) {
+    return (
+      <div className={cx("loading", "page")}>
+        <Orbit />
+      </div>
+    );
+  }
 
   const formattedMonth = convertToYearMonthFormat(month);
 
@@ -55,19 +66,22 @@ const ArtistDashboardPage = ({
         <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={userRole} />
         <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
       </div>
-      <ArtistTrackStatusTable
-        title={`${formattedMonth}의 트랙별 현황`}
-        data={tableContents}
-        // TODO: tableData 형태에 따라 isEmpty 체크 변경
-        isEmpty={!tableContents}
-        paginationElement={(
-          <Pagination
-            activePage={page}
-            totalItems={totalItems}
-            itemsPerPage={ITEMS_PER_DASHBOARD_TABLE}
+      {isTableLoading
+        ? <div className={cx("loading", "table")}><Orbit /></div>
+        : (
+          <ArtistTrackStatusTable
+            title={`${formattedMonth}의 트랙별 현황`}
+            data={tableQuery.data!.contents}
+            isEmpty={tableQuery.data!.totalItems === 0}
+            paginationElement={(
+              <Pagination
+                activePage={page}
+                totalItems={tableQuery.data!.totalItems}
+                itemsPerPage={ITEMS_PER_DASHBOARD_TABLE}
+              />
+            )}
           />
         )}
-      />
     </MainLayoutWithDropdown>
   );
 };

@@ -2,25 +2,10 @@
 import { MOCK_ADMIN_TABLE, MOCK_ARTIST_TABLE } from "@/constants/mock";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
 import { getAdminDashboardTable } from "@/services/api/requests/admin/admin.get.api";
+import { getArtistDashboardTable } from "@/services/api/requests/artist/artist.get.api";
 import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import { IGetArtistTrackTransactionResponse } from "@/services/api/types/artist";
 import { AdminDashboardType, ArtistDashboardType, DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
-
-const getArtistDashboardTable = (
-  month: string,
-  page: number,
-  size: number,
-  sortBy: string,
-  searchBy: string,
-  keyword: string,
-  artistId?: number,
-): Promise<IGetArtistTrackTransactionResponse> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(MOCK_ARTIST_TABLE);
-    }, 2000);
-  });
-};
 
 export const getDashboardTable = async (
   type: AdminDashboardType | ArtistDashboardType,
@@ -47,7 +32,7 @@ export const getDashboardTable = async (
       sortBy,
       searchBy,
       keyword,
-      artistId,
+      artistId!,
     );
   return data;
 };
