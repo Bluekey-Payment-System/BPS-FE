@@ -11,7 +11,7 @@ import { MEMBER_TYPE } from "@/types/enums/user.enum";
 const useArtistsStatus = (month: string, page: number, keyword: string | null) => {
   const query = useQuery(
     [MEMBER_TYPE.ADMIN, "artists-status", month, { page, keyword }],
-    () => { return getArtistsStatus(month, 1, ITEMS_PER_ARTISTS_TABLE, keyword); },
+    () => { return getArtistsStatus(month, page, ITEMS_PER_ARTISTS_TABLE, keyword); },
   );
 
   const queryClient = useQueryClient();
