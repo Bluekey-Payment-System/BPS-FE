@@ -49,7 +49,7 @@ export interface IBarMonthlyEarnings { // 어드민이 보는 바 차트
 
 // /api/v1/albums/{albumId}/dashboard
 // /api/v1/artist/{memberId}/dashboard/monthly
-export interface IBarMonthlySettlement { // 아티스트가 보는 바 차트
+export interface ILineMonthlySettlement { // 꺾은선 차트
   month: number,
   settlement: number | null,
   revenue: number | null,
@@ -73,7 +73,7 @@ export interface IDoughnutTrackRevenue extends IRevenue { // 트랙 도넛 차�
 
 // /api/v1/albums/{albumId}/dashboard/track
 export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차트
-  monthlyTrend: IBarMonthlySettlement[]
+  monthlyTrend: ILineMonthlySettlement[]
 }
 
 // Info 관련
@@ -112,7 +112,7 @@ export interface IAdminDashboardCard {
 }
 
 // /api/v1/artist/{memberId}/dashboard
-export interface IArtistDashboardCard {
+export interface IArtistDashboardCard extends IArtist {
   settlementAmount: IEarnings,
   bestAlbum: IAlbum & {
     growthRate: number | null
