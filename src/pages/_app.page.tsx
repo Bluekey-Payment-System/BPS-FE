@@ -19,6 +19,7 @@ import ToastRoot from "@/components/common/Toast/ToastRoot";
 import AuthPageLayout from "@/components/layout/AuthPageLayout";
 import ErrorFallback from "@/components/layout/ErrorFallback";
 import Layout from "@/components/layout/Layout";
+import UploadRevenueAlertModalRoot from "@/components/upload-revenue/UploadRevenueAlertModal/UploadRevenueAlertModalRoot";
 import { wrapper, persistor } from "@/redux/store";
 import Pretendard from "@/styles/local.font";
 
@@ -65,6 +66,7 @@ const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState
                 </main>
                 <ToastRoot />
                 <AlertModalRoot />
+                <UploadRevenueAlertModalRoot />
               </ErrorBoundary>
             </CookiesProvider>
           </PersistGate>

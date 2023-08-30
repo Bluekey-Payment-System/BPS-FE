@@ -1,4 +1,4 @@
-import { IAdminProfile, ITrackStatus, IUnRegisteredData } from "@/types/dto.temp";
+import { IAdminProfile, ITrackStatus } from "@/types/dto.temp";
 
 const MOCK_TRACK_STATUS_DATA: ITrackStatus[] = [{
   track: {
@@ -122,81 +122,6 @@ const MOCK_TRACK_STATUS_DATA: ITrackStatus[] = [{
   commissionRate: 40,
 }];
 
-const MOCK_UNREGISTERED_DATA: IUnRegisteredData[] = [
-  {
-    id: 1,
-    row: 2,
-    category: "아티스트",
-    value: "혁키",
-  },
-  {
-    id: 2,
-    row: 2,
-    category: "앨범",
-    value: "머ㅏ이;ㄶㅎ",
-  },
-  {
-    id: 3,
-    row: 3,
-    category: "곡",
-    value: "12374983175",
-  },
-  {
-    id: 4,
-    row: 7,
-    category: "아티스트",
-    value: "난몰라난몰라",
-  },
-  {
-    id: 5,
-    row: 14,
-    category: "곡",
-    value: "세상에 있어서는 안될 곡입니다아아아아",
-  },
-  {
-    id: 6,
-    row: 20,
-    category: "앨범",
-    value: "가나다라마바사",
-  },
-  {
-    id: 7,
-    row: 2,
-    category: "아티스트",
-    value: "혁키",
-  },
-  {
-    id: 8,
-    row: 2,
-    category: "앨범",
-    value: "머ㅏ이;ㄶㅎ",
-  },
-  {
-    id: 9,
-    row: 3,
-    category: "곡",
-    value: "12374983175",
-  },
-  {
-    id: 10,
-    row: 7,
-    category: "아티스트",
-    value: "난몰라난몰라",
-  },
-  {
-    id: 11,
-    row: 14,
-    category: "곡",
-    value: "세상에 있어서는 안될 곡입니다아아아아",
-  },
-  {
-    id: 12,
-    row: 20,
-    category: "앨범",
-    value: "가나다라마바사",
-  },
-];
-
 const MOCK_ADMIN_ACCOUNT_DATA: IAdminProfile[] = [
   {
     type: "ADMIN",
@@ -228,4 +153,4 @@ const MOCK_ADMIN_ACCOUNT_DATA: IAdminProfile[] = [
   },
 ];
 
-export { MOCK_TRACK_STATUS_DATA, MOCK_UNREGISTERED_DATA, MOCK_ADMIN_ACCOUNT_DATA };
+export { MOCK_TRACK_STATUS_DATA, MOCK_ADMIN_ACCOUNT_DATA };

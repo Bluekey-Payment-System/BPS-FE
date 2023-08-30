@@ -8,4 +8,22 @@
   &.left {
     text-align: left;
   }
+
+  .cellContent {
+    @include flexbox(row, false, center);
+
+    min-height: 61px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    &.center {
+      justify-content: center;
+      text-align: center;
+    }
+
+    &.left {
+      justify-content: flex-start;
+      text-align: left;
+    }
+  }
 }
