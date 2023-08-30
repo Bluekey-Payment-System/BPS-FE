@@ -2,8 +2,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
 import useAlertModal from "@/hooks/useAlertModal";
+import useLazyQuery from "@/hooks/useLazyQuery";
 import { useAppDispatch } from "@/redux/hooks";
 import { setUser } from "@/redux/slices/userSlice";
+import { getDropdownArtists } from "@/services/api/requests/artist/artist.get.api";
 import { adminSignIn, artistSignIn } from "@/services/api/requests/auth/auth.post.api";
 import {
   IPostAdminSignInRequest,
@@ -12,12 +14,13 @@ import {
   IPostArtistSignInResponse,
 } from "@/services/api/types/auth";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
-import { MEMBER_TYPE, MemberType } from "@/types/enums/user.enum";
+import { MEMBER_ROLE, MEMBER_TYPE, MemberType } from "@/types/enums/user.enum";
 import { setCookie } from "@/utils/cookies";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
 const useAdminSignin = () => {
   const dispatch = useAppDispatch();
+  const { refetch: getArtistNames } = useLazyQuery([MEMBER_ROLE.ARTIST, "names"], getDropdownArtists);
   const router = useRouter();
   const { showAlertModal } = useAlertModal();
   const mutation = useMutation<IPostAdminSignInResponse, unknown, IPostAdminSignInRequest, unknown>(
@@ -31,6 +34,8 @@ const useAdminSignin = () => {
           // secure: true,
           // httpOnly: true,
         });
+        // eslint-disable-next-line no-void, @typescript-eslint/no-floating-promises
+        getArtistNames();
         dispatch(setUser(data.member));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.push(`/admin/dashboard/${getLatestYearMonthString()}`);
