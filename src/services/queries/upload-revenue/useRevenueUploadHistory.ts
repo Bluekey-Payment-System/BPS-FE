@@ -5,10 +5,12 @@ import axios from "axios";
 
 import useAlertModal from "@/hooks/useAlertModal";
 import useToast from "@/hooks/useToast";
+import useUploadRevenueAlertModal from "@/hooks/useUploadRevenueAlertModal";
 import { deleteTransaction } from "@/services/api/requests/transaction/transaction.delete.api";
 import { getTransaction } from "@/services/api/requests/transaction/transaction.get.api";
 import { uploadTransaction } from "@/services/api/requests/transaction/transaction.post.api";
 import { IGetTransactionUploadResponse, IPostTransactionUploadData } from "@/services/api/types/transaction";
+import { ITransactionUploadAlert } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import { isUploadRevenueError } from "@/utils/type.predicates";
@@ -55,6 +57,7 @@ const useUploadHistoryPost = (
   const queryClient = useQueryClient();
   const { showToast } = useToast();
   const { showAlertModal } = useAlertModal();
+  const { showUploadRevenueAlertModal } = useUploadRevenueAlertModal();
   const { mutate: postUploadHistory, isLoading } = useMutation(
     (fileData: IPostTransactionUploadData) => { return uploadTransaction(fileData); },
     {
@@ -68,10 +71,10 @@ const useUploadHistoryPost = (
       onError: (error) => {
         if (axios.isAxiosError<object>(error)) {
           if (isUploadRevenueError(error.response?.data)) {
-            showAlertModal({
-              type: MODAL_TYPE.ERROR,
-              title: "미등록 데이터 발견",
-              message: "파일을 다시 확인하고 업로드해주세요.",
+            // TODO) 테스트 필요
+            showUploadRevenueAlertModal({
+              type: "warning",
+              alertData: error.response?.data.errors as ITransactionUploadAlert[],
             });
           } else {
             showAlertModal({
