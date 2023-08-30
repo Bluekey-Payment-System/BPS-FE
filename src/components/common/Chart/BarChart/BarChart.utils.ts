@@ -1,5 +1,4 @@
 import { IGetAdminMonthlyTrendsResponse } from "@/services/api/types/admin";
-import { IGetArtistMonthlyTrendsResponse } from "@/services/api/types/artist";
 import { MEMBER_ROLE, MemberRole } from "@/types/enums/user.enum";
 
 const monthNames: { [key: number]: string } = {
@@ -25,11 +24,11 @@ export const getMonthName = (num: number): string => {
 };
 
 export const mapChartDataToMonthlySummary = (
-  chartData: IGetAdminMonthlyTrendsResponse | IGetArtistMonthlyTrendsResponse,
+  chartData: IGetAdminMonthlyTrendsResponse,
   type: MemberRole,
 ) => {
   const convertedBarChartData = chartData.contents.map((data) => {
-    if (type === MEMBER_ROLE.ARTIST && "settlement" in data) {
+    if (type === MEMBER_ROLE.ARTIST) {
       return {
         month: getMonthName(data.month),
         revenue: data.revenue,
@@ -47,7 +46,7 @@ export const mapChartDataToMonthlySummary = (
 };
 
 export const getMaxValue = (
-  chartData: IGetAdminMonthlyTrendsResponse | IGetArtistMonthlyTrendsResponse,
+  chartData: IGetAdminMonthlyTrendsResponse,
   type: MemberRole,
 ): number => {
   let maxValue = 0;
@@ -56,10 +55,9 @@ export const getMaxValue = (
     let valueToCompare = 0;
     const content = chartData.contents[i];
 
-    if (type === MEMBER_ROLE.ARTIST && "settlement" in content) {
+    if (type === MEMBER_ROLE.ARTIST) {
       valueToCompare = Math.max(content.settlement || 0, content.revenue as number);
-    }
-    if ("netIncome" in content) {
+    } else {
       valueToCompare = Math.max(content.netIncome || 0, content.revenue as number);
     }
 
@@ -67,6 +65,5 @@ export const getMaxValue = (
       maxValue = valueToCompare;
     }
   }
-
   return maxValue;
 };

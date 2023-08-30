@@ -13,13 +13,13 @@ import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/Monthly
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
 import ArtistTrackStatusTable from "@/components/dashboard/TrackStatusTable/ArtistTrackStatusTable";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
+import { useAppSelector } from "@/redux/hooks";
 import { getDashboardCards } from "@/services/queries/dashboard/queryFns/cards";
 import { getDashboardTable } from "@/services/queries/dashboard/queryFns/table";
 import { getDashboardTopFiveRevenueChart } from "@/services/queries/dashboard/queryFns/topFiveRevenueChart";
 import { getDashboardTrendsChart } from "@/services/queries/dashboard/queryFns/trendsChart";
 import useArtistDashboard from "@/services/queries/dashboard/useArtistDashboard";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
-import { MEMBER_ROLE } from "@/types/enums/user.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
 interface ArtistDashboardPageProps {
@@ -39,6 +39,7 @@ const ArtistDashboardPage = ({
 
   const isLoading = queries.some((query) => { return query.isLoading; });
   const isError = queries.some((query) => { return query.isError; });
+  const userRole = useAppSelector((state) => { return state.user.member.role; });
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError) return <div>에러 발생!</div>;
@@ -51,7 +52,7 @@ const ArtistDashboardPage = ({
     <MainLayoutWithDropdown title="대시보드" dropdownElement={<MonthPickerDropdown />}>
       <DashboardCardList data={cardQuery.data!} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={MEMBER_ROLE.ARTIST} />
+        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={userRole} />
         <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
       </div>
       <ArtistTrackStatusTable

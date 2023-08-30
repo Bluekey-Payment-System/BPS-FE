@@ -19,10 +19,18 @@ const formattedValue = (value: number) => { return `${value}%`; };
 type DoughnutChartProps = IGetAdminEarningsTopArtistResponse | IGetAlbumRevenueTopTrackResponse;
 
 const DoughnutChart = ({ doughnutData }: { doughnutData: DoughnutChartProps }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  let isNullData: boolean = false;
+
+  if ("artist" in doughnutData.contents[0]) {
+    isNullData = (doughnutData.contents[0].artist).memberId === -1;
+  }
+
   const chartData = createChartDataFromContents(doughnutData);
 
   return (
     <ResponsivePie
+      enableArcLabels={!isNullData}
       arcLabelsTextColor="#ffffff"
       colors={chartColor}
       tooltip={CustomTooltip}

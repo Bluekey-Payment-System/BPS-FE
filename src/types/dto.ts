@@ -44,6 +44,7 @@ export interface IBarMonthlyEarnings { // 어드민이 보는 바 차트
   month: number,
   revenue: number | null,
   netIncome: number | null,
+  settlement: number | null,
 }
 
 // /api/v1/albums/{albumId}/dashboard
