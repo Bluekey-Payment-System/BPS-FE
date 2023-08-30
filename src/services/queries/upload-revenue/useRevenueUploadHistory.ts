@@ -1,13 +1,17 @@
 import {
   UseQueryResult, useMutation, useQuery, useQueryClient,
 } from "@tanstack/react-query";
+import axios from "axios";
 
+import useAlertModal from "@/hooks/useAlertModal";
 import useToast from "@/hooks/useToast";
 import { deleteTransaction } from "@/services/api/requests/transaction/transaction.delete.api";
 import { getTransaction } from "@/services/api/requests/transaction/transaction.get.api";
 import { uploadTransaction } from "@/services/api/requests/transaction/transaction.post.api";
 import { IGetTransactionUploadResponse, IPostTransactionUploadData } from "@/services/api/types/transaction";
+import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
+import { isUploadRevenueError } from "@/utils/type.predicates";
 
 /* 정산 업로드 내역 GET */
 const useUploadHistoryGet = (month: string) => {
@@ -50,6 +54,7 @@ const useUploadHistoryPost = (
 ) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
+  const { showAlertModal } = useAlertModal();
   const { mutate: postUploadHistory, isLoading } = useMutation(
     (fileData: IPostTransactionUploadData) => { return uploadTransaction(fileData); },
     {
@@ -59,6 +64,23 @@ const useUploadHistoryPost = (
 
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history", month]);
+      },
+      onError: (error) => {
+        if (axios.isAxiosError<object>(error)) {
+          if (isUploadRevenueError(error.response?.data)) {
+            showAlertModal({
+              type: MODAL_TYPE.ERROR,
+              title: "미등록 데이터 발견",
+              message: "파일을 다시 확인하고 업로드해주세요.",
+            });
+          } else {
+            showAlertModal({
+              type: MODAL_TYPE.ERROR,
+              title: "파일 포맷 오류",
+              message: "엑셀 파일의 포맷을 다시 확인하고 업로드해주세요.",
+            });
+          }
+        }
       },
     },
   );
