@@ -3,12 +3,13 @@ import { useRouter } from "next/router";
 import Button from "@/components/common/CommonBtns/Button/Button";
 import FallbackPageLayout from "@/components/layout/FallbackPageLayout";
 import { useAppSelector } from "@/redux/hooks";
+import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
 const Custom404 = () => {
   const router = useRouter();
   const { type, memberId } = useAppSelector((state) => { return state.user.member; });
-  const homeURL = type === "ADMIN"
+  const homeURL = (type === MEMBER_TYPE.ADMIN)
     ? `/admin/dashboard/${getLatestYearMonthString()}`
     : `/artists/${memberId}/dashboard/${getLatestYearMonthString()}`;
   return (
