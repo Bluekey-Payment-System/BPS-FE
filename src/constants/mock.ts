@@ -82,16 +82,18 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 1,
       name: "불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이불꽃놀이",
       enName: "Fireworks",
-      bluekeyOriginalTrack: false,
-      participants: [
+      isOriginalTrack: false,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
           commissionRate: 50,
         },
         {
           memberId: 1,
           name: "아이유",
+          enName: "Arin",
           commissionRate: 50,
         },
       ],
@@ -100,11 +102,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 2,
       name: "던던댄스",
       enName: "Dun Dun Dance",
-      bluekeyOriginalTrack: true,
-      participants: [
+      isOriginalTrack: true,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
       ],
@@ -113,16 +117,20 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 3,
       name: "바나나 알러지 원숭이",
       enName: "Banana Allergy Monkey",
-      bluekeyOriginalTrack: true,
-      participants: [
+      isOriginalTrack: true,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
         {
           memberId: 1,
           name: "승희",
+          enName: "Arin",
+
           commissionRate: 30,
         },
       ],
@@ -131,11 +139,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 4,
       name: "불꽃놀이",
       enName: "Fireworks",
-      bluekeyOriginalTrack: true,
-      participants: [
+      isOriginalTrack: true,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
       ],
@@ -144,11 +154,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 5,
       name: "던던댄스",
       enName: "Dun Dun Dance",
-      bluekeyOriginalTrack: false,
-      participants: [
+      isOriginalTrack: false,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
       ],
@@ -157,16 +169,20 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 6,
       name: "바나나 알러지 원숭이",
       enName: "Banana Allergy Monkey",
-      bluekeyOriginalTrack: true,
-      participants: [
+      isOriginalTrack: true,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
         {
           memberId: 1,
           name: "승희",
+          enName: "Arin",
+
           commissionRate: 30,
         },
       ],
@@ -175,11 +191,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 7,
       name: "불꽃놀이",
       enName: "Fireworks",
-      bluekeyOriginalTrack: false,
-      participants: [
+      isOriginalTrack: false,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
       ],
@@ -188,11 +206,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 8,
       name: "던던댄스",
       enName: "Dun Dun Dance",
-      bluekeyOriginalTrack: false,
-      participants: [
+      isOriginalTrack: false,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
       ],
@@ -201,16 +221,20 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 9,
       name: "바나나 알러지 원숭이",
       enName: "Banana Allergy Monkey",
-      bluekeyOriginalTrack: true,
-      participants: [
+      isOriginalTrack: true,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
         {
           memberId: 1,
           name: "승희",
+          enName: "Arin",
+
           commissionRate: 30,
         },
       ],
@@ -219,11 +243,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 10,
       name: "불꽃놀이",
       enName: "Fireworks",
-      bluekeyOriginalTrack: false,
-      participants: [
+      isOriginalTrack: false,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
       ],
@@ -232,11 +258,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 11,
       name: "던던댄스",
       enName: "Dun Dun Dance",
-      bluekeyOriginalTrack: false,
-      participants: [
+      isOriginalTrack: false,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
       ],
@@ -245,16 +273,20 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 12,
       name: "바나나 알러지 원숭이",
       enName: "Banana Allergy Monkey",
-      bluekeyOriginalTrack: true,
-      participants: [
+      isOriginalTrack: true,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
         {
           memberId: 1,
           name: "승희",
+          enName: "Arin",
+
           commissionRate: 30,
         },
       ],
@@ -263,11 +295,13 @@ export const MOCK_ALBUM_TRACKS: IGetAlbumTracksResponse = {
       trackId: 13,
       name: "불꽃놀이",
       enName: "Fireworks",
-      bluekeyOriginalTrack: false,
-      participants: [
+      isOriginalTrack: false,
+      artists: [
         {
           memberId: 1,
           name: "아린",
+          enName: "Arin",
+
           commissionRate: 50,
         },
       ],
