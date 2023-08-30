@@ -1,3 +1,4 @@
+import { ITrackFieldValues } from "@/types/album.types";
 import {
   IAlbumCard,
   IAlbumDashboardCard,
@@ -30,6 +31,14 @@ export interface IGetAlbumTracksTrendsResponse {
 
 export interface IGetAlbumRevenueTopTrackResponse {
   contents: IDoughnutTrackRevenue[]
+}
+
+export interface IPostAlbumTrackRequest extends ITrackFieldValues {
+}
+
+export interface IPostAlbumTrackResponse extends IPostAlbumTrackRequest {
+  trackId: number;
+  albumId: number;
 }
 
 export type IPostAlbumData = {

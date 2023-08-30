@@ -1,3 +1,5 @@
+import { ParsedUrlQuery } from "querystring";
+
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
@@ -12,11 +14,14 @@ import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/U
 import { getRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
 import { useUploadHistoryGet } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
-import convertYearMonthToQuery from "@/utils/convertYearMonthToQuery";
+
+interface UploadRevenuePageProps {
+  month: string,
+}
 
 const UploadRevenuePage = (
-  { month }: { month: string },
-): InferGetServerSidePropsType<typeof getServerSideProps> => {
+  { month }: InferGetServerSidePropsType<GetServerSideProps<UploadRevenuePageProps>>,
+) => {
   const {
     revenueUploadHistory, isLoading, isError, isFetching,
   } = useUploadHistoryGet(month);
@@ -61,16 +66,19 @@ const UploadRevenuePage = (
   );
 };
 
-const getServerSideProps: GetServerSideProps = async ({ query, req }) => {
+interface UploadRevenuePageQuery extends ParsedUrlQuery {
+  month: string,
+}
+
+const getServerSideProps: GetServerSideProps<UploadRevenuePageProps> = async ({ query, req }) => {
   // TODO: [month] 값이 없는 url의 경우 에러로 리다이렉트 처리 필요
-  const { month } = query;
-  const monthToQueryString = convertYearMonthToQuery(month as string);
+  const { month } = query as UploadRevenuePageQuery;
 
   const isCSR = req.url?.startsWith("/_next");
   if (isCSR) {
     return {
       props: {
-        month: monthToQueryString,
+        month,
       },
     };
   }
@@ -78,13 +86,13 @@ const getServerSideProps: GetServerSideProps = async ({ query, req }) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(
     [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
-    () => { return getRevenueUploadHistory(monthToQueryString); },
+    () => { return getRevenueUploadHistory(month); },
   );
 
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-      month: monthToQueryString,
+      month,
     },
   };
 };

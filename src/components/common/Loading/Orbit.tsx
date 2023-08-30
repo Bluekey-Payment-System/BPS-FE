@@ -4,9 +4,9 @@ import styles from "./Orbit.module.scss";
 
 const cx = classNames.bind(styles);
 
-const Orbit = () => {
+const Orbit = ({ dark = false }: { dark?: boolean }) => {
   return (
-    <div className={cx("orbit")} />
+    <div className={cx("orbit", { dark: dark === true })} />
   );
 };
 

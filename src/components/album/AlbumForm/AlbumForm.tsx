@@ -56,6 +56,9 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
           label="*앨범명 (한글)"
           {...register("name", {
             required: "*앨범명을 입력하세요.",
+            validate: {
+              hasContent: (value) => { return !!value?.trim() || "*앨범명을 입력하세요"; },
+            },
           })}
           errors={errors}
         />
@@ -63,6 +66,9 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
           label="*앨범명 (영문)"
           {...register("enName", {
             required: "*앨범명 (영문)을 입력하세요.",
+            validate: {
+              hasContent: (value) => { return !!value?.trim() || "*앨범명 (영문)을 입력하세요"; },
+            },
           })}
           errors={errors}
         />

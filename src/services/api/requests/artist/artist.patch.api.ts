@@ -28,6 +28,7 @@ export const patchArtistProfile = async (
     const [key, value] = item;
     if (key === "file") {
       formData.append("file", value ?? "");
+      return;
     }
     dataList[key] = value as string;
   });
