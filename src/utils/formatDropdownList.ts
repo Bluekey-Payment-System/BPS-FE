@@ -12,7 +12,7 @@ interface IFormatDropdownList {
 const formatDropdownList = (list: IFormatDropdownList[]): IHasSearchBarData[] => {
   const formattedList = list.map((item) => {
     return {
-      id: Object.values(item)[0].toString(),
+      id: parseInt(Object.values(item)[0] as string, 10),
       name: Object.values(item)[1].toString(),
     };
   });

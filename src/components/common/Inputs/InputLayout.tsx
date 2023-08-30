@@ -17,6 +17,7 @@ interface InputLayoutProps {
   errors: DeepMap<FieldValues, FieldError>;
   bottomText?: string;
   children: ReactNode;
+  isError?:boolean;
 }
 /**
  * @author [SeyoungCho](https://github.com/seyoungcho)
@@ -57,9 +58,9 @@ interface InputLayoutProps {
  `
  */
 const InputLayout = ({
-  label, hasEditMode, focused, editBtnId, inputId, name, errors, bottomText, children,
+  label, hasEditMode, focused, editBtnId, inputId, name, errors, bottomText, children, isError,
 }: InputLayoutProps) => {
-  const error = !!errors[name];
+  const error = !!errors[name] || isError;
   return (
     <div className={cx("container")}>
       {label && (

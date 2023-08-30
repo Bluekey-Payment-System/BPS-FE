@@ -21,6 +21,7 @@ export interface TextFieldProps
   label?: string;
   originalValue?: string;
   errors: DeepMap<FieldValues, FieldError>;
+  isError?: boolean;
   bottomText?: string;
   onSave?: (value: string) => Promise<void> | void;
 }
@@ -36,7 +37,7 @@ export interface TextFieldProps
  */
 const TextField = forwardRef((
   {
-    label, errors, onSave, resetField, bottomText, originalValue, ...props
+    label, errors, onSave, isError, resetField, bottomText, originalValue, ...props
   }: TextFieldProps,
   ref: ForwardedRef<HTMLInputElement>,
 ) => {
@@ -66,6 +67,7 @@ const TextField = forwardRef((
       inputId={inputId}
       name={props.name as string}
       errors={errors}
+      isError={isError}
       bottomText={bottomText}
     >
       <div className={cx("container")}>
