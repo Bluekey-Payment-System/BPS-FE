@@ -23,7 +23,7 @@ const postAlbumTrackByAlbumId = (albumId: number, body: IPostAlbumTrackRequest) 
             commissionRate: 50,
           },
         ],
-        originalTrack: false,
+        isOriginalTrack: false,
       });
       reject(new Error("에러가 발생했습니다."));
     }, 2000);

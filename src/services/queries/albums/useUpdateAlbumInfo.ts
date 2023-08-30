@@ -9,7 +9,7 @@ const patchAlbumInfo = (body: IAlbumFieldValues) => {
   return new Promise<IAlbumInfo>((resolve, reject) => {
     setTimeout(() => {
       return resolve({
-        ...MOCK_ALBUM_TRACKS, koAlbumName: body.name ?? MOCK_ALBUM_TRACKS.koAlbumName, enAlbumName: body.enName ?? MOCK_ALBUM_TRACKS.enAlbumName, albumImage: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbKkbJE%2FbtrNGwwhUUP%2FPwdFi2oUOBtBCdtxUpzFkk%2Fimg.jpg",
+        ...MOCK_ALBUM_TRACKS, name: body.name ?? MOCK_ALBUM_TRACKS.name, enName: body.enName ?? MOCK_ALBUM_TRACKS.enName, albumImage: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbKkbJE%2FbtrNGwwhUUP%2FPwdFi2oUOBtBCdtxUpzFkk%2Fimg.jpg",
       });
       reject(new Error("에러가 발생했습니다."));
     }, 2000);

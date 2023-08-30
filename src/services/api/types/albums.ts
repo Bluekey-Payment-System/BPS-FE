@@ -39,6 +39,7 @@ export interface IPostAlbumTrackRequest extends ITrackFieldValues {
 export interface IPostAlbumTrackResponse extends IPostAlbumTrackRequest {
   trackId: number;
   albumId: number;
+}
 
 export type IPostAlbumData = {
   file: File | null,

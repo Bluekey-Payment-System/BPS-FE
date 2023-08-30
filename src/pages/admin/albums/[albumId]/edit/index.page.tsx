@@ -31,8 +31,8 @@ const AlbumEditPage = () => {
   const methods = useForm<IAlbumFieldValues>({
     mode: "onBlur",
     defaultValues: {
-      name: data?.koAlbumName ?? "",
-      enName: data?.enAlbumName ?? "",
+      name: data?.name ?? "",
+      enName: data?.enName ?? "",
       memberId: data?.artist?.memberId ?? -1,
     },
   });
@@ -43,8 +43,8 @@ const AlbumEditPage = () => {
     if (data) {
       setAlbumInfo(data);
       methods.reset({
-        name: data?.koAlbumName ?? "",
-        enName: data?.enAlbumName ?? "",
+        name: data?.name ?? "",
+        enName: data?.enName ?? "",
         memberId: data?.artist?.memberId ?? -1,
       });
     }
