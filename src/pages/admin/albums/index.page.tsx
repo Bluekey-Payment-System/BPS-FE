@@ -22,7 +22,7 @@ const AdminAlbumListPage = (
   const { page, keyword }: ServerSidePageProps = query;
   const albumsQuery = useAlbums(MEMBER_TYPE.ADMIN, page, keyword);
   const {
-    data: albumsData, isLoading, isError,
+    data: albumsData, isLoading,
   } = albumsQuery;
 
   if (isLoading) {
@@ -32,11 +32,9 @@ const AdminAlbumListPage = (
       </div>
     );
   }
-  if (isError) return <div>에러 발생</div>;
-  if (!albumsData) return <div>데이터 없음</div>;
 
   return (
-    <AlbumListSection albumList={albumsData.contents} userType={MEMBER_TYPE.ADMIN} page={page} keyword={keyword ?? ""} totalAlbumItems={albumsData.totalItems} />
+    <AlbumListSection albumList={albumsData!.contents} userType={MEMBER_TYPE.ADMIN} page={page} keyword={keyword ?? ""} totalAlbumItems={albumsData!.totalItems} />
   );
 };
 
