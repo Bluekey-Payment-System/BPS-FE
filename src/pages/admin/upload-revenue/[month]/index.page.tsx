@@ -11,7 +11,7 @@ import SectionLayout from "@/components/common/Layouts/SectionLayout";
 import Loading from "@/components/common/Loading/Loading";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/UploadHistoryTable";
-import { getRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
+import { getTransaction } from "@/services/api/requests/transaction/transaction.get.api";
 import { useUploadHistoryGet } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
@@ -31,12 +31,6 @@ const UploadRevenuePage = (
     );
   }
 
-  if (!revenueUploadHistory) {
-    return (
-      <div>데이터를 가져오는 데 실패했습니다. 다시 시도해주세요</div>
-    );
-  }
-
   return (
     <MainLayoutWithDropdown
       title="정산 내역 업로드"
@@ -47,7 +41,7 @@ const UploadRevenuePage = (
       <ArtboardLayout>
         <div style={{ width: 730 }}>
           <SectionLayout title="정산 내역 파일 업로드">
-            <ExcelFileUploader />
+            <ExcelFileUploader month={month} />
           </SectionLayout>
           <SectionHr isThick />
           <SectionLayout title="업로드 내역">
@@ -55,7 +49,8 @@ const UploadRevenuePage = (
               ? <Loading height={218} />
               : (
                 <UploadHistroyTable
-                  uploadList={revenueUploadHistory.contents}
+                  uploadList={revenueUploadHistory!.contents}
+                  month={month}
                 />
               )}
           </SectionLayout>
@@ -84,8 +79,8 @@ const getServerSideProps: GetServerSideProps<UploadRevenuePageProps> = async ({ 
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(
-    [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
-    () => { return getRevenueUploadHistory(month); },
+    [MEMBER_TYPE.ADMIN, "revenue-upload-history", month],
+    () => { return getTransaction(month); },
   );
 
   return {

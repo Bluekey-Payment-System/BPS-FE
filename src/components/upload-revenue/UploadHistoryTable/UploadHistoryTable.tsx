@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import { useQueryClient } from "@tanstack/react-query";
-
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
 import EmptyData from "@/components/common/EmptyData/EmptyData";
 import Loading from "@/components/common/Loading/Loading";
@@ -20,18 +18,22 @@ interface FileData {
   fileName: string
 }
 
+interface UploadHistroyTableProps {
+  uploadList: ITransactionUpload[],
+  month: string,
+}
+
 /**
  * @author [hayoung-99](https://github.com/hayoung-99)
  * @param uploadList 정산 내역들이 담긴 배열
  * @returns 정산 내역 테이블
  */
 const UploadHistroyTable = (
-  { uploadList }: { uploadList: ITransactionUpload[] },
+  { uploadList, month }: UploadHistroyTableProps,
 ) => {
-  const queryClient = useQueryClient();
   const [isCancelUploadModalOpen, setIsCancelUploadModalOpen] = useState(false);
   const [fileData, setFileData] = useState<FileData>({} as FileData);
-  const { deleteUploadHistory, isLoading } = useUploadHistoryDelete(queryClient);
+  const { deleteUploadHistory, isLoading } = useUploadHistoryDelete(month);
 
   const handleClickCancelUploadBtn = (fileId: number, fileName: string) => {
     setIsCancelUploadModalOpen(true);
@@ -41,12 +43,8 @@ const UploadHistroyTable = (
     });
   };
 
-  const handleCancelUpload = (fileId: number, fileName: string) => {
-    // TODO: 업로드 취소 API 작업
-    // eslint-disable-next-line no-console
-    console.log(`(${fileId}) ${fileName} 파일 삭제`);
-    deleteUploadHistory();
-
+  const handleCancelUpload = (fileId: number) => {
+    deleteUploadHistory(fileId);
     setIsCancelUploadModalOpen(false);
   };
 
@@ -99,7 +97,7 @@ const UploadHistroyTable = (
         message={`파일 ${fileData?.fileName}의 업로드 내역을 삭제하시겠습니까?`}
         onClose={() => { setIsCancelUploadModalOpen(false); }}
         onClickProceed={() => {
-          return handleCancelUpload(fileData.fileId, fileData.fileName);
+          return handleCancelUpload(fileData.fileId);
         }}
         proceedBtnText="네, 삭제할게요"
         closeBtnText="아니요"

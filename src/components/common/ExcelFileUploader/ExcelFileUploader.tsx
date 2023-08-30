@@ -1,6 +1,5 @@
 import React from "react";
 
-import { useQueryClient } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import Image from "next/image";
 
@@ -17,11 +16,9 @@ const cx = classNames.bind(styles);
  * @author [hayoung-99](https://github.com/hayoung-99)
  * @returns 엑셀 파일 업로드 박스
  */
-const ExcelFileUploader = () => {
-  const queryClient = useQueryClient();
-
+const ExcelFileUploader = ({ month }: { month: string }) => {
   const { showToast } = useToast();
-  const { postUploadHistory, isLoading } = useUploadHistoryPost(queryClient);
+  const { postUploadHistory, isLoading } = useUploadHistoryPost(month);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -35,7 +32,7 @@ const ExcelFileUploader = () => {
       showToast(`[Error] 감지된 파일 확장자 (${fileExtension})`);
     } else {
       // 파일 업로드 처리
-      postUploadHistory({ file: droppedFile, uploadAt: "2023-08" });
+      postUploadHistory({ file: droppedFile, uploadMonth: month });
       // showToast(`Dropped file: ${droppedFile.name}`);
     }
   };

@@ -5,6 +5,8 @@
 
   .description {
     @include typo(16);
+
+    white-space: pre-line;
   }
 }
 
