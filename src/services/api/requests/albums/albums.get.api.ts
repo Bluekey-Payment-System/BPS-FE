@@ -40,6 +40,6 @@ export const getAlbumDashboardDoughnut = async (month: string, rank: number, alb
 
 /* 앨범의 트랙별 정산 리스트 */
 export const getAlbumDashboardLine = (startDate: string, endDate: string, albumId: number) => {
-  const response = getRequest<IGetAlbumTracksTrendsResponse>(`/albums/${albumId}/dashboard/track?startDate=${startDate}&endDate=${endDate}`);
+  const response = getRequest<IGetAlbumTracksTrendsResponse>(`/albums/${albumId}/dashboard/tracks?startDate=${startDate}&endDate=${endDate}`);
   return response;
 };

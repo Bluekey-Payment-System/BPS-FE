@@ -30,7 +30,7 @@
     .monthPickerDropdownContainer {
       margin-left: 22px;
 
-      &.user {
+      &.artist {
         margin-left: 49px;
       }
     }
@@ -39,4 +39,11 @@
   .chartContainer {
     @include flexbox(row, space-between, center);
   }
+}
+
+.loading {
+  @include flexbox(row, center, center);
+
+  width: 1200px;
+  height: 1100px;
 }

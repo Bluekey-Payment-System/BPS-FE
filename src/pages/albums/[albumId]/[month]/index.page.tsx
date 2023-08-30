@@ -7,6 +7,7 @@ import classNames from "classnames/bind";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import AlbumDetailsInformationTooltip from "@/components/album/AlbumDetailsInformationTooltip/AlbumDetailsInformationTooltip";
+import Orbit from "@/components/common/Loading/Orbit";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import AlbumInfoModal from "@/components/dashboard/AlbumInfoModal/AlbumInfoModal";
 import AlbumTrendsChart from "@/components/dashboard/AlbumTrendsChart/AlbumTrendsChart";
@@ -15,7 +16,7 @@ import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/Monthly
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
 import { useAppSelector } from "@/redux/hooks";
 import useAlbumDashboard from "@/services/queries/dashboard/useAlbumDashboard";
-import { MEMBER_ROLE, MEMBER_TYPE } from "@/types/enums/user.enum";
+import { MEMBER_ROLE } from "@/types/enums/user.enum";
 
 import styles from "./index.module.scss";
 
@@ -27,9 +28,7 @@ interface AlbumDashboardPageProps {
 }
 
 const AlbumDashboardPage = ({ month, albumId }: InferGetServerSidePropsType<GetServerSideProps<AlbumDashboardPageProps>>) => {
-  const { type: memberType } = useAppSelector((state) => {
-    return state.user.member;
-  });
+  const memberRole = useAppSelector((state) => { return state.user.member.role; });
 
   const [isOpenAlbumInfoModal, setIsOpenAlbumInfoModal] = useState(false);
 
@@ -37,29 +36,33 @@ const AlbumDashboardPage = ({ month, albumId }: InferGetServerSidePropsType<GetS
   const [cardQuery, trendsChartQuery, topFiveChartQuery, albumTrendsChartQuery, albumInfoQuery] = queries;
 
   const isLoading = queries.some((query) => { return query.isLoading; });
-  const isError = queries.some((query) => { return query.isError; });
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError) return <div>에러 발생!</div>;
+  if (isLoading) {
+    return (
+      <div className={cx("loading")}>
+        <Orbit />
+      </div>
+    );
+  }
 
   return (
     <section className={cx("container")}>
       <div className={cx("sectionHeader")}>
-        <h1 className={cx("title")}>{albumInfoQuery.data!.name}</h1>
-        {memberType === MEMBER_TYPE.USER && <AlbumDetailsInformationTooltip />}
-        <div className={cx("monthPickerDropdownContainer", { user: memberType === MEMBER_TYPE.USER })}>
+        <h1 className={cx("title")}>{cardQuery.data!.albumName}</h1>
+        {memberRole === MEMBER_ROLE.ARTIST && <AlbumDetailsInformationTooltip />}
+        <div className={cx("monthPickerDropdownContainer", { artist: memberRole === MEMBER_ROLE.ARTIST })}>
           <MonthPickerDropdown />
         </div>
         <button className={cx("albumInfo")} onClick={() => { setIsOpenAlbumInfoModal(true); }}>앨범 정보 보기</button>
       </div>
-      <DashboardCardList data={cardQuery.data!} />
+      <DashboardCardList data={cardQuery.data!.cards} />
       <div className={cx("chartContainer")}>
-        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={MEMBER_ROLE.ARTIST} />
+        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={memberRole} />
         <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
       </div>
       <AlbumTrendsChart
         albumTrendsChartData={albumTrendsChartQuery.data!}
-        memberRole={MEMBER_ROLE.ARTIST}
+        memberRole={memberRole}
       />
       <AlbumInfoModal
         data={albumInfoQuery.data!}
