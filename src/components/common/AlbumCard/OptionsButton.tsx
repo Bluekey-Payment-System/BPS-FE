@@ -34,7 +34,7 @@ const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
     e.preventDefault();
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push(`/admin/albums/edit/${albumId}`);
+    router.push(`/admin/albums/${albumId}/edit`);
   };
 
   const handleClickDeleteButton = (e: React.MouseEvent<HTMLButtonElement>) => {

@@ -3,23 +3,22 @@ import {
   AdminType, ArtistRole, UserType,
 } from "@/types/enums/user.enum";
 
+interface IName {
+  name: string,
+  enName: string,
+}
+
 // 이름 관련
-export interface IArtist {
+export interface IArtist extends IName {
   memberId: number,
-  koArtistName: string,
-  enArtistName: string
 }
 
-interface ITrack {
+interface ITrack extends IName {
   trackId: number,
-  koTrackName: string,
-  enTrackName: string
 }
 
-interface IAlbum {
+interface IAlbum extends IName {
   albumId: number,
-  koAlbumName: string,
-  enAlbumName: string
 }
 
 interface IEarnings {
@@ -53,6 +52,7 @@ export interface IBarMonthlySettlement { // 아티스트가 보는 바 차트
   month: number,
   settlement: number | null,
   revenue: number | null,
+  netIncome: number | null,
 }
 
 interface IRevenue { // 도넛 차트
@@ -76,33 +76,27 @@ export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차�
 }
 
 // Info 관련
-export interface ITrackInfo {
-  trackId: number
-  koTrackName: string,
-  enTrackName: string,
+export interface ITrackParticipantInfo {
+  memberId: number,
+  name: string,
+  commissionRate: number | null
+}
+
+export interface ITrackInfo extends ITrack {
   bluekeyOriginalTrack: boolean,
-  participants: {
-    koArtistName: string,
-    enArtistName: string,
-    commissionRate: number | null
-  }[]
+  participants: ITrackParticipantInfo[],
 }
 
 // /api/v1/albums/{albumId}
-export interface IAlbumInfo {
-  albumId: number,
+export interface IAlbumInfo extends IAlbum {
   albumImage: string | null,
-  koAlbumName: string,
-  enAlbumName: string,
   artist: IArtist | null, // 앨범 대표 아티스트가 없을 수도 있음
   tracks: ITrackInfo[]
 }
 
 // /api/v1/albums
-export interface IAlbumCard {
-  albumId: number,
+export interface IAlbumCard extends IAlbum {
   albumImage: string,
-  koAlbumName: string
 }
 
 // 대시보드 카드 관련
@@ -118,7 +112,7 @@ export interface IAdminDashboardCard {
 
 // /api/v1/artist/{memberId}/dashboard
 export interface IArtistDashboardCard {
-  settlement: IEarnings,
+  settlementAmount: IEarnings,
   bestAlbum: IAlbum & {
     growthRate: number | null
   },
@@ -127,8 +121,10 @@ export interface IArtistDashboardCard {
   }
 }
 
-export interface IAlbumDashboardCard {
-  settlement: IEarnings
+export interface IAlbumDashboardCard extends IAlbum {
+  revenue: IEarnings,
+  netIncome: IEarnings,
+  settlementAmount: IEarnings,
   bestTrack: ITrack & {
     growthRate: number | null
   }
@@ -137,10 +133,7 @@ export interface IAlbumDashboardCard {
 // 아티스트 현황
 // /api/v1/artist
 export interface IArtistList {
-  artist: {
-    memberId: number,
-    koArtistName: string,
-    enArtistName: string,
+  artist: IArtist & {
     profileImage: string | null
   },
   revenue: number | null,
@@ -196,8 +189,9 @@ interface ITransactionUploadAlert {
 export interface ITransactionUpload {
   id: number,
   name: string,
-  uploadAt: string
-  warnings: ITransactionUploadAlert[]
+  uploadAt: string,
+  warnings?: ITransactionUploadAlert[],
+  errors?: ITransactionUploadAlert[],
 }
 
 // 계정 관련
@@ -208,10 +202,7 @@ export interface IAdminAccount {
   email: string,
 }
 
-export interface IArtistAccount {
-  memberId: number,
-  name: string,
-  enName: string,
+export interface IArtistAccount extends IArtist {
   loginId: string,
   email: string | null,
   commissionRate: number | null,

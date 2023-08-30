@@ -30,7 +30,8 @@
     "react-cookie": "^6.1.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.2",
-    "react-redux": "^8.1.2"
+    "react-redux": "^8.1.2",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",

@@ -52,9 +52,9 @@ const ArtistsStatusTable = ({
               </TableCellUI>
               <TableCellUI>
                 <Link href={`/artist/${artistInfo.artist.memberId}/dashboard`} className={cx("artistNameSection")}>
-                  <TooltipRoot message={artistInfo.artist.koArtistName}>
-                    <p className={cx("artistName", "ellipsis")}>{artistInfo.artist.koArtistName}</p>
-                    <p className={cx("artistName", "enName", "ellipsis")}>{artistInfo.artist.enArtistName}</p>
+                  <TooltipRoot message={artistInfo.artist.name}>
+                    <p className={cx("artistName", "ellipsis")}>{artistInfo.artist.name}</p>
+                    <p className={cx("artistName", "enName", "ellipsis")}>{artistInfo.artist.enName}</p>
                   </TooltipRoot>
                 </Link>
               </TableCellUI>

@@ -2,6 +2,8 @@ import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
 
+import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
+
 import styles from "./AlbumCard.module.scss";
 import OptionsButton from "./OptionsButton";
 
@@ -32,7 +34,7 @@ const AlbumCard = ({
   hasOptionsButton = false,
 }: AlbumCardProps) => {
   return (
-    <Link href={`/albums/${albumId}`} className={cx("albumLink")}>
+    <Link href={`/albums/${albumId}/${getLatestYearMonthString()}`} className={cx("albumLink")}>
       <div className={cx("albumContainer")}>
         <div className={cx("imageBox")}>
           <div className={cx("imageContent")}>

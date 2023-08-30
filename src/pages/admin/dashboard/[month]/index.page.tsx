@@ -1,7 +1,8 @@
 /* eslint-disable max-len */
+import { ParsedUrlQuery } from "querystring";
+
 import { QueryClient, dehydrate } from "@tanstack/react-query";
-import classNames from "classnames/bind";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
@@ -13,17 +14,14 @@ import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopF
 import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
 import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
-import useDashboardCards, { getDashboardCards } from "@/services/queries/dashboard/useDashboardCards";
-import useDashboardTable, { getDashboardTable } from "@/services/queries/dashboard/useDashboardTable";
-import { getDashboardTopFiveRevenueChart, useDashboardTopFiveRevenueChart } from "@/services/queries/dashboard/useDashboardTopFiveRevenueChart";
-import useDashboardTrendsChart, { getDashboardTrendsChart } from "@/services/queries/dashboard/useDashboardTrendsChart";
+import { getDashboardCards } from "@/services/queries/dashboard/queryFns/cards";
+import { getDashboardTable } from "@/services/queries/dashboard/queryFns/table";
+import { getDashboardTopFiveRevenueChart } from "@/services/queries/dashboard/queryFns/topFiveRevenueChart";
+import { getDashboardTrendsChart } from "@/services/queries/dashboard/queryFns/trendsChart";
+import useAdminDashboard from "@/services/queries/dashboard/useAdminDashboard";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
-
-import styles from "./index.module.scss";
-
-const cx = classNames.bind(styles);
 
 interface AdminDashboardPageProps {
   month: string,
@@ -35,44 +33,25 @@ interface AdminDashboardPageProps {
 
 const AdminDashboardPage = ({
   month, page, sortBy, searchBy, keyword,
-}: AdminDashboardPageProps) => {
-  const {
-    cardsData,
-    isCardsError,
-    isCardsLoading,
-  } = useDashboardCards(DASHBOARD_TYPE.ADMIN, month);
+}: InferGetServerSidePropsType<GetServerSideProps<AdminDashboardPageProps>>) => {
+  const queries = useAdminDashboard(month, page, sortBy, searchBy, keyword);
+  const [cardQuery, trendsChartQuery, topFiveChartQuery, tableQuery] = queries;
 
-  const {
-    trendsChartData,
-    istrendsChartLoading, istrendsChartError,
-  } = useDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month);
+  const isLoading = queries.some((query) => { return query.isLoading; });
+  const isError = queries.some((query) => { return query.isError; });
 
-  const {
-    topFiveRevenueData: topFiveChartData,
-    istopFiveRevenueDataLoading,
-    istopFiveRevenueDataError,
-  } = useDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month);
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError) return <div>에러 발생!</div>;
 
-  const {
-    tableData,
-    isTableError,
-    isTableLoading,
-  } = useDashboardTable(DASHBOARD_TYPE.ADMIN, month, page, sortBy, searchBy, keyword);
-
+  const { totalItems, contents: tableContents } = tableQuery.data! as IGetAdminTrackTransactionResponse;
   const formattedMonth = convertToYearMonthFormat(month);
-
-  if (istrendsChartLoading || istopFiveRevenueDataLoading || isCardsLoading || isTableLoading) return <div>로딩 중...</div>;
-  if (istrendsChartError || istopFiveRevenueDataError || isCardsError || isTableError) return <div>에러 발생!</div>;
-  if (!trendsChartData || !topFiveChartData || !cardsData || !tableData) return <div>데이터가 없다</div>;
-
-  const { totalItems, contents: tableContents } = tableData as IGetAdminTrackTransactionResponse;
 
   return (
     <MainLayoutWithDropdown title="대시보드" dropdownElement={<MonthPickerDropdown />}>
-      <DashboardCardList data={cardsData} />
-      <div className={cx("cardContainer")}>
-        <MonthlyTrendChart barChartData={trendsChartData} type={MEMBER_TYPE.ADMIN} />
-        <TopFiveRevenueChart topFiveChartData={topFiveChartData} />
+      <DashboardCardList data={cardQuery.data!} />
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={MEMBER_TYPE.ADMIN} />
+        <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
       </div>
       <AdminTrackStatusTable
         title={`${formattedMonth}의 트랙별 현황`}
@@ -91,43 +70,66 @@ const AdminDashboardPage = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+interface AdminDashboardPageQuery extends ParsedUrlQuery {
+  month: string,
+  page?: string,
+  sortBy?: string,
+  searchBy?: string,
+  keyword?: string,
+}
+
+export const getServerSideProps: GetServerSideProps<AdminDashboardPageProps> = async ({ query, req }) => {
+  const {
+    month, page, sortBy, searchBy, keyword,
+  } = query as AdminDashboardPageQuery;
+
+  const pageNum = convertPageParamToNum(page || null);
+  const sortByString = sortBy || "createdAt";
+  const searchByString = searchBy || "TRACK";
+  const keywordString = keyword || "";
+
+  const isCSR = req.url?.startsWith("/_next");
+  if (isCSR) {
+    return {
+      props: {
+        month,
+        page: pageNum,
+        sortBy: sortByString,
+        searchBy: searchByString,
+        keyword: keywordString,
+      },
+    };
+  }
+
   const queryClient = new QueryClient();
-
-  const month = query?.month as string;
-
-  const pageParam = (query?.page ?? null) as (string | null);
-  const page = convertPageParamToNum(pageParam);
-  const sortBy = (query?.sortBy ?? "createdAt") as string;
-  const searchBy = (query?.searchBy ?? "track") as string;
-  const keyword = (query?.keyword ?? "") as string;
-
   try {
     await Promise.all([
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "card"],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "card", { month }],
         () => {
           return getDashboardCards(DASHBOARD_TYPE.ADMIN, month);
         },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart"],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "trendsChart", { month }],
         () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ADMIN, month); },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "topFiveRevenueChart"],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "TopFiveRevenue", { month }],
         () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ADMIN, month); },
       ),
       queryClient.prefetchQuery(
-        [DASHBOARD_TYPE.ADMIN, "dashboard", "table"],
+        [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
+          month, page: pageNum, sortBy: sortByString, searchBy: searchByString, keyword: keywordString,
+        }],
         () => {
           return getDashboardTable(
             DASHBOARD_TYPE.ADMIN,
             month,
-            page,
-            sortBy,
-            searchBy,
-            keyword,
+            pageNum,
+            sortByString,
+            searchByString,
+            keywordString,
           );
         },
       ),
@@ -137,10 +139,10 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       props: {
         dehydratedState: dehydrate(queryClient),
         month,
-        page,
-        sortBy,
-        searchBy,
-        keyword,
+        page: pageNum,
+        sortBy: sortByString,
+        searchBy: searchByString,
+        keyword: keywordString,
       },
     };
   } catch (e) {

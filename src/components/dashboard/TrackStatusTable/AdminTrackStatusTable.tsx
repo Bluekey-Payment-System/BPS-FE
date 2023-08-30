@@ -86,20 +86,20 @@ const AdminTrackStatusTable = ({
                 return (
                   <TableRowUI key={item.track.trackId}>
                     <TableCellUI>
-                      <TooltipRoot message={item.track.koTrackName}>
-                        <p className={cx("ellipsis")}>{item.track.koTrackName}</p>
+                      <TooltipRoot message={item.track.name}>
+                        <p className={cx("ellipsis")}>{item.track.name}</p>
                       </TooltipRoot>
                     </TableCellUI>
                     <TableCellUI>
-                      <TooltipRoot message={item.album.koAlbumName}>
-                        <p className={cx("ellipsis")}>{item.album.koAlbumName}</p>
+                      <TooltipRoot message={item.album.name}>
+                        <p className={cx("ellipsis")}>{item.album.name}</p>
                       </TooltipRoot>
                     </TableCellUI>
                     <TableCellUI>
                       <div>
                         <TooltipRoot message={formatArtistCell(item.artists)}>
                           <p className={cx("artistName", "ellipsis")}>{formatArtistCell(item.artists)}</p>
-                          <p className={cx("artistName", "enName", "ellipsis")}>{item.artists[0].enArtistName}</p>
+                          <p className={cx("artistName", "enName", "ellipsis")}>{item.artists[0].enName}</p>
                         </TooltipRoot>
                       </div>
                     </TableCellUI>

@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 
 import styles from "./SideNav.module.scss";
 import { ISideNavList } from "./SideNav.type";
+import { isActive, isAlbumExplorer } from "./SideNav.util";
 
 const cx = classNames.bind(styles);
 
@@ -33,7 +34,17 @@ const SideNavMobile = ({ sideNavList, isOpen, setIsOpen }: SideNavMobileProps) =
           {sideNavList?.map((list) => {
             return (
               <li key={list.id}>
-                <Link className={cx("asideItem", router.pathname === list.path && "active")} href={list.path}>{list.content}</Link>
+                <Link
+                  className={cx(
+                    "asideItem",
+                    isActive(router.asPath, list.path) && "active",
+                    isAlbumExplorer(router.asPath, list.path) && "albumExplorer",
+                  )}
+                  href={Array.isArray(list.path) ? list.path[0] : list.path}
+                >
+                  {list.content}
+
+                </Link>
               </li>
             );
           })}

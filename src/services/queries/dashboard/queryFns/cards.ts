@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useQuery } from "@tanstack/react-query";
-
 import { DashboardCardProps } from "@/components/common/DashboardCard/DashboardCard.type";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
 import { MOCK_ADMIN_DASHBOARD_CARD, MOCK_ALBUM_DASHBOARD_CARD, MOCK_ARTIST_DASHBOARD_CARD } from "@/constants/mock";
@@ -73,12 +71,12 @@ export const getDashboardCards = async (
     },
     {
       title: `${formattedMonth}의 아티스트`,
-      content: bestArtist.koArtistName,
+      content: bestArtist.name,
       growthRate: bestArtist.growthRate,
     }];
   } else if (type === DASHBOARD_TYPE.ARTIST) {
     response = await getArtistDashboardCards(month, artistId);
-    const { bestAlbum, bestTrack, settlement } = response;
+    const { bestAlbum, bestTrack, settlementAmount: settlement } = response;
     data = [{
       title: "당월 정산액",
       content: formatMoney(settlement.totalAmount, "card"),
@@ -86,17 +84,17 @@ export const getDashboardCards = async (
     },
     {
       title: `${formattedMonth}의 앨범`,
-      content: bestAlbum.koAlbumName,
+      content: bestAlbum.name,
       growthRate: bestAlbum.growthRate,
     },
     {
       title: `${formattedMonth}의 트랙`,
-      content: bestTrack.koTrackName,
+      content: bestTrack.name,
       growthRate: bestTrack.growthRate,
     }];
   } else {
     response = await getAlbumDashboardCards(month, albumId);
-    const { settlement, bestTrack } = response;
+    const { settlementAmount: settlement, bestTrack } = response;
     data = [{
       title: "이 앨범의 당월 정산액",
       content: formatMoney(settlement.totalAmount, "card"),
@@ -104,31 +102,10 @@ export const getDashboardCards = async (
     },
     {
       title: `${formattedMonth}의 트랙`,
-      content: bestTrack.koTrackName,
+      content: bestTrack.name,
       growthRate: bestTrack.growthRate,
     }];
   }
 
   return data;
 };
-
-const useDashboardCards = (
-  type: DashboardType,
-  month: string,
-  artistId?: string,
-  albumId?: string,
-) => {
-  const { data: cardsData, isError: isCardsError, isLoading: isCardsLoading } = useQuery(
-    [type, "dashboard", "card"],
-    () => { return getDashboardCards(type, month, artistId, albumId); },
-    {
-      staleTime: 5000,
-    },
-  );
-
-  return ({
-    cardsData, isCardsLoading, isCardsError,
-  });
-};
-
-export default useDashboardCards;

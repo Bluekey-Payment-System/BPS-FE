@@ -18,7 +18,7 @@ export const mapLineDataToMonthlySummary = (
   memberRole: MemberRole,
 ) => {
   const data = {
-    id: chartData.koTrackName,
+    id: chartData.name,
     data: chartData.monthlyTrend.map((chartItem) => {
       return {
         x: getMonthName(chartItem.month),

@@ -1,38 +1,59 @@
+import { useRef, useState } from "react";
+
 import classNames from "classnames/bind";
+import { useRouter } from "next/router";
 
 import MainLayout from "@/components/common/Layouts/MainLayout";
 import Pagination from "@/components/common/Pagination/Pagination";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
-import useToast from "@/hooks/useToast";
+import { ITEMS_PER_ALBUM_LIST } from "@/constants/pagination";
 import { MemberType } from "@/types/enums/user.enum";
+import updateQueryParam from "@/utils/updateQueryParam";
 
 import AlbumList from "../AlbumList/AlbumList";
 
 import styles from "./AlbumListSection.module.scss";
 
+interface AlbumListSectionProps {
+  userType: MemberType,
+  page: number,
+  keyword: string,
+  totalAlbumItems: number,
+}
+
 const cx = classNames.bind(styles);
 
-const AlbumListSection = ({ userType }: { userType: MemberType }) => {
-  const { showToast } = useToast();
+const AlbumListSection = ({
+  userType, page, keyword, totalAlbumItems,
+}: AlbumListSectionProps) => {
+  const [searchKeyword, setSearchKeyword] = useState<string>(keyword);
+  const searchKeywordRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const handleSearchAlbumTitle = () => {
-    showToast("앨범명 검색!");
+    if (searchKeywordRef.current) {
+      setSearchKeyword(searchKeywordRef.current.value);
+      const result = updateQueryParam(router.query, "keyword", searchKeywordRef.current.value, "page", 1);
+
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      router.push(result);
+    }
   };
 
   return (
-    <MainLayout title="앨범 상세">
+    <MainLayout title="앨범 탐색">
       <div className={cx("artboardLayout")}>
         <div className={cx("content")}>
           <div className={cx("searchBarSection")}>
-            <SearchBar placeholder="앨범명을 검색해주세요." onClick={handleSearchAlbumTitle} value="" />
+            <SearchBar placeholder="앨범명을 검색해주세요." onClick={handleSearchAlbumTitle} ref={searchKeywordRef} value={searchKeyword} />
           </div>
           <AlbumList
             userType={userType}
             paginationElement={(
               <Pagination
-                activePage={1}
-                totalItems={150}
-                itemsPerPage={6}
+                activePage={page}
+                totalItems={totalAlbumItems}
+                itemsPerPage={ITEMS_PER_ALBUM_LIST}
               />
           )}
           />

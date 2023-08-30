@@ -21,17 +21,17 @@ interface CurrentPasswordFormProps {
 
 const CurrentPasswordForm = ({ onSuccess }: CurrentPasswordFormProps) => {
   const { register, formState: { errors }, handleSubmit } = useForm<IChangePasswordFieldValues>();
-  const { showAlertModal } = useAlertModal({
-    type: MODAL_TYPE.ERROR,
-    title: "비밀번호 오류",
-    message: "입력하신 비밀번호와 현재 비밀번호가 일치하지 않습니다.",
-  });
+  const { showAlertModal } = useAlertModal();
   const handleClickNext: SubmitHandler<IChangePasswordFieldValues> = (data) => {
     // TODO: /api/v1/auth/member/password/confirm 에 POST요청해서 response에 따라 성공, 에러 처리
     if (data.password === "1234qwer") {
       onSuccess();
     } else {
-      showAlertModal();
+      showAlertModal({
+        type: MODAL_TYPE.ERROR,
+        title: "비밀번호 오류",
+        message: "입력하신 비밀번호와 현재 비밀번호가 일치하지 않습니다.",
+      });
     }
   };
   return (

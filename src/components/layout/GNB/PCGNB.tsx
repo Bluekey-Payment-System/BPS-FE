@@ -34,7 +34,7 @@ const PCGNB = ({
           )}
         <Link href="/my-profile" className={cx("profile")}>
           {profileImage
-            ? <Image src={profileImage} width={30} height={30} alt="프로필 이미지" />
+            ? <Image className={cx("profileImage")} src={profileImage} width={30} height={30} alt="프로필 이미지" />
             : <DefaultProfileImage size={30} userId={loginId} />}
           <span className={cx("profileName")}>{`${loginId} 님`}</span>
         </Link>

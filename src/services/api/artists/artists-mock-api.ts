@@ -10,6 +10,7 @@ const getArtistsStatus = (
   keyword: string | null,
 ): Promise<IGetArtistsResponse> => {
   // TODO: (GET) 아티스트 현황 데이터 가져오기
+  // page - 1 꼭 하기!!
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ARTISTS);

@@ -19,28 +19,28 @@ import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 const useAdminSignin = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { showAlertModal } = useAlertModal({
-    type: MODAL_TYPE.ERROR,
-    title: "로그인 실패",
-    message: "아이디와 비밀번호를 확인하세요",
-  });
-  const mutation = useMutation<
-  IPostAdminSignInResponse,
-  unknown,
-  IPostAdminSignInRequest,
-  unknown
-  >(
+  const { showAlertModal } = useAlertModal();
+  const mutation = useMutation<IPostAdminSignInResponse, unknown, IPostAdminSignInRequest, unknown>(
     ["admin", "signin"],
     adminSignIn,
     {
       onSuccess: (data) => {
-        setCookie("token", data.jwtInformation.accessToken);
+        setCookie("token", data.jwtInformation.accessToken, {
+          maxAge: 900000,
+          path: "/",
+          // secure: true,
+          // httpOnly: true,
+        });
         dispatch(setUser({ ...data.member, profileImage: null }));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        router.push(`/admin/dashboard/${getLatestYearMonthString()}`, undefined, { shallow: true });
+        router.push(`/admin/dashboard/${getLatestYearMonthString()}`);
       },
       onError: () => {
-        showAlertModal();
+        showAlertModal({
+          type: MODAL_TYPE.ERROR,
+          title: "로그인 실패",
+          message: "아이디와 비밀번호를 확인하세요",
+        });
       },
     },
   );
@@ -51,28 +51,28 @@ const useAdminSignin = () => {
 const useArtistSignin = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { showAlertModal } = useAlertModal({
-    type: MODAL_TYPE.ERROR,
-    title: "로그인 실패",
-    message: "아이디와 비밀번호를 확인하세요",
-  });
-  const mutation = useMutation<
-  IPostArtistSignInResponse,
-  unknown,
-  IPostArtistSignInRequest,
-  unknown
-  >(
+  const { showAlertModal } = useAlertModal();
+  // eslint-disable-next-line max-len
+  const mutation = useMutation<IPostArtistSignInResponse, unknown, IPostArtistSignInRequest, unknown>(
     ["artist", "signin"],
     artistSignIn,
     {
       onSuccess: (data) => {
-        setCookie("token", data.jwtInformation.accessToken);
+        setCookie("token", data.jwtInformation.accessToken, {
+          maxAge: 900000,
+          // secure: true,
+          // httpOnly: true,
+        });
         dispatch(setUser({ ...data.member, profileImage: null }));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.push(`/artists/${data.member.memberId}/dashboard/${getLatestYearMonthString()}`);
       },
       onError: () => {
-        showAlertModal();
+        showAlertModal({
+          type: MODAL_TYPE.ERROR,
+          title: "로그인 실패",
+          message: "아이디와 비밀번호를 확인하세요",
+        });
       },
     },
   );

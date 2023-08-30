@@ -22,7 +22,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         onClickMenu={setIsOpen}
       />
       <div className={cx("sideContentContainer")}>
-        <SideNav isOpen={isOpen} setIsOpen={setIsOpen} role={userInfo.role} />
+        <SideNav
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          role={userInfo.role}
+          memberId={userInfo.memberId}
+        />
         <div className={cx("content")}>
           {children}
         </div>
