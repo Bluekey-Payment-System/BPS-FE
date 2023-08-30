@@ -936,6 +936,9 @@ export const MOCK_ARTISTS: IGetArtistsResponse = {
 };
 
 export const MOCK_ARTIST_DASHBOARD_CARD: IGetArtistDashboardResponse = {
+  memberId: 1,
+  name: "혁기",
+  enName: "huycki",
   settlementAmount:
   {
     totalAmount: 1000,

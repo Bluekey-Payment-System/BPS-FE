@@ -5,7 +5,7 @@ import { getAdminDashboardCards } from "@/services/api/requests/admin/admin.get.
 import { getAlbumDashboardCards } from "@/services/api/requests/albums/albums.get.api";
 import { getArtistDashboardCards } from "@/services/api/requests/artist/artist.get.api";
 import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
-import { MemberType } from "@/types/enums/user.enum";
+import { MemberRole } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
 
 export const getDashboardCards = async (
@@ -13,17 +13,19 @@ export const getDashboardCards = async (
   month: string,
   artistId?: number,
   albumId?: number,
-  memberType?: MemberType,
+  memberRole?: MemberRole,
 ) => {
   const formattedMonth = convertToYearMonthFormat(month);
   let response;
-  let data: DashboardCardProps[];
+  let artistName = "";
+  let albumName = "";
+  let cards: DashboardCardProps[];
   if (type === DASHBOARD_TYPE.ADMIN) {
     response = await getAdminDashboardCards(month);
     const {
       revenue, settlementAmount, bestArtist, netIncome,
     } = response;
-    data = [{
+    cards = [{
       title: "당월 총 매출액",
       content: formatMoney(revenue.totalAmount, "card"),
       growthRate: revenue.growthRate,
@@ -45,29 +47,44 @@ export const getDashboardCards = async (
     }];
   } else if (type === DASHBOARD_TYPE.ARTIST) {
     response = await getArtistDashboardCards(month, artistId!);
-    const { bestAlbum, bestTrack, settlementAmount: settlement } = response;
-    data = [{
+    const {
+      bestAlbum, bestTrack, settlementAmount, name,
+    } = response;
+    artistName = name;
+    cards = [{
       title: "당월 정산액",
-      content: formatMoney(settlement.totalAmount, "card"),
-      growthRate: settlement.growthRate,
+      content: formatMoney(settlementAmount.totalAmount, "card"),
+      growthRate: settlementAmount.growthRate,
     },
     {
       title: `${formattedMonth}의 앨범`,
-      content: bestAlbum.name,
-      growthRate: bestAlbum.growthRate,
+      content: bestAlbum?.name ?? null,
+      growthRate: bestAlbum?.growthRate ?? null,
     },
     {
       title: `${formattedMonth}의 트랙`,
-      content: bestTrack.name,
-      growthRate: bestTrack.growthRate,
+      content: bestTrack?.name ?? null,
+      growthRate: bestTrack?.growthRate ?? null,
     }];
   } else {
     response = await getAlbumDashboardCards(month, albumId!);
     const {
-      revenue, netIncome, settlementAmount, bestTrack,
+      revenue, netIncome, settlementAmount, bestTrack, name,
     } = response;
-    if (memberType === "ADMIN") {
-      data = [{
+    albumName = name;
+    if (memberRole === "ARTIST") {
+      cards = [{
+        title: "이 앨범의 당월 정산액",
+        content: formatMoney(settlementAmount.totalAmount, "card"),
+        growthRate: settlementAmount.growthRate,
+      },
+      {
+        title: `${formattedMonth}의 트랙`,
+        content: bestTrack?.name ?? null,
+        growthRate: bestTrack?.growthRate ?? null,
+      }];
+    } else {
+      cards = [{
         title: "이 앨범의 당월 매출액",
         content: formatMoney(revenue.totalAmount, "card"),
         growthRate: revenue.growthRate,
@@ -84,22 +101,11 @@ export const getDashboardCards = async (
       },
       {
         title: `${formattedMonth}의 트랙`,
-        content: bestTrack.name,
-        growthRate: bestTrack.growthRate,
-      }];
-    } else {
-      data = [{
-        title: "이 앨범의 당월 정산액",
-        content: formatMoney(settlementAmount.totalAmount, "card"),
-        growthRate: settlementAmount.growthRate,
-      },
-      {
-        title: `${formattedMonth}의 트랙`,
-        content: bestTrack.name,
-        growthRate: bestTrack.growthRate,
+        content: bestTrack?.name ?? null,
+        growthRate: bestTrack?.growthRate ?? null,
       }];
     }
   }
 
-  return data;
+  return { cards, artistName, albumName };
 };

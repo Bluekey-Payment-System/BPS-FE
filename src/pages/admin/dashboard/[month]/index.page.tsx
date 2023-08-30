@@ -61,7 +61,7 @@ const AdminDashboardPage = ({
 
   return (
     <MainLayoutWithDropdown title="대시보드" dropdownElement={<MonthPickerDropdown />}>
-      <DashboardCardList data={cardQuery.data!} />
+      <DashboardCardList data={cardQuery.data!.cards} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={MEMBER_TYPE.ADMIN} />
         <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />

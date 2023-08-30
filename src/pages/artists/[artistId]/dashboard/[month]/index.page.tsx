@@ -39,7 +39,7 @@ interface ArtistDashboardPageProps {
 const ArtistDashboardPage = ({
   month, page, sortBy, searchBy, keyword, artistId,
 }: InferGetServerSidePropsType<GetServerSideProps<ArtistDashboardPageProps>>) => {
-  const userRole = useAppSelector((state) => { return state.user.member.role; });
+  const memberRole = useAppSelector((state) => { return state.user.member.role; });
   const queries = useArtistDashboard(month, page, sortBy, searchBy, keyword, artistId);
   const [cardQuery, trendsChartQuery, topFiveChartQuery, tableQuery] = queries;
 
@@ -60,10 +60,10 @@ const ArtistDashboardPage = ({
   const formattedMonth = convertToYearMonthFormat(month);
 
   return (
-    <MainLayoutWithDropdown title="대시보드" dropdownElement={<MonthPickerDropdown />}>
-      <DashboardCardList data={cardQuery.data!} />
+    <MainLayoutWithDropdown title={cardQuery.data!.artistName} dropdownElement={<MonthPickerDropdown />}>
+      <DashboardCardList data={cardQuery.data!.cards} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={userRole} />
+        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={memberRole} />
         <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
       </div>
       {isTableLoading
