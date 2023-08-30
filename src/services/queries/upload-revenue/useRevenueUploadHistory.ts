@@ -3,7 +3,7 @@ import {
 } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
-import { UPLOAD_REVENUE_ERROR_STATUS_MAPPER } from "@/constants/errorStatusMapping";
+import { UPLOAD_REVENUE_ERROR_STATUS_MAP } from "@/constants/errorStatusMapping";
 import useAlertModal from "@/hooks/useAlertModal";
 import useToast from "@/hooks/useToast";
 import useUploadRevenueAlertModal from "@/hooks/useUploadRevenueAlertModal";
@@ -83,8 +83,8 @@ const useUploadHistoryPost = (
           if (!error.response) {
             showAlertModal({
               type: MODAL_TYPE.ERROR,
-              title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.NETWORK_ERROR.title,
-              message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.NETWORK_ERROR.message,
+              title: UPLOAD_REVENUE_ERROR_STATUS_MAP.NETWORK_ERROR.title,
+              message: UPLOAD_REVENUE_ERROR_STATUS_MAP.NETWORK_ERROR.message,
             });
           } else if (isUploadRevenueError(error.response.data)) {
             // TODO) 테스트 필요
@@ -99,14 +99,14 @@ const useUploadHistoryPost = (
                 if (error.response.data.code === "TR_002") {
                   showAlertModal({
                     type: MODAL_TYPE.ERROR,
-                    title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.TR_002.title,
-                    message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.TR_002.message,
+                    title: UPLOAD_REVENUE_ERROR_STATUS_MAP.TR_002.title,
+                    message: UPLOAD_REVENUE_ERROR_STATUS_MAP.TR_002.message,
                   });
                 } else {
                   showAlertModal({
                     type: MODAL_TYPE.ERROR,
-                    title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.TR_004.title,
-                    message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.TR_004.message,
+                    title: UPLOAD_REVENUE_ERROR_STATUS_MAP.TR_004.title,
+                    message: UPLOAD_REVENUE_ERROR_STATUS_MAP.TR_004.message,
                   });
                 }
                 break;
@@ -115,8 +115,8 @@ const useUploadHistoryPost = (
               case 403: {
                 showAlertModal({
                   type: MODAL_TYPE.ERROR,
-                  title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[403].title,
-                  message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[403].message,
+                  title: UPLOAD_REVENUE_ERROR_STATUS_MAP[403].title,
+                  message: UPLOAD_REVENUE_ERROR_STATUS_MAP[403].message,
                 });
                 break;
               }
@@ -124,8 +124,8 @@ const useUploadHistoryPost = (
               case 500: {
                 showAlertModal({
                   type: MODAL_TYPE.ERROR,
-                  title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[500].title,
-                  message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[500].message,
+                  title: UPLOAD_REVENUE_ERROR_STATUS_MAP[500].title,
+                  message: UPLOAD_REVENUE_ERROR_STATUS_MAP[500].message,
                 });
                 break;
               }
@@ -133,8 +133,8 @@ const useUploadHistoryPost = (
               default: {
                 showAlertModal({
                   type: MODAL_TYPE.ERROR,
-                  title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.DEFAULT.title,
-                  message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.DEFAULT.message,
+                  title: UPLOAD_REVENUE_ERROR_STATUS_MAP.DEFAULT.title,
+                  message: UPLOAD_REVENUE_ERROR_STATUS_MAP.DEFAULT.message,
                 });
                 break;
               }
