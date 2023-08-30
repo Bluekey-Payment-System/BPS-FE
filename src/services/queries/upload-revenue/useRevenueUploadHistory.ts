@@ -3,8 +3,8 @@ import {
 } from "@tanstack/react-query";
 
 import useToast from "@/hooks/useToast";
-import { deleteUploadHistory } from "@/services/api/requests/transaction/transaction.delete.api";
-import { getUploadHistory } from "@/services/api/requests/transaction/transaction.get.api";
+import { deleteTransaction } from "@/services/api/requests/transaction/transaction.delete.api";
+import { getTransaction } from "@/services/api/requests/transaction/transaction.get.api";
 import { uploadTransaction } from "@/services/api/requests/transaction/transaction.post.api";
 import { IGetTransactionUploadResponse, IPostTransactionUploadData } from "@/services/api/types/transaction";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
@@ -15,7 +15,7 @@ const useUploadHistoryGet = (month: string) => {
     data: revenueUploadHistory, isLoading, isError, isFetching,
   }: UseQueryResult<IGetTransactionUploadResponse> = useQuery(
     [MEMBER_TYPE.ADMIN, "revenue-upload-history", month],
-    () => { return getUploadHistory(month); },
+    () => { return getTransaction(month); },
   );
 
   return ({
@@ -31,9 +31,9 @@ const useUploadHistoryDelete = (
   const queryClient = useQueryClient();
   const { showToast } = useToast();
   const {
-    mutate: deleteRevenueHistory,
+    mutate: deleteUploadHistory,
     isLoading,
-  } = useMutation((fileId: number) => { return deleteUploadHistory(fileId); }, {
+  } = useMutation((fileId: number) => { return deleteTransaction(fileId); }, {
     // TODO: delete 실패 시 실패 문구 Toast 노출 처리
     onSuccess: async () => {
       await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history", month]);
@@ -41,7 +41,7 @@ const useUploadHistoryDelete = (
     },
   });
 
-  return { deleteRevenueHistory, isLoading };
+  return { deleteUploadHistory, isLoading };
 };
 
 /* 정산 업로드 내역 POST */

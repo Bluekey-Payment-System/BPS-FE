@@ -33,7 +33,7 @@ const UploadHistroyTable = (
 ) => {
   const [isCancelUploadModalOpen, setIsCancelUploadModalOpen] = useState(false);
   const [fileData, setFileData] = useState<FileData>({} as FileData);
-  const { deleteRevenueHistory, isLoading } = useUploadHistoryDelete(month);
+  const { deleteUploadHistory, isLoading } = useUploadHistoryDelete(month);
 
   const handleClickCancelUploadBtn = (fileId: number, fileName: string) => {
     setIsCancelUploadModalOpen(true);
@@ -44,7 +44,7 @@ const UploadHistroyTable = (
   };
 
   const handleCancelUpload = (fileId: number) => {
-    deleteRevenueHistory(fileId);
+    deleteUploadHistory(fileId);
     setIsCancelUploadModalOpen(false);
   };
 
