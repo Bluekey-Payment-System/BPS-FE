@@ -1,6 +1,6 @@
 import { Cookies } from "react-cookie";
 
-import { CookieSetOptions } from "@/types/cookies.type";
+import { CookieGetOptions, CookieSetOptions } from "@/types/cookies.type";
 
 const cookies = new Cookies();
 
@@ -8,11 +8,11 @@ export const setCookie = (name: string, value: string, options?: CookieSetOption
   return cookies.set(name, value, { ...options });
 };
 
-export const getCookie = (name: string) => {
+export const getCookie = (name: string, options?:CookieGetOptions) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return cookies.get(name);
+  return cookies.get(name, options);
 };
 
-export const removeCookie = (name: string) => {
-  return cookies.remove(name);
+export const removeCookie = (name: string, options?: CookieSetOptions) => {
+  return cookies.remove(name, options);
 };

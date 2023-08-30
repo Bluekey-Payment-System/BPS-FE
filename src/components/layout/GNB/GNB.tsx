@@ -14,6 +14,7 @@ import MobileGNB from "./MobileGNB";
 import PCGNB from "./PCGNB";
 
 const GNB = ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loginId, profileImage, role, onClickMenu,
 }: GnbInfoProps) => {
   const { showToast } = useToast();
@@ -26,7 +27,7 @@ const GNB = ({
 
   const handleSignout = async () => {
     setTimeout(() => { dispatch(resetUser()); }, 500);
-    removeCookie("token");
+    removeCookie("token", { path: "/" });
     showToast("로그아웃 되었습니다.");
     if (role === MEMBER_ROLE.ARTIST) {
       await router.push("/signin");
@@ -39,14 +40,14 @@ const GNB = ({
     <>
       <PCGNB
         loginId={loginId}
-        profileImage={profileImage}
+        profileImage={null} // api 수정 이후 변경하기!
         role={role}
         onClickNotification={handleClickNotification}
         onClickLogout={handleSignout}
       />
       <MobileGNB
         loginId={loginId}
-        profileImage={profileImage}
+        profileImage={null}
         role={role}
         onClickNotification={handleClickNotification}
         onClickLogout={handleSignout}

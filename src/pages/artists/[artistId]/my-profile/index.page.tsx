@@ -23,7 +23,7 @@ const ArtistMyProfilePage = () => {
   const {
     mutate, isLoading,
   } = useUpdateArtistMyProfileInfo();
-    // 프로밀 이미지 수정 쿼리
+  // 프로밀 이미지 수정 쿼리
   const {
     mutateAsync: mutateImageAsync,
   } = useUpdateArtistMyProfileImage();
@@ -34,10 +34,8 @@ const ArtistMyProfilePage = () => {
     },
   });
 
-  const onSubmit:SubmitHandler<IArtistUpdateProfileFieldValues> = (data) => {
+  const onSubmit: SubmitHandler<IArtistUpdateProfileFieldValues> = (data) => {
     mutate(data);
-    // eslint-disable-next-line no-console
-    console.log(data);
   };
 
   const handleUploadImage = async (file: File) => {

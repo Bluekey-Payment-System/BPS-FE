@@ -1,21 +1,20 @@
 import classNames from "classnames/bind";
 
 import AlbumCard from "@/components/common/AlbumCard/AlbumCard";
-import { MOCK_ALBUMS } from "@/constants/mock";
+import { IAlbumCard } from "@/types/dto";
 import { MEMBER_TYPE, MemberType } from "@/types/enums/user.enum";
 
 import styles from "./AlbumList.module.scss";
 
 interface AlbumListProps {
   userType: MemberType,
-  paginationElement: React.ReactNode
+  paginationElement: React.ReactNode,
+  albumList: IAlbumCard[];
 }
 
 const cx = classNames.bind(styles);
 
-const AlbumList = ({ userType, paginationElement }: AlbumListProps) => {
-  const albumList = MOCK_ALBUMS.contents;
-
+const AlbumList = ({ userType, paginationElement, albumList }: AlbumListProps) => {
   return (
     <div className={cx("container")}>
       <div className={cx("albums")}>
@@ -24,7 +23,7 @@ const AlbumList = ({ userType, paginationElement }: AlbumListProps) => {
             <AlbumCard
               key={album.albumId}
               albumId={album.albumId}
-              albumCoverUrl={album.albumImage}
+              albumCoverUrl="/images/default-album-cover-small.png" // TODO: 앨범 커버 데이터 잘 오면 다시 album.albumImage로 롤백
               hasOptionsButton={userType === MEMBER_TYPE.ADMIN}
               albumTitle={album.name}
             />

@@ -7,6 +7,7 @@ import MainLayout from "@/components/common/Layouts/MainLayout";
 import Pagination from "@/components/common/Pagination/Pagination";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
 import { ITEMS_PER_ALBUM_LIST } from "@/constants/pagination";
+import { IAlbumCard } from "@/types/dto";
 import { MemberType } from "@/types/enums/user.enum";
 import updateQueryParam from "@/utils/updateQueryParam";
 
@@ -19,12 +20,13 @@ interface AlbumListSectionProps {
   page: number,
   keyword: string,
   totalAlbumItems: number,
+  albumList: IAlbumCard[],
 }
 
 const cx = classNames.bind(styles);
 
 const AlbumListSection = ({
-  userType, page, keyword, totalAlbumItems,
+  userType, page, keyword, totalAlbumItems, albumList,
 }: AlbumListSectionProps) => {
   const [searchKeyword, setSearchKeyword] = useState<string>(keyword);
   const searchKeywordRef = useRef<HTMLInputElement>(null);
@@ -48,6 +50,7 @@ const AlbumListSection = ({
             <SearchBar placeholder="앨범명을 검색해주세요." onClick={handleSearchAlbumTitle} ref={searchKeywordRef} value={searchKeyword} />
           </div>
           <AlbumList
+            albumList={albumList}
             userType={userType}
             paginationElement={(
               <Pagination

@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
@@ -8,6 +9,7 @@ import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import MainLayout from "@/components/common/Layouts/MainLayout";
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
+import useCreateArtist from "@/services/queries/artists/useCreateArtist";
 import { IArtistFieldValues } from "@/types/artist.types";
 import { generateRandomStringWithRegex } from "@/utils/generateRandomStringWithRegex";
 
@@ -20,17 +22,13 @@ const ArtistCreatePage = () => {
     mode: "onBlur",
     defaultValues: {
       password: generateRandomStringWithRegex(/^[a-zA-Z0-9@$!%*?&_-]*$/, 6, 18),
-      profileImage: null,
+      file: null,
       commissionRate: null,
     },
   });
-
+  const { mutate: createArtist, isLoading } = useCreateArtist();
   const onSubmit: SubmitHandler<IArtistFieldValues> = (data) => {
-    // TODO: /api/v1/artist 로 POST요청 (Content-Type: multipart/formData)
-    // eslint-disable-next-line no-console
-    console.log(data);
-    // eslint-disable-next-line no-console
-    console.log(JSON.stringify(data));
+    createArtist(data);
   };
 
   return (
@@ -42,7 +40,13 @@ const ArtistCreatePage = () => {
               <div className={cx("imageUploadContainer")}>
                 <ImageUploader
                   shape="circle"
-                  {...methods.register("profileImage")}
+                  {...methods.register("file", {
+                    onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                      if (e.target.files?.[0]) {
+                        methods.setValue("file", e.target.files[0]);
+                      }
+                    },
+                  })}
                   onUpload={() => { return Promise.resolve(); }}
                 />
                 <span className={cx("sizeLimitText")}>*이미지 크기는 6MB 이하로 업로드 해주세요.</span>
@@ -50,7 +54,7 @@ const ArtistCreatePage = () => {
             </SectionLayout>
             <SectionHr />
             <SectionLayout title="아티스트 계정 정보 입력">
-              <ArtistUploadForm submitBtnText="아티스트 계정 등록하기" onSubmit={onSubmit} />
+              <ArtistUploadForm submitBtnText={!isLoading ? "아티스트 계정 등록하기" : "등록 중..."} onSubmit={onSubmit} />
             </SectionLayout>
           </div>
         </ArtboardLayout>

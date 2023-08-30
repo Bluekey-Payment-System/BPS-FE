@@ -6,13 +6,12 @@ import classNames from "classnames/bind";
 import Button from "@/components/common/CommonBtns/Button/Button";
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
 import Dropdown from "@/components/common/Dropdown/Dropdown";
-import { IHasSearchBarData } from "@/components/common/Dropdown/Dropdown.type";
 import Checkbox from "@/components/common/Inputs/Checkbox/Checkbox";
 import TextField from "@/components/common/Inputs/TextField/TextField";
 import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/TextFieldWithUnit";
 import Spacing from "@/components/common/Layouts/Spacing";
-import { DROPDOWN_ARTIST_LIST } from "@/constants/artists";
 import useAddAlbumTrack from "@/services/queries/albums/useAddAlbumTrack";
+import useArtistList from "@/services/queries/artists/useArtistList";
 import { ITrackFieldValues } from "@/types/album.types";
 import { IAlbumInfo } from "@/types/dto";
 
@@ -26,6 +25,7 @@ interface AddTrackFormProps {
 }
 
 const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
+  const artistList = useArtistList();
   const {
     register,
     formState: { errors },
@@ -49,11 +49,9 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
     control,
     name: "artists",
   });
-  const { mutateAsync, isLoading, isError } = useAddAlbumTrack(albumInfo.albumId);
+  const { mutateAsync: addTrack, isLoading, isError } = useAddAlbumTrack(albumInfo.albumId);
   const onSubmit: SubmitHandler<ITrackFieldValues> = async (data) => {
-    await mutateAsync(data);
-    // eslint-disable-next-line no-console
-    console.log(data);
+    await addTrack(data);
     if (!isError) {
       reset();
       onClose();
@@ -106,7 +104,9 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
           <ChipButton
             size="large"
             onClick={() => {
-              append({ memberId: -1, name: "", commissionRate: watch("isOriginalTrack") === true ? null : 0 });
+              append({
+                memberId: -1, enName: "", name: "", commissionRate: watch("isOriginalTrack") === true ? null : 0,
+              });
             }}
           >
             아티스트 추가
@@ -134,12 +134,13 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                       : (
                         <div className={cx("dropdownContainer")}>
                           <span>아티스트</span>
-                          <Dropdown<IHasSearchBarData>
+                          <Dropdown
                             hasSearchBar
-                            dropdownListData={DROPDOWN_ARTIST_LIST}
+                            dropdownListData={artistList}
                             onClick={(value) => {
                               setValue(`artists.${index}.memberId`, value.id);
                               setValue(`artists.${index}.name`, value.name);
+                              setValue(`artists.${index}.commissionRate`, value.commissionRate || 0);
                             }}
                           />
                           <input
@@ -153,7 +154,7 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                           <input {...register(`artists.${index}.name`)} type="hidden" />
                           <span className={cx("dropdownError")}>
                             {errors.artists?.[index]?.memberId?.message
-                            ?? errors.artists?.[index]?.name?.message ?? ""}
+                              ?? errors.artists?.[index]?.name?.message ?? ""}
                           </span>
                         </div>
                       )}
@@ -197,13 +198,13 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                         },
                       })}
                       placeholder={
-                          // eslint-disable-next-line no-nested-ternary
-                          watch("isOriginalTrack") === true
-                            ? "블루키 오리지널 트랙은 요율을 설정할 수 없습니다."
-                            : watch(`artists.${index}.memberId`) === null
-                              ? "계약 외 아티스트는 요율을 지정할 수 없습니다"
-                              : "요율을 입력하세요."
-                        }
+                        // eslint-disable-next-line no-nested-ternary
+                        watch("isOriginalTrack") === true
+                          ? "블루키 오리지널 트랙은 요율을 설정할 수 없습니다."
+                          : watch(`artists.${index}.memberId`) === null
+                            ? "계약 외 아티스트는 요율을 지정할 수 없습니다"
+                            : "요율을 입력하세요."
+                      }
                       disabled={watch("isOriginalTrack") === true || watch(`artists.${index}.memberId`) === null}
                       errors={errors}
                       isError={!!errors.artists?.[index]?.commissionRate}
