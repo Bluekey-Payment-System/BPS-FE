@@ -14,9 +14,10 @@ import AlbumTrendsChart from "@/components/dashboard/AlbumTrendsChart/AlbumTrend
 import DashboardCardList from "@/components/dashboard/DashboardCardList/DashboardCardList";
 import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/MonthlyTrendsChart";
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
+import { useAppSelector } from "@/redux/hooks";
 import { IState } from "@/redux/store";
 import useAlbumDashboard from "@/services/queries/dashboard/useAlbumDashboard";
-import { MEMBER_ROLE, MemberRole } from "@/types/enums/user.enum";
+import { MEMBER_ROLE, MEMBER_TYPE, MemberRole } from "@/types/enums/user.enum";
 
 import styles from "./index.module.scss";
 
@@ -28,10 +29,10 @@ interface AlbumDashboardPageProps {
 }
 
 const AlbumDashboardPage = ({ month, albumId }: InferGetServerSidePropsType<GetServerSideProps<AlbumDashboardPageProps>>) => {
-  // TODO: 타입 추론 unknown으로 되는 문제 해결
-  const memberRole = useSelector<IState>((state) => {
-    return state.user.member.role;
-  }) as MemberRole;
+  const { type: memberType } = useAppSelector((state) => {
+    return state.user.member;
+  });
+
   const [isOpenAlbumInfoModal, setIsOpenAlbumInfoModal] = useState(false);
 
   const queries = useAlbumDashboard(month, albumId);
@@ -47,8 +48,8 @@ const AlbumDashboardPage = ({ month, albumId }: InferGetServerSidePropsType<GetS
     <section className={cx("container")}>
       <div className={cx("sectionHeader")}>
         <h1 className={cx("title")}>{albumInfoQuery.data!.name}</h1>
-        {memberRole === MEMBER_ROLE.ARTIST && <AlbumDetailsInformationTooltip />}
-        <div className={cx("monthPickerDropdownContainer", { artist: memberRole === MEMBER_ROLE.ARTIST })}>
+        {memberType === MEMBER_TYPE.USER && <AlbumDetailsInformationTooltip />}
+        <div className={cx("monthPickerDropdownContainer", { user: memberType === MEMBER_TYPE.USER })}>
           <MonthPickerDropdown />
         </div>
         <button className={cx("albumInfo")} onClick={() => { setIsOpenAlbumInfoModal(true); }}>앨범 정보 보기</button>
