@@ -77,7 +77,7 @@ export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차�
 
 // Info 관련
 export interface ITrackParticipantInfo {
-  memberId: number,
+  memberId: number | null,
   name: string,
   commissionRate: number | null
 }

@@ -1,3 +1,5 @@
+import { IPostTrackRequest } from "@/services/api/types/tracks";
+
 export interface IAlbumFieldValues {
   name?: string;
   enName?: string;
@@ -5,13 +7,4 @@ export interface IAlbumFieldValues {
   albumImage?: File;
 }
 
-export interface ITrackFieldValues {
-  name: string;
-  enName: string;
-  isOriginalTrack: boolean;
-  artists: {
-    memberId: number | null;
-    name: string;
-    commissionRate: number | null;
-  } [];
-}
+export interface ITrackFieldValues extends IPostTrackRequest {}
