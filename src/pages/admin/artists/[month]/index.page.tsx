@@ -27,7 +27,7 @@ const ArtistsStatusPage = (
   const { month, page, keyword }: ArtistsStatusPageProps = query;
   const [searchKeyword, setSearchKeyword] = useState<string>(keyword || "");
   const {
-    artistsStatus, isLoading, isError, isFetching,
+    data: artistsStatus, isLoading, isError, isFetching,
   } = useArtistsStatus(
     month,
     page,
