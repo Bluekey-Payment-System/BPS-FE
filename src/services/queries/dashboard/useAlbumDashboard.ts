@@ -13,7 +13,7 @@ import { getDashboardTrendsChart } from "./queryFns/trendsChart";
 
 const useAlbumDashboard = (
   month: string,
-  albumId: string,
+  albumId: number,
 ) => {
   const { type: memberType } = useAppSelector((state) => {
     return state.user.member;

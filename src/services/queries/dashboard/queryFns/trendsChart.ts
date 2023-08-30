@@ -18,7 +18,7 @@ const getAdminDashboardTrendsChart = (month: string): Promise<IGetAdminMonthlyTr
   });
 };
 
-const getArtistDashboardTrendsChart = (month: string, artistId?: string): Promise<IGetArtistMonthlyTrendsResponse> => {
+const getArtistDashboardTrendsChart = (month: string, artistId?: number): Promise<IGetArtistMonthlyTrendsResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ARTIST_BAR);
@@ -26,7 +26,7 @@ const getArtistDashboardTrendsChart = (month: string, artistId?: string): Promis
   });
 };
 
-const getAlbumDashboardTrendsChart = (month: string, albumId?: string): Promise<IGetAlbumMonthlyTrendsResponse> => {
+const getAlbumDashboardTrendsChart = (month: string, albumId?: number): Promise<IGetAlbumMonthlyTrendsResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(MOCK_ALBUM_BAR);
@@ -36,8 +36,8 @@ const getAlbumDashboardTrendsChart = (month: string, albumId?: string): Promise<
 export const getDashboardTrendsChart = async (
   type: DashboardType,
   month: string,
-  artistId?: string,
-  albumId?: string,
+  artistId?: number,
+  albumId?: number,
 ) => {
   let response: DashBoardTrendsChart;
   switch (type) {

@@ -1,41 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { DashboardCardProps } from "@/components/common/DashboardCard/DashboardCard.type";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
-import { MOCK_ALBUM_DASHBOARD_CARD, MOCK_ARTIST_DASHBOARD_CARD } from "@/constants/mock";
 import { getAdminDashboardCards } from "@/services/api/requests/admin/admin.get.api";
-import { IGetAlbumDashboardResponse } from "@/services/api/types/albums";
-import { IGetArtistDashboardResponse } from "@/services/api/types/artist";
+import { getAlbumDashboardCards } from "@/services/api/requests/albums/albums.get.api";
+import { getArtistDashboardCards } from "@/services/api/requests/artist/artist.get.api";
 import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
 import { MemberType } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
 
-const getArtistDashboardCards = (
-  month: string,
-  artistId?: string,
-): Promise<IGetArtistDashboardResponse> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(MOCK_ARTIST_DASHBOARD_CARD);
-    }, 2000);
-  });
-};
-
-const getAlbumDashboardCards = (
-  month: string,
-  albumId?: string,
-): Promise<IGetAlbumDashboardResponse> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(MOCK_ALBUM_DASHBOARD_CARD);
-    }, 2000);
-  });
-};
-
 export const getDashboardCards = async (
   type: DashboardType,
   month: string,
-  artistId?: string,
-  albumId?: string,
+  artistId?: number,
+  albumId?: number,
   memberType?: MemberType,
 ) => {
   const formattedMonth = convertToYearMonthFormat(month);
@@ -67,7 +44,7 @@ export const getDashboardCards = async (
       growthRate: bestArtist?.growthRate ?? null,
     }];
   } else if (type === DASHBOARD_TYPE.ARTIST) {
-    response = await getArtistDashboardCards(month, artistId);
+    response = await getArtistDashboardCards(month, artistId!);
     const { bestAlbum, bestTrack, settlementAmount: settlement } = response;
     data = [{
       title: "당월 정산액",
@@ -85,7 +62,7 @@ export const getDashboardCards = async (
       growthRate: bestTrack.growthRate,
     }];
   } else {
-    response = await getAlbumDashboardCards(month, albumId);
+    response = await getAlbumDashboardCards(month, albumId!);
     const {
       revenue, netIncome, settlementAmount, bestTrack,
     } = response;

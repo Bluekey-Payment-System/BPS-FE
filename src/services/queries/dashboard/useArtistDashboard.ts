@@ -19,7 +19,7 @@ const useArtistDashboard = (
   sortBy: string,
   searchBy: string,
   keyword: string,
-  artistId: string,
+  artistId: number,
 ) => {
   const queries = useQueries({
     queries: [

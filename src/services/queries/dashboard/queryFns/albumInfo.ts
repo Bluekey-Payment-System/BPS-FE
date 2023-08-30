@@ -4,7 +4,7 @@ import { IGetAlbumTracksResponse } from "@/services/api/types/albums";
 
 export const getDashboardAlbumInfo = (
   month: string,
-  albumId: string,
+  albumId: number,
 ): Promise<IGetAlbumTracksResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => { return resolve(MOCK_ALBUM_TRACKS); }, 2000);

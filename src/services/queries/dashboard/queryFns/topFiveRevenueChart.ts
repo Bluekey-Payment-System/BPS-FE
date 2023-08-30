@@ -15,7 +15,7 @@ const getAdminDashboardTopFiveRevenueChart = (month: string, rank: number): Prom
   });
 };
 
-const getArtistDashboardTopFiveRevenueChart = (month: string, rank: number, artistId?: string): Promise<IGetArtistEarningsTopTrackResponse> => {
+const getArtistDashboardTopFiveRevenueChart = (month: string, rank: number, artistId?: number): Promise<IGetArtistEarningsTopTrackResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       return resolve(MOCK_ARTIST_DOUGHNUT);
@@ -23,7 +23,7 @@ const getArtistDashboardTopFiveRevenueChart = (month: string, rank: number, arti
   });
 };
 
-const getAlbumDashboardTopFiveRevenueChart = (month: string, rank: number, albumId?: string): Promise<IGetAlbumRevenueTopTrackResponse> => {
+const getAlbumDashboardTopFiveRevenueChart = (month: string, rank: number, albumId?: number): Promise<IGetAlbumRevenueTopTrackResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       return resolve(MOCK_ALBUM_DOUGHNUT);
@@ -34,8 +34,8 @@ const getAlbumDashboardTopFiveRevenueChart = (month: string, rank: number, album
 export const getDashboardTopFiveRevenueChart = async (
   type: DashboardType,
   month: string,
-  artistId?: string,
-  albumId?: string,
+  artistId?: number,
+  albumId?: number,
   rank: number = 5,
 ) => {
   let response;

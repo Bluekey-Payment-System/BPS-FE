@@ -28,7 +28,7 @@ interface ArtistDashboardPageProps {
   sortBy: string,
   searchBy: string,
   keyword: string,
-  artistId: string,
+  artistId: number,
 }
 
 const ArtistDashboardPage = ({
@@ -86,6 +86,7 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
   } = query as ArtistDashboardPageQuery;
 
   const pageNum = convertPageParamToNum(page || null);
+  const artistIdNum = Number(artistId);
   const sortByString = sortBy || "";
   const searchByString = searchBy || "trackName";
   const keywordString = keyword || "";
@@ -99,7 +100,7 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
         sortBy: sortByString,
         searchBy: searchByString,
         keyword: keywordString,
-        artistId,
+        artistId: artistIdNum,
       },
     };
   }
@@ -110,16 +111,16 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "card", artistId, { month }],
         () => {
-          return getDashboardCards(DASHBOARD_TYPE.ARTIST, month, artistId);
+          return getDashboardCards(DASHBOARD_TYPE.ARTIST, month, artistIdNum);
         },
       ),
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "trendsChart", artistId, { month }],
-        () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month, artistId); },
+        () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month, artistIdNum); },
       ),
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "TopFiveRevenue", artistId, { month }],
-        () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month, artistId); },
+        () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month, artistIdNum); },
       ),
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "table", artistId, {
@@ -133,7 +134,7 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
             sortByString,
             searchByString,
             keywordString,
-            artistId,
+            artistIdNum,
           );
         },
       ),
@@ -147,7 +148,7 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
         sortBy: sortByString,
         searchBy: searchByString,
         keyword: keywordString,
-        artistId,
+        artistId: artistIdNum,
       },
     };
   } catch (e) {

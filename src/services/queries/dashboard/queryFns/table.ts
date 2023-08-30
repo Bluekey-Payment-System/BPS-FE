@@ -13,7 +13,7 @@ const getArtistDashboardTable = (
   sortBy: string,
   searchBy: string,
   keyword: string,
-  artistId?: string,
+  artistId?: number,
 ): Promise<IGetArtistTrackTransactionResponse> => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -29,7 +29,7 @@ export const getDashboardTable = async (
   sortBy: string,
   searchBy: string,
   keyword: string,
-  artistId?: string,
+  artistId?: number,
 ) => {
   const data = (type === DASHBOARD_TYPE.ADMIN)
     ? await getAdminDashboardTable(

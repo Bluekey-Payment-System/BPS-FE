@@ -23,7 +23,7 @@ const cx = classNames.bind(styles);
 
 interface AlbumDashboardPageProps {
   month: string
-  albumId: string
+  albumId: number
 }
 
 const AlbumDashboardPage = ({ month, albumId }: InferGetServerSidePropsType<GetServerSideProps<AlbumDashboardPageProps>>) => {
@@ -78,11 +78,12 @@ interface AlbumDashboardPageQuery extends ParsedUrlQuery {
 // eslint-disable-next-line @typescript-eslint/require-await
 const getServerSideProps: GetServerSideProps<AlbumDashboardPageProps> = async ({ query }) => {
   const { month, albumId } = query as AlbumDashboardPageQuery;
+  const albumIdNum = Number(albumId);
 
   return {
     props: {
       month,
-      albumId,
+      albumId: albumIdNum,
     },
   };
 };
