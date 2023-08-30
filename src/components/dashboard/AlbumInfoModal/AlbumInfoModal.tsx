@@ -31,8 +31,7 @@ const AlbumInfoModal = ({
             <div className={cx("imageWrapper")}>
               <Image
                 className={cx({ defaultCover: !data.albumImage })}
-                // TODO: albumImage에 "image/album/album.jpg" 있을 때 처리 삭제
-                src={(!data.albumImage || data.albumImage === "image/album/album.jpg") ? "/images/default-album-cover.svg" : data.albumImage}
+                src={data.albumImage || "/images/default-album-cover.svg"}
                 fill
                 alt="앨범 커버"
               />
