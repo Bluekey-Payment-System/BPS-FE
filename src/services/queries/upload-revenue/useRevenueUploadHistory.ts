@@ -89,7 +89,7 @@ const useUploadHistoryPost = (
           } else if (isUploadRevenueError(error.response.data)) {
             // TODO) 테스트 필요
             showUploadRevenueAlertModal({
-              type: "warning",
+              type: "error",
               alertData: error.response.data.errors,
             });
           } else {
