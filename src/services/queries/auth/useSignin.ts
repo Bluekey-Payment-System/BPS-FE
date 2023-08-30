@@ -31,7 +31,7 @@ const useAdminSignin = () => {
           // secure: true,
           // httpOnly: true,
         });
-        dispatch(setUser({ ...data.member, profileImage: null }));
+        dispatch(setUser(data.member));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.push(`/admin/dashboard/${getLatestYearMonthString()}`);
       },
@@ -63,7 +63,7 @@ const useArtistSignin = () => {
           // secure: true,
           // httpOnly: true,
         });
-        dispatch(setUser({ ...data.member, profileImage: null }));
+        dispatch(setUser(data.member));
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.push(`/artists/${data.member.memberId}/dashboard/${getLatestYearMonthString()}`);
       },
