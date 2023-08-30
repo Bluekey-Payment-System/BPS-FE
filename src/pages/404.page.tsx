@@ -19,7 +19,7 @@ const Custom404 = () => {
         주소를 다시 확인해주세요.`}
       buttonElements={(
         <>
-          <Button size="medium" theme="dark" onClick={() => { window.location.href = homeURL; }}>홈(대시보드)으로 가기</Button>
+          <Button size="medium" theme="dark" onClick={() => { window.location.href = homeURL; }}>홈(대쉬보드)으로 가기</Button>
           <Button size="medium" theme="bright" onClick={() => { router.back(); }}>뒤로가기</Button>
         </>
       )}

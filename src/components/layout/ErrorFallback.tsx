@@ -37,7 +37,7 @@ const ErrorFallback = ({ error }: FallbackProps) => {
       description={errorDescription}
       buttonElements={(
         <>
-          <Button size="medium" theme="dark" onClick={() => { window.location.href = homeURL; }}>홈(대시보드)으로 가기</Button>
+          <Button size="medium" theme="dark" onClick={() => { window.location.href = homeURL; }}>홈(대쉬보드)으로 가기</Button>
           <Button size="medium" theme="dark" onClick={() => { router.reload(); }}>새로고침</Button>
         </>
       )}
