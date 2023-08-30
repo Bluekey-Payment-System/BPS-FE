@@ -10,6 +10,7 @@ import useUploadRevenueAlertModal from "@/hooks/useUploadRevenueAlertModal";
 import { deleteTransaction } from "@/services/api/requests/transaction/transaction.delete.api";
 import { getTransaction } from "@/services/api/requests/transaction/transaction.get.api";
 import { uploadTransaction } from "@/services/api/requests/transaction/transaction.post.api";
+import { ICommonErrorResponse } from "@/services/api/types/errors";
 import { IGetTransactionUploadResponse, IPostTransactionUploadData } from "@/services/api/types/transaction";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
@@ -69,12 +70,12 @@ const useUploadHistoryPost = (
         queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history", month]);
       },
       onError: (error: AxiosError | Error) => {
-        if (axios.isAxiosError<object>(error)) {
+        if (axios.isAxiosError<ICommonErrorResponse>(error)) {
           if (!error.response) {
             showAlertModal({
               type: MODAL_TYPE.ERROR,
-              title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.no_res.title,
-              message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.no_res.message,
+              title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.NETWORK_ERROR.title,
+              message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.NETWORK_ERROR.message,
             });
           } else if (isUploadRevenueError(error.response.data)) {
             // TODO) 테스트 필요
@@ -85,32 +86,49 @@ const useUploadHistoryPost = (
           } else {
             // TODO) 중복 코드 개편
             switch (error.response.status) {
-              case (400):
-                showAlertModal({
-                  type: MODAL_TYPE.ERROR,
-                  title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[400].title,
-                  message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[400].message,
-                });
+              case 400: {
+                if (error.response.data.code === "TR_002") {
+                  showAlertModal({
+                    type: MODAL_TYPE.ERROR,
+                    title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.TR_002.title,
+                    message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.TR_002.message,
+                  });
+                } else {
+                  showAlertModal({
+                    type: MODAL_TYPE.ERROR,
+                    title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.TR_004.title,
+                    message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.TR_004.message,
+                  });
+                }
                 break;
+              }
 
-              case (403):
+              case 403: {
                 showAlertModal({
                   type: MODAL_TYPE.ERROR,
                   title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[403].title,
                   message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[403].message,
                 });
                 break;
+              }
 
-              case (500):
+              case 500: {
                 showAlertModal({
                   type: MODAL_TYPE.ERROR,
                   title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[500].title,
                   message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[500].message,
                 });
                 break;
+              }
 
-              default:
+              default: {
+                showAlertModal({
+                  type: MODAL_TYPE.ERROR,
+                  title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.DEFAULT.title,
+                  message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.DEFAULT.message,
+                });
                 break;
+              }
             }
           }
         }
