@@ -96,12 +96,10 @@ const AdminTrackStatusTable = ({
                       </TooltipRoot>
                     </TableCellUI>
                     <TableCellUI>
-                      <div>
-                        <TooltipRoot message={formatArtistCell(item.artists)}>
-                          <p className={cx("artistName", "ellipsis")}>{formatArtistCell(item.artists)}</p>
-                          <p className={cx("artistName", "enName", "ellipsis")}>{item.artists[0].enName}</p>
-                        </TooltipRoot>
-                      </div>
+                      <TooltipRoot message={formatArtistCell(item.artists)}>
+                        <p className={cx("artistName", "ellipsis")}>{formatArtistCell(item.artists)}</p>
+                        <p className={cx("artistName", "enName", "ellipsis")}>{item.artists[0].enName}</p>
+                      </TooltipRoot>
                     </TableCellUI>
                     <TableCellUI>{formatMoney(item.revenue, "table")}</TableCellUI>
                     <TableCellUI>{formatMoney(item.netIncome, "table")}</TableCellUI>

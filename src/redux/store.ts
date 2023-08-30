@@ -19,10 +19,13 @@ import alertModalReducer, { IAlertModalState } from "@/redux/slices/alertModalSl
 import toastReducer, { IToastState } from "@/redux/slices/toastSlice";
 import userReducer, { IUserState } from "@/redux/slices/userSlice";
 
+import uploadRevenueAlertModalReducer, { IUploadRevenueAlertModalState } from "./slices/UploadRevenueAlertModalSlice";
+
 export interface IState {
   toast: IToastState;
   user: IUserState;
   alertModal: IAlertModalState;
+  uploadRevenueAlertModal: IUploadRevenueAlertModalState
 }
 
 const createNoopStorage = () => {
@@ -53,6 +56,7 @@ const rootReducer = (state: IState | undefined, action: AnyAction): IState => {
         toast: toastReducer,
         alertModal: alertModalReducer,
         user: userReducer,
+        uploadRevenueAlertModal: uploadRevenueAlertModalReducer,
       });
       return combinedReducer(state, action);
     }

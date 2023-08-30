@@ -33,8 +33,10 @@ const TableCellUI = ({
         </th>
       )
       : (
-        <td className={cx("cell", align)}>
-          {children}
+        <td className={cx("cell")}>
+          <div className={cx("cellContent", align)}>
+            {children}
+          </div>
         </td>
       )
   );
