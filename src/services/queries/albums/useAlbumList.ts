@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { ITEMS_PER_ALBUM_LIST } from "@/constants/pagination";
+import { ITEMS_PER_ALBUM_LIST, PAGES_PER_PAGINATION } from "@/constants/pagination";
 import { getAlbums } from "@/services/api/requests/albums/albums.get.api";
 import { MemberType } from "@/types/enums/user.enum";
 
@@ -31,9 +31,9 @@ const useAlbums = (type: MemberType, page: number, keyword: string | null, membe
       () => { return getAlbums(1, ITEMS_PER_ALBUM_LIST, keyword); },
     );
 
-    const curPaginationStartPage = Math.floor((page - 1) / ITEMS_PER_ALBUM_LIST) * ITEMS_PER_ALBUM_LIST + 1;
-    const nextPaginationStartPage = curPaginationStartPage + ITEMS_PER_ALBUM_LIST;
-    const prevPaginationstartPage = curPaginationStartPage - ITEMS_PER_ALBUM_LIST;
+    const curPaginationStartPage = Math.floor((page - 1) / PAGES_PER_PAGINATION) * PAGES_PER_PAGINATION + 1;
+    const nextPaginationStartPage = curPaginationStartPage + PAGES_PER_PAGINATION;
+    const prevPaginationstartPage = curPaginationStartPage - PAGES_PER_PAGINATION;
     // 3. 현재 페이지네이션의 시작 페이지 ~ 다음 페이지네이션의 시작 페이지
     for (let i = curPaginationStartPage; i <= Math.min(endPage, nextPaginationStartPage); i += 1) {
       void queryClient.prefetchQuery(
