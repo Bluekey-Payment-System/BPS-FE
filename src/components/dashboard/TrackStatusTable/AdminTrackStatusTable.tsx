@@ -59,7 +59,7 @@ const AdminTrackStatusTable = ({
       selectedValue,
       "keyword",
       searchBarRef.current?.value ?? "",
-    ));
+    ), undefined, { scroll: false });
   };
 
   return (

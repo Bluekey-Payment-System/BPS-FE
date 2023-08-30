@@ -2,9 +2,11 @@
 import { ParsedUrlQuery } from "querystring";
 
 import { QueryClient, dehydrate } from "@tanstack/react-query";
+import classNames from "classnames/bind";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
+import Orbit from "@/components/common/Loading/Orbit";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
@@ -13,15 +15,19 @@ import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/Monthly
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
 import AdminTrackStatusTable from "@/components/dashboard/TrackStatusTable/AdminTrackStatusTable";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
-import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import { getDashboardCards } from "@/services/queries/dashboard/queryFns/cards";
 import { getDashboardTable } from "@/services/queries/dashboard/queryFns/table";
 import { getDashboardTopFiveRevenueChart } from "@/services/queries/dashboard/queryFns/topFiveRevenueChart";
 import { getDashboardTrendsChart } from "@/services/queries/dashboard/queryFns/trendsChart";
 import useAdminDashboard from "@/services/queries/dashboard/useAdminDashboard";
+import { ITrackTransaction } from "@/types/dto";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
+
+import styles from "./index.module.scss";
+
+const cx = classNames.bind(styles);
 
 interface AdminDashboardPageProps {
   month: string,
@@ -37,13 +43,20 @@ const AdminDashboardPage = ({
   const queries = useAdminDashboard(month, page, sortBy, searchBy, keyword);
   const [cardQuery, trendsChartQuery, topFiveChartQuery, tableQuery] = queries;
 
-  const isLoading = queries.some((query) => { return query.isLoading; });
-  const isError = queries.some((query) => { return query.isError; });
+  const isLoading = queries.some((query, idx) => {
+    if (idx === 3) return false;
+    return query.isLoading;
+  });
+  const isTableLoading = tableQuery.isLoading;
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError) return <div>에러 발생!</div>;
+  if (isLoading) {
+    return (
+      <div className={cx("loading", "page")}>
+        <Orbit />
+      </div>
+    );
+  }
 
-  const { totalItems, contents: tableContents } = tableQuery.data! as IGetAdminTrackTransactionResponse;
   const formattedMonth = convertToYearMonthFormat(month);
 
   return (
@@ -53,18 +66,22 @@ const AdminDashboardPage = ({
         <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={MEMBER_TYPE.ADMIN} />
         <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
       </div>
-      <AdminTrackStatusTable
-        title={`${formattedMonth}의 트랙별 현황`}
-        data={tableContents}
-        isEmpty={totalItems === 0}
-        paginationElement={(
-          <Pagination
-            activePage={page}
-            totalItems={totalItems}
-            itemsPerPage={ITEMS_PER_DASHBOARD_TABLE}
+      {isTableLoading
+        ? <div className={cx("loading", "table")}><Orbit /></div>
+        : (
+          <AdminTrackStatusTable
+            title={`${formattedMonth}의 트랙별 현황`}
+            data={tableQuery.data!.contents as ITrackTransaction[]}
+            isEmpty={tableQuery.data!.totalItems === 0}
+            paginationElement={(
+              <Pagination
+                activePage={page}
+                totalItems={tableQuery.data!.totalItems}
+                itemsPerPage={ITEMS_PER_DASHBOARD_TABLE}
+              />
+            )}
           />
         )}
-      />
     </MainLayoutWithDropdown>
   );
 };

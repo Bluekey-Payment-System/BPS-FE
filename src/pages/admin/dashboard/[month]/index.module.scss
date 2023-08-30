@@ -1,0 +1,13 @@
+.loading {
+  @include flexbox(row, center, center);
+
+  &.page {
+    width: 1200px;
+    height: 1100px;
+  }
+
+  &.table {
+    width: 1200px;
+    height: 485px;
+  }
+}
