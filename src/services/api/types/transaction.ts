@@ -7,7 +7,7 @@ export interface IGetTransactionUploadResponse {
 
 export type IPostTransactionUploadData = {
   file: File,
-  uploadAt: string,
+  uploadMonth: string,
 };
 
 export interface IPostTransactionUploadResponse extends ITransactionUpload {

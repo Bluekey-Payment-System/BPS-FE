@@ -5,8 +5,8 @@ import {
 import useToast from "@/hooks/useToast";
 import { deleteUploadHistory } from "@/services/api/requests/transaction/transaction.delete.api";
 import { getUploadHistory } from "@/services/api/requests/transaction/transaction.get.api";
-import { IGetTransactionUploadResponse } from "@/services/api/types/transaction";
-import { postRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
+import { uploadTransaction } from "@/services/api/requests/transaction/transaction.post.api";
+import { IGetTransactionUploadResponse, IPostTransactionUploadData } from "@/services/api/types/transaction";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 /* 정산 업로드 내역 GET */
@@ -45,27 +45,23 @@ const useUploadHistoryDelete = (
 };
 
 /* 정산 업로드 내역 POST */
-interface IFileData {
-  file: File,
-  uploadAt: string,
-}
-
 const useUploadHistoryPost = (
   month: string,
 ) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
-  const { mutate: postUploadHistory, isLoading } = useMutation((fileData: IFileData) => {
-    return postRevenueUploadHistory(fileData.file, fileData.uploadAt);
-  }, {
+  const { mutate: postUploadHistory, isLoading } = useMutation(
+    (fileData: IPostTransactionUploadData) => { return uploadTransaction(fileData); },
+    {
     // TODO: post 실패 또는 warnings 있을 경우 알림 모달 띄우기
-    onSuccess: (data) => {
-      showToast(data as string);
+      onSuccess: () => {
+        showToast("정산 내역 업로드가 완료되었습니다.");
 
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history", month]);
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history", month]);
+      },
     },
-  });
+  );
 
   return { postUploadHistory, isLoading };
 };

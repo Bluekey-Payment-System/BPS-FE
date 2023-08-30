@@ -32,7 +32,7 @@ const ExcelFileUploader = ({ month }: { month: string }) => {
       showToast(`[Error] 감지된 파일 확장자 (${fileExtension})`);
     } else {
       // 파일 업로드 처리
-      postUploadHistory({ file: droppedFile, uploadAt: "2023-08" });
+      postUploadHistory({ file: droppedFile, uploadMonth: month });
       // showToast(`Dropped file: ${droppedFile.name}`);
     }
   };
