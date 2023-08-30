@@ -51,7 +51,7 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
                 </TooltipRoot>
               </TableCellUI>
               <TableCellUI>
-                {item.participants.map((participant) => {
+                {item.artists.map((participant) => {
                   return (
                     <>
                       <TooltipRoot
@@ -66,13 +66,13 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
                 })}
               </TableCellUI>
               <TableCellUI>
-                {item.participants.map((participant) => {
+                {item.artists.map((participant) => {
                   return (
                     <p key={participant.name}>{`${participant.commissionRate}%`}</p>
                   );
                 })}
               </TableCellUI>
-              <TableCellUI>{item.bluekeyOriginalTrack ? "-" : <Image src="/images/selected.svg" width={10.34} height={8.36} alt="체크" />}</TableCellUI>
+              <TableCellUI>{item.isOriginalTrack ? "-" : <Image src="/images/selected.svg" width={10.34} height={8.36} alt="체크" />}</TableCellUI>
               <TableCellUI>
                 <div className={cx("buttonContainer")}>
                   <ChipButton onClick={() => { }}>수정</ChipButton>

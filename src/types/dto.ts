@@ -79,12 +79,13 @@ export interface ILineTrackSettlementTrends extends ITrack { // 꺾은 선 차�
 export interface ITrackParticipantInfo {
   memberId: number | null,
   name: string,
+  enName: string,
   commissionRate: number | null
 }
 
 export interface ITrackInfo extends ITrack {
-  bluekeyOriginalTrack: boolean,
-  participants: ITrackParticipantInfo[],
+  isOriginalTrack: boolean,
+  artists: ITrackParticipantInfo[],
 }
 
 // /api/v1/albums/{albumId}
