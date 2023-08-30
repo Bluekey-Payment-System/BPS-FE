@@ -6,6 +6,7 @@ import { getAdminDashboardCards } from "@/services/api/requests/admin/admin.get.
 import { IGetAlbumDashboardResponse } from "@/services/api/types/albums";
 import { IGetArtistDashboardResponse } from "@/services/api/types/artist";
 import { DASHBOARD_TYPE, DashboardType } from "@/types/enums/dashboard.enum";
+import { MemberType } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
 
 const getArtistDashboardCards = (
@@ -35,6 +36,7 @@ export const getDashboardCards = async (
   month: string,
   artistId?: string,
   albumId?: string,
+  memberType?: MemberType,
 ) => {
   const formattedMonth = convertToYearMonthFormat(month);
   let response;
@@ -84,17 +86,42 @@ export const getDashboardCards = async (
     }];
   } else {
     response = await getAlbumDashboardCards(month, albumId);
-    const { settlementAmount: settlement, bestTrack } = response;
-    data = [{
-      title: "이 앨범의 당월 정산액",
-      content: formatMoney(settlement.totalAmount, "card"),
-      growthRate: settlement.growthRate,
-    },
-    {
-      title: `${formattedMonth}의 트랙`,
-      content: bestTrack.name,
-      growthRate: bestTrack.growthRate,
-    }];
+    const {
+      revenue, netIncome, settlementAmount, bestTrack,
+    } = response;
+    if (memberType === "ADMIN") {
+      data = [{
+        title: "이 앨범의 당월 매출액",
+        content: formatMoney(revenue.totalAmount, "card"),
+        growthRate: revenue.growthRate,
+      },
+      {
+        title: "이 앨범의 당월 회사이익",
+        content: formatMoney(netIncome.totalAmount, "card"),
+        growthRate: netIncome.growthRate,
+      },
+      {
+        title: "이 앨범의 당월 정산액",
+        content: formatMoney(settlementAmount.totalAmount, "card"),
+        growthRate: settlementAmount.growthRate,
+      },
+      {
+        title: `${formattedMonth}의 트랙`,
+        content: bestTrack.name,
+        growthRate: bestTrack.growthRate,
+      }];
+    } else {
+      data = [{
+        title: "이 앨범의 당월 정산액",
+        content: formatMoney(settlementAmount.totalAmount, "card"),
+        growthRate: settlementAmount.growthRate,
+      },
+      {
+        title: `${formattedMonth}의 트랙`,
+        content: bestTrack.name,
+        growthRate: bestTrack.growthRate,
+      }];
+    }
   }
 
   return data;

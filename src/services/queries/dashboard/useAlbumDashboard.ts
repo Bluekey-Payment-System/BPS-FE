@@ -2,6 +2,7 @@
 
 import { useQueries } from "@tanstack/react-query";
 
+import { useAppSelector } from "@/redux/hooks";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 import { getDashboardAlbumInfo } from "./queryFns/albumInfo";
@@ -14,12 +15,15 @@ const useAlbumDashboard = (
   month: string,
   albumId: string,
 ) => {
+  const { type: memberType } = useAppSelector((state) => {
+    return state.user.member;
+  });
   const queries = useQueries({
     queries: [
       {
         queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "card", albumId, { month }],
         queryFn: () => {
-          return getDashboardCards(DASHBOARD_TYPE.ALBUM, month, undefined, albumId);
+          return getDashboardCards(DASHBOARD_TYPE.ALBUM, month, undefined, albumId, memberType);
         },
       },
       {

@@ -2,7 +2,6 @@
 import { ParsedUrlQuery } from "querystring";
 
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 import classNames from "classnames/bind";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -15,9 +14,8 @@ import DashboardCardList from "@/components/dashboard/DashboardCardList/Dashboar
 import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/MonthlyTrendsChart";
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
 import { useAppSelector } from "@/redux/hooks";
-import { IState } from "@/redux/store";
 import useAlbumDashboard from "@/services/queries/dashboard/useAlbumDashboard";
-import { MEMBER_ROLE, MEMBER_TYPE, MemberRole } from "@/types/enums/user.enum";
+import { MEMBER_ROLE, MEMBER_TYPE } from "@/types/enums/user.enum";
 
 import styles from "./index.module.scss";
 
