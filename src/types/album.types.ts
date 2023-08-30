@@ -8,10 +8,10 @@ export interface IAlbumFieldValues {
 export interface ITrackFieldValues {
   name: string;
   enName: string;
-  originalTrack: boolean;
+  isOriginalTrack: boolean;
   artists: {
     memberId: number | null;
     name: string;
     commissionRate: number | null;
-  } []
+  } [];
 }

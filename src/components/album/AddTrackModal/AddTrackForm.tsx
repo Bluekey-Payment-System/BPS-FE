@@ -65,7 +65,7 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
       <div className={cx("checkBoxContainer")}>
         <Checkbox
           label="블루키 오리지널 트랙"
-          {...register("originalTrack", {
+          {...register("isOriginalTrack", {
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onChange: async (e: ChangeEvent<HTMLInputElement>) => {
               if (e.target.checked) {
@@ -106,7 +106,7 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
           <ChipButton
             size="large"
             onClick={() => {
-              append({ memberId: -1, name: "", commissionRate: watch("originalTrack") === true ? null : 0 });
+              append({ memberId: -1, name: "", commissionRate: watch("isOriginalTrack") === true ? null : 0 });
             }}
           >
             아티스트 추가
@@ -190,7 +190,7 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                             return result || "*아티스트별 요율의 총합은 100을 넘길 수 없습니다.";
                           },
                           shouldBeNumber: (v) => {
-                            if (watch(`artists.${index}.memberId`) && !watch("originalTrack")) {
+                            if (watch(`artists.${index}.memberId`) && !watch("isOriginalTrack")) {
                               return v !== null || "*요율을 입력하세요.";
                             } return true;
                           },
@@ -198,13 +198,13 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                       })}
                       placeholder={
                           // eslint-disable-next-line no-nested-ternary
-                          watch("originalTrack") === true
+                          watch("isOriginalTrack") === true
                             ? "블루키 오리지널 트랙은 요율을 설정할 수 없습니다."
                             : watch(`artists.${index}.memberId`) === null
                               ? "계약 외 아티스트는 요율을 지정할 수 없습니다"
                               : "요율을 입력하세요."
                         }
-                      disabled={watch("originalTrack") === true || watch(`artists.${index}.memberId`) === null}
+                      disabled={watch("isOriginalTrack") === true || watch(`artists.${index}.memberId`) === null}
                       errors={errors}
                       isError={!!errors.artists?.[index]?.commissionRate}
                       bottomText={errors.artists?.[index]?.commissionRate?.message}
