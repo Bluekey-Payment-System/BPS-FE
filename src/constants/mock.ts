@@ -621,31 +621,37 @@ export const MOCK_ADMIN_BAR: IGetAdminMonthlyTrendsResponse = {
       month: 1,
       netIncome: 2142344,
       revenue: 732143,
+      settlement: 500000,
     },
     {
       month: 2,
       netIncome: 2132459,
       revenue: 732392,
+      settlement: 500000,
     },
     {
       month: 3,
       netIncome: 1836935,
       revenue: 632143,
+      settlement: 500000,
     },
     {
       month: 4,
       netIncome: 5142344,
       revenue: 1032143,
+      settlement: 500000,
     },
     {
       month: 5,
       netIncome: 3942344,
       revenue: 1032143,
+      settlement: 500000,
     },
     {
       month: 6,
       netIncome: 2442344,
       revenue: 1032143,
+      settlement: 500000,
     },
 
   ],
