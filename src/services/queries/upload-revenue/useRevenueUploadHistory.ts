@@ -12,7 +12,7 @@ const useUploadHistoryGet = (month: string) => {
   const {
     data: revenueUploadHistory, isLoading, isError, isFetching,
   }: UseQueryResult<IGetTransactionUploadResponse> = useQuery(
-    [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
+    [MEMBER_TYPE.ADMIN, "revenue-upload-history", month],
     () => { return getRevenueUploadHistory(month); },
   );
 

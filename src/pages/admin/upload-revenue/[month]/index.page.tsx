@@ -32,12 +32,6 @@ const UploadRevenuePage = (
     );
   }
 
-  if (!revenueUploadHistory) {
-    return (
-      <div>데이터를 가져오는 데 실패했습니다. 다시 시도해주세요</div>
-    );
-  }
-
   return (
     <MainLayoutWithDropdown
       title="정산 내역 업로드"
@@ -56,7 +50,7 @@ const UploadRevenuePage = (
               ? <Loading height={218} />
               : (
                 <UploadHistroyTable
-                  uploadList={revenueUploadHistory.contents}
+                  uploadList={revenueUploadHistory!.contents}
                 />
               )}
           </SectionLayout>
@@ -85,7 +79,7 @@ const getServerSideProps: GetServerSideProps<UploadRevenuePageProps> = async ({ 
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(
-    [MEMBER_TYPE.ADMIN, "revenue-upload-history"],
+    [MEMBER_TYPE.ADMIN, "revenue-upload-history", month],
     () => { return getRevenueUploadHistory(month); },
   );
 
