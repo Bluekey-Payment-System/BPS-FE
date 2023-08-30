@@ -1,0 +1,6 @@
+.loading {
+  @include flexbox(row, center, center);
+
+  width: 1192px;
+  height: 1300px;
+}
