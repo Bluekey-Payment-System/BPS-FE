@@ -2,7 +2,7 @@ import classNames from "classnames/bind";
 
 import Spacing from "@/components/common/Layouts/Spacing";
 import Modal from "@/components/common/Modals/Modal";
-import { uploadRevenueAlertContents } from "@/constants/uploadRevenueAlertModalContent";
+import { UPLOAD_REVENUE_ALERT_CONTENTS } from "@/constants/uploadRevenueAlertModalContent";
 import { ITransactionUploadAlert } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
@@ -28,10 +28,10 @@ const UploadRevenueAlertModal = ({
   return (
     <Modal type={MODAL_TYPE.INFO} open={open} onClose={onClose}>
       <div className={cx("container")}>
-        <h1 className={cx("title")}>{uploadRevenueAlertContents[type].title}</h1>
+        <h1 className={cx("title")}>{UPLOAD_REVENUE_ALERT_CONTENTS[type].title}</h1>
         <Spacing direction="vertical" size={18} />
         <p className={cx("description")}>
-          {uploadRevenueAlertContents[type].message}
+          {UPLOAD_REVENUE_ALERT_CONTENTS[type].message}
         </p>
         <Spacing direction="vertical" size={17} />
         <AlertDataTable data={alertData} />
