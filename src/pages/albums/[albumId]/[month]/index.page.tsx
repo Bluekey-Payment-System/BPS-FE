@@ -40,7 +40,7 @@ const AlbumDashboardPage = ({ month, albumId }: InferGetServerSidePropsType<GetS
   if (isLoading) {
     return (
       <div className={cx("loading")}>
-        <Orbit />
+        <Orbit dark />
       </div>
     );
   }

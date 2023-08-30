@@ -38,7 +38,7 @@ const ManageAccountsPage = ({ artistPage, adminPage }: ManageAccountsPageProps) 
   if (isLoading) {
     return (
       <div className={cx("loading")}>
-        <Orbit />
+        <Orbit dark />
       </div>
     );
   }

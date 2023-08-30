@@ -52,7 +52,7 @@ const ArtistDashboardPage = ({
   if (isLoading) {
     return (
       <div className={cx("loading", "page")}>
-        <Orbit />
+        <Orbit dark />
       </div>
     );
   }
