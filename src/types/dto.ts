@@ -190,7 +190,7 @@ export interface ITransactionUpload {
   id: number,
   name: string,
   uploadAt: string,
-  warnings?: ITransactionUploadAlert[],
+  warnings: ITransactionUploadAlert[],
 }
 
 // 계정 관련

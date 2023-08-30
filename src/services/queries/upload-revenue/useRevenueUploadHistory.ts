@@ -11,7 +11,7 @@ import { deleteTransaction } from "@/services/api/requests/transaction/transacti
 import { getTransaction } from "@/services/api/requests/transaction/transaction.get.api";
 import { uploadTransaction } from "@/services/api/requests/transaction/transaction.post.api";
 import { ICommonErrorResponse } from "@/services/api/types/errors";
-import { IGetTransactionUploadResponse, IPostTransactionUploadData } from "@/services/api/types/transaction";
+import { IGetTransactionUploadResponse, IPostTransactionUploadData, IPostTransactionUploadResponse } from "@/services/api/types/transaction";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import { isUploadRevenueError } from "@/utils/type.predicates";
@@ -63,8 +63,18 @@ const useUploadHistoryPost = (
     (fileData: IPostTransactionUploadData) => { return uploadTransaction(fileData); },
     {
     // TODO: post 실패 또는 warnings 있을 경우 알림 모달 띄우기
-      onSuccess: () => {
-        showToast("정산 내역 업로드가 완료되었습니다.");
+      onSuccess: (data: IPostTransactionUploadResponse) => {
+        if (data.warnings.length > 0) {
+          showUploadRevenueAlertModal({
+            type: "warning",
+            alertData: data.warnings,
+            onClose: () => {
+              showToast("정산 내역 업로드가 완료되었습니다.");
+            },
+          });
+        } else {
+          showToast("정산 내역 업로드가 완료되었습니다.");
+        }
 
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history", month]);
