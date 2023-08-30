@@ -1,8 +1,9 @@
 import {
   UseQueryResult, useMutation, useQuery, useQueryClient,
 } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
+import { UPLOAD_REVENUE_ERROR_STATUS_MAPPER } from "@/constants/errorStatusMapping";
 import useAlertModal from "@/hooks/useAlertModal";
 import useToast from "@/hooks/useToast";
 import useUploadRevenueAlertModal from "@/hooks/useUploadRevenueAlertModal";
@@ -10,7 +11,6 @@ import { deleteTransaction } from "@/services/api/requests/transaction/transacti
 import { getTransaction } from "@/services/api/requests/transaction/transaction.get.api";
 import { uploadTransaction } from "@/services/api/requests/transaction/transaction.post.api";
 import { IGetTransactionUploadResponse, IPostTransactionUploadData } from "@/services/api/types/transaction";
-import { ITransactionUploadAlert } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import { isUploadRevenueError } from "@/utils/type.predicates";
@@ -68,20 +68,50 @@ const useUploadHistoryPost = (
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history", month]);
       },
-      onError: (error) => {
+      onError: (error: AxiosError | Error) => {
         if (axios.isAxiosError<object>(error)) {
-          if (isUploadRevenueError(error.response?.data)) {
+          if (!error.response) {
+            showAlertModal({
+              type: MODAL_TYPE.ERROR,
+              title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.no_res.title,
+              message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER.no_res.message,
+            });
+          } else if (isUploadRevenueError(error.response.data)) {
             // TODO) 테스트 필요
             showUploadRevenueAlertModal({
               type: "warning",
-              alertData: error.response?.data.errors as ITransactionUploadAlert[],
+              alertData: error.response.data.errors,
             });
           } else {
-            showAlertModal({
-              type: MODAL_TYPE.ERROR,
-              title: "파일 포맷 오류",
-              message: "엑셀 파일의 포맷을 다시 확인하고 업로드해주세요.",
-            });
+            // TODO) 중복 코드 개편
+            switch (error.response.status) {
+              case (400):
+                showAlertModal({
+                  type: MODAL_TYPE.ERROR,
+                  title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[400].title,
+                  message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[400].message,
+                });
+                break;
+
+              case (403):
+                showAlertModal({
+                  type: MODAL_TYPE.ERROR,
+                  title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[403].title,
+                  message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[403].message,
+                });
+                break;
+
+              case (500):
+                showAlertModal({
+                  type: MODAL_TYPE.ERROR,
+                  title: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[500].title,
+                  message: UPLOAD_REVENUE_ERROR_STATUS_MAPPER[500].message,
+                });
+                break;
+
+              default:
+                break;
+            }
           }
         }
       },
