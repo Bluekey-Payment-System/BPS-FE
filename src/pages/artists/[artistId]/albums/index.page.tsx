@@ -1,7 +1,7 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import AlbumListSection from "@/components/album/AlbumListSection/AlbumListSection";
-import { useAlbums } from "@/services/queries/albums/useAlbumList";
+import useAlbums from "@/services/queries/albums/useAlbumList";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
@@ -25,7 +25,7 @@ const ArtistAlbumListPage = (
   if (!albumsData) return <div>데이터 없음</div>;
 
   return (
-    <AlbumListSection userType={MEMBER_TYPE.USER} page={page} keyword={keyword ?? ""} totalAlbumItems={albumsData.totalItems} />
+    <AlbumListSection albumList={albumsData.contents} userType={MEMBER_TYPE.USER} page={page} keyword={keyword ?? ""} totalAlbumItems={albumsData.totalItems} />
   );
 };
 

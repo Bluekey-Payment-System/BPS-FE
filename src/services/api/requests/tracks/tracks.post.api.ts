@@ -6,6 +6,6 @@ export const postTrack = async (
   albumId: number,
   body: IPostTrackRequest,
 ) => {
-  const response = postRequest<IPostTrackResponse, IPostTrackRequest>(`albums/${albumId}`, body);
+  const response = postRequest<IPostTrackResponse, IPostTrackRequest>(`tracks/albums/${albumId}`, body);
   return response;
 };

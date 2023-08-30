@@ -49,9 +49,9 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
     control,
     name: "artists",
   });
-  const { mutateAsync, isLoading, isError } = useAddAlbumTrack(albumInfo.albumId);
+  const { mutateAsync: addTrack, isLoading, isError } = useAddAlbumTrack(albumInfo.albumId);
   const onSubmit: SubmitHandler<ITrackFieldValues> = async (data) => {
-    await mutateAsync(data);
+    await addTrack(data);
     // eslint-disable-next-line no-console
     console.log(data);
     if (!isError) {
@@ -106,7 +106,9 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
           <ChipButton
             size="large"
             onClick={() => {
-              append({ memberId: -1, name: "", commissionRate: watch("isOriginalTrack") === true ? null : 0 });
+              append({
+                memberId: -1, enName: "", name: "", commissionRate: watch("isOriginalTrack") === true ? null : 0,
+              });
             }}
           >
             아티스트 추가
