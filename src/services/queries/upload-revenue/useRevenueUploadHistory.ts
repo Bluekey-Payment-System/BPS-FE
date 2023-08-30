@@ -3,9 +3,10 @@ import {
 } from "@tanstack/react-query";
 
 import useToast from "@/hooks/useToast";
+import { deleteUploadHistory } from "@/services/api/requests/transaction/transaction.delete.api";
 import { getUploadHistory } from "@/services/api/requests/transaction/transaction.get.api";
 import { IGetTransactionUploadResponse } from "@/services/api/types/transaction";
-import { deleteRevenueUploadHistory, postRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
+import { postRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 /* 정산 업로드 내역 GET */
@@ -25,18 +26,22 @@ const useUploadHistoryGet = (month: string) => {
 /* 정산 업로드 내역 DELETE */
 const useUploadHistoryDelete = (
   month: string,
+  // fileId: number,
 ) => {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
-  const { mutate: deleteUploadHistory, isLoading } = useMutation(deleteRevenueUploadHistory, {
+  const {
+    mutate: deleteRevenueHistory,
+    isLoading,
+  } = useMutation((fileId: number) => { return deleteUploadHistory(fileId); }, {
     // TODO: delete 실패 시 실패 문구 Toast 노출 처리
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history", month]);
-      showToast(data as string);
+      showToast("업로드 내역이 삭제되었습니다.");
     },
   });
 
-  return { deleteUploadHistory, isLoading };
+  return { deleteRevenueHistory, isLoading };
 };
 
 /* 정산 업로드 내역 POST */
