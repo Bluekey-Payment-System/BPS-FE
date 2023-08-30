@@ -10,6 +10,7 @@ import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import { IArtistList } from "@/types/dto";
 import formatMoney from "@/utils/formatMoney";
+import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
 import ArtistProfileImage from "../ArtistProfileImage/ArtistProfileImage";
 
@@ -51,7 +52,7 @@ const ArtistsStatusTable = ({
                 />
               </TableCellUI>
               <TableCellUI>
-                <Link href={`/artist/${artistInfo.artist.memberId}/dashboard`} className={cx("artistNameSection")}>
+                <Link href={`/artists/${artistInfo.artist.memberId}/dashboard/${getLatestYearMonthString()}`} className={cx("artistNameSection")}>
                   <TooltipRoot message={artistInfo.artist.name}>
                     <p className={cx("artistName", "ellipsis")}>{artistInfo.artist.name}</p>
                     <p className={cx("artistName", "enName", "ellipsis")}>{artistInfo.artist.enName}</p>

@@ -1,52 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { MOCK_ADMIN_TABLE, MOCK_ARTIST_TABLE } from "@/constants/mock";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
+import { getAdminDashboardTable } from "@/services/api/requests/admin/admin.get.api";
+import { getArtistDashboardTable } from "@/services/api/requests/artist/artist.get.api";
 import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
 import { IGetArtistTrackTransactionResponse } from "@/services/api/types/artist";
 import { AdminDashboardType, ArtistDashboardType, DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
-const getAdminDashboardTable = (
-  month: string,
-  page: number,
-  size: number,
-  sortBy: string,
-  searchBy: string,
-  keyword: string,
-): Promise<IGetAdminTrackTransactionResponse> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(MOCK_ADMIN_TABLE);
-    }, 2000);
-  });
-};
-
-const getArtistDashboardTable = (
-  month: string,
-  page: number,
-  size: number,
-  sortBy: string,
-  searchBy: string,
-  keyword: string,
-  artistId?: string,
-): Promise<IGetArtistTrackTransactionResponse> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(MOCK_ARTIST_TABLE);
-    }, 2000);
-  });
-};
-
-export const getDashboardTable = (
+export const getDashboardTable = async (
   type: AdminDashboardType | ArtistDashboardType,
   month: string,
   page: number,
   sortBy: string,
   searchBy: string,
   keyword: string,
-  artistId?: string,
+  artistId?: number,
 ) => {
   const data = (type === DASHBOARD_TYPE.ADMIN)
-    ? getAdminDashboardTable(
+    ? await getAdminDashboardTable(
       month,
       page,
       ITEMS_PER_DASHBOARD_TABLE,
@@ -54,14 +25,14 @@ export const getDashboardTable = (
       searchBy,
       keyword,
     )
-    : getArtistDashboardTable(
+    : await getArtistDashboardTable(
       month,
       page,
       ITEMS_PER_DASHBOARD_TABLE,
       sortBy,
       searchBy,
       keyword,
-      artistId,
+      artistId!,
     );
   return data;
 };

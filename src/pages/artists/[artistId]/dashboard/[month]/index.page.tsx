@@ -2,9 +2,11 @@
 import { ParsedUrlQuery } from "querystring";
 
 import { QueryClient, dehydrate } from "@tanstack/react-query";
+import classNames from "classnames/bind";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
+import Orbit from "@/components/common/Loading/Orbit";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
@@ -13,60 +15,73 @@ import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/Monthly
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
 import ArtistTrackStatusTable from "@/components/dashboard/TrackStatusTable/ArtistTrackStatusTable";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
+import { useAppSelector } from "@/redux/hooks";
 import { getDashboardCards } from "@/services/queries/dashboard/queryFns/cards";
 import { getDashboardTable } from "@/services/queries/dashboard/queryFns/table";
 import { getDashboardTopFiveRevenueChart } from "@/services/queries/dashboard/queryFns/topFiveRevenueChart";
 import { getDashboardTrendsChart } from "@/services/queries/dashboard/queryFns/trendsChart";
 import useArtistDashboard from "@/services/queries/dashboard/useArtistDashboard";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
-import { MEMBER_ROLE } from "@/types/enums/user.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
+import styles from "./index.module.scss";
+
+const cx = classNames.bind(styles);
 interface ArtistDashboardPageProps {
   month: string,
   page: number,
   sortBy: string,
   searchBy: string,
   keyword: string,
-  artistId: string,
+  artistId: number,
 }
 
 const ArtistDashboardPage = ({
   month, page, sortBy, searchBy, keyword, artistId,
 }: InferGetServerSidePropsType<GetServerSideProps<ArtistDashboardPageProps>>) => {
+  const memberRole = useAppSelector((state) => { return state.user.member.role; });
   const queries = useArtistDashboard(month, page, sortBy, searchBy, keyword, artistId);
   const [cardQuery, trendsChartQuery, topFiveChartQuery, tableQuery] = queries;
 
-  const isLoading = queries.some((query) => { return query.isLoading; });
-  const isError = queries.some((query) => { return query.isError; });
+  const isLoading = queries.some((query, idx) => {
+    if (idx === 3) return false;
+    return query.isLoading;
+  });
+  const isTableLoading = tableQuery.isLoading;
 
-  if (isLoading) return <div>로딩 중...</div>;
-  if (isError) return <div>에러 발생!</div>;
-
-  const { totalItems, contents: tableContents } = tableQuery.data!;
+  if (isLoading) {
+    return (
+      <div className={cx("loading", "page")}>
+        <Orbit />
+      </div>
+    );
+  }
 
   const formattedMonth = convertToYearMonthFormat(month);
 
   return (
-    <MainLayoutWithDropdown title="대시보드" dropdownElement={<MonthPickerDropdown />}>
-      <DashboardCardList data={cardQuery.data!} />
+    <MainLayoutWithDropdown title={cardQuery.data!.artistName} dropdownElement={<MonthPickerDropdown />}>
+      <DashboardCardList data={cardQuery.data!.cards} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={MEMBER_ROLE.ARTIST} />
+        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={memberRole} />
         <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
       </div>
-      <ArtistTrackStatusTable
-        title={`${formattedMonth}의 트랙별 현황`}
-        data={tableContents}
-        // TODO: tableData 형태에 따라 isEmpty 체크 변경
-        isEmpty={!tableContents}
-        paginationElement={(
-          <Pagination
-            activePage={page}
-            totalItems={totalItems}
-            itemsPerPage={ITEMS_PER_DASHBOARD_TABLE}
+      {isTableLoading
+        ? <div className={cx("loading", "table")}><Orbit /></div>
+        : (
+          <ArtistTrackStatusTable
+            title={`${formattedMonth}의 트랙별 현황`}
+            data={tableQuery.data!.contents}
+            isEmpty={tableQuery.data!.totalItems === 0}
+            paginationElement={(
+              <Pagination
+                activePage={page}
+                totalItems={tableQuery.data!.totalItems}
+                itemsPerPage={ITEMS_PER_DASHBOARD_TABLE}
+              />
+            )}
           />
         )}
-      />
     </MainLayoutWithDropdown>
   );
 };
@@ -86,8 +101,9 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
   } = query as ArtistDashboardPageQuery;
 
   const pageNum = convertPageParamToNum(page || null);
-  const sortByString = sortBy || "createdAt";
-  const searchByString = searchBy || "TRACK";
+  const artistIdNum = Number(artistId);
+  const sortByString = sortBy || "";
+  const searchByString = searchBy || "trackName";
   const keywordString = keyword || "";
 
   const isCSR = req.url?.startsWith("/_next");
@@ -99,7 +115,7 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
         sortBy: sortByString,
         searchBy: searchByString,
         keyword: keywordString,
-        artistId,
+        artistId: artistIdNum,
       },
     };
   }
@@ -110,16 +126,16 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "card", artistId, { month }],
         () => {
-          return getDashboardCards(DASHBOARD_TYPE.ARTIST, month, artistId);
+          return getDashboardCards(DASHBOARD_TYPE.ARTIST, month, artistIdNum);
         },
       ),
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "trendsChart", artistId, { month }],
-        () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month, artistId); },
+        () => { return getDashboardTrendsChart(DASHBOARD_TYPE.ARTIST, month, artistIdNum); },
       ),
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "TopFiveRevenue", artistId, { month }],
-        () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month, artistId); },
+        () => { return getDashboardTopFiveRevenueChart(DASHBOARD_TYPE.ARTIST, month, artistIdNum); },
       ),
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "table", artistId, {
@@ -133,7 +149,7 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
             sortByString,
             searchByString,
             keywordString,
-            artistId,
+            artistIdNum,
           );
         },
       ),
@@ -147,7 +163,7 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
         sortBy: sortByString,
         searchBy: searchByString,
         keyword: keywordString,
-        artistId,
+        artistId: artistIdNum,
       },
     };
   } catch (e) {

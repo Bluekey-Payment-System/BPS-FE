@@ -13,6 +13,10 @@ export const isActive = (currentPath: string, targetPath: string | string[]) => 
     if (currentPathSegment[1] === "admin" && currentPathSegment[2] === "dashboard" && isFormatYearMonth(currentPathSegment[3])) {
       return true;
     }
+    // 어드민이 본 아티스트 대시보드
+    if (currentPathSegment[1] === "artists" && currentPathSegment[3] === "dashboard" && isFormatYearMonth(currentPathSegment[4])) {
+      return true;
+    }
     return false;
   }
 

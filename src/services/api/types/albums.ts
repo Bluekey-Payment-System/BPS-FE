@@ -3,7 +3,7 @@ import {
   IAlbumCard,
   IAlbumDashboardCard,
   IAlbumInfo,
-  IBarMonthlySettlement,
+  IBarMonthlyEarnings,
   IDoughnutTrackRevenue,
   ILineTrackSettlementTrends,
 } from "@/types/dto";
@@ -22,7 +22,7 @@ export interface IGetAlbumTracksResponse extends IAlbumInfo {
 }
 
 export interface IGetAlbumMonthlyTrendsResponse {
-  contents: IBarMonthlySettlement[]
+  contents: IBarMonthlyEarnings[]
 }
 
 export interface IGetAlbumTracksTrendsResponse {

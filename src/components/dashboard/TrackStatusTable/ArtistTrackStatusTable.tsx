@@ -1,5 +1,10 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState, useRef } from "react";
+
 import classNames from "classnames/bind";
+import { useRouter } from "next/router";
 
 import Dropdown from "@/components/common/Dropdown/Dropdown";
 import Filter from "@/components/common/Filter/Filter";
@@ -15,6 +20,7 @@ import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import { ITrackTransaction } from "@/types/dto";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import formatMoney from "@/utils/formatMoney";
+import updateQueryParam from "@/utils/updateQueryParam";
 
 import EmptyTableData from "./EmptyTableData";
 import styles from "./TrackStatusTable.module.scss";
@@ -32,16 +38,27 @@ interface ArtistTrackStatusTableProps {
 const ArtistTrackStatusTable = ({
   title, data, isEmpty = false, paginationElement,
 }: ArtistTrackStatusTableProps) => {
+  const router = useRouter();
+  const [selectedValue, setSelectedValue] = useState(router.query?.searchBy === "albumName" ? "albumName" : "trackName");
+  const searchBarRef = useRef<HTMLInputElement>(null);
+
   const handleClickSortByDropdown = (value: string) => {
     // TODO: 정렬 순서 쿼리 파람 변경
   };
 
   const handleClickSearchByDropdown = (value: string) => {
-    // TODO: 검색 기준 변경
+    setSelectedValue(value === "곡 명" ? "trackName" : "albumName");
   };
 
-  const handleClickSearchBar = () => {
-    // TODO: 검색 키워드 쿼리 파람 변경
+  const handleClickSearchBar = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    router.push(updateQueryParam(
+      router.query,
+      "searchBy",
+      selectedValue,
+      "keyword",
+      searchBarRef.current?.value ?? "",
+    ), undefined, { scroll: false });
   };
 
   return (
@@ -57,15 +74,17 @@ const ArtistTrackStatusTable = ({
           <Filter />
           <Spacing direction="horizontal" size={32} />
           <Dropdown
-            dropdownListData={["곡 명", "앨범 명"]}
+            dropdownListData={selectedValue === "albumName" ? ["앨범 명", "곡 명"] : ["곡 명", "앨범 명"]}
             theme="withSearchBar"
             onClick={handleClickSearchByDropdown}
           />
-          <SearchBar placeholder="검색어를 입력해주세요" theme="withSearchBar" onClick={handleClickSearchBar} value="" />
+          <form onSubmit={handleClickSearchBar}>
+            <SearchBar placeholder="검색어를 입력해주세요" theme="withSearchBar" onClick={handleClickSearchBar} value={(router.query?.keyword ?? "") as string} ref={searchBarRef} />
+          </form>
         </div>
       </div>
       {isEmpty
-        ? <EmptyTableData type={DASHBOARD_TYPE.ARTIST} />
+        ? <EmptyTableData type={DASHBOARD_TYPE.ARTIST} isEmptySearch={!!router.query.keyword} />
         : (
           <TableContainerUI
             paginationElement={paginationElement}

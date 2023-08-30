@@ -42,7 +42,7 @@ export const getArtistDashboardBar = async (
   endDate: string,
   memberId: number,
 ) => {
-  const response = await getRequest<IGetArtistMonthlyTrendsResponse>(`/artists/${memberId}/dashboard?startDate=${startDate}&endDate=${endDate}`);
+  const response = await getRequest<IGetArtistMonthlyTrendsResponse>(`/artists/${memberId}/dashboard/trend?startDate=${startDate}&endDate=${endDate}`);
   return response;
 };
 
@@ -69,7 +69,7 @@ export const getArtistDashboardTable = async (
   memberId: number,
 ) => {
   const response = await getRequest<IGetArtistTrackTransactionResponse>(
-    `/artists/${memberId}/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy ?? ""}&searchBy=${searchBy}&keyword=${keyword ?? ""}`,
+    `/artists/${memberId}/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy ?? ""}&searchType=${searchBy}&keyword=${keyword ?? ""}`,
   );
   return response;
 };

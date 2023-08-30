@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 interface SearchBarProps {
   placeholder: string,
-  onClick: () => void
+  onClick: (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => void,
   theme?: "withSearchBar"
   value: string
 }

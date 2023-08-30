@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 import { useQueries, useQueryClient } from "@tanstack/react-query";
 
-import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
+import { PAGES_PER_PAGINATION } from "@/constants/pagination";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 import { getDashboardCards } from "./queryFns/cards";
@@ -54,7 +54,7 @@ const useAdminDashboard = (
   const queryClient = useQueryClient();
   useEffect(() => {
     const totalItems = queries[3].data?.totalItems;
-    const endPage = totalItems ? Math.ceil(totalItems / ITEMS_PER_DASHBOARD_TABLE) : 0;
+    const endPage = totalItems ? Math.ceil(totalItems / PAGES_PER_PAGINATION) : 0;
     // 1. 끝 페이지
     if (endPage) {
       void queryClient.prefetchQuery(
@@ -73,9 +73,9 @@ const useAdminDashboard = (
       () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, 1, sortBy, searchBy, keyword); },
     );
 
-    const curPaginationStartPage = Math.floor((page - 1) / ITEMS_PER_DASHBOARD_TABLE) * ITEMS_PER_DASHBOARD_TABLE + 1;
-    const nextPaginationStartPage = curPaginationStartPage + ITEMS_PER_DASHBOARD_TABLE;
-    const prevPaginationstartPage = curPaginationStartPage - ITEMS_PER_DASHBOARD_TABLE;
+    const curPaginationStartPage = Math.floor((page - 1) / PAGES_PER_PAGINATION) * PAGES_PER_PAGINATION + 1;
+    const nextPaginationStartPage = curPaginationStartPage + PAGES_PER_PAGINATION;
+    const prevPaginationstartPage = curPaginationStartPage - PAGES_PER_PAGINATION;
 
     // 3. 현재 페이지네이션의 시작 페이지 ~ 다음 페이지네이션의 시작 페이지
     for (let i = curPaginationStartPage; i <= Math.min(endPage, nextPaginationStartPage); i += 1) {

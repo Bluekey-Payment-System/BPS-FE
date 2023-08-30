@@ -1,25 +1,30 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable max-len */
 
 import { useQueries } from "@tanstack/react-query";
 
+import { useAppSelector } from "@/redux/hooks";
+import { getAlbumDashboardLine, getAlbumTracks } from "@/services/api/requests/albums/albums.get.api";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
+import subtractMonths from "@/utils/subtractMonths";
 
-import { getDashboardAlbumInfo } from "./queryFns/albumInfo";
-import { getMemberAlbumTrendsChart } from "./queryFns/albumTrendsChart";
 import { getDashboardCards } from "./queryFns/cards";
 import { getDashboardTopFiveRevenueChart } from "./queryFns/topFiveRevenueChart";
 import { getDashboardTrendsChart } from "./queryFns/trendsChart";
 
 const useAlbumDashboard = (
   month: string,
-  albumId: string,
+  albumId: number,
 ) => {
+  const memberRole = useAppSelector((state) => {
+    return state.user.member.role;
+  });
   const queries = useQueries({
     queries: [
       {
         queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "card", albumId, { month }],
         queryFn: () => {
-          return getDashboardCards(DASHBOARD_TYPE.ALBUM, month, undefined, albumId);
+          return getDashboardCards(DASHBOARD_TYPE.ALBUM, month, undefined, albumId, memberRole);
         },
       },
       {
@@ -36,14 +41,14 @@ const useAlbumDashboard = (
       },
       {
         queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "albumTrendsChart", albumId, { month }],
-        queryFn: () => {
-          return getMemberAlbumTrendsChart(month, albumId);
+        queryFn: async () => {
+          return getAlbumDashboardLine(subtractMonths(month, 12), month, albumId);
         },
       },
       {
         queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "albumInfo", albumId, { month }],
-        queryFn: () => {
-          return getDashboardAlbumInfo(month, albumId);
+        queryFn: async () => {
+          return getAlbumTracks(albumId);
         },
       },
     ],

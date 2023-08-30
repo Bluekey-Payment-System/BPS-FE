@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+import { useCallback } from "react";
+
 import { ResponsiveLine } from "@nivo/line";
 
 import { ILineTrackSettlementTrends } from "@/types/dto";
@@ -27,6 +30,15 @@ interface LineChartProps {
 const LineChart = ({ albumTrendsChartData, memberRole }: LineChartProps) => {
   const monthlySummaryData = mapLineDataToMonthlySummary(albumTrendsChartData, memberRole);
 
+  const checkAllZeros = useCallback(
+    (trendsChartData: ILineTrackSettlementTrends): boolean => {
+      return trendsChartData?.monthlyTrend.every((entry) => {
+        return entry.settlement === 0 && entry.revenue === 0;
+      });
+    },
+    [],
+  );
+
   return (
     <ResponsiveLine
       colors="#a3aab6"
@@ -47,7 +59,7 @@ const LineChart = ({ albumTrendsChartData, memberRole }: LineChartProps) => {
       yScale={{
         type: "linear",
         min: "auto",
-        max: getMaxValueInLineChart(albumTrendsChartData, memberRole) * 1.2,
+        max: checkAllZeros(albumTrendsChartData) ? 10000 : getMaxValueInLineChart(albumTrendsChartData, memberRole) * 1.2,
         stacked: true,
         reverse: false,
       }}

@@ -22,6 +22,22 @@ type TopFiveRevenueChartProps = IGetAdminEarningsTopArtistResponse | IGetAlbumRe
 const TopFiveRevenueChart = ({ topFiveChartData }: { topFiveChartData: TopFiveRevenueChartProps }) => {
   const router = useRouter();
 
+  if (topFiveChartData.contents.length === 0) {
+    // eslint-disable-next-line no-param-reassign
+    topFiveChartData.contents = [
+      {
+        artist: {
+          memberId: -1,
+          name: "-",
+          enName: "",
+        },
+        revenue: null,
+        growthRate: null,
+        proportion: 100,
+      },
+    ];
+  }
+
   return (
     <div className={cx("topFiveChartContainer")}>
       <div className={cx("description")}>
