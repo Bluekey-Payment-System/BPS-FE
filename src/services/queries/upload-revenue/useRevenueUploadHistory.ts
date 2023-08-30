@@ -3,8 +3,9 @@ import {
 } from "@tanstack/react-query";
 
 import useToast from "@/hooks/useToast";
+import { getUploadHistory } from "@/services/api/requests/transaction/transaction.get.api";
 import { IGetTransactionUploadResponse } from "@/services/api/types/transaction";
-import { deleteRevenueUploadHistory, getRevenueUploadHistory, postRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
+import { deleteRevenueUploadHistory, postRevenueUploadHistory } from "@/services/api/upload-revenue/upload-revenue-mock-api";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
 /* 정산 업로드 내역 GET */
@@ -13,7 +14,7 @@ const useUploadHistoryGet = (month: string) => {
     data: revenueUploadHistory, isLoading, isError, isFetching,
   }: UseQueryResult<IGetTransactionUploadResponse> = useQuery(
     [MEMBER_TYPE.ADMIN, "revenue-upload-history", month],
-    () => { return getRevenueUploadHistory(month); },
+    () => { return getUploadHistory(month); },
   );
 
   return ({
