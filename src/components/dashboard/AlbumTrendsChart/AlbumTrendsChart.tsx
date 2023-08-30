@@ -24,7 +24,7 @@ interface AlbumTrendsChartProps {
 const AlbumTrendsChart = ({ albumTrendsChartData, memberRole }: AlbumTrendsChartProps) => {
   const trackList = albumTrendsChartData.tracks.map((track) => { return track.name; });
 
-  let selectedTrackTrandsList;
+  let selectedTrackTrendsList;
 
   const [selectedTrack, setSelectedTrack] = useState(trackList[0]);
 
@@ -33,7 +33,7 @@ const AlbumTrendsChart = ({ albumTrendsChartData, memberRole }: AlbumTrendsChart
   );
 
   if (findChartData) {
-    selectedTrackTrandsList = findChartData;
+    selectedTrackTrendsList = findChartData;
   } else {
     const newTrack = [];
     for (let i = 1; i <= 12; i += 1) {
@@ -43,7 +43,7 @@ const AlbumTrendsChart = ({ albumTrendsChartData, memberRole }: AlbumTrendsChart
         revenue: 0,
       });
     }
-    selectedTrackTrandsList = {
+    selectedTrackTrendsList = {
       trackId: -1,
       name: "",
       enName: "",
@@ -55,7 +55,7 @@ const AlbumTrendsChart = ({ albumTrendsChartData, memberRole }: AlbumTrendsChart
     setSelectedTrack(value);
   };
 
-  if (!selectedTrackTrandsList) {
+  if (!selectedTrackTrendsList) {
     return (
       <section className={cx("container")}>
         <p className={cx("error-message")}>선택한 트랙의 데이터가 없습니다.</p>
@@ -70,7 +70,7 @@ const AlbumTrendsChart = ({ albumTrendsChartData, memberRole }: AlbumTrendsChart
         {findChartData && <Dropdown dropdownListData={trackList} theme="dark" onClick={handleSelectedTrack} />}
       </div>
       <div style={{ width: "100%", height: "300px" }}>
-        <LineChart albumTrendsChartData={selectedTrackTrandsList} memberRole={memberRole} />
+        <LineChart albumTrendsChartData={selectedTrackTrendsList} memberRole={memberRole} />
       </div>
     </section>
   );
