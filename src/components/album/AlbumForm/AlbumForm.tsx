@@ -6,10 +6,11 @@ import classNames from "classnames/bind";
 
 import Button from "@/components/common/CommonBtns/Button/Button";
 import Dropdown from "@/components/common/Dropdown/Dropdown";
+import { IHasSearchBarData } from "@/components/common/Dropdown/Dropdown.type";
 import TextField from "@/components/common/Inputs/TextField/TextField";
 import Spacing from "@/components/common/Layouts/Spacing";
 import { IPostAlbumData } from "@/services/api/types/albums";
-import formatDropdownList from "@/utils/formatDropdownList";
+import useArtistList from "@/services/queries/artists/useArtistList";
 
 import styles from "./AlbumForm.module.scss";
 
@@ -21,15 +22,6 @@ interface AlbumFormProps {
   onSubmit: SubmitHandler<IAlbumFieldValues>;
 }
 
-const artist = [
-  // TODO: db에 있는 모든 아티스트 names와 pk를 가져와서(api) 여기에 뿌리기
-  { id: 1, name: "혁기" },
-  { id: 2, name: "지미가드너" },
-  { id: 3, name: "53x" },
-  { id: 4, name: "송민섭" },
-  { id: 5, name: "김여름" },
-  { id: 6, name: "이은성" },
-];
 /**
  * 앨범 폼(앨범 등록, 수정시 렌더링할 폼) 컴포넌트
  * @author [SeyoungCho](https://github.com/seyoungcho)
@@ -44,6 +36,7 @@ const artist = [
  * ```
  */
 const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
+  const artistList = useArtistList();
   const {
     register, formState: { errors }, handleSubmit, setValue,
   } = useFormContext<IAlbumFieldValues>();
@@ -74,10 +67,12 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
         />
         <div className={cx("dropdownContainer")}>
           <span>대표 아티스트</span>
-          <Dropdown
+          <Dropdown<IHasSearchBarData>
             hasSearchBar
-            dropdownListData={formatDropdownList(artist)}
-            onClick={(value) => { setValue("memberId", (value.id)); }}
+            dropdownListData={artistList}
+            onClick={(value) => {
+              setValue("memberId", (value.id));
+            }}
           />
           <input {...register("memberId")} type="hidden" />
           <Spacing size={14} />

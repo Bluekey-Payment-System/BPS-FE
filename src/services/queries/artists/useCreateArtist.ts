@@ -2,7 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import useToast from "@/hooks/useToast";
 import { postArtist } from "@/services/api/requests/artist/artist.post.api";
-import { IPostArtistData, IPostArtistResponse } from "@/services/api/types/artist";
+import { IGetArtistsSimpleResponse, IPostArtistData, IPostArtistResponse } from "@/services/api/types/artist";
+import { MEMBER_ROLE } from "@/types/enums/user.enum";
 
 const useCreateArtist = () => {
   const { showToast } = useToast();
@@ -14,8 +15,19 @@ const useCreateArtist = () => {
     {
       onSuccess: (data) => {
         showToast(`아티스트 "${data.name}" 계정이 생성되었습니다.`);
-        // eslint-disable-next-line no-void
-        void queryClient.invalidateQueries({ queryKey: ["dropdown", "artists"] });
+        const staleData = queryClient.getQueryData<IGetArtistsSimpleResponse>([MEMBER_ROLE.ARTIST, "names"]);
+        if (staleData) {
+          queryClient.setQueryData(
+            [MEMBER_ROLE.ARTIST, "names"],
+            {
+              artists: [...staleData.artists, {
+                id: data.memberId,
+                name: data.name,
+                commissionRate: data.commissionRate || 0,
+              }],
+            },
+          );
+        }
       },
     },
   );

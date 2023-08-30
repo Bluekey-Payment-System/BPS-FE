@@ -6,13 +6,12 @@ import classNames from "classnames/bind";
 import Button from "@/components/common/CommonBtns/Button/Button";
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
 import Dropdown from "@/components/common/Dropdown/Dropdown";
-import { IHasSearchBarData } from "@/components/common/Dropdown/Dropdown.type";
 import Checkbox from "@/components/common/Inputs/Checkbox/Checkbox";
 import TextField from "@/components/common/Inputs/TextField/TextField";
 import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/TextFieldWithUnit";
 import Spacing from "@/components/common/Layouts/Spacing";
-import { DROPDOWN_ARTIST_LIST } from "@/constants/artists";
 import useAddAlbumTrack from "@/services/queries/albums/useAddAlbumTrack";
+import useArtistList from "@/services/queries/artists/useArtistList";
 import { ITrackFieldValues } from "@/types/album.types";
 import { IAlbumInfo } from "@/types/dto";
 
@@ -26,6 +25,7 @@ interface AddTrackFormProps {
 }
 
 const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
+  const artistList = useArtistList();
   const {
     register,
     formState: { errors },
@@ -136,12 +136,13 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                       : (
                         <div className={cx("dropdownContainer")}>
                           <span>아티스트</span>
-                          <Dropdown<IHasSearchBarData>
+                          <Dropdown
                             hasSearchBar
-                            dropdownListData={DROPDOWN_ARTIST_LIST}
+                            dropdownListData={artistList}
                             onClick={(value) => {
                               setValue(`artists.${index}.memberId`, value.id);
                               setValue(`artists.${index}.name`, value.name);
+                              setValue(`artists.${index}.commissionRate`, value.commissionRate || 0);
                             }}
                           />
                           <input
