@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-import { useQueryClient } from "@tanstack/react-query";
-
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
 import EmptyData from "@/components/common/EmptyData/EmptyData";
 import Loading from "@/components/common/Loading/Loading";
@@ -20,18 +18,22 @@ interface FileData {
   fileName: string
 }
 
+interface UploadHistroyTableProps {
+  uploadList: ITransactionUpload[],
+  month: string,
+}
+
 /**
  * @author [hayoung-99](https://github.com/hayoung-99)
  * @param uploadList 정산 내역들이 담긴 배열
  * @returns 정산 내역 테이블
  */
 const UploadHistroyTable = (
-  { uploadList }: { uploadList: ITransactionUpload[] },
+  { uploadList, month }: UploadHistroyTableProps,
 ) => {
-  const queryClient = useQueryClient();
   const [isCancelUploadModalOpen, setIsCancelUploadModalOpen] = useState(false);
   const [fileData, setFileData] = useState<FileData>({} as FileData);
-  const { deleteUploadHistory, isLoading } = useUploadHistoryDelete(queryClient);
+  const { deleteUploadHistory, isLoading } = useUploadHistoryDelete(month);
 
   const handleClickCancelUploadBtn = (fileId: number, fileName: string) => {
     setIsCancelUploadModalOpen(true);

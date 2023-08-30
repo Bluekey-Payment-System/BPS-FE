@@ -42,7 +42,7 @@ const UploadRevenuePage = (
       <ArtboardLayout>
         <div style={{ width: 730 }}>
           <SectionLayout title="정산 내역 파일 업로드">
-            <ExcelFileUploader />
+            <ExcelFileUploader month={month} />
           </SectionLayout>
           <SectionHr isThick />
           <SectionLayout title="업로드 내역">
@@ -51,6 +51,7 @@ const UploadRevenuePage = (
               : (
                 <UploadHistroyTable
                   uploadList={revenueUploadHistory!.contents}
+                  month={month}
                 />
               )}
           </SectionLayout>
