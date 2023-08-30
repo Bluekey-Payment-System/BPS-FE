@@ -19,7 +19,7 @@ interface IAdminSignUpFieldValues extends IPostAdminSignUpRequest {
   "password-confirm": string;
 }
 
-const SignupForm = ({ title }:{ title: string }) => {
+const SignupForm = ({ title }: { title: string }) => {
   const {
     register, formState: { errors }, handleSubmit, getValues,
   } = useForm<IAdminSignUpFieldValues>({ mode: "onBlur" });
@@ -27,8 +27,6 @@ const SignupForm = ({ title }:{ title: string }) => {
   const onSubmit: SubmitHandler<IAdminSignUpFieldValues> = (data) => {
     // TODO: 회원가입 api 뮤테이션 훅 사용
     // TODO: 관리자 권한 승인/거절 기능 추가 후 router.push("/admin/pending")
-    // eslint-disable-next-line no-console
-    console.log(data);
     const { "password-confirm": passwordConfirm, ...body } = data;
     signup(body);
   };

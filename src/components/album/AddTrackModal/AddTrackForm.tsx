@@ -52,8 +52,6 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
   const { mutateAsync: addTrack, isLoading, isError } = useAddAlbumTrack(albumInfo.albumId);
   const onSubmit: SubmitHandler<ITrackFieldValues> = async (data) => {
     await addTrack(data);
-    // eslint-disable-next-line no-console
-    console.log(data);
     if (!isError) {
       reset();
       onClose();
@@ -156,7 +154,7 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                           <input {...register(`artists.${index}.name`)} type="hidden" />
                           <span className={cx("dropdownError")}>
                             {errors.artists?.[index]?.memberId?.message
-                            ?? errors.artists?.[index]?.name?.message ?? ""}
+                              ?? errors.artists?.[index]?.name?.message ?? ""}
                           </span>
                         </div>
                       )}
@@ -200,13 +198,13 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                         },
                       })}
                       placeholder={
-                          // eslint-disable-next-line no-nested-ternary
-                          watch("isOriginalTrack") === true
-                            ? "블루키 오리지널 트랙은 요율을 설정할 수 없습니다."
-                            : watch(`artists.${index}.memberId`) === null
-                              ? "계약 외 아티스트는 요율을 지정할 수 없습니다"
-                              : "요율을 입력하세요."
-                        }
+                        // eslint-disable-next-line no-nested-ternary
+                        watch("isOriginalTrack") === true
+                          ? "블루키 오리지널 트랙은 요율을 설정할 수 없습니다."
+                          : watch(`artists.${index}.memberId`) === null
+                            ? "계약 외 아티스트는 요율을 지정할 수 없습니다"
+                            : "요율을 입력하세요."
+                      }
                       disabled={watch("isOriginalTrack") === true || watch(`artists.${index}.memberId`) === null}
                       errors={errors}
                       isError={!!errors.artists?.[index]?.commissionRate}
