@@ -39,7 +39,7 @@ const AdminTrackStatusTable = ({
   title, data, isEmpty = false, paginationElement,
 }: AdminTrackStatusTableProps) => {
   const router = useRouter();
-  const [selectedValue, setSelectedValue] = useState(router.query?.searchBy === "trackName" ? "trackName" : "albumName");
+  const [selectedValue, setSelectedValue] = useState(router.query?.searchBy === "albumName" ? "albumName" : "trackName");
   const searchBarRef = useRef<HTMLInputElement>(null);
 
   const handleClickSortByDropdown = (value: string) => {
@@ -75,7 +75,7 @@ const AdminTrackStatusTable = ({
           <Filter />
           <Spacing direction="horizontal" size={32} />
           <Dropdown
-            dropdownListData={selectedValue === "trackName" ? ["곡 명", "앨범 명"] : ["앨범 명", "곡 명"]}
+            dropdownListData={selectedValue === "albumName" ? ["앨범 명", "곡 명"] : ["곡 명", "앨범 명"]}
             theme="withSearchBar"
             onClick={handleClickSearchByDropdown}
           />
@@ -85,7 +85,7 @@ const AdminTrackStatusTable = ({
         </div>
       </div>
       {isEmpty
-        ? <EmptyTableData type={DASHBOARD_TYPE.ADMIN} />
+        ? <EmptyTableData type={DASHBOARD_TYPE.ADMIN} isEmptySearch={!!router.query.keyword} />
         : (
           <TableContainerUI
             paginationElement={paginationElement}
