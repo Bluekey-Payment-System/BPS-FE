@@ -1,8 +1,9 @@
+import { useCallback } from "react";
+
 import { ResponsiveBar } from "@nivo/bar";
 import classNames from "classnames/bind";
 
 import { IGetAdminMonthlyTrendsResponse } from "@/services/api/types/admin";
-import { IGetArtistMonthlyTrendsResponse } from "@/services/api/types/artist";
 import { MEMBER_ROLE, MemberRole } from "@/types/enums/user.enum";
 import formatMoney from "@/utils/formatMoney";
 
@@ -45,12 +46,22 @@ const yAxisFormat = (item: number) => {
  * @param type - MEMBER_TYPE
 */
 const BarChart = ({ barChartData, type }: {
-  barChartData: IGetAdminMonthlyTrendsResponse | IGetArtistMonthlyTrendsResponse,
+  barChartData: IGetAdminMonthlyTrendsResponse,
   type: MemberRole
 }) => {
+  const checkAllZeros = useCallback(
+    (chartData: IGetAdminMonthlyTrendsResponse): boolean => {
+      return chartData.contents.every((entry) => {
+        return entry.revenue === 0 && entry.netIncome === 0 && entry.settlement === 0;
+      });
+    },
+    [],
+  );
+
   const maxValue: number = getMaxValue(barChartData, type);
   const formattedData = mapChartDataToMonthlySummary(barChartData, type);
   const keyType = type === MEMBER_ROLE.ARTIST ? ["revenue", "settlement"] : ["revenue", "netIncome"];
+
   return (
     <ResponsiveBar
       theme={{
@@ -62,7 +73,7 @@ const BarChart = ({ barChartData, type }: {
           },
         },
       }}
-      maxValue={maxValue * 1.2}
+      maxValue={checkAllZeros(barChartData) ? 10000 : maxValue * 1.2}
       barComponent={BarItem}
       borderRadius={7}
       data={formattedData}
