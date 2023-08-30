@@ -37,7 +37,7 @@ const AlertDataTable = ({ data }: { data?: ITransactionUploadAlert[] }) => {
           {data?.map((item) => {
             return (
               <TableRowUI key={`${item.columnIndex}${item.rowIndex}`}>
-                <TableCellUI>{item.columnIndex}</TableCellUI>
+                <TableCellUI>{item.rowIndex}</TableCellUI>
                 <TableCellUI>{item.columnName}</TableCellUI>
                 <TableCellUI>
                   <ModalTooltipRoot message={item.cellValue}>

@@ -62,7 +62,6 @@ const useUploadHistoryPost = (
   const { mutate: postUploadHistory, isLoading } = useMutation(
     (fileData: IPostTransactionUploadData) => { return uploadTransaction(fileData); },
     {
-    // TODO: post 실패 또는 warnings 있을 경우 알림 모달 띄우기
       onSuccess: (data: IPostTransactionUploadResponse) => {
         if (data.warnings.length > 0) {
           showUploadRevenueAlertModal({
