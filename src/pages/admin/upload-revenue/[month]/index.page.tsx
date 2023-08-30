@@ -25,7 +25,6 @@ const UploadRevenuePage = (
   const {
     revenueUploadHistory, isLoading, isError, isFetching,
   } = useUploadHistoryGet(month);
-
   if (isError) {
     return (
       <div>에러 발생</div>
