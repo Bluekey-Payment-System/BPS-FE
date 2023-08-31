@@ -11,6 +11,13 @@ interface LoadingSectionProps {
 
 const cx = classNames.bind(styles);
 
+/**
+ * @author [hayoung-99](https://github.com/hayoung-99)
+ * @param width 섹션 width (default: 100%)
+ * @param height 섹션 height (default: 100%)
+ * @param dark Orbit 검정 색상 설정
+ * @returns 섹션 내 Orbit 로딩
+ */
 const LoadingSection = ({
   width, height, dark = false,
 }: LoadingSectionProps) => {
