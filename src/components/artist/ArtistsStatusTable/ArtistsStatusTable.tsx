@@ -10,7 +10,6 @@ import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import { IArtistList } from "@/types/dto";
 import formatMoney from "@/utils/formatMoney";
-import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
 import ArtistProfileImage from "../ArtistProfileImage/ArtistProfileImage";
 
@@ -18,13 +17,14 @@ import styles from "./ArtistsStatusTable.module.scss";
 
 interface ArtistsStatusTableProps {
   artistList: IArtistList[],
-  paginationElement: React.ReactNode
+  paginationElement: React.ReactNode,
+  month: string
 }
 
 const cx = classNames.bind(styles);
 
 const ArtistsStatusTable = ({
-  artistList, paginationElement,
+  artistList, paginationElement, month,
 }: ArtistsStatusTableProps) => {
   return (
     <TableContainerUI
@@ -52,7 +52,7 @@ const ArtistsStatusTable = ({
                 />
               </TableCellUI>
               <TableCellUI>
-                <Link href={`/artists/${artistInfo.artist.memberId}/dashboard/${getLatestYearMonthString()}`} className={cx("artistNameSection")}>
+                <Link href={`/artists/${artistInfo.artist.memberId}/dashboard/${month}`} className={cx("artistNameSection")}>
                   <TooltipRoot message={artistInfo.artist.name}>
                     <p className={cx("artistName", "ellipsis")}>{artistInfo.artist.name}</p>
                     <p className={cx("artistName", "enName", "ellipsis")}>{artistInfo.artist.enName}</p>
@@ -63,8 +63,8 @@ const ArtistsStatusTable = ({
               <TableCellUI>{`${formatMoney(artistInfo.netIncome, "table")}원`}</TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.settlementAmount, "table")}원`}</TableCellUI>
               <TableCellUI>
-                <TooltipRoot message={artistInfo.representativeTrack}>
-                  <p className={cx("ellipsis")}>{artistInfo.representativeTrack}</p>
+                <TooltipRoot message={artistInfo.representativeTrack || "-"}>
+                  <p className={cx("ellipsis")}>{artistInfo.representativeTrack || "-"}</p>
                 </TooltipRoot>
               </TableCellUI>
               <TableCellUI>

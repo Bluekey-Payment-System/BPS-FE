@@ -22,10 +22,16 @@ export const createChartDataFromContents = (doughnutData: DoughnutData): ChartDa
           value: chartItem.proportion,
         };
       }
-
       return {
         id: chartItem.artist.memberId.toString(),
         label: chartItem.artist.name,
+        value: chartItem.proportion,
+      };
+    }
+    if (chartItem.track === null) {
+      return {
+        id: generateID("doughnut"),
+        label: "기타",
         value: chartItem.proportion,
       };
     }

@@ -18,3 +18,8 @@
 .searchBarSection {
   @include flexbox(row, flex-end);
 }
+
+.empty {
+  margin-top: 62px;
+  margin-bottom: 130px;
+}

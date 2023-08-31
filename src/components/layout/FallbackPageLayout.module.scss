@@ -2,7 +2,9 @@
   @include flexbox(column, flex-start, center);
 
   width: fit-content;
-  margin: 18px auto 142px;
+  margin: 0 auto;
+  padding-top: 18px;
+  padding-bottom: 142px;
 
   .logoWrapper {
     @include flexbox(row, center, center);

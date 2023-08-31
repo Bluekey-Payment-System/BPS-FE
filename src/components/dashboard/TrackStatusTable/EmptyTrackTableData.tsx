@@ -3,16 +3,16 @@ import classNames from "classnames/bind";
 import Spacing from "@/components/common/Layouts/Spacing";
 import { AdminDashboardType, ArtistDashboardType, DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
-import styles from "./EmptyTableData.module.scss";
+import styles from "./EmptyTrackTableData.module.scss";
 
 const cx = classNames.bind(styles);
 
-interface EmptyTableDataProps {
+interface EmptyTrackTableDataProps {
   type: AdminDashboardType | ArtistDashboardType
   isEmptySearch: boolean
 }
 
-const EmptyTableData = ({ type, isEmptySearch }: EmptyTableDataProps) => {
+const EmptyTrackTableData = ({ type, isEmptySearch }: EmptyTrackTableDataProps) => {
   const columns = type === DASHBOARD_TYPE.ADMIN
     ? ["곡명", "앨범명", "아티스트명", "매출액", "회사 이익", "정산액", "요율"]
     : ["곡명", "앨범명", "아티스트명", "매출액", "정산액", "원천세", "요율"];
@@ -29,4 +29,4 @@ const EmptyTableData = ({ type, isEmptySearch }: EmptyTableDataProps) => {
   );
 };
 
-export default EmptyTableData;
+export default EmptyTrackTableData;

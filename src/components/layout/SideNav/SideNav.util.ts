@@ -77,9 +77,9 @@ export const isAlbumExplorer = (currentPath: string, targetPath: string | string
         }
       }
 
-      // 어드민이 보는 앨범 탐색 수정
-      if (targetPathSegment[1] === "admin" && targetPathSegment[2] === "albums" && targetPathSegment[4] === "edit") {
-        if (currentPathSegment[1] === "admin" && currentPathSegment[2] === "albums" && currentPathSegment[4] === "edit") {
+      // 어드민이 보는 앨범 탐색
+      if (targetPathSegment[1] === "admin" && targetPathSegment[2] === "albums" && targetPathSegment[3] !== "new") {
+        if (currentPathSegment[1] === "admin" && currentPathSegment[2] === "albums" && currentPathSegment[3] !== "new") {
           return true;
         }
       }
