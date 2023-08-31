@@ -67,7 +67,7 @@ const AdminDashboardPage = ({
         <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
       </div>
       {isTableLoading
-        ? <div className={cx("loading", "table")}><Orbit /></div>
+        ? <div className={cx("loading", "table")}><Orbit dark /></div>
         : (
           <AdminTrackStatusTable
             title={`${formattedMonth}의 트랙별 현황`}
