@@ -1,8 +1,11 @@
 import { useState } from "react";
 
+import classNames from "classnames/bind";
+
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
 import EmptyData from "@/components/common/EmptyData/EmptyData";
-import Loading from "@/components/common/Loading/Loading";
+// import Loading from "@/components/common/Loading/Loading";
+import Orbit from "@/components/common/Loading/Orbit";
 import AlertModal from "@/components/common/Modals/AlertModal/AlertModal";
 import TableBodyUI from "@/components/common/Table/Composition/TableBodyUI";
 import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
@@ -13,6 +16,8 @@ import { useUploadHistoryDelete } from "@/services/queries/upload-revenue/useRev
 import { ITransactionUpload } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
+import styles from "./UploqeHistoryTable.module.scss";
+
 interface FileData {
   fileId: number,
   fileName: string
@@ -22,6 +27,8 @@ interface UploadHistroyTableProps {
   uploadList: ITransactionUpload[],
   month: string,
 }
+
+const cx = classNames.bind(styles);
 
 /**
  * @author [hayoung-99](https://github.com/hayoung-99)
@@ -53,7 +60,11 @@ const UploadHistroyTable = (
   }
 
   if (isLoading) {
-    return <Loading height={218} />;
+    return (
+      <div className={cx("loading")}>
+        <Orbit dark />
+      </div>
+    );
   }
 
   return (
