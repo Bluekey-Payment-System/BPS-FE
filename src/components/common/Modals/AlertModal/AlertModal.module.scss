@@ -1,23 +1,27 @@
 .container {
-	@include flexbox(column, false, center);
+  @include flexbox(column, false, center);
 
-	.title {
-		@include typo(20, bold);
-	}
+  .title {
+    @include typo(20, bold);
+  }
 
-	/* stylelint-disable-next-line scss/dollar-variable-colon-space-after */
-	$mb-map:
-		"iconBox" 40px,
-		"title" 30px,
-		"message" 62px;
+  .message {
+    white-space: pre-line;
+  }
 
-	@each $class, $mb in $mb-map {
-		& .#{$class} {
-			margin-bottom: $mb;
-		}
-	}
+  /* stylelint-disable-next-line scss/dollar-variable-colon-space-after */
+  $mb-map:
+    "iconBox" 40px,
+    "title" 30px,
+    "message" 62px;
 
-	.closeBtnWithProceed {
-		margin-top: 20px;
-	}
+  @each $class, $mb in $mb-map {
+    & .#{$class} {
+      margin-bottom: $mb;
+    }
+  }
+
+  .closeBtnWithProceed {
+    margin-top: 20px;
+  }
 }
