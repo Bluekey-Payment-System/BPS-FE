@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
 import EmptyData from "@/components/common/EmptyData/EmptyData";
-import Loading from "@/components/common/Loading/Loading";
+import LoadingSection from "@/components/common/Loading/LoadingSection";
 import AlertModal from "@/components/common/Modals/AlertModal/AlertModal";
 import TableBodyUI from "@/components/common/Table/Composition/TableBodyUI";
 import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
@@ -53,7 +53,7 @@ const UploadHistroyTable = (
   }
 
   if (isLoading) {
-    return <Loading height={218} />;
+    return <LoadingSection height={218} dark />;
   }
 
   return (

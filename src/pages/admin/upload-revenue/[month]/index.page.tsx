@@ -8,7 +8,7 @@ import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
 import SectionHr from "@/components/common/Layouts/SectionHr";
 import SectionLayout from "@/components/common/Layouts/SectionLayout";
-import Loading from "@/components/common/Loading/Loading";
+import LoadingSection from "@/components/common/Loading/LoadingSection";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import UploadHistroyTable from "@/components/upload-revenue/UploadHistoryTable/UploadHistoryTable";
 import { getTransaction } from "@/services/api/requests/transaction/transaction.get.api";
@@ -46,7 +46,7 @@ const UploadRevenuePage = (
           <SectionHr isThick />
           <SectionLayout title="업로드 내역">
             {(isLoading || isFetching)
-              ? <Loading height={218} />
+              ? <LoadingSection height={218} dark />
               : (
                 <UploadHistroyTable
                   uploadList={revenueUploadHistory!.contents}

@@ -6,7 +6,7 @@ import Image from "next/image";
 import useToast from "@/hooks/useToast";
 import { useUploadHistoryPost } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 
-import Loading from "../Loading/Loading";
+import LoadingSection from "../Loading/LoadingSection";
 
 import styles from "./ExcelFileUploader.module.scss";
 
@@ -53,7 +53,7 @@ const ExcelFileUploader = ({ month }: { month: string }) => {
   };
 
   if (isLoading) {
-    return <Loading height={222} />;
+    return <LoadingSection height={222} dark />;
   }
 
   return (
