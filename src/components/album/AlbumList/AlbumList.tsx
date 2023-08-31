@@ -23,7 +23,7 @@ const AlbumList = ({ userType, paginationElement, albumList }: AlbumListProps) =
             <AlbumCard
               key={album.albumId}
               albumId={album.albumId}
-              albumCoverUrl="/images/default-album-cover-small.png" // TODO: 앨범 커버 데이터 잘 오면 다시 album.albumImage로 롤백
+              albumCoverUrl={album.albumImage ?? "/images/default-album-cover-small.png"}
               hasOptionsButton={userType === MEMBER_TYPE.ADMIN}
               albumTitle={album.name}
             />
