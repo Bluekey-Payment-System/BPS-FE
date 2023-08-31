@@ -8,6 +8,7 @@ import AddTrackModal from "@/components/album/AddTrackModal/AddTrackModal";
 import AlbumForm from "@/components/album/AlbumForm/AlbumForm";
 import AlbumTrackListTable from "@/components/album/AlbumTrackListTable/AlbumTrackListTable";
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
+import EmptyData from "@/components/common/EmptyData/EmptyData";
 import ImageUploader from "@/components/common/ImageUploader/ImageUploader";
 import ArtboardLayout from "@/components/common/Layouts/ArtboardLayout";
 import mlStyles from "@/components/common/Layouts/MainLayout.module.scss";
@@ -57,7 +58,6 @@ const AlbumEditPage = () => {
   const handleUploadImage = async (file: File) => {
     await mutateAsync({ ...methods.getValues(), albumImage: file });
   };
-
   return (
     <section className={ml("container")}>
       <h1 className={ml("title")}>앨범 수정</h1>
@@ -87,10 +87,14 @@ const AlbumEditPage = () => {
                   <div className={cx("addBtnContainer")}>
                     <ChipButton size="large" onClick={() => { setIsAddTrackModalOpen(true); }}>수록곡 추가</ChipButton>
                   </div>
-                  <AlbumTrackListTable
-                    albumId={data?.albumId ?? -1}
-                    tracks={data?.tracks ?? []}
-                  />
+                  {(data?.tracks) && (data.tracks.length > 0)
+                    ? (
+                      <AlbumTrackListTable
+                        albumId={data?.albumId ?? -1}
+                        tracks={data?.tracks ?? []}
+                      />
+                    )
+                    : <EmptyData type="no-data" text="수록곡이 없습니다." />}
                 </div>
               </SectionLayout>
             </div>
