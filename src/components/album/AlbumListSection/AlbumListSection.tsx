@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useRef, useState } from "react";
 
 import classNames from "classnames/bind";
@@ -32,7 +33,8 @@ const AlbumListSection = ({
   const searchKeywordRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  const handleSearchAlbumTitle = () => {
+  const handleSearchAlbumTitle = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     if (searchKeywordRef.current) {
       setSearchKeyword(searchKeywordRef.current.value);
       const result = updateQueryParam(router.query, "keyword", searchKeywordRef.current.value, "page", 1);
@@ -47,7 +49,9 @@ const AlbumListSection = ({
       <div className={cx("artboardLayout")}>
         <div className={cx("content")}>
           <div className={cx("searchBarSection")}>
-            <SearchBar placeholder="앨범명을 검색해주세요." onClick={handleSearchAlbumTitle} ref={searchKeywordRef} value={searchKeyword} />
+            <form onSubmit={handleSearchAlbumTitle}>
+              <SearchBar placeholder="앨범명을 검색해주세요." onClick={handleSearchAlbumTitle} ref={searchKeywordRef} value={searchKeyword} />
+            </form>
           </div>
           <AlbumList
             albumList={albumList}
@@ -58,7 +62,7 @@ const AlbumListSection = ({
                 totalItems={totalAlbumItems}
                 itemsPerPage={ITEMS_PER_ALBUM_LIST}
               />
-          )}
+            )}
           />
         </div>
       </div>
