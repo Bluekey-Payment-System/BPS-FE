@@ -84,6 +84,7 @@ const ArtistsStatusPage = (
         : (
           <ArtistsStatusTable
             artistList={artistsStatus!.contents}
+            month={month}
             paginationElement={(
               <Pagination
                 activePage={page}
