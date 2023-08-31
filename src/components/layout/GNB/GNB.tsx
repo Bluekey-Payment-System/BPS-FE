@@ -14,7 +14,6 @@ import MobileGNB from "./MobileGNB";
 import PCGNB from "./PCGNB";
 
 const GNB = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loginId, profileImage, role, onClickMenu,
 }: GnbInfoProps) => {
   const { showToast } = useToast();
@@ -40,14 +39,14 @@ const GNB = ({
     <>
       <PCGNB
         loginId={loginId}
-        profileImage={null} // api 수정 이후 변경하기!
+        profileImage={profileImage}
         role={role}
         onClickNotification={handleClickNotification}
         onClickLogout={handleSignout}
       />
       <MobileGNB
         loginId={loginId}
-        profileImage={null}
+        profileImage={profileImage}
         role={role}
         onClickNotification={handleClickNotification}
         onClickLogout={handleSignout}
