@@ -55,13 +55,13 @@ const formatMoney = (money: number | null, formatType: "card" | "chart" | "table
     case "card":
       if (money >= unit) {
         return `${formatNumDigits(money / unit, 3)}억원`;
-      } return `${money.toLocaleString("ko-KR")}원`;
+      } return `${money.toLocaleString("ko-KR", { maximumFractionDigits: 0 })}원`;
     case "chart":
       return formatMoneyForChart(money);
     case "table":
       if (money >= unit) {
         return `₩${formatNumDigits(money / unit, 3)}억`;
-      } return `₩${money.toLocaleString("ko-KR")}`;
+      } return `₩${money.toLocaleString("ko-KR", { maximumFractionDigits: 0 })}`;
     default:
       return "-";
   }

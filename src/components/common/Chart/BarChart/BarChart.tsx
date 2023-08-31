@@ -28,7 +28,7 @@ const customTooltip = ({ id, value }: CustomTooltipProps) => {
   const tooltipText = tooltipTexts[id] || "Unknown";
 
   return (
-    <div className={cx("tooltip")}>{`${tooltipText}: ${value.toLocaleString("ko-KR")}원`}</div>
+    <div className={cx("tooltip")}>{`${tooltipText}: ${value.toLocaleString("ko-KR", { maximumFractionDigits: 0 })}원`}</div>
   );
 };
 
