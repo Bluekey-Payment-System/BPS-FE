@@ -6,14 +6,13 @@ import Orbit from "./Orbit";
 interface LoadingSectionProps {
   width?: number,
   height?: number,
-  backgroundColor?: string,
   dark?: boolean
 }
 
 const cx = classNames.bind(styles);
 
 const LoadingSection = ({
-  width, height, backgroundColor, dark = false,
+  width, height, dark = false,
 }: LoadingSectionProps) => {
   return (
     <div
@@ -21,7 +20,6 @@ const LoadingSection = ({
       style={{
         width,
         height,
-        backgroundColor,
       }}
     >
       <Orbit dark={dark} />
