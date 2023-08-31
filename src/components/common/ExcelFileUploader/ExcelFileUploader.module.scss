@@ -30,3 +30,13 @@
     }
   }
 }
+
+.loading {
+  @include flexbox(row, center, center);
+
+  width: 730px;
+  height: 222px;
+  border: 1px solid $sub-color2;
+  border-radius: 8px;
+  background-color: $sub-color1;
+}
