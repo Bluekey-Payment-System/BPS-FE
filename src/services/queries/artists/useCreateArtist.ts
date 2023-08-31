@@ -21,8 +21,9 @@ const useCreateArtist = () => {
             [MEMBER_ROLE.ARTIST, "names"],
             {
               artists: [...staleData.artists, {
-                id: data.memberId,
+                memberId: data.memberId,
                 name: data.name,
+                enName: data.enName,
                 commissionRate: data.commissionRate || 0,
               }],
             },
