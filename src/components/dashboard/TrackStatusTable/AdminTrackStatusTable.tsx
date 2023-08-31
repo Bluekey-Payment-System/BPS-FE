@@ -22,7 +22,7 @@ import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import formatMoney from "@/utils/formatMoney";
 import updateQueryParam from "@/utils/updateQueryParam";
 
-import EmptyTableData from "./EmptyTableData";
+import EmptyTrackTableData from "./EmptyTrackTableData";
 import styles from "./TrackStatusTable.module.scss";
 import { formatArtistCell } from "./TrackStatusTable.utils";
 
@@ -84,7 +84,7 @@ const AdminTrackStatusTable = ({
         </div>
       </div>
       {isEmpty
-        ? <EmptyTableData type={DASHBOARD_TYPE.ADMIN} isEmptySearch={!!router.query.keyword} />
+        ? <EmptyTrackTableData type={DASHBOARD_TYPE.ADMIN} isEmptySearch={!!router.query.keyword} />
         : (
           <TableContainerUI
             paginationElement={paginationElement}
