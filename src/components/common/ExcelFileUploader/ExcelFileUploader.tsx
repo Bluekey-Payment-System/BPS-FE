@@ -3,8 +3,9 @@ import React from "react";
 import classNames from "classnames/bind";
 import Image from "next/image";
 
-import useToast from "@/hooks/useToast";
+import useAlertModal from "@/hooks/useAlertModal";
 import { useUploadHistoryPost } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
+import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
 import Loading from "../Loading/Loading";
 
@@ -17,8 +18,8 @@ const cx = classNames.bind(styles);
  * @returns 엑셀 파일 업로드 박스
  */
 const ExcelFileUploader = ({ month }: { month: string }) => {
-  const { showToast } = useToast();
   const { postUploadHistory, isLoading } = useUploadHistoryPost(month);
+  const { showAlertModal } = useAlertModal();
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -29,11 +30,13 @@ const ExcelFileUploader = ({ month }: { month: string }) => {
     const fileExtension = droppedFile.name.split(".").pop();
 
     if (!(fileExtension === "xlsx" || fileExtension === "xls")) {
-      showToast(`[Error] 감지된 파일 확장자 (${fileExtension})`);
+      showAlertModal({
+        type: MODAL_TYPE.ERROR,
+        title: "파일 확장자 에러",
+        message: `엑셀 파일이 아닌 다른 파일(.${fileExtension})이 감지되었습니다.\n다시 한 번 확인해주세요.`,
+      });
     } else {
-      // 파일 업로드 처리
       postUploadHistory({ file: droppedFile, uploadMonth: month });
-      // showToast(`Dropped file: ${droppedFile.name}`);
     }
   };
 
