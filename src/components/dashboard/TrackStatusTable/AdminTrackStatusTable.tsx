@@ -123,7 +123,7 @@ const AdminTrackStatusTable = ({
                     <TableCellUI>{formatMoney(item.revenue, "table")}</TableCellUI>
                     <TableCellUI>{formatMoney(item.netIncome, "table")}</TableCellUI>
                     <TableCellUI>{formatMoney(item.settlementAmount, "table")}</TableCellUI>
-                    <TableCellUI align="left">{item.commissionRate && <ProgressBar value={item.commissionRate} />}</TableCellUI>
+                    <TableCellUI align="left"><ProgressBar value={item.commissionRate} /></TableCellUI>
                   </TableRowUI>
                 );
               })}

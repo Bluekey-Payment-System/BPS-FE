@@ -123,7 +123,7 @@ const ArtistTrackStatusTable = ({
                     <TableCellUI>{formatMoney(item.revenue, "table")}</TableCellUI>
                     <TableCellUI>{formatMoney(item.settlementAmount, "table")}</TableCellUI>
                     <TableCellUI>3.3%</TableCellUI>
-                    <TableCellUI align="left">{item.commissionRate && <ProgressBar value={item.commissionRate} />}</TableCellUI>
+                    <TableCellUI align="left"><ProgressBar value={item.commissionRate} /></TableCellUI>
                   </TableRowUI>
                 );
               })}
