@@ -6,7 +6,7 @@ import Image from "next/image";
 import useToast from "@/hooks/useToast";
 import { useUploadHistoryPost } from "@/services/queries/upload-revenue/useRevenueUploadHistory";
 
-import Orbit from "../Loading/Orbit";
+import LoadingSection from "../Loading/LoadingSection";
 
 import styles from "./ExcelFileUploader.module.scss";
 
@@ -53,11 +53,7 @@ const ExcelFileUploader = ({ month }: { month: string }) => {
   };
 
   if (isLoading) {
-    return (
-      <div className={cx("loading")}>
-        <Orbit dark />
-      </div>
-    );
+    return <LoadingSection height={222} dark />;
   }
 
   return (
