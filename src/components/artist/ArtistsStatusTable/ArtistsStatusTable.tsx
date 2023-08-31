@@ -63,8 +63,8 @@ const ArtistsStatusTable = ({
               <TableCellUI>{`${formatMoney(artistInfo.netIncome, "table")}원`}</TableCellUI>
               <TableCellUI>{`${formatMoney(artistInfo.settlementAmount, "table")}원`}</TableCellUI>
               <TableCellUI>
-                <TooltipRoot message={artistInfo.representativeTrack}>
-                  <p className={cx("ellipsis")}>{artistInfo.representativeTrack}</p>
+                <TooltipRoot message={artistInfo.representativeTrack || "-"}>
+                  <p className={cx("ellipsis")}>{artistInfo.representativeTrack || "-"}</p>
                 </TooltipRoot>
               </TableCellUI>
               <TableCellUI>
