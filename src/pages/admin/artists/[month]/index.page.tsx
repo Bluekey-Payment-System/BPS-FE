@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 
 import ArtistsMainLayout from "@/components/artist/ArtistsMainLayout/ArtistsMainLayout";
 import ArtistsStatusTable from "@/components/artist/ArtistsStatusTable/ArtistsStatusTable";
+import EmptyArtistTableData from "@/components/artist/ArtistsStatusTable/EmptyArtistTableData";
 import Orbit from "@/components/common/Loading/Orbit";
 import MonthPickerDropdown from "@/components/common/MonthPicker/MonthPickerDropdown";
 import Pagination from "@/components/common/Pagination/Pagination";
@@ -78,17 +79,22 @@ const ArtistsStatusPage = (
         </form>
       )}
     >
-      <ArtistsStatusTable
-        artistList={artistsStatus!.contents}
-        paginationElement={(
-          <Pagination
-            activePage={page}
-            totalItems={artistsStatus!.totalItems}
-            itemsPerPage={ITEMS_PER_ARTISTS_TABLE}
+      {artistsStatus!.totalItems === 0
+        ? <EmptyArtistTableData isEmptySearch={!!router.query.keyword} />
+        : (
+          <ArtistsStatusTable
+            artistList={artistsStatus!.contents}
+            paginationElement={(
+              <Pagination
+                activePage={page}
+                totalItems={artistsStatus!.totalItems}
+                itemsPerPage={ITEMS_PER_ARTISTS_TABLE}
+              />
+            )}
           />
         )}
-      />
     </ArtistsMainLayout>
+
   );
 };
 
