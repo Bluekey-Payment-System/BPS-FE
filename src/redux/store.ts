@@ -103,6 +103,7 @@ export const wrapper = createWrapper<Store>(makeStore);
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export type AppStore = ReturnType<typeof makeStore>;
+export type TestStore = ReturnType<typeof setupStore>;
 export type AppState = ReturnType<AppStore["getState"]>;
 export type RootReducer = ReturnType<typeof rootReducer>;
 
