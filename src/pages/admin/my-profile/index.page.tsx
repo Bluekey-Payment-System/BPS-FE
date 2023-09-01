@@ -21,12 +21,9 @@ const AdminMyProfilePage = () => {
   const userInfo = useAppSelector((state) => { return state.user.member as IAdminProfile; });
   // 프로필 정보(닉네임, 이메일) 수정 쿼리
   const {
-    mutate, isLoading,
+    mutate: updateProfile, isLoading,
   } = useUpdateAdminMyProfileInfo();
-  // 프로밀 이미지 수정 쿼리
-  const {
-    mutateAsync: mutateImageAsync,
-  } = useUpdateAdminProfileImage();
+  const { mutateAsync: updateProfileImage } = useUpdateAdminProfileImage();
   const methods = useForm<IAdminUpdateProfileFieldValues>({
     defaultValues: {
       email: userInfo.email,
@@ -35,13 +32,11 @@ const AdminMyProfilePage = () => {
   });
 
   const onSubmit:SubmitHandler<IAdminUpdateProfileFieldValues> = (data) => {
-    mutate(data);
-    // eslint-disable-next-line no-console
-    console.log(data);
+    updateProfile(data);
   };
 
   const handleUploadImage = async (file: File) => {
-    await mutateImageAsync({ profileImage: file });
+    await updateProfileImage({ file });
   };
 
   return (
@@ -53,7 +48,7 @@ const AdminMyProfilePage = () => {
               <div className={cx("imageUploadContainer")}>
                 <ImageUploader
                   shape="circle"
-                  {...methods.register("profileImage")}
+                  {...methods.register("file")}
                   onUpload={handleUploadImage}
                   defaultUrl={userInfo.profileImage}
                 />

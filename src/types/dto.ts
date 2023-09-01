@@ -159,7 +159,7 @@ export interface IAdminProfile extends IProfile {
 }
 
 export interface IAdminUpdateProfileFieldValues extends Partial<Pick<IAdminProfile, "email" | "nickname">> {
-  profileImage: File | null,
+  file: File | null,
 }
 
 export interface IArtistProfile extends IProfile {

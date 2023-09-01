@@ -66,7 +66,7 @@ const AdminProfileForm = ({ loginId, onSubmit }: AdminProfileFormProps) => {
             onBlur: () => { void trigger("nickname"); },
           })}
           errors={errors}
-          onSave={() => { onSubmit(getValues()); }}
+          onSave={() => { onSubmit({ file: null, nickname: getValues("nickname") }); }}
           originalValue={defaultValues?.nickname}
           resetField={resetField as UseFormResetField<FieldValues>}
         />
@@ -83,7 +83,7 @@ const AdminProfileForm = ({ loginId, onSubmit }: AdminProfileFormProps) => {
             onBlur: () => { void trigger("email"); },
           })}
           errors={errors}
-          onSave={() => { onSubmit(getValues()); }}
+          onSave={() => { onSubmit({ file: null, email: getValues("email") }); }}
           originalValue={defaultValues?.email ?? ""}
           resetField={resetField as UseFormResetField<FieldValues>}
         />
