@@ -21,11 +21,11 @@ const ArtistMyProfilePage = () => {
   const userInfo = useAppSelector((state) => { return state.user.member as IArtistProfile; });
   // 프로필 정보(닉네임, 이메일) 수정 쿼리
   const {
-    mutate, isLoading,
+    mutate: updateProfile, isLoading,
   } = useUpdateArtistMyProfileInfo();
   // 프로밀 이미지 수정 쿼리
   const {
-    mutateAsync: mutateImageAsync,
+    mutateAsync: updateProfileImage,
   } = useUpdateArtistMyProfileImage();
 
   const methods = useForm<IArtistUpdateProfileFieldValues>({
@@ -35,11 +35,11 @@ const ArtistMyProfilePage = () => {
   });
 
   const onSubmit: SubmitHandler<IArtistUpdateProfileFieldValues> = (data) => {
-    mutate(data);
+    updateProfile(data);
   };
 
   const handleUploadImage = async (file: File) => {
-    await mutateImageAsync({ profileImage: file });
+    await updateProfileImage({ file });
   };
 
   return (
@@ -51,7 +51,7 @@ const ArtistMyProfilePage = () => {
               <div className={cx("imageUploadContainer")}>
                 <ImageUploader
                   shape="circle"
-                  {...methods.register("profileImage")}
+                  {...methods.register("file")}
                   onUpload={handleUploadImage}
                   defaultUrl={userInfo.profileImage}
                 />

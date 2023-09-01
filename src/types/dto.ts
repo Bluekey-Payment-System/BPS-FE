@@ -171,8 +171,8 @@ export interface IArtistProfile extends IProfile {
 }
 
 export interface IArtistUpdateProfileFieldValues {
-  email?: string
-  profileImage: File | null;
+  email: string
+  file: File | null;
 }
 
 // 정산액 업로드 관련
