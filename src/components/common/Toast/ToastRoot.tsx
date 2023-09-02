@@ -6,19 +6,19 @@ import Toast from "./Toast";
 import ToastPortal from "./ToastPortal";
 
 const ToastRoot = () => {
-  const isVisible = useAppSelector((state) => { return state.toast.isShowing; });
-  const message = useAppSelector((state) => { return state.toast.message; });
-  const portalId = useAppSelector((state) => { return state.toast.portalId; });
+  const {
+    isShowing, message, portalId, status,
+  } = useAppSelector((state) => { return state.toast; });
   const toastRef = useRef<HTMLDialogElement>(null);
   useEffect(() => {
-    if (isVisible) {
+    if (isShowing) {
       toastRef.current?.show();
     }
-  }, [isVisible]);
-  if (!isVisible) return null;
+  }, [isShowing]);
+  if (!isShowing) return null;
   return (
     <ToastPortal portalId={portalId}>
-      <Toast ref={toastRef} message={message} />
+      <Toast ref={toastRef} message={message} status={status} />
     </ToastPortal>
   );
 };

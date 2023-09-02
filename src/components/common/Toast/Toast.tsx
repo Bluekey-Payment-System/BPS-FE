@@ -3,7 +3,8 @@ import {
 } from "react";
 
 import classNames from "classnames/bind";
-import Image from "next/image";
+
+import { ToastStatus } from "@/types/enums/toast.enum";
 
 import styles from "./Toast.module.scss";
 
@@ -13,17 +14,23 @@ const cx = classNames.bind(styles);
  * 토스트 컴포넌트
  * @author [SeyoungCho](https://github.com/seyoungcho)
  * @param {string } message - 토스트 메세지
+ * @param {ToastStatus} status - 토스트 상태 - SUCCESS(초록색 바), FAIL(빨간색 바))
  * @example
  *
  * ```
  * <ToastPortal>
- *   <Toast message="완료되었습니다" />
+ *   <Toast message="완료되었습니다" status="SUCCESS" />
  * </ToastPortal>
  *```
  */
+interface ToastProps {
+  message: string;
+  status: ToastStatus
+}
+
 const Toast = forwardRef(
   (
-    { message }: { message: string },
+    { message, status }: ToastProps,
     ref: ForwardedRef<HTMLDialogElement>,
   ) => {
     const [isShowing, setIsShowing] = useState(true);
@@ -46,9 +53,7 @@ const Toast = forwardRef(
           fadeOut: !isShowing,
         })}
         >
-          <div className={cx("iconBox")}>
-            <Image src="/images/lightening.png" alt="번개 아이콘" sizes="64vw" fill />
-          </div>
+          <div className={cx("statusBar", { success: status === "SUCCESS" }, { fail: status === "FAIL" })} />
           <span>{message}</span>
         </div>
       </dialog>
