@@ -20,10 +20,14 @@ interface CurrentPasswordFormProps {
 
 const CurrentPasswordForm = ({ onSuccess }: CurrentPasswordFormProps) => {
   const { register, formState: { errors }, handleSubmit } = useForm<IChangePasswordFieldValues>();
-  const { mutateAsync: confirmPassword, isSuccess } = useConfirmPassword();
+  const { mutateAsync: confirmPassword } = useConfirmPassword();
   const handleClickNext: SubmitHandler<IChangePasswordFieldValues> = async (data) => {
-    await confirmPassword(data);
-    if (isSuccess) onSuccess();
+    try {
+      await confirmPassword(data);
+      onSuccess();
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <>

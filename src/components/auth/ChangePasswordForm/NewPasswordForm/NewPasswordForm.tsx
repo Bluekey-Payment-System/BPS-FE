@@ -19,10 +19,14 @@ const NewPasswordForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const {
     register, formState: { errors }, handleSubmit, getValues,
   } = useForm<INewPasswordFieldValues>({ mode: "onBlur" });
-  const { mutateAsync: changePassword, isSuccess } = useChangePassword();
+  const { mutateAsync: changePassword } = useChangePassword();
   const handleClickDone: SubmitHandler<INewPasswordFieldValues> = async (data) => {
-    await changePassword({ password: data.password });
-    if (isSuccess) onSuccess();
+    try {
+      await changePassword({ password: data.password });
+      onSuccess();
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <>
