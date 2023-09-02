@@ -1,64 +1,24 @@
 /* eslint-disable no-void */
 import { useMutation } from "@tanstack/react-query";
 
-import useAlertModal from "@/hooks/useAlertModal";
+import useAlertModal, { IShowAlertModalParam } from "@/hooks/useAlertModal";
 import useToast from "@/hooks/useToast";
 import { useAppDispatch } from "@/redux/hooks";
 import { setUser } from "@/redux/slices/userSlice";
-import { IAdminProfile, IArtistProfile } from "@/types/dto";
+import { patchAdminProfile } from "@/services/api/requests/admin/admin.patch.api";
+import { IPatchAdminProfileData, IPatchAdminProfileResponse } from "@/services/api/types/admin";
+import { IPatchArtistProfileData, IPatchArtistProfileResponse } from "@/services/api/types/artist";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
-import { MEMBER_ROLE, MEMBER_TYPE } from "@/types/enums/user.enum";
+import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
-interface IPatchAdminMyProfileRequest {
-  profileImage: File | null,
-  email?: string,
-  nickname?: string,
-}
+import { patchArtistProfile } from "../../api/requests/artist/artist.patch.api";
 
-interface IPatchAdminMyProfileResponse extends IAdminProfile { }
-
-interface IPatchArtistMyProfileRequest extends Omit<IPatchAdminMyProfileRequest, "nickname"> { }
-
-interface IPatchArtistMyProfileResponse extends IArtistProfile { }
-
-const patchAdminMyProfile = (
-  body: IPatchAdminMyProfileRequest,
-): Promise<IPatchAdminMyProfileResponse> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      void body;
-      return resolve({
-        memberId: 1,
-        role: MEMBER_ROLE.ADMIN,
-        type: MEMBER_TYPE.ADMIN,
-        email: "example@bluekey_domain.com",
-        loginId: "sapidjsaio",
-        nickname: "블루키",
-        profileImage: "https://s3...",
-      });
-      reject(new Error("에러가 발생했습니다."));
-    }, 2000);
-  });
-};
-
-const patchArtistMyProfile = (
-  body: IPatchArtistMyProfileRequest,
-): Promise<IPatchArtistMyProfileResponse> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      void body;
-      return resolve({
-        memberId: 1,
-        role: MEMBER_ROLE.ARTIST,
-        type: MEMBER_TYPE.USER,
-        email: "example@bluekey_domain.com",
-        loginId: "dfjalke",
-        name: "블루키",
-        enName: "bluekey",
-        profileImage: "https://s3...",
-      });
-    }, 2000);
-  });
+const getErrorModalInfo = (message: string, title = "프로필 수정 에러"): IShowAlertModalParam => {
+  return {
+    type: MODAL_TYPE.ERROR,
+    title,
+    message,
+  };
 };
 
 export const useUpdateAdminMyProfileInfo = () => {
@@ -66,24 +26,20 @@ export const useUpdateAdminMyProfileInfo = () => {
   const { showToast } = useToast();
   const { showAlertModal } = useAlertModal();
   const mutation = useMutation<
-  IPatchAdminMyProfileResponse,
+  IPatchAdminProfileResponse,
   unknown,
-  IPatchAdminMyProfileRequest,
+  IPatchAdminProfileData,
   unknown
   >(
     ["admin", "my-profile"],
-    patchAdminMyProfile,
+    patchAdminProfile,
     {
       onSuccess: (data) => {
         showToast("프로필 정보가 수정되었습니다.");
-        dispatch(setUser(data));
+        dispatch(setUser({ ...data, type: MEMBER_TYPE.ADMIN }));
       },
       onError: () => {
-        showAlertModal({
-          type: MODAL_TYPE.ERROR,
-          title: "프로필 수정 에러",
-          message: "알 수 없는 에러가 발생하였습니다. 잠시 후에 다시 시도해주세요.",
-        });
+        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요."));
       },
     },
   );
@@ -93,18 +49,22 @@ export const useUpdateAdminMyProfileInfo = () => {
 export const useUpdateAdminProfileImage = () => {
   const dispatch = useAppDispatch();
   const { showToast } = useToast();
+  const { showAlertModal } = useAlertModal();
   const mutation = useMutation<
-  IPatchAdminMyProfileResponse,
+  IPatchAdminProfileResponse,
   unknown,
-  Pick<IPatchAdminMyProfileRequest, "profileImage">,
+  IPatchAdminProfileData,
   unknown
   >(
     ["admin", "my-profile", "profile-image"],
-    patchAdminMyProfile,
+    patchAdminProfile,
     {
       onSuccess: (data) => {
         showToast("프로필 이미지가 변경되었습니다.");
-        dispatch(setUser(data));
+        dispatch(setUser({ ...data, type: MEMBER_TYPE.ADMIN }));
+      },
+      onError: () => {
+        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요."));
       },
     },
   );
@@ -114,18 +74,22 @@ export const useUpdateAdminProfileImage = () => {
 export const useUpdateArtistMyProfileInfo = () => {
   const dispatch = useAppDispatch();
   const { showToast } = useToast();
+  const { showAlertModal } = useAlertModal();
   const mutation = useMutation<
-  IPatchArtistMyProfileResponse,
+  IPatchArtistProfileResponse,
   unknown,
-  IPatchArtistMyProfileRequest,
+  IPatchArtistProfileData,
   unknown
   >(
     ["artist", "my-profile"],
-    patchArtistMyProfile,
+    patchArtistProfile,
     {
       onSuccess: (data) => {
         showToast("프로필 정보가 수정되었습니다.");
-        dispatch(setUser(data));
+        dispatch(setUser({ ...data, type: MEMBER_TYPE.USER }));
+      },
+      onError: () => {
+        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요."));
       },
     },
   );
@@ -135,18 +99,22 @@ export const useUpdateArtistMyProfileInfo = () => {
 export const useUpdateArtistMyProfileImage = () => {
   const dispatch = useAppDispatch();
   const { showToast } = useToast();
+  const { showAlertModal } = useAlertModal();
   const mutation = useMutation<
-  IPatchArtistMyProfileResponse,
+  IPatchArtistProfileResponse,
   unknown,
-  Pick<IPatchArtistMyProfileRequest, "profileImage">,
+  IPatchArtistProfileData,
   unknown
   >(
     ["artist", "my-profile", "profile-image"],
-    patchArtistMyProfile,
+    patchArtistProfile,
     {
       onSuccess: (data) => {
         showToast("프로필 이미지가 변경되었습니다.");
-        dispatch(setUser(data));
+        dispatch(setUser({ ...data, type: MEMBER_TYPE.USER }));
+      },
+      onError: () => {
+        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요."));
       },
     },
   );

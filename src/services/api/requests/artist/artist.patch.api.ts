@@ -34,7 +34,7 @@ export const patchArtistProfile = async (
   });
   formData.append("data", JSON.stringify(dataList));
 
-  const response = await patchRequest<IPatchArtistProfileResponse, FormData>("/artist/profile", formData, {
+  const response = await patchRequest<IPatchArtistProfileResponse, FormData>("/artists/profile", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

@@ -8,11 +8,13 @@ import { Provider } from "react-redux";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render } from "@testing-library/react";
 
-import { setupStore, type AppStore, type RootState } from "@/redux/store";
+import {
+  setupStore, type RootState, TestStore,
+} from "@/redux/store";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
   preloadedState?: PreloadedState<RootState>
-  store?: AppStore
+  store?: TestStore
 }
 
 const renderWithProviders = (

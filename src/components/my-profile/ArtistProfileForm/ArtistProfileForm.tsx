@@ -79,7 +79,7 @@ const ArtistProfileForm = ({
           })}
           errors={errors}
           bottomText="*해당 메일로 정산 완료 메일이 발송됩니다"
-          onSave={() => { onSubmit(getValues()); }}
+          onSave={() => { onSubmit({ file: null, email: getValues("email") }); }}
           originalValue={defaultValues?.email ?? ""}
           resetField={resetField as UseFormResetField<FieldValues>}
         />

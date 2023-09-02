@@ -159,7 +159,7 @@ export interface IAdminProfile extends IProfile {
 }
 
 export interface IAdminUpdateProfileFieldValues extends Partial<Pick<IAdminProfile, "email" | "nickname">> {
-  profileImage: File | null,
+  file: File | null,
 }
 
 export interface IArtistProfile extends IProfile {
@@ -171,8 +171,8 @@ export interface IArtistProfile extends IProfile {
 }
 
 export interface IArtistUpdateProfileFieldValues {
-  email?: string
-  profileImage: File | null;
+  email: string
+  file: File | null;
 }
 
 // 정산액 업로드 관련
