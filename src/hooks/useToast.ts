@@ -1,11 +1,12 @@
 import { useAppDispatch } from "@/redux/hooks";
-import { setShow, setToastMessage } from "@/redux/slices/toastSlice";
+import { setProtalId, setShow, setToastMessage } from "@/redux/slices/toastSlice";
 
 const useToast = () => {
   const dispatch = useAppDispatch();
 
-  const showToast = (message: string) => {
+  const showToast = (message: string, portalId = "toast-root") => {
     dispatch(setToastMessage(message));
+    dispatch(setProtalId(portalId));
     dispatch(setShow(true));
 
     setTimeout(() => {
