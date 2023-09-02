@@ -1,6 +1,4 @@
-import {
-  ForwardedRef, forwardRef, useEffect, useState,
-} from "react";
+import { useEffect, useState } from "react";
 
 import classNames from "classnames/bind";
 
@@ -28,37 +26,27 @@ interface ToastProps {
   status: ToastStatus
 }
 
-const Toast = forwardRef(
-  (
-    { message, status }: ToastProps,
-    ref: ForwardedRef<HTMLDialogElement>,
-  ) => {
-    const [isShowing, setIsShowing] = useState(true);
+const Toast = ({ message, status }: ToastProps) => {
+  const [isShowing, setIsShowing] = useState(true);
 
-    useEffect(() => {
-      const timeout = setTimeout(() => {
-        setIsShowing(false);
-      }, 2800);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsShowing(false);
+    }, 2800);
 
-      return () => { return clearTimeout(timeout); };
-    }, []);
+    return () => { return clearTimeout(timeout); };
+  }, []);
 
-    return (
-      <dialog
-        ref={ref}
-        open
-      >
-        <div className={cx("toastContainer", {
-          fadeIn: isShowing,
-          fadeOut: !isShowing,
-        })}
-        >
-          <div className={cx("statusBar", { success: status === "SUCCESS" }, { fail: status === "FAIL" })} />
-          <span>{message}</span>
-        </div>
-      </dialog>
-    );
-  },
-);
+  return (
+    <div className={cx("toastContainer", {
+      fadeIn: isShowing,
+      fadeOut: !isShowing,
+    })}
+    >
+      <div className={cx("statusBar", { success: status === "SUCCESS" }, { fail: status === "FAIL" })} />
+      <span>{message}</span>
+    </div>
+  );
+};
 
 export default Toast;
