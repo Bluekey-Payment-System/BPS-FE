@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import {
+  ForwardedRef, forwardRef, useEffect, useState,
+} from "react";
 
 import classNames from "classnames/bind";
 import Image from "next/image";
@@ -19,32 +21,39 @@ const cx = classNames.bind(styles);
  * </ToastPortal>
  *```
  */
-const Toast = ({ message }: { message: string }) => {
-  const [isShowing, setIsShowing] = useState(true);
+const Toast = forwardRef(
+  (
+    { message }: { message: string },
+    ref: ForwardedRef<HTMLDialogElement>,
+  ) => {
+    const [isShowing, setIsShowing] = useState(true);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsShowing(false);
-    }, 2800);
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        setIsShowing(false);
+      }, 2800);
 
-    return () => { return clearTimeout(timeout); };
-  }, []);
+      return () => { return clearTimeout(timeout); };
+    }, []);
 
-  return (
-    <div
-      className={
-          cx(styles.toastContainer, {
-            [styles.fadeIn]: isShowing,
-            [styles.fadeOut]: !isShowing,
-          })
-        }
-    >
-      <div className={cx(styles.iconBox)}>
-        <Image src="/images/lightening.png" alt="번개 아이콘" sizes="64vw" fill />
-      </div>
-      <span>{message}</span>
-    </div>
-  );
-};
+    return (
+      <dialog
+        ref={ref}
+        open
+      >
+        <div className={cx("toastContainer", {
+          fadeIn: isShowing,
+          fadeOut: !isShowing,
+        })}
+        >
+          <div className={cx("iconBox")}>
+            <Image src="/images/lightening.png" alt="번개 아이콘" sizes="64vw" fill />
+          </div>
+          <span>{message}</span>
+        </div>
+      </dialog>
+    );
+  },
+);
 
 export default Toast;
