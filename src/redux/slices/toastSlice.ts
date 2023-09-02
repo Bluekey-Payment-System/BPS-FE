@@ -4,11 +4,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface IToastState {
   isShowing: boolean;
   message: string;
+  portalId: string;
 }
 
 const initialState: IToastState = {
   isShowing: false,
   message: "",
+  portalId: "toast-portal",
 };
 
 export const toastSlice = createSlice({
@@ -21,9 +23,12 @@ export const toastSlice = createSlice({
     setToastMessage: (state, action: PayloadAction<string>) => {
       state.message = action.payload;
     },
+    setProtalId: (state, action: PayloadAction<string>) => {
+      state.portalId = action.payload;
+    },
   },
 });
 
-export const { setShow, setToastMessage } = toastSlice.actions;
+export const { setShow, setToastMessage, setProtalId } = toastSlice.actions;
 
 export default toastSlice.reducer;
