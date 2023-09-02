@@ -1,7 +1,8 @@
+import { CSVLink } from "react-csv";
+
 import classNames from "classnames/bind";
 
 import ModalTooltipRoot from "@/components/common/Tooltip/ModalTooltip";
-import useToast from "@/hooks/useToast";
 import { ITransactionUploadAlert } from "@/types/dto";
 
 import TableBodyUI from "../../common/Table/Composition/TableBodyUI";
@@ -14,16 +15,32 @@ import styles from "./AlertDataTable.module.scss";
 
 const cx = classNames.bind(styles);
 
+/* 임시 */
+const ExcelHeaders = [
+  { label: "이름", key: "name" },
+  { label: "전화번호", key: "number" },
+  { label: "이메일", key: "email" },
+];
+
+const ExcelData = [
+  { name: "kim", number: "12345", email: "nhy" },
+  { name: "lee", number: "21555", email: "dfe" },
+  { name: "park", number: "64467", email: "kih" },
+];
+/// ////////////////
+
 const AlertDataTable = ({ data }: { data?: ITransactionUploadAlert[] }) => {
-  const { showToast } = useToast();
-
-  const handleCopyData = () => {
-    showToast("복사되었습니다.");
-  };
-
   return (
     <div className={cx("tableContainer")}>
-      <button className={cx("copyButton")} type="button" onClick={handleCopyData}>전체 복사</button>
+      <CSVLink
+        headers={ExcelHeaders}
+        data={ExcelData}
+        filename="미등록 데이터"
+        className={cx("copyButton")}
+        target="_blank"
+      >
+        전체 복사
+      </CSVLink>
       <TableContainerUI
         stickyHeader
         tableHeight={282}
