@@ -3,6 +3,7 @@ import { CSVLink } from "react-csv";
 import classNames from "classnames/bind";
 
 import ModalTooltipRoot from "@/components/common/Tooltip/ModalTooltip";
+import { ALERT_DATA_HEADERS } from "@/constants/alertDataHeaders";
 import { ITransactionUploadAlert } from "@/types/dto";
 
 import TableBodyUI from "../../common/Table/Composition/TableBodyUI";
@@ -12,29 +13,16 @@ import TableHeaderUI from "../../common/Table/Composition/TableHeaderUI";
 import TableRowUI from "../../common/Table/Composition/TableRowUI";
 
 import styles from "./AlertDataTable.module.scss";
+import { formatToExcelData } from "./AlertDataTable.utils";
 
 const cx = classNames.bind(styles);
 
-/* 임시 */
-const ExcelHeaders = [
-  { label: "이름", key: "name" },
-  { label: "전화번호", key: "number" },
-  { label: "이메일", key: "email" },
-];
-
-const ExcelData = [
-  { name: "kim", number: "12345", email: "nhy" },
-  { name: "lee", number: "21555", email: "dfe" },
-  { name: "park", number: "64467", email: "kih" },
-];
-/// ////////////////
-
-const AlertDataTable = ({ data }: { data?: ITransactionUploadAlert[] }) => {
+const AlertDataTable = ({ data }: { data: ITransactionUploadAlert[] }) => {
   return (
     <div className={cx("tableContainer")}>
       <CSVLink
-        headers={ExcelHeaders}
-        data={ExcelData}
+        headers={ALERT_DATA_HEADERS}
+        data={formatToExcelData(data)}
         filename="미등록 데이터"
         className={cx("copyButton")}
         target="_blank"
@@ -51,7 +39,7 @@ const AlertDataTable = ({ data }: { data?: ITransactionUploadAlert[] }) => {
           <TableCellUI isHeader>값</TableCellUI>
         </TableHeaderUI>
         <TableBodyUI>
-          {data?.map((item) => {
+          {data.map((item) => {
             return (
               <TableRowUI key={`${item.columnIndex}${item.rowIndex}`}>
                 <TableCellUI>{item.rowIndex}</TableCellUI>
