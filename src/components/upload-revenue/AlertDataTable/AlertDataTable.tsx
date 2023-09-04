@@ -15,19 +15,24 @@ import TableRowUI from "../../common/Table/Composition/TableRowUI";
 import styles from "./AlertDataTable.module.scss";
 import { formatToExcelData } from "./AlertDataTable.utils";
 
+interface AlertDataTableProps {
+  fileName: string;
+  data: ITransactionUploadAlert[];
+}
+
 const cx = classNames.bind(styles);
 
-const AlertDataTable = ({ data }: { data: ITransactionUploadAlert[] }) => {
+const AlertDataTable = ({ data, fileName }: AlertDataTableProps) => {
   return (
     <div className={cx("tableContainer")}>
       <CSVLink
         headers={ALERT_DATA_HEADERS}
         data={formatToExcelData(data)}
-        filename="미등록 데이터"
+        filename={`${fileName}_경고 내역`}
         className={cx("copyButton")}
         target="_blank"
       >
-        전체 복사
+        내역 다운로드
       </CSVLink>
       <TableContainerUI
         stickyHeader

@@ -72,6 +72,7 @@ const useUploadHistoryPost = (
         if (data.warnings.length > 0) {
           showUploadRevenueAlertModal({
             type: "warning",
+            fileName: "테스트",
             alertData: data.warnings,
             onClose: () => {
               showToast("정산 내역 업로드가 완료되었습니다.");
@@ -100,6 +101,7 @@ const useUploadHistoryPost = (
             // TODO) 테스트 필요
             showUploadRevenueAlertModal({
               type: "error",
+              fileName: "테스트",
               alertData: error.response.data.errors,
             });
           } else {
