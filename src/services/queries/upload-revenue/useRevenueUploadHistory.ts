@@ -35,22 +35,28 @@ const useUploadHistoryGet = (month: string) => {
 /* 정산 업로드 내역 DELETE */
 const useUploadHistoryDelete = (
   month: string,
-  // fileId: number,
 ) => {
   const queryClient = useQueryClient();
+  const { showAlertModal } = useAlertModal();
   const { showToast } = useToast();
   const {
     mutate: deleteUploadHistory,
     isLoading,
   } = useMutation((fileId: number) => { return deleteTransaction(fileId); }, {
-    // TODO: delete 실패 시 실패 문구 Toast 노출 처리
     onSuccess: async () => {
-      await queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history", month]);
+      await queryClient.invalidateQueries({ queryKey: [MEMBER_TYPE.ADMIN, "revenue-upload-history", month] });
       await queryClient.invalidateQueries({ queryKey: [DASHBOARD_TYPE.ADMIN, "dashboard"], refetchType: "all" });
       await queryClient.invalidateQueries({ queryKey: [DASHBOARD_TYPE.ARTIST, "dashboard"], refetchType: "all" });
       await queryClient.invalidateQueries({ queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard"], refetchType: "all" });
 
       showToast("업로드 내역이 삭제되었습니다.");
+    },
+    onError: () => {
+      showAlertModal({
+        type: MODAL_TYPE.ERROR,
+        title: "정산 내역 삭제 실패",
+        message: "정산 내역 삭제에 실패했습니다.\n잠시 후 다시 시도해주세요.",
+      });
     },
   });
 
@@ -82,9 +88,7 @@ const useUploadHistoryPost = (
           showToast("정산 내역 업로드가 완료되었습니다.");
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "revenue-upload-history", month]);
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         queryClient.invalidateQueries({ queryKey: [DASHBOARD_TYPE.ADMIN, "dashboard"], refetchType: "all" });
         queryClient.invalidateQueries({ queryKey: [DASHBOARD_TYPE.ARTIST, "dashboard"], refetchType: "all" });
         queryClient.invalidateQueries({ queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard"], refetchType: "all" });
@@ -100,11 +104,11 @@ const useUploadHistoryPost = (
           } else if (isUploadRevenueError(error.response.data)) {
             showUploadRevenueAlertModal({
               type: "error",
-              fileName: "테스트",
+              // TODO) error가 발생한 파일명으로 교체하기
+              fileName: "파일",
               alertData: error.response.data.errors,
             });
           } else {
-            // TODO) 중복 코드 개편
             switch (error.response.status) {
               case 400: {
                 if (error.response.data.code === "TR_002") {
@@ -113,7 +117,7 @@ const useUploadHistoryPost = (
                     title: UPLOAD_REVENUE_ERROR_STATUS_MAP.TR_002.title,
                     message: UPLOAD_REVENUE_ERROR_STATUS_MAP.TR_002.message,
                   });
-                } else {
+                } else { // TR_004
                   showAlertModal({
                     type: MODAL_TYPE.ERROR,
                     title: UPLOAD_REVENUE_ERROR_STATUS_MAP.TR_004.title,
