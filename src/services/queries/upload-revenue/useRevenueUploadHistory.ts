@@ -72,7 +72,7 @@ const useUploadHistoryPost = (
         if (data.warnings.length > 0) {
           showUploadRevenueAlertModal({
             type: "warning",
-            fileName: "테스트",
+            fileName: data.name,
             alertData: data.warnings,
             onClose: () => {
               showToast("정산 내역 업로드가 완료되었습니다.");
@@ -98,7 +98,6 @@ const useUploadHistoryPost = (
               message: UPLOAD_REVENUE_ERROR_STATUS_MAP.NETWORK_ERROR.message,
             });
           } else if (isUploadRevenueError(error.response.data)) {
-            // TODO) 테스트 필요
             showUploadRevenueAlertModal({
               type: "error",
               fileName: "테스트",
