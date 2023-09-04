@@ -22,7 +22,13 @@ interface AlertDataTableProps {
 
 const cx = classNames.bind(styles);
 
-const AlertDataTable = ({ data, fileName }: AlertDataTableProps) => {
+/**
+ * @author [hayoung-99](https://github.com/hayoung-99)
+ * @param fileName 파일명
+ * @param data 정산 내역 업로드 관련 warnings / errors 데이터
+ * @returns warning / errors를 표시하는 데이터 테이블
+ */
+const AlertDataTable = ({ fileName, data }: AlertDataTableProps) => {
   return (
     <div className={cx("tableContainer")}>
       <CSVLink
