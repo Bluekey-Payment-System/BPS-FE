@@ -4,16 +4,15 @@ import Toast from "./Toast";
 import ToastPortal from "./ToastPortal";
 
 const ToastRoot = () => {
-  const isVisible = useAppSelector((state) => { return state.toast.isShowing; });
-  const message = useAppSelector((state) => { return state.toast.message; });
-  if (isVisible) {
-    return (
-      <ToastPortal>
-        <Toast message={message} />
-      </ToastPortal>
-    );
-  }
-  return null;
+  const {
+    isShowing, message, portalId, status,
+  } = useAppSelector((state) => { return state.toast; });
+  if (!isShowing) return null;
+  return (
+    <ToastPortal portalId={portalId}>
+      <Toast message={message} status={status} />
+    </ToastPortal>
+  );
 };
 
 export default ToastRoot;
