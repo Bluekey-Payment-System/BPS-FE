@@ -12,10 +12,10 @@ import MultiRangeSlider from "./MultiRangeSlider";
 
 const cx = classNames.bind(styles);
 
-const FilterForm = () => {
+const FilterForm = ({ onSubmit }:{ onSubmit: ()=>void }) => {
   const artistList = useArtistList();
   return (
-    <form className={cx("container")} onSubmit={(e) => { e.preventDefault(); }}>
+    <form className={cx("container")} onSubmit={(e) => { e.preventDefault(); onSubmit(); }}>
       <h2 className={cx("formHeading")}>
         필터
       </h2>
