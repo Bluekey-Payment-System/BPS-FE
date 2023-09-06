@@ -1,3 +1,17 @@
+@font-face {
+  font-family: Password;
+  font-style: normal;
+  font-weight: normal;
+  src: url("https://db.onlinewebfonts.com/t/51b459eae74df5b00ba922028ccb20be.eot");
+  src:
+    url("https://db.onlinewebfonts.com/t/51b459eae74df5b00ba922028ccb20be.eot?#iefix") format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/51b459eae74df5b00ba922028ccb20be.woff") format("woff"),
+    url("https://db.onlinewebfonts.com/t/51b459eae74df5b00ba922028ccb20be.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/51b459eae74df5b00ba922028ccb20be.ttf") format("truetype"),
+    url("https://db.onlinewebfonts.com/t/51b459eae74df5b00ba922028ccb20be.svg#Password") format("svg");
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -64,6 +78,17 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   appearance: textfield;
+}
+
+input[type="password"] {
+  /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+  font-family: Password;
+  letter-spacing: 5px;
+
+  &::placeholder {
+    font-family: initial;
+    letter-spacing: normal;
+  }
 }
 
 a,
