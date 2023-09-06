@@ -51,7 +51,7 @@ const FallbackPageLayout = ({
   return (
     <div className={cx("container")}>
       <div className={cx("logoWrapper")}>
-        <Image src="/images/bluekey-music-insight-logo.svg" width={300} height={44} alt="로고" />
+        <Image src="/images/bluekey-insight-logo.svg" width={229} height={44} alt="로고" />
       </div>
       <Spacing size={16} />
       <div className={cx("imageWrapper")}>

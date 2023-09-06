@@ -17,7 +17,7 @@ const AuthPageLayout = ({ children }: { children: ReactNode }) => {
       <div className={cx("formSectionWrapper")}>
         <section className={cx("formSection")}>
           <div className={cx("logoContainer")}>
-            <Image src="/images/bluekey-music-insight-logo.svg" alt="로고" fill />
+            <Image src="/images/bluekey-insight-logo.svg" alt="로고" fill />
           </div>
           {children}
           <span className={cx("versionText")}>version 1.0.0</span>

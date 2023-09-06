@@ -27,7 +27,7 @@ const SideNavMobile = ({ sideNavList, isOpen, setIsOpen }: SideNavMobileProps) =
     <DynamicDrawer isOpen={isOpen} onClose={() => { return setIsOpen(false); }} removeWhenClosed className="mobile">
       <aside className={cx("asideContainerMobile")}>
         <div className={cx("logoContainer")}>
-          <Image src="/images/bluekey-music-insight-logo.svg" alt="로고" width={172} height={29} />
+          <Image src="/images/bluekey-insight-logo.svg" alt="로고" width={126} height={22} />
           <Image src="/images/close.svg" alt="닫기" width={16} height={16} className={cx("close")} onClick={() => { return setIsOpen(!isOpen); }} />
         </div>
         <ul>
