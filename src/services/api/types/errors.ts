@@ -15,6 +15,7 @@ export interface ICommonErrorResponse {
 /* 셀 값에서 문제가 있는 경우 */
 export interface IPostTransactionUploadErrorResponse {
   code: string;
+  fileName: string;
   message: string;
   totalErrorNums: number;
   errors: ITransactionUploadAlert[];

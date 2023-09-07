@@ -105,7 +105,7 @@ const useUploadHistoryPost = (
             showUploadRevenueAlertModal({
               type: "error",
               // TODO) error가 발생한 파일명으로 교체하기
-              fileName: "파일",
+              fileName: error.response.data.fileName,
               alertData: error.response.data.errors,
             });
           } else {
