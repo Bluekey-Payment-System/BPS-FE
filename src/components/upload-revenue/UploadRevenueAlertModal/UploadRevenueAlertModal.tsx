@@ -13,6 +13,7 @@ import styles from "./UploadRevenueAlertModal.module.scss";
 export interface UploadRevenueAlertModalProps {
   type: "warning" | "error";
   open: boolean;
+  fileName: string;
   alertData: ITransactionUploadAlert[];
   onClose: () => void;
 }
@@ -20,8 +21,7 @@ export interface UploadRevenueAlertModalProps {
 const cx = classNames.bind(styles);
 
 const UploadRevenueAlertModal = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  type, open, alertData, onClose,
+  type, open, fileName, alertData, onClose,
 }: UploadRevenueAlertModalProps) => {
   if (!type) return undefined;
 
@@ -34,7 +34,7 @@ const UploadRevenueAlertModal = ({
           {UPLOAD_REVENUE_ALERT_CONTENTS[type].message}
         </p>
         <Spacing direction="vertical" size={17} />
-        <AlertDataTable data={alertData} />
+        <AlertDataTable fileName={fileName} data={alertData} />
         <Spacing direction="vertical" size={30} />
         <button className={cx("confirmButton")} type="button" onClick={onClose}>확인</button>
       </div>
