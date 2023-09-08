@@ -15,9 +15,7 @@
 
 <div align="center">
 
-<img width="1200" alt="어드민 대쉬보드" src="https://github.com/Bluekey-Payment-System/BPS-FE/assets/78773781/1a64b30b-6460-495d-bf53-d6485920591b">
-<img width="500" alt="앨범 등록" src="https://github.com/Bluekey-Payment-System/BPS-FE/assets/78773781/b25da4a1-51f8-44a3-b640-ed897f288ca6">
-<img width="500" alt="정산 내역 업로드" src="https://github.com/Bluekey-Payment-System/BPS-FE/assets/78773781/c873703d-7e81-4f89-b1a6-2b17cc8d44af">
+<img width="1200" alt="어드민 대쉬보드" src="https://github.com/Bluekey-Payment-System/BPS-FE/assets/78773781/8dea1f47-b275-4f7e-920a-26c4abbcf44d">
 
 </div>
 
@@ -131,7 +129,7 @@
 ### 유닛 테스트 코드 작성
 
 - Jest와 react-testing-library를 이용
-- input, toast 등 주요 컴포넌트 테스트
+- input, toast 등 공용 컴포넌트 테스트
 <hr />
 
 ### [🎸 김연우](https://github.com/drizzle96)
@@ -139,6 +137,31 @@
 <hr />
 
 ### [🐯 나하영](https://github.com/hayoung-99)
+
+### 공용 툴팁 컴포넌트 개발
+
+- text overflow가 발생하는 영역에 대해 툴팁 컴포넌트 활용
+- text overflow 발생 여부 확인하는 로직 개발
+
+<img width="440" alt="툴팁" src="https://github.com/Bluekey-Payment-System/BPS-FE/assets/78773781/eedb828e-9ee5-4bad-900b-7d55d32e6b68">
+
+### 정산 내역 업로드 페이지 개발
+
+- 엑셀 파일 업로드용 드래그 앤 드롭 컴포넌트 제작
+- 정산 내역 GET, POST, DELETE API 연동
+- xlsx, xls 파일 확장자 제한 기능 개발
+- react-csv를 이용한 문제있는 정산 데이터를 CSV 파일로 다운로드 할 수 있는 기능 개발
+
+<img width="600" alt="경고 데이터 모달" src="https://github.com/Bluekey-Payment-System/BPS-FE/assets/78773781/a596b288-3018-4943-8209-f5aead976464">
+
+### 프로필 기본 이미지 컴포넌트 제작
+
+- 프로필 이미지가 없는 유저에 한해, 유저의 로그인 아이디를 이용한 기본 이미지 생성
+- boring-avatars를 이용
+
+<img width="300" alt="기본 프로필 이미지" src="https://github.com/Bluekey-Payment-System/BPS-FE/assets/78773781/7581429b-8fb4-4456-8251-e4253460cbbd">
+
+###
 
 <hr />
 
