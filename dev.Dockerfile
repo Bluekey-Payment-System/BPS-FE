@@ -1,13 +1,13 @@
 FROM node:18-alpine AS base
 
-# 1. Install dependencies only when needed
+# Step 1. 필요할 경우에만 소스코드를 다시 빌드합니다.
 FROM base AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+# 라이브러리 일관성을 위해 컨테이너에 libc6-compat을 설치합니다.
 RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
+# 디펜던시를 설치합니다. 
 COPY package.json yarn.lock* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
@@ -19,6 +19,7 @@ COPY public ./public
 COPY next.config.js .
 COPY tsconfig.json .
 
+# 개발환경용 서버를 실행합니다.
 CMD \
   if [ -f yarn.lock ]; then yarn dev; \
   else yarn dev; \
