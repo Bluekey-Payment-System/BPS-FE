@@ -24,7 +24,7 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-# dev서버용 환경변수를 복사합니다.
+# production 서버용 환경변수를 복사합니다.
 COPY .env.production .env.production
 
 # Nextjs의 원격 데이터 측정을 불허합니다.
