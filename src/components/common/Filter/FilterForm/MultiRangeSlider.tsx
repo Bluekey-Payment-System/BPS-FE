@@ -1,10 +1,11 @@
 import React, {
-  ChangeEvent, useCallback, useEffect, useState, useRef,
+  ChangeEvent, useEffect, useState, useRef,
 } from "react";
 
 import classNames from "classnames/bind";
 
 import styles from "./MultiRangeSlider.module.scss";
+import { getPercent } from "./MultiRangeSlider.util";
 
 const cx = classNames.bind(styles);
 
@@ -22,14 +23,10 @@ const MultiRangeSlider = ({ min, max }: MultiRangeSliderProps) => {
   const leftValRef = useRef<HTMLDivElement>(null);
   const rightValRef = useRef<HTMLDivElement>(null);
 
-  const getPercent = useCallback((value: number) => {
-    return Math.round(((value - min) / (max - min)) * 100);
-  }, [min, max]);
-
   // 왼쪽 thumb 움직일 때 range 너비 조정
   useEffect(() => {
-    const minPercent = getPercent(minVal);
-    const maxPercent = getPercent(maxValRef.current);
+    const minPercent = getPercent(minVal, min, max);
+    const maxPercent = getPercent(maxValRef.current, min, max);
     const distance = maxPercent - minPercent;
 
     if (range.current) {
@@ -44,12 +41,12 @@ const MultiRangeSlider = ({ min, max }: MultiRangeSliderProps) => {
     if (rightValRef.current) {
       rightValRef.current.style.marginTop = distance < 10 ? "-20px" : "20px";
     }
-  }, [minVal, getPercent]);
+  }, [minVal, min, max]);
 
   // 오른쪽 thumb 움직일 때 range 너비 조정
   useEffect(() => {
-    const minPercent = getPercent(minValRef.current);
-    const maxPercent = getPercent(maxVal);
+    const minPercent = getPercent(minValRef.current, min, max);
+    const maxPercent = getPercent(maxVal, min, max);
     const distance = maxPercent - minPercent;
 
     if (range.current) {
@@ -60,7 +57,7 @@ const MultiRangeSlider = ({ min, max }: MultiRangeSliderProps) => {
       rightValRef.current.style.left = `${maxPercent}%`;
       rightValRef.current.style.marginTop = distance < 10 ? "-20px" : "20px";
     }
-  }, [maxVal, getPercent]);
+  }, [maxVal, min, max]);
 
   return (
     <div className={cx("container")}>
