@@ -8,7 +8,16 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch --passWithNoTests",
-    "test:ci": "jest --ci --passWithNoTests"
+    "test:ci": "jest --ci --passWithNoTests",
+    "docker-build:local": "docker compose -f docker/local/docker-compose.yml build",
+    "docker-start:local": "docker compose -f docker/local/docker-compose.yml up -d",
+    "docker-stop:local": "docker compose -f docker/local/docker-compose.yml down",
+    "docker-build:dev": "docker compose -f docker/development/docker-compose.yml build",
+    "docker-start:dev": "docker compose -f docker/development/docker-compose.yml up -d",
+    "docker-stop:dev": "docker compose -f docker/development/docker-compose.yml down",
+    "docker-build:prod": "docker compose -f docker/production/docker-compose.yml build",
+    "docker-start:prod": "docker compose -f docker/production/docker-compose.yml up -d",
+    "docker-stop:prod": "docker compose -f docker/production/docker-compose.yml down"
   },
   "dependencies": {
     "@nivo/bar": "^0.81.0",
@@ -33,7 +42,8 @@
     "react-error-boundary": "^4.0.11",
     "react-hook-form": "^7.45.2",
     "react-redux": "^8.1.2",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "sharp": "^0.32.5"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",

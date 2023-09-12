@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  bps-fe-local:
+    container_name: bps-fe-local
+    build:
+      context: ../../
+      dockerfile: docker/local/Dockerfile
+    image: bps-fe-local
+    env_file:
+      - ../../.env.local
+    volumes:
+      - ../../src:/app/src
+      - ../../public:/app/public
+    restart: always
+    ports:
+      - 3000:3000
