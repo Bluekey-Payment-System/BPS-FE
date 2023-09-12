@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  bps-fe-dev:
+    container_name: bps-fe-dev
+    image: bluekeymusic/fe_dev
+    ports:
+      - '3001:3000'
