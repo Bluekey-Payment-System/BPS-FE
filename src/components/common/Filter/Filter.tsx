@@ -22,7 +22,7 @@ const Filter = () => {
       </button>
       <Modal type={MODAL_TYPE.FORM} open={open} onClose={() => { setOpen(false); }}>
         <div style={{ position: "relative" }}>
-          <FilterForm onSubmit={() => { setOpen(false); }} />
+          <FilterForm onSubmitSuccess={() => { setOpen(false); }} />
           <button
             className={cx("closeBtn")}
             onClick={() => { setOpen(false); }}
