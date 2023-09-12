@@ -1,13 +1,13 @@
-name: dev-cicd
+name: main-cicd
 
 on:
   push:
-    branches: [develop]
+    branches: [main]
   pull_request:
-    branches: [develop]
+    branches: [main]
 
 env:
-  LATEST_TAG: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DEV_REPO }}:latest
+  LATEST_TAG: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_MAIN_REPO }}:latest
 
 jobs:
   ci:
@@ -26,7 +26,7 @@ jobs:
       - name: Set env file
         run: |
           touch .env.local
-          echo "${{ secrets.ENV_DEV }}" > .env.local
+          echo "${{ secrets.ENV_PROD }}" > .env.local
       
       - name: Run test in container
         run: |
@@ -51,8 +51,8 @@ jobs:
 
       - name: Set env file
         run: |
-          touch .env.dev
-          echo "${{ secrets.ENV_DEV }}" > .env.dev
+          touch .env.production
+          echo "${{ secrets.ENV_PROD }}" > .env.production
       
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -67,7 +67,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./docker/development/Dockerfile
+          file: ./docker/production/Dockerfile
           push: true
           tags: ${{ env.LATEST_TAG }}
 
@@ -77,7 +77,7 @@ jobs:
           username: ec2-user
           host: ${{ secrets.SSH_HOST }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "./docker-compose.dev.yml"
+          source: "./docker-compose.main.yml"
           target: "/home/ec2-user/bluekey/"
 
       - name: Configure AWS Credentials
@@ -87,7 +87,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
-      - name: Deploy dev server to production
+      - name: Deploy main server to production
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -96,8 +96,8 @@ jobs:
           script: |
             cd /home/ec2-user/bluekey
             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-            docker rm $(docker ps -aq --filter "name=bps-fe-dev")
-            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DEV_REPO }}
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_DEV_REPO }}
-            sudo docker-compose -f docker-compose.dev.yml up -d
+            docker rm $(docker ps -aq --filter "name=bps-fe-main")
+            docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_MAIN_REPO }}
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_MAIN_REPO }}
+            sudo docker-compose -f docker-compose.main.yml up -d
             sudo docker image prune -f
