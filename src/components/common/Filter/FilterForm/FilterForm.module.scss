@@ -37,7 +37,7 @@
           height: 40px;
           padding: 15px 13px;
           border-radius: 6px;
-          background: $sub-color1;
+          background-color: $sub-color1;
 
           &::placeholder {
             @include typo(14);
