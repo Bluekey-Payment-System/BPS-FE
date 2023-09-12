@@ -14,10 +14,7 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-COPY src ./src
-COPY public ./public
-COPY next.config.js .
-COPY tsconfig.json .
+COPY . .
 
 # 개발환경용 서버를 실행합니다.
 CMD \
