@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 /**
  * 검색 필터 폼 컴포넌트
  * @author [SeyoungCho](https://github.com/seyoungcho)
- * @param onSubmit {Function} 폼을 제출한 후에 할 작업을 실행하는 콜백함수입니다. 폼을 제출하는 함수가 아님에 주의하세요.
+ * @param onSubmitSuccess {Function} 폼을 제출한 후에 할 작업을 실행하는 콜백함수입니다. 폼을 제출하는 함수가 아님에 주의하세요.
  * @example
  * ```
  * const [open, isOpen] = useState(false);
@@ -27,10 +27,10 @@ const cx = classNames.bind(styles);
  * );
  * ```
  */
-const FilterForm = ({ onSubmit }:{ onSubmit: ()=>void }) => {
+const FilterForm = ({ onSubmitSuccess }:{ onSubmitSuccess: () => void }) => {
   const artistList = useArtistList();
   return (
-    <form className={cx("container")} onSubmit={(e) => { e.preventDefault(); onSubmit(); }}>
+    <form className={cx("container")} onSubmit={(e) => { e.preventDefault(); onSubmitSuccess(); }}>
       <h2 className={cx("formHeading")}>
         필터
       </h2>
