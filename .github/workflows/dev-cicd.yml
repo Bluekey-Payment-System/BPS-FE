@@ -30,11 +30,11 @@ jobs:
       
       - name: Run test in container
         run: |
-          docker compose -f docker/local/docker-compose.yml run yarn jest
+          docker compose -f docker/local/docker-compose.yml run bps-fe-local yarn jest
       
       - name: Run build in container
         run: |
-          docker compose -f docker/local/docker-compose.yml run yarn build
+          docker compose -f docker/local/docker-compose.yml run bps-fe-local yarn build
 
   cd:
     runs-on: ubuntu-latest
