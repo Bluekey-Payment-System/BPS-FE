@@ -55,3 +55,12 @@ export interface IPostArtistSignInResponse {
 
 export interface IPostAdminSignUpResponse extends Omit<IAdminProfile, "profileImage"> {
 }
+
+export interface IDeleteMemberResponse {
+  memberId: number;
+}
+
+export interface IDeleteMemberReqeust {
+  memberId: number;
+  name: string;
+}
