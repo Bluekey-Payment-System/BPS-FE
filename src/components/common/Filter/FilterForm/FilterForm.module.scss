@@ -1,0 +1,94 @@
+.container {
+  @include flexbox(column);
+
+  gap: 32px;
+
+  .formHeading {
+    @include flexbox(row, space-between);
+    @include typo(16, bold);
+  }
+
+  .formBody {
+    @include flexbox(column);
+
+    gap: 18px;
+
+    .row {
+      @include flexbox(row, space-between, center);
+
+      width: 422px;
+
+      label {
+        @include typo(14);
+      }
+
+      .inputArea {
+        width: 330px;
+
+        @include flexbox(row, space-between, center);
+
+        &.commissionRate {
+          justify-content: center;
+          height: 42px;
+        }
+
+        .rangeField {
+          width: 132px;
+          height: 40px;
+          padding: 15px 13px;
+          border-radius: 6px;
+          background-color: $sub-color1;
+
+          &::placeholder {
+            @include typo(14);
+
+            color: $sub-color3;
+          }
+        }
+
+        .sliderContainer {
+          width: 300px;
+          margin-bottom: 10px;
+        }
+
+        span {
+          color: $primary-black;
+
+          @include typo(14);
+        }
+
+        /* 드롭다운 커스텀 스타일 적용용 */
+        div:first-child > button {
+          height: 40px;
+
+          div {
+            height: 40px;
+          }
+
+          img {
+            top: 50%;
+            transform: translateY(-50%);
+          }
+
+          /* 드롭다운 리스트 커스텀 스타일 */
+          & ~ div {
+            position: absolute;
+            z-index: 7;
+            left: 0;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .hr {
+      width: 440px;
+      height: 1px;
+      background-color: $sub-color1;
+    }
+  }
+
+  .formFooter {
+    @include flexbox(row, flex-end);
+  }
+}

@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  bps-fe-main:
+    container_name: bps-fe-main
+    image: bluekeymusic/fe_main
+    ports:
+      - '3000:3000'

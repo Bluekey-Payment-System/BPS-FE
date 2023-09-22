@@ -8,7 +8,16 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch --passWithNoTests",
-    "test:ci": "jest --ci --passWithNoTests"
+    "test:ci": "jest --ci --passWithNoTests",
+    "docker-build:local": "docker compose -f docker/local/docker-compose.yml build",
+    "docker-start:local": "docker compose -f docker/local/docker-compose.yml up -d",
+    "docker-stop:local": "docker compose -f docker/local/docker-compose.yml down",
+    "docker-build:dev": "docker compose -f docker/development/docker-compose.yml build",
+    "docker-start:dev": "docker compose -f docker/development/docker-compose.yml up -d",
+    "docker-stop:dev": "docker compose -f docker/development/docker-compose.yml down",
+    "docker-build:prod": "docker compose -f docker/production/docker-compose.yml build",
+    "docker-start:prod": "docker compose -f docker/production/docker-compose.yml up -d",
+    "docker-stop:prod": "docker compose -f docker/production/docker-compose.yml down"
   },
   "dependencies": {
     "@nivo/bar": "^0.81.0",
@@ -28,11 +37,13 @@
     "next-redux-wrapper": "^8.1.0",
     "react": "18.2.0",
     "react-cookie": "^6.1.0",
+    "react-csv": "^2.2.2",
     "react-dom": "18.2.0",
     "react-error-boundary": "^4.0.11",
     "react-hook-form": "^7.45.2",
     "react-redux": "^8.1.2",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "sharp": "^0.32.5"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
@@ -43,6 +54,7 @@
     "@types/classnames": "^2.3.1",
     "@types/node": "^20.4.7",
     "@types/react": "^18.2.18",
+    "@types/react-csv": "^1.1.3",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",

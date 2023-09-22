@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  bps-fe-dev:
+    container_name: bps-fe-dev
+    build:
+      context: ../../
+      dockerfile: docker/development/Dockerfile
+    image: bps-fe-dev
+    ports:
+      - '3001:3000'
