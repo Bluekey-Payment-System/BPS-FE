@@ -1,6 +1,7 @@
 import {
   useState, useEffect, useMemo, useCallback,
 } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
 
@@ -36,13 +37,19 @@ interface ArtistAccountsTableProps {
   paginationElement: React.ReactNode
 }
 
+interface IUpdateAccountFieldValues {
+  name: string;
+  enName: string;
+  commissionRate: number;
+}
+
 const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTableProps) => {
   const [focusedAccount, setFocusedAccount] = useState<IFocusedAccount>();
   const [isOpenReissuedPwModal, setIsOpenReissuedPwModal] = useState(false);
   const [newPassword, setNewPassword] = useState<string>();
   const { mutate: deleteAccount } = useWithdrawMember();
   const { showToast } = useToast();
-
+  const { register, handleSubmit } = useForm<IUpdateAccountFieldValues>();
   const handleDeleteAccount = useCallback((memberId: number, name: string) => {
     deleteAccount({ memberId, name });
     setFocusedAccount(undefined);
@@ -85,6 +92,12 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
   const { showAlertModal: showReissueAlertModal } = useAlertModal();
   const { showAlertModal: showDeleteAlertModal } = useAlertModal();
 
+  const onSubmit: SubmitHandler<IUpdateAccountFieldValues> = (data) => {
+    setFocusedAccount(undefined);
+    // eslint-disable-next-line no-void
+    void data;
+  };
+
   useEffect(() => {
     if (focusedAccount) {
       if (focusedAccount.target === "reissue") showReissueAlertModal(reissueAlertModalProps);
@@ -117,7 +130,14 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
               <TableRowUI key={account.memberId}>
                 <TableCellUI>
                   {focusedAccount?.memberId === account.memberId && focusedAccount.target === "edit"
-                    ? <input className={cx("input")} defaultValue={account.name} />
+                    ? (
+                      <input
+                        className={cx("input")}
+                        {...register("name")}
+                        defaultValue={account.name}
+                        form="updateForm"
+                      />
+                    )
                     : (
                       <TooltipRoot message={account.name}>
                         <p className={cx("ellipsis")}>{account.name}</p>
@@ -126,7 +146,14 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
                 </TableCellUI>
                 <TableCellUI>
                   {focusedAccount?.memberId === account.memberId && focusedAccount.target === "edit"
-                    ? <input className={cx("input")} defaultValue={account.enName} />
+                    ? (
+                      <input
+                        className={cx("input")}
+                        {...register("enName")}
+                        defaultValue={account.enName}
+                        form="updateForm"
+                      />
+                    )
                     : (
                       <TooltipRoot message={account.enName}>
                         <p className={cx("ellipsis")}>{account.enName}</p>
@@ -145,7 +172,19 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
                 </TableCellUI>
                 <TableCellUI>
                   {focusedAccount?.memberId === account.memberId && focusedAccount.target === "edit"
-                    ? <input className={cx("input")} defaultValue={account.commissionRate || undefined} />
+                    ? (
+                      <input
+                        className={cx("input")}
+                        {...register("commissionRate", {
+                          setValueAs: (v: string) => { return parseInt(v, 10); },
+                        })}
+                        defaultValue={account.commissionRate || undefined}
+                        type="number"
+                        form="updateForm"
+                        min={0}
+                        max={100}
+                      />
+                    )
                     : (
                       <TooltipRoot message={formatCommissionRate(account.commissionRate)}>
                         <p className={cx("ellipsis")}>
@@ -158,21 +197,31 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
                   <div className={cx("buttonContainer")}>
                     {focusedAccount?.memberId === account.memberId && focusedAccount.target === "edit"
                       ? (
-                        <ChipButton onClick={() => { setFocusedAccount(undefined); }}>
-                          수정 완료
-                        </ChipButton>
+                        <>
+                          {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+                          <form id="updateForm" onSubmit={handleSubmit(onSubmit)}>
+                            <ChipButton
+                              form="updateForm"
+                              type="submit"
+                            >
+                              수정 완료
+                            </ChipButton>
+                          </form>
+                        </>
                       )
                       : (
                         <>
-                          <ChipButton onClick={() => {
-                            setFocusedAccount({ memberId: account.memberId, name: account.name, target: "edit" });
-                          }}
+                          <ChipButton
+                            onClick={() => {
+                              setFocusedAccount({ memberId: account.memberId, name: account.name, target: "edit" });
+                            }}
                           >
                             수정
                           </ChipButton>
-                          <ChipButton onClick={() => {
-                            setFocusedAccount({ memberId: account.memberId, name: account.name, target: "delete" });
-                          }}
+                          <ChipButton
+                            onClick={() => {
+                              setFocusedAccount({ memberId: account.memberId, name: account.name, target: "delete" });
+                            }}
                           >
                             계정 탈퇴
                           </ChipButton>
