@@ -14,6 +14,7 @@ import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import useAlertModal from "@/hooks/useAlertModal";
 import useToast from "@/hooks/useToast";
+import useUpdateArtistProfile from "@/services/queries/manage-accounts/useUpdateArtistProfile";
 import useWithdrawMember from "@/services/queries/manage-accounts/useWithdrawMember";
 import { IArtistAccount } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
@@ -48,6 +49,7 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
   const [isOpenReissuedPwModal, setIsOpenReissuedPwModal] = useState(false);
   const [newPassword, setNewPassword] = useState<string>();
   const { mutate: deleteAccount } = useWithdrawMember();
+  const { mutateAsync: updateAccount } = useUpdateArtistProfile();
   const { showToast } = useToast();
   const { register, handleSubmit } = useForm<IUpdateAccountFieldValues>();
   const handleDeleteAccount = useCallback((memberId: number, name: string) => {
@@ -92,10 +94,9 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
   const { showAlertModal: showReissueAlertModal } = useAlertModal();
   const { showAlertModal: showDeleteAlertModal } = useAlertModal();
 
-  const onSubmit: SubmitHandler<IUpdateAccountFieldValues> = (data) => {
+  const onSubmit: SubmitHandler<IUpdateAccountFieldValues> = async (data) => {
+    await updateAccount({ memberId: focusedAccount!.memberId, patchData: data });
     setFocusedAccount(undefined);
-    // eslint-disable-next-line no-void
-    void data;
   };
 
   useEffect(() => {
