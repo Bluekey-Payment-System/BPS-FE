@@ -61,6 +61,10 @@ export interface IPostArtistSignInResponse {
 export interface IPostAdminSignUpResponse extends Omit<IAdminProfile, "profileImage"> {
 }
 
+export interface IPatchReissuePasswordResponse {
+  newPassword: string;
+}
+
 export interface IDeleteMemberResponse {
   memberId: number;
 }
