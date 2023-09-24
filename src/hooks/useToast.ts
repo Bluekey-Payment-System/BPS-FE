@@ -13,9 +13,9 @@ const useToast = () => {
     dispatch(setStatus(status));
     dispatch(setShow(true));
 
-    setTimeout(() => {
-      dispatch(setShow(false));
-    }, 3000);
+    // setTimeout(() => {
+    //   dispatch(setShow(false));
+    // }, 3000);
   };
 
   return { showToast };

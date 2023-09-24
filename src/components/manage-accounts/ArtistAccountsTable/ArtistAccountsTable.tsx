@@ -1,5 +1,5 @@
 import {
-  useState, useEffect, useMemo, useCallback,
+  useState, useEffect, useMemo, useCallback, useId,
 } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -52,6 +52,7 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
   const { mutateAsync: updateAccount } = useUpdateArtistProfile();
   const { mutateAsync: reissuePassword } = useReissuePassword();
   const { showToast } = useToast();
+  const reissueModalId = useId();
   const { register, handleSubmit } = useForm<IUpdateAccountFieldValues>();
   const handleDeleteAccount = useCallback((memberId: number, name: string) => {
     deleteAccount({ memberId, name });
@@ -63,10 +64,10 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
     if (data) {
       setNewPassword(data.newPassword);
       setIsOpenReissuedPwModal(true);
-      showToast(`“${name}" 계정의 비밀번호가 재발급 되었습니다.`, "reissueModal");
+      showToast(`“${name}" 계정의 비밀번호가 재발급 되었습니다.`, reissueModalId);
     }
     setFocusedAccount(undefined);
-  }, [reissuePassword, showToast]);
+  }, [reissuePassword, showToast, reissueModalId]);
 
   const deleteAlertModalProps = useMemo(() => {
     return {
@@ -246,6 +247,7 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
       </TableContainerUI>
       <ReissuedPasswordModal
         newPassword={newPassword!}
+        id={reissueModalId}
         open={isOpenReissuedPwModal}
         onClose={() => { setIsOpenReissuedPwModal(false); }}
       />
