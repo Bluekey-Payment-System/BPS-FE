@@ -22,7 +22,7 @@ const ReissuedPasswordModal = ({
   onClose,
 }: ReissuedPasswordModalProps) => {
   return (
-    <Modal type={MODAL_TYPE.INFO} open={open} onClose={onClose}>
+    <Modal type={MODAL_TYPE.INFO} open={open} onClose={onClose} id="reissueModal">
       <div className={cx("container")}>
         <h2 className={cx("title")}>비밀번호 재발급</h2>
         <Spacing size={32} />

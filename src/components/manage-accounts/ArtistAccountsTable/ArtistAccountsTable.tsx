@@ -13,6 +13,7 @@ import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import useAlertModal from "@/hooks/useAlertModal";
+import useToast from "@/hooks/useToast";
 import useReissuePassword from "@/services/queries/auth/useReissuePassword";
 import useUpdateArtistProfile from "@/services/queries/manage-accounts/useUpdateArtistProfile";
 import useWithdrawMember from "@/services/queries/manage-accounts/useWithdrawMember";
@@ -50,7 +51,7 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
   const { mutate: deleteAccount } = useWithdrawMember();
   const { mutateAsync: updateAccount } = useUpdateArtistProfile();
   const { mutateAsync: reissuePassword } = useReissuePassword();
-  // const { showToast } = useToast();
+  const { showToast } = useToast();
   const { register, handleSubmit } = useForm<IUpdateAccountFieldValues>();
   const handleDeleteAccount = useCallback((memberId: number, name: string) => {
     deleteAccount({ memberId, name });
@@ -58,13 +59,14 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
   }, [deleteAccount]);
 
   const handleReissuePassword = useCallback(async (memberId: number, name: string) => {
-    const data = await reissuePassword({ name, patchData: { memberId } });
+    const data = await reissuePassword({ memberId });
     if (data) {
       setNewPassword(data.newPassword);
       setIsOpenReissuedPwModal(true);
+      showToast(`“${name}" 계정의 비밀번호가 재발급 되었습니다.`, "reissueModal");
     }
     setFocusedAccount(undefined);
-  }, [reissuePassword]);
+  }, [reissuePassword, showToast]);
 
   const deleteAlertModalProps = useMemo(() => {
     return {
