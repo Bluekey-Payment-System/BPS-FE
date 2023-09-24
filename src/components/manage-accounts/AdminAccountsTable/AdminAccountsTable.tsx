@@ -13,6 +13,7 @@ import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import useAlertModal from "@/hooks/useAlertModal";
 import useToast from "@/hooks/useToast";
+import useWithdrawMember from "@/services/queries/manage-accounts/useWithdrawMember";
 import { IAdminAccount } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { generateRandomStringWithRegex } from "@/utils/generateRandomStringWithRegex";
@@ -38,18 +39,17 @@ const AdminAccountsTable = ({ accounts, paginationElement }: AdminAccountsTableP
   const [focusedAccount, setFocusedAccount] = useState<IFocusedAccount>();
   const [isOpenReissuedPwModal, setIsOpenReissuedPwModal] = useState(false);
   const [newPassword, setNewPassword] = useState<string>();
+  const { mutate: deleteAccount } = useWithdrawMember();
   const { showToast } = useToast();
-  const handleDeleteAccount = useCallback((memberId: number, nickName: string) => {
-    // TODO: 계정 delete api 달기
-    // TODO: 계정 행 삭제 useMutation
-    showToast(`“${nickName}” 계정이 삭제되었습니다.`);
+  const handleDeleteAccount = useCallback((memberId: number, name: string) => {
+    deleteAccount({ memberId, name });
     setFocusedAccount(undefined);
-  }, [showToast]);
+  }, [deleteAccount]);
 
-  const handleReissuePassword = useCallback((memberId: number, nickName: string) => {
+  const handleReissuePassword = useCallback((memberId: number, name: string) => {
     setNewPassword(generateRandomStringWithRegex(/^[a-zA-Z0-9@$!%*?&_-]*$/, 6, 18));
     // TODO: 계정 pw 변경 api 달기
-    showToast(`“${nickName}" 계정의 비밀번호가 재발급 되었습니다.`);
+    showToast(`“${name}" 계정의 비밀번호가 재발급 되었습니다.`);
     setFocusedAccount(undefined);
     setIsOpenReissuedPwModal(true);
   }, [showToast]);
