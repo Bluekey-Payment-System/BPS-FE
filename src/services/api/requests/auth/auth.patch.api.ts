@@ -1,4 +1,4 @@
-import { IPatchChangePasswordRequest, IPatchReissuePasswordRequest } from "@/services/api/types/auth";
+import { IPatchChangePasswordRequest, IPatchReissuePasswordRequest, IPatchReissuePasswordResponse } from "@/services/api/types/auth";
 
 import { patchRequest } from "../requests.api";
 
@@ -15,6 +15,6 @@ export const changePassword = async ({
 
 /* 비밀번호 재발급 */
 export const reissuePassword = async ({ memberId }: IPatchReissuePasswordRequest) => {
-  const response = await patchRequest(`/auth/members/${memberId}/password`, {});
+  const response = await patchRequest<IPatchReissuePasswordResponse, unknown>(`/auth/members/${memberId}/password`, {});
   return response;
 };
