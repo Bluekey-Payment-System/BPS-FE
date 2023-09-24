@@ -13,12 +13,11 @@ import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import useAlertModal from "@/hooks/useAlertModal";
-import useToast from "@/hooks/useToast";
+import useReissuePassword from "@/services/queries/auth/useReissuePassword";
 import useUpdateArtistProfile from "@/services/queries/manage-accounts/useUpdateArtistProfile";
 import useWithdrawMember from "@/services/queries/manage-accounts/useWithdrawMember";
 import { IArtistAccount } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
-import { generateRandomStringWithRegex } from "@/utils/generateRandomStringWithRegex";
 
 import ReissuedPasswordModal from "../PasswordReissueModal/ReissuedPasswordModal";
 
@@ -50,20 +49,22 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
   const [newPassword, setNewPassword] = useState<string>();
   const { mutate: deleteAccount } = useWithdrawMember();
   const { mutateAsync: updateAccount } = useUpdateArtistProfile();
-  const { showToast } = useToast();
+  const { mutateAsync: reissuePassword } = useReissuePassword();
+  // const { showToast } = useToast();
   const { register, handleSubmit } = useForm<IUpdateAccountFieldValues>();
   const handleDeleteAccount = useCallback((memberId: number, name: string) => {
     deleteAccount({ memberId, name });
     setFocusedAccount(undefined);
   }, [deleteAccount]);
 
-  const handleReissuePassword = useCallback((memberId: number, name: string) => {
-    setNewPassword(generateRandomStringWithRegex(/^[a-zA-Z0-9@$!%*?&_-]*$/, 6, 18));
-    // TODO: 계정 pw 변경 api 달기
-    showToast(`“${name}" 계정의 비밀번호가 재발급 되었습니다.`);
+  const handleReissuePassword = useCallback(async (memberId: number, name: string) => {
+    const data = await reissuePassword({ name, patchData: { memberId } });
+    if (data) {
+      setNewPassword(data.newPassword);
+      setIsOpenReissuedPwModal(true);
+    }
     setFocusedAccount(undefined);
-    setIsOpenReissuedPwModal(true);
-  }, [showToast]);
+  }, [reissuePassword]);
 
   const deleteAlertModalProps = useMemo(() => {
     return {
@@ -84,8 +85,8 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
       title: "비밀번호 재발급",
       message: `“${focusedAccount?.name}” 계정의 비밀번호를 재발급 하시겠습니까?`,
       onClose: () => { setFocusedAccount(undefined); },
-      onClickProceed: () => {
-        handleReissuePassword(focusedAccount!.memberId, focusedAccount!.name);
+      onClickProceed: async () => {
+        await handleReissuePassword(focusedAccount!.memberId, focusedAccount!.name);
       },
       proceedBtnText: "네",
       closeBtnText: "아니요",
