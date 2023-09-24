@@ -1,4 +1,6 @@
-import { IAdminProfile, IAdminSignup, ISignIn } from "@/types/dto";
+import {
+  IAdminProfile, IAdminSignup, IProfile, ISignIn,
+} from "@/types/dto";
 import {
   AdminRole, AdminType, ArtistRole, UserType,
 } from "@/types/enums/user.enum";
@@ -13,6 +15,9 @@ export interface IPostArtistSignInRequest extends ISignIn {
 }
 
 export interface IPatchChangePasswordRequest extends Pick<ISignIn, "password"> {
+}
+
+export interface IPatchReissuePasswordRequest extends Pick<IProfile, "memberId"> {
 }
 
 export interface IPostConfirmPasswordRequest extends Pick<ISignIn, "password"> {
