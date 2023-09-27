@@ -1,5 +1,6 @@
 <div align="center">
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=387FFD&height=220&section=header&text=Bluekey Payment System&animation=fadeIn&fontSize=60&fontColor=ffffff" />
+
+![header](https://capsule-render.vercel.app/api?type=waving&color=387FFD&height=220&section=header&text=Bluekey%20Payment%20System&animation=fadeIn&fontSize=60&fontColor=ffffff)
 
 [![GitHub Stars](https://img.shields.io/github/stars/Bluekey-Payment-System/BPS-FE?style=for-the-badge)](https://github.com/Bluekey-Payment-System/BPS-FE/stargazers) [![GitHub Issues](https://img.shields.io/github/issues/Bluekey-Payment-System/BPS-FE?style=for-the-badge)](https://github.com/Bluekey-Payment-System/BPS-FE/issues) [![Current Version](https://img.shields.io/badge/version-1.0.0-black?style=for-the-badge)](https://github.com/Bluekey-Payment-System/BPS-FE) [![GitHub License](https://img.shields.io/github/license/Bluekey-Payment-System/BPS-FE?style=for-the-badge)](https://github.com/Bluekey-Payment-System/BPS-FE/blob/main/LICENSE)
 
