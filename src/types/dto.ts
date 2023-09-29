@@ -145,7 +145,7 @@ export interface IArtistList {
 }
 
 // 프로필 관련
-interface IProfile {
+export interface IProfile {
   memberId: number,
   loginId: string,
   profileImage: string | null

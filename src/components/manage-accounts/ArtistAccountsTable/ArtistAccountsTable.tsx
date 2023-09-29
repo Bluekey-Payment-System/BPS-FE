@@ -1,6 +1,7 @@
 import {
-  useState, useEffect, useMemo, useCallback,
+  useState, useEffect, useMemo, useCallback, useId,
 } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
 
@@ -13,9 +14,11 @@ import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import useAlertModal from "@/hooks/useAlertModal";
 import useToast from "@/hooks/useToast";
+import useReissuePassword from "@/services/queries/auth/useReissuePassword";
+import useUpdateArtistProfile from "@/services/queries/manage-accounts/useUpdateArtistProfile";
+import useWithdrawMember from "@/services/queries/manage-accounts/useWithdrawMember";
 import { IArtistAccount } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
-import { generateRandomStringWithRegex } from "@/utils/generateRandomStringWithRegex";
 
 import ReissuedPasswordModal from "../PasswordReissueModal/ReissuedPasswordModal";
 
@@ -35,26 +38,36 @@ interface ArtistAccountsTableProps {
   paginationElement: React.ReactNode
 }
 
+interface IUpdateAccountFieldValues {
+  name: string;
+  enName: string;
+  commissionRate: number;
+}
+
 const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTableProps) => {
   const [focusedAccount, setFocusedAccount] = useState<IFocusedAccount>();
   const [isOpenReissuedPwModal, setIsOpenReissuedPwModal] = useState(false);
   const [newPassword, setNewPassword] = useState<string>();
+  const { mutate: deleteAccount } = useWithdrawMember();
+  const { mutateAsync: updateAccount } = useUpdateArtistProfile();
+  const { mutateAsync: reissuePassword } = useReissuePassword();
   const { showToast } = useToast();
-
+  const reissueModalId = useId();
+  const { register, handleSubmit } = useForm<IUpdateAccountFieldValues>();
   const handleDeleteAccount = useCallback((memberId: number, name: string) => {
-    // TODO: 계정 delete api 달기
-    // TODO: 계정 행 삭제 useMutation
-    showToast(`“${name}” 계정이 삭제되었습니다.`);
+    deleteAccount({ memberId, name });
     setFocusedAccount(undefined);
-  }, [showToast]);
+  }, [deleteAccount]);
 
-  const handleReissuePassword = useCallback((memberId: number, name: string) => {
-    setNewPassword(generateRandomStringWithRegex(/^[a-zA-Z0-9@$!%*?&_-]*$/, 6, 18));
-    // TODO: 계정 pw 변경 api 달기
-    showToast(`“${name}" 계정의 비밀번호가 재발급 되었습니다.`);
+  const handleReissuePassword = useCallback(async (memberId: number, name: string) => {
+    const data = await reissuePassword({ memberId });
+    if (data) {
+      setNewPassword(data.newPassword);
+      setIsOpenReissuedPwModal(true);
+      showToast(`“${name}" 계정의 비밀번호가 재발급 되었습니다.`, reissueModalId);
+    }
     setFocusedAccount(undefined);
-    setIsOpenReissuedPwModal(true);
-  }, [showToast]);
+  }, [reissuePassword, showToast, reissueModalId]);
 
   const deleteAlertModalProps = useMemo(() => {
     return {
@@ -75,8 +88,8 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
       title: "비밀번호 재발급",
       message: `“${focusedAccount?.name}” 계정의 비밀번호를 재발급 하시겠습니까?`,
       onClose: () => { setFocusedAccount(undefined); },
-      onClickProceed: () => {
-        handleReissuePassword(focusedAccount!.memberId, focusedAccount!.name);
+      onClickProceed: async () => {
+        await handleReissuePassword(focusedAccount!.memberId, focusedAccount!.name);
       },
       proceedBtnText: "네",
       closeBtnText: "아니요",
@@ -84,6 +97,11 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
   }, [focusedAccount, handleReissuePassword]);
   const { showAlertModal: showReissueAlertModal } = useAlertModal();
   const { showAlertModal: showDeleteAlertModal } = useAlertModal();
+
+  const onSubmit: SubmitHandler<IUpdateAccountFieldValues> = async (data) => {
+    await updateAccount({ memberId: focusedAccount!.memberId, patchData: data });
+    setFocusedAccount(undefined);
+  };
 
   useEffect(() => {
     if (focusedAccount) {
@@ -117,7 +135,14 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
               <TableRowUI key={account.memberId}>
                 <TableCellUI>
                   {focusedAccount?.memberId === account.memberId && focusedAccount.target === "edit"
-                    ? <input className={cx("input")} defaultValue={account.name} />
+                    ? (
+                      <input
+                        className={cx("input")}
+                        {...register("name")}
+                        defaultValue={account.name}
+                        form="updateForm"
+                      />
+                    )
                     : (
                       <TooltipRoot message={account.name}>
                         <p className={cx("ellipsis")}>{account.name}</p>
@@ -126,7 +151,14 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
                 </TableCellUI>
                 <TableCellUI>
                   {focusedAccount?.memberId === account.memberId && focusedAccount.target === "edit"
-                    ? <input className={cx("input")} defaultValue={account.enName} />
+                    ? (
+                      <input
+                        className={cx("input")}
+                        {...register("enName")}
+                        defaultValue={account.enName}
+                        form="updateForm"
+                      />
+                    )
                     : (
                       <TooltipRoot message={account.enName}>
                         <p className={cx("ellipsis")}>{account.enName}</p>
@@ -145,7 +177,19 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
                 </TableCellUI>
                 <TableCellUI>
                   {focusedAccount?.memberId === account.memberId && focusedAccount.target === "edit"
-                    ? <input className={cx("input")} defaultValue={account.commissionRate || undefined} />
+                    ? (
+                      <input
+                        className={cx("input")}
+                        {...register("commissionRate", {
+                          setValueAs: (v: string) => { return parseInt(v, 10); },
+                        })}
+                        defaultValue={account.commissionRate || undefined}
+                        type="number"
+                        form="updateForm"
+                        min={0}
+                        max={100}
+                      />
+                    )
                     : (
                       <TooltipRoot message={formatCommissionRate(account.commissionRate)}>
                         <p className={cx("ellipsis")}>
@@ -158,21 +202,31 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
                   <div className={cx("buttonContainer")}>
                     {focusedAccount?.memberId === account.memberId && focusedAccount.target === "edit"
                       ? (
-                        <ChipButton onClick={() => { setFocusedAccount(undefined); }}>
-                          수정 완료
-                        </ChipButton>
+                        <>
+                          {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+                          <form id="updateForm" onSubmit={handleSubmit(onSubmit)}>
+                            <ChipButton
+                              form="updateForm"
+                              type="submit"
+                            >
+                              수정 완료
+                            </ChipButton>
+                          </form>
+                        </>
                       )
                       : (
                         <>
-                          <ChipButton onClick={() => {
-                            setFocusedAccount({ memberId: account.memberId, name: account.name, target: "edit" });
-                          }}
+                          <ChipButton
+                            onClick={() => {
+                              setFocusedAccount({ memberId: account.memberId, name: account.name, target: "edit" });
+                            }}
                           >
                             수정
                           </ChipButton>
-                          <ChipButton onClick={() => {
-                            setFocusedAccount({ memberId: account.memberId, name: account.name, target: "delete" });
-                          }}
+                          <ChipButton
+                            onClick={() => {
+                              setFocusedAccount({ memberId: account.memberId, name: account.name, target: "delete" });
+                            }}
                           >
                             계정 탈퇴
                           </ChipButton>
@@ -193,6 +247,7 @@ const ArtistAccountsTable = ({ accounts, paginationElement }: ArtistAccountsTabl
       </TableContainerUI>
       <ReissuedPasswordModal
         newPassword={newPassword!}
+        id={reissueModalId}
         open={isOpenReissuedPwModal}
         onClose={() => { setIsOpenReissuedPwModal(false); }}
       />

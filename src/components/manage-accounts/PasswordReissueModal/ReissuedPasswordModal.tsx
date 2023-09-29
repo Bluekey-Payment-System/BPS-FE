@@ -11,18 +11,20 @@ import styles from "./ReissuedPasswordModal.module.scss";
 const cx = classNames.bind(styles);
 
 interface ReissuedPasswordModalProps {
-  newPassword: string
+  newPassword: string;
+  id: string;
   open: boolean;
   onClose: () => void;
 }
 
 const ReissuedPasswordModal = ({
   newPassword,
+  id,
   open,
   onClose,
 }: ReissuedPasswordModalProps) => {
   return (
-    <Modal type={MODAL_TYPE.INFO} open={open} onClose={onClose}>
+    <Modal type={MODAL_TYPE.INFO} open={open} onClose={onClose} id={id}>
       <div className={cx("container")}>
         <h2 className={cx("title")}>비밀번호 재발급</h2>
         <Spacing size={32} />

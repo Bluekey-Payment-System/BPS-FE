@@ -1,4 +1,6 @@
-import { IAdminProfile, IAdminSignup, ISignIn } from "@/types/dto";
+import {
+  IAdminProfile, IAdminSignup, IProfile, ISignIn,
+} from "@/types/dto";
 import {
   AdminRole, AdminType, ArtistRole, UserType,
 } from "@/types/enums/user.enum";
@@ -13,6 +15,9 @@ export interface IPostArtistSignInRequest extends ISignIn {
 }
 
 export interface IPatchChangePasswordRequest extends Pick<ISignIn, "password"> {
+}
+
+export interface IPatchReissuePasswordRequest extends Pick<IProfile, "memberId"> {
 }
 
 export interface IPostConfirmPasswordRequest extends Pick<ISignIn, "password"> {
@@ -54,4 +59,17 @@ export interface IPostArtistSignInResponse {
 }
 
 export interface IPostAdminSignUpResponse extends Omit<IAdminProfile, "profileImage"> {
+}
+
+export interface IPatchReissuePasswordResponse {
+  newPassword: string;
+}
+
+export interface IDeleteMemberResponse {
+  memberId: number;
+}
+
+export interface IDeleteMemberReqeust {
+  memberId: number;
+  name: string;
 }
