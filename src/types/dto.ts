@@ -3,6 +3,8 @@ import {
   AdminType, ArtistRole, UserType,
 } from "@/types/enums/user.enum";
 
+import { RequestAuthorityStatus } from "./enums/authority.enum";
+
 interface IName {
   name: string,
   enName: string,
@@ -227,6 +229,6 @@ interface ISender {
 export interface IRequestAuthority {
   requestAuthorityId: number,
   sender: ISender,
-  status: "PENDING" | "APPROVED" | "REJECTED" | "AUTO_REJECTED",
+  status: RequestAuthorityStatus,
   createdAt: string,
 }
