@@ -217,3 +217,16 @@ export interface IAdminSignup extends ISignIn {
   email: string,
   nickname: string,
 }
+
+interface ISender {
+  memberId: number,
+  loginId: string,
+  nickname: string,
+}
+
+export interface IRequestAuthority {
+  requestAuthorityId: number,
+  sender: ISender,
+  status: "PENDING" | "APPROVED" | "REJECTED" | "AUTO_REJECTED",
+  createdAt: string,
+}
