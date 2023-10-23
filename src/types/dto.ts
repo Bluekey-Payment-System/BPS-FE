@@ -3,6 +3,8 @@ import {
   AdminType, ArtistRole, UserType,
 } from "@/types/enums/user.enum";
 
+import { RequestAuthorityStatus } from "./enums/authority.enum";
+
 interface IName {
   name: string,
   enName: string,
@@ -216,4 +218,17 @@ export interface ISignIn {
 export interface IAdminSignup extends ISignIn {
   email: string,
   nickname: string,
+}
+
+interface ISender {
+  memberId: number,
+  loginId: string,
+  nickname: string,
+}
+
+export interface IRequestAuthority {
+  requestAuthorityId: number,
+  sender: ISender,
+  status: RequestAuthorityStatus,
+  createdAt: string,
 }
