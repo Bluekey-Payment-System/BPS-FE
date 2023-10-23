@@ -80,6 +80,7 @@ const AdminDashboardPage = ({
                 itemsPerPage={ITEMS_PER_DASHBOARD_TABLE}
               />
             )}
+            searchBy={searchBy}
           />
         )}
     </MainLayoutWithDropdown>
