@@ -81,6 +81,7 @@ const ArtistDashboardPage = ({
               />
             )}
             searchBy={searchBy}
+            sortBy={sortBy}
           />
         )}
     </MainLayoutWithDropdown>

@@ -81,6 +81,7 @@ const AdminDashboardPage = ({
               />
             )}
             searchBy={searchBy}
+            sortBy={sortBy}
           />
         )}
     </MainLayoutWithDropdown>
