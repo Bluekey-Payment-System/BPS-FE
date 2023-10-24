@@ -7,12 +7,15 @@ import { useAppSelector } from "@/redux/hooks";
 import { MEMBER_TYPE, MemberRole } from "@/types/enums/user.enum";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
+import Notification from "../Notification/Notification";
+
 import styles from "./PCGNB.module.scss";
 
 interface GNBProps {
   loginId: string,
   profileImage: string | null,
   role: MemberRole,
+  openNotification: boolean,
   onClickNotification: () => void,
   onClickLogout: () => void,
 }
@@ -20,7 +23,7 @@ interface GNBProps {
 const cx = classNames.bind(styles);
 
 const PCGNB = ({
-  loginId, profileImage, role, onClickNotification, onClickLogout,
+  loginId, profileImage, role, openNotification, onClickNotification, onClickLogout,
 }: GNBProps) => {
   const { type, memberId } = useAppSelector((state) => { return state.user.member; });
   const homeURL = (type === MEMBER_TYPE.ADMIN)
@@ -42,6 +45,7 @@ const PCGNB = ({
               <Image src="/images/bell.svg" width={20} height={20} alt="알림" />
             </button>
           )}
+        {openNotification && (<Notification />)}
         <Link href={profileURL} className={cx("profile")}>
           {profileImage
             ? <Image className={cx("profileImage")} src={profileImage} width={30} height={30} alt="프로필 이미지" />

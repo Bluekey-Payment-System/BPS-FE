@@ -17,7 +17,7 @@ interface MobileGNBProps extends GNBProps {
 }
 
 const MobileGNB = ({
-  loginId, profileImage, role, onClickNotification, onClickLogout, onClickMenu,
+  loginId, profileImage, role, openNotification, onClickNotification, onClickLogout, onClickMenu,
 }: MobileGNBProps) => {
   const { type, memberId } = useAppSelector((state) => { return state.user.member; });
   const homeURL = (type === MEMBER_TYPE.ADMIN)
@@ -47,6 +47,9 @@ const MobileGNB = ({
               <Image src="/images/bell.svg" width={20} height={20} alt="알림" />
             </button>
           )
+        }
+        {
+          openNotification && (<div>팝업창</div>)
         }
         <Link href={profileURL}>
           {profileImage
