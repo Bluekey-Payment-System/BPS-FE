@@ -1,0 +1,23 @@
+.chip {
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 100px;
+  font-size: 14px;
+
+  &.complete {
+    background-color: $sub-color1;
+    color: $sub-color3;
+  }
+
+  &.pending {
+    color: $primary-black;
+  }
+
+  &.approve {
+    background-color: $point-color-green1;
+  }
+
+  &.reject {
+    background-color: $point-color-red1;
+  }
+}
