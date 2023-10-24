@@ -9,7 +9,8 @@ const cx = classNames.bind(styles);
 const Notification = ({ onClickNotification }: { onClickNotification: () => void }) => {
   return (
     <Popover
-      bottom="-10px"
+      // left="50%"
+      centerX
       zIndex={3}
       onClose={() => { onClickNotification(); }}
     >
