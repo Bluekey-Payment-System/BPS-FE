@@ -21,6 +21,10 @@
   gap: 32px;
 }
 
+.notificationSection {
+  position: relative;
+}
+
 .profile {
   @include flexbox(row, center, center);
 

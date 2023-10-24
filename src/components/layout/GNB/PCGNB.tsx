@@ -39,13 +39,15 @@ const PCGNB = ({
         <Image className={cx("logo")} src="/images/bluekey-insight-logo.svg" width={155} height={30} alt="블루키 뮤직" />
       </Link>
       <div className={cx("rightSide")}>
-        {role === "SUPER_ADMIN"
+        <div className={cx("notificationSection")}>
+          {role === "SUPER_ADMIN"
           && (
             <button type="button" onClick={onClickNotification}>
               <Image src="/images/bell.svg" width={20} height={20} alt="알림" />
             </button>
           )}
-        {openNotification && (<Notification />)}
+          {openNotification && (<Notification />)}
+        </div>
         <Link href={profileURL} className={cx("profile")}>
           {profileImage
             ? <Image className={cx("profileImage")} src={profileImage} width={30} height={30} alt="프로필 이미지" />
