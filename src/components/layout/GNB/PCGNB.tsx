@@ -46,7 +46,7 @@ const PCGNB = ({
               <Image src="/images/bell.svg" width={20} height={20} alt="알림" />
             </button>
           )}
-          {openNotification && (<Notification />)}
+          {openNotification && (<Notification onClickNotification={onClickNotification} />)}
         </div>
         <Link href={profileURL} className={cx("profile")}>
           {profileImage

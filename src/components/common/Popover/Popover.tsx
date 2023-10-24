@@ -10,6 +10,7 @@ interface PopoverProps {
   left?: InsetValue;
   right?: InsetValue;
   bottom?: InsetValue;
+  zIndex?: number;
   onClose: () => void;
   children: React.ReactNode;
 }
@@ -48,6 +49,7 @@ const Popover = React.memo(({
   left,
   right,
   bottom,
+  zIndex,
   onClose,
   children,
 }: PopoverProps) => {
@@ -63,7 +65,7 @@ const Popover = React.memo(({
         right: `${right ?? "auto"}`,
         bottom: `${bottom ?? "auto"}`,
         cursor: "default",
-        zIndex: 1,
+        zIndex: `${zIndex ?? 1}`,
       }}
       ref={popoverRef}
       role="presentation"
