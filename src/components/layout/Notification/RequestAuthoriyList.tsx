@@ -16,7 +16,7 @@ const RequestAuthorityList = ({ data }: { data: IRequestAuthority[] }) => {
             <div className={cx("sender")}>
               <span className={cx("senderNickname")}>{item.sender.nickname}</span>
               {" "}
-              님이 어드민 권한을 요청합니다 님이 어드민 권한을 요청합니다 님이 어드민 권한을 요청합니다
+              님이 어드민 권한을 요청합니다
             </div>
             <div className={cx("status")}>
               <StatusChip status={item.status} requestAuthorityId={item.requestAuthorityId} />
