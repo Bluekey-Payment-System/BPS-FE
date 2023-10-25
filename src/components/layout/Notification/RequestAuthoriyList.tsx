@@ -8,6 +8,11 @@ import StatusChip from "./StatusChip";
 const cx = classNames.bind(styles);
 
 const RequestAuthorityList = ({ data }: { data: IRequestAuthority[] }) => {
+  if (data.length === 0) {
+    return (
+      <div className={cx("noContent")}>알림이 없습니다.</div>
+    );
+  }
   return (
     <div className={cx("container")}>
       {data.map((item) => {
