@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 
+import { AUTHORITY_STATUS_CHIP_TEXT } from "@/constants/authorityStatusChipText";
 import useToast from "@/hooks/useToast";
 import { REQUEST_AUTHORITY_STATUS, RequestAuthorityStatus } from "@/types/enums/authority.enum";
 
@@ -15,26 +16,23 @@ interface StatusChipProps {
 const StatusChip = ({ status, requestAuthorityId }: StatusChipProps) => {
   const { showToast } = useToast();
 
-  const handleChangeStatus = () => {
-    showToast(`승인 또는 거절: ${requestAuthorityId}`);
+  // TODO) 승인 & 거절 API 연동
+  const handleClickApprove = () => {
+    showToast(`승인됨 (requestAuthorityId: ${requestAuthorityId})`);
   };
 
-  if (status === REQUEST_AUTHORITY_STATUS.APPROVED) {
-    return <div className={cx("chip", "complete")}>승인됨</div>;
-  }
+  const handleClickReject = () => {
+    showToast(`거절됨 (requestAuthorityId: ${requestAuthorityId})`);
+  };
 
-  if (status === REQUEST_AUTHORITY_STATUS.REJECTED) {
-    return <div className={cx("chip", "complete")}>거절됨</div>;
-  }
-
-  if (status === REQUEST_AUTHORITY_STATUS.AUTO_REJECTED) {
-    return <div className={cx("chip", "complete")}>자동 거절됨</div>;
+  if (status !== REQUEST_AUTHORITY_STATUS.PENDING) {
+    return <div className={cx("chip", "complete")}>{AUTHORITY_STATUS_CHIP_TEXT[status]}</div>;
   }
 
   return (
     <>
-      <button className={cx("chip", "pending", "approve")} onClick={handleChangeStatus}>승인</button>
-      <button className={cx("chip", "pending", "reject")} onClick={handleChangeStatus}>거절</button>
+      <button className={cx("chip", "pending", "approve")} onClick={handleClickApprove}>승인</button>
+      <button className={cx("chip", "pending", "reject")} onClick={handleClickReject}>거절</button>
     </>
   );
 };
