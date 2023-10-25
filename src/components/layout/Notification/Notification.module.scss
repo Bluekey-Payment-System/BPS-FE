@@ -1,4 +1,6 @@
 .container {
+  @include scrollbar(5);
+
   width: 511px;
   height: 373px;
   margin-top: 10px;
