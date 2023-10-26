@@ -1,6 +1,5 @@
 .customLegendContainer {
-  display: flex;
-  align-items: center;
+  @include flexbox(row, flex-start, center);
 
   .color {
     min-width: 12px;

@@ -7,12 +7,15 @@ import { useAppSelector } from "@/redux/hooks";
 import { MEMBER_TYPE, MemberRole } from "@/types/enums/user.enum";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
+import Notification from "../Notification/Notification";
+
 import styles from "./PCGNB.module.scss";
 
 interface GNBProps {
   loginId: string,
   profileImage: string | null,
   role: MemberRole,
+  openNotification: boolean,
   onClickNotification: () => void,
   onClickLogout: () => void,
 }
@@ -20,7 +23,7 @@ interface GNBProps {
 const cx = classNames.bind(styles);
 
 const PCGNB = ({
-  loginId, profileImage, role, onClickNotification, onClickLogout,
+  loginId, profileImage, role, openNotification, onClickNotification, onClickLogout,
 }: GNBProps) => {
   const { type, memberId } = useAppSelector((state) => { return state.user.member; });
   const homeURL = (type === MEMBER_TYPE.ADMIN)
@@ -29,6 +32,8 @@ const PCGNB = ({
   const profileURL = (type === MEMBER_TYPE.ADMIN)
     ? "/admin/my-profile"
     : `/artists/${memberId}/my-profile`;
+  // TODO) [GET] Pending 상태 권한 요청 여부에 따른 boolean 값 가져오기
+  const hasPendingRequestAuthority = true;
 
   return (
     <div className={cx("container")}>
@@ -38,9 +43,14 @@ const PCGNB = ({
       <div className={cx("rightSide")}>
         {role === "SUPER_ADMIN"
           && (
-            <button type="button" onClick={onClickNotification}>
-              <Image src="/images/bell.svg" width={20} height={20} alt="알림" />
-            </button>
+            <div className={cx("notificationSection")}>
+              <button type="button" onClick={onClickNotification}>
+                {hasPendingRequestAuthority
+                  ? <Image src="/images/bell-on.svg" width={23} height={23} alt="새로운 알림" />
+                  : <Image src="/images/bell.svg" width={20} height={20} alt="알림" />}
+              </button>
+              {openNotification && (<Notification onClickNotification={onClickNotification} />)}
+            </div>
           )}
         <Link href={profileURL} className={cx("profile")}>
           {profileImage

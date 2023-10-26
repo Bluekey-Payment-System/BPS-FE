@@ -58,7 +58,7 @@
       height: 47px;
       border: none;
       background-color: $sub-color1;
-      color: $sub-color5;
+      color: $sub-color3;
 
       .toggle {
         top: 20px;
@@ -130,7 +130,7 @@
         border-radius: 6px;
 
         &::placeholder {
-          color: $sub-color5;
+          color: $sub-color3;
         }
       }
 

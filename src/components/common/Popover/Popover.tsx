@@ -10,6 +10,8 @@ interface PopoverProps {
   left?: InsetValue;
   right?: InsetValue;
   bottom?: InsetValue;
+  centerX?: boolean;
+  zIndex?: number;
   onClose: () => void;
   children: React.ReactNode;
 }
@@ -25,6 +27,10 @@ interface PopoverProps {
  *  팝오버 컴포넌트의 위치 관련 top inset 값 (position relative부모 기준))
  * @param {InsetValue} bottom
  *  팝오버 컴포넌트의 위치 관련 top inset 값 (position relative부모 기준))
+ * @param {boolean} centerX
+ *  팝오버 컴포넌트를 x축 가운데로 위치 (position relative 부모 기준)
+ * @param {number} zIndex
+ *  팝오버 컴포넌트의 z-index 값 (default: 1)
  * @param {Function} onClose 팝오버 바깥 영역 클릭 시 실행할 콜백함수 (주로 팝오버를 닫는 함수가 될 것 같습니다)
  *
  * @param {ReactNode} children 팝오버 안의 내용이 될 자식 컴포넌트들
@@ -48,6 +54,8 @@ const Popover = React.memo(({
   left,
   right,
   bottom,
+  centerX,
+  zIndex,
   onClose,
   children,
 }: PopoverProps) => {
@@ -59,11 +67,12 @@ const Popover = React.memo(({
         position: "absolute",
         display: "flex",
         top: `${top ?? "auto"}`,
-        left: `${left ?? "auto"}`,
+        left: `${centerX ? "50%" : left ?? "auto"}`,
         right: `${right ?? "auto"}`,
         bottom: `${bottom ?? "auto"}`,
+        transform: `${centerX ? "translate(-50%)" : "initial"}`,
         cursor: "default",
-        zIndex: 1,
+        zIndex: `${zIndex ?? 1}`,
       }}
       ref={popoverRef}
       role="presentation"

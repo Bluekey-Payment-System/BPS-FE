@@ -1,0 +1,12 @@
+.container {
+  @include scrollbar(5);
+
+  width: 511px;
+  height: 373px;
+  margin-top: 10px;
+  padding: 32px;
+  overflow-y: auto;
+  border-radius: 6px;
+  background-color: $primary-white;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 11%);
+}

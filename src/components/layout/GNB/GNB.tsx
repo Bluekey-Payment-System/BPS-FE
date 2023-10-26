@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { useRouter } from "next/router";
@@ -19,9 +20,10 @@ const GNB = ({
   const { showToast } = useToast();
   const dispatch = useDispatch();
   const router = useRouter();
+  const [openNotification, setOpenNotification] = useState<boolean>(false);
 
   const handleClickNotification = () => {
-    showToast("알림창 오픈");
+    setOpenNotification(!openNotification);
   };
 
   const handleSignout = async () => {
@@ -41,6 +43,7 @@ const GNB = ({
         loginId={loginId}
         profileImage={profileImage}
         role={role}
+        openNotification={openNotification}
         onClickNotification={handleClickNotification}
         onClickLogout={handleSignout}
       />
@@ -48,6 +51,7 @@ const GNB = ({
         loginId={loginId}
         profileImage={profileImage}
         role={role}
+        openNotification={openNotification}
         onClickNotification={handleClickNotification}
         onClickLogout={handleSignout}
         onClickMenu={onClickMenu}

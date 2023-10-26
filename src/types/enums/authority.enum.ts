@@ -2,7 +2,6 @@ export const REQUEST_AUTHORITY_STATUS = {
   PENDING: "PENDING",
   APPROVED: "APPROVED",
   REJECTED: "REJECTED",
-  AUTO_REJECTED: "AUTO_REJECTED",
 } as const;
 
 export type RequestAuthorityStatus = (

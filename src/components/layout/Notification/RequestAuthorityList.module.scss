@@ -1,0 +1,29 @@
+.container {
+  @include flexbox(column);
+
+  gap: 30px;
+}
+
+.content {
+  @include flexbox(row, space-between, flex-start);
+
+  .sender {
+    width: 315px;
+    font-size: 16px;
+    line-height: 20px;
+
+    .senderNickname {
+      font-weight: bold;
+    }
+  }
+
+  .status {
+    @include flexbox(row, space-between);
+
+    width: 102px;
+  }
+}
+
+.noContent {
+  text-align: center;
+}
