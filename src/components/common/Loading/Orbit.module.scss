@@ -15,10 +15,9 @@ $uib-color-dark: $primary-black;
 }
 
 .orbit {
-  display: flex;
+  @include flexbox(row, center, center);
+
   position: relative;
-  align-items: center;
-  justify-content: center;
   width: $uib-size;
   height: $uib-size;
   animation: rotate936 calc($uib-speed * 1.667) infinite linear;

@@ -38,11 +38,10 @@
   .formSectionWrapper {
     @include typo(16);
     @include scrollbar(15);
+    @include flexbox(column);
 
-    display: flex;
     position: relative;
     z-index: 3;
-    flex-direction: column;
     width: min(100%, 1260px);
     padding: 60px 0;
     overflow: auto;

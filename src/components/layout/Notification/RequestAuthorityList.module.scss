@@ -1,13 +1,11 @@
 .container {
-  display: flex;
-  flex-direction: column;
+  @include flexbox(column);
+
   gap: 30px;
 }
 
 .content {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  @include flexbox(row, space-between, flex-start);
 
   .sender {
     width: 315px;
@@ -20,8 +18,8 @@
   }
 
   .status {
-    display: flex;
-    justify-content: space-between;
+    @include flexbox(row, space-between);
+
     width: 102px;
   }
 }

@@ -5,7 +5,8 @@
 }
 
 .albums {
-  display: flex;
+  @include flexbox(row);
+
   gap: 20px;
   flex-wrap: wrap;
 }
