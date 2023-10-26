@@ -22,7 +22,7 @@ export const REQUEST_AUTHORITIES_MOCK: IGetRequestAuthorities = {
         loginId: "bluekey9",
         nickname: "블루키9",
       },
-      status: "AUTO_REJECTED",
+      status: "REJECTED",
       createdAt: "2023-10-22T20:24:58.925513",
     },
     {
@@ -166,7 +166,7 @@ export const FILTERED_REQUESET_AUTHORITIES: IRequestAuthority[] = [
       loginId: "bluekey9",
       nickname: "블루키9",
     },
-    status: "AUTO_REJECTED",
+    status: "REJECTED",
     createdAt: "2023-10-22T20:24:58.925513",
   },
   {
