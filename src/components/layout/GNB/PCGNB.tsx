@@ -32,6 +32,8 @@ const PCGNB = ({
   const profileURL = (type === MEMBER_TYPE.ADMIN)
     ? "/admin/my-profile"
     : `/artists/${memberId}/my-profile`;
+  // TODO) [GET] Pending 상태 권한 요청 여부에 따른 boolean 값 가져오기
+  const hasPendingRequestAuthority = true;
 
   return (
     <div className={cx("container")}>
@@ -39,15 +41,17 @@ const PCGNB = ({
         <Image className={cx("logo")} src="/images/bluekey-insight-logo.svg" width={155} height={30} alt="블루키 뮤직" />
       </Link>
       <div className={cx("rightSide")}>
-        <div className={cx("notificationSection")}>
-          {role === "SUPER_ADMIN"
+        {role === "SUPER_ADMIN"
           && (
-            <button type="button" onClick={onClickNotification}>
-              <Image src="/images/bell.svg" width={20} height={20} alt="알림" />
-            </button>
+            <div className={cx("notificationSection")}>
+              <button type="button" onClick={onClickNotification}>
+                {hasPendingRequestAuthority
+                  ? <Image src="/images/bell-on.svg" width={23} height={23} alt="새로운 알림" />
+                  : <Image src="/images/bell.svg" width={20} height={20} alt="알림" />}
+              </button>
+              {openNotification && (<Notification onClickNotification={onClickNotification} />)}
+            </div>
           )}
-          {openNotification && (<Notification onClickNotification={onClickNotification} />)}
-        </div>
         <Link href={profileURL} className={cx("profile")}>
           {profileImage
             ? <Image className={cx("profileImage")} src={profileImage} width={30} height={30} alt="프로필 이미지" />
