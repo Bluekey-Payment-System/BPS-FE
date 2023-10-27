@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
 import useToast from "@/hooks/useToast";
@@ -21,6 +22,7 @@ const GNB = ({
   const dispatch = useDispatch();
   const router = useRouter();
   const [openNotification, setOpenNotification] = useState<boolean>(false);
+  const queryClient = useQueryClient();
 
   const handleClickNotification = () => {
     setOpenNotification(!openNotification);
@@ -29,6 +31,7 @@ const GNB = ({
   const handleSignout = async () => {
     setTimeout(() => { dispatch(resetUser()); }, 500);
     removeCookie("token", { path: "/" });
+    queryClient.clear();
     showToast("로그아웃 되었습니다.");
     if (role === MEMBER_ROLE.ARTIST) {
       await router.push("/signin");
