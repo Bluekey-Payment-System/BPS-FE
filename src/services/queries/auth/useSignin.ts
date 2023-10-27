@@ -38,6 +38,8 @@ const useAdminSignin = () => {
         dispatch(setUser(data.member));
         if (data.member.role === "PENDING") {
           router.push("/admin/signin/pending");
+        } else if (data.member.role === "REJECTED") {
+          router.push("/admin/signin/rejected");
         } else {
           // eslint-disable-next-line no-void, @typescript-eslint/no-floating-promises
           getArtistNames();
