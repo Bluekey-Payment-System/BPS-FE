@@ -19,7 +19,7 @@ export const getRequest = async <T>(
 // /* post 요청 */
 export const postRequest = async <T, D>(
   url: string,
-  data: D,
+  data?: D,
   config?: AxiosRequestConfig,
 ): Promise<T> => {
   const response = await instance.post<T, AxiosResponse<T>, D>(
@@ -43,9 +43,9 @@ export const deleteRequest = async <T>(
 };
 
 /* patch 요청 */
-export const patchRequest = async <T, D>(
+export const patchRequest = async <T, D=unknown>(
   url: string,
-  data: D,
+  data?: D,
   config?: AxiosRequestConfig,
 ): Promise<T> => {
   const response = await instance.patch<T, AxiosResponse<T>, D>(
