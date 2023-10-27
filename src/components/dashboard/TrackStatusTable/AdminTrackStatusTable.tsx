@@ -51,6 +51,8 @@ const AdminTrackStatusTable = ({
       router.query,
       "sortBy",
       REVERSE_SORT_BY_OPTIONS_MAP[value],
+      "page",
+      1,
     ), undefined, { scroll: false });
   };
 
@@ -66,6 +68,8 @@ const AdminTrackStatusTable = ({
       REVERSE_SEARCH_BY_OPTIONS_MAP[searchByValue],
       "keyword",
       searchBarRef.current?.value ?? "",
+      "page",
+      1,
     ), undefined, { scroll: false });
   };
 
