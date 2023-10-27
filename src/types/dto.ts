@@ -232,7 +232,3 @@ export interface IRequestAuthority {
   status: RequestAuthorityStatus,
   createdAt: string,
 }
-
-export interface IHasPendingRequestAuthority {
-  hasPendingRequestAuthority: boolean
-}
