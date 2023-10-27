@@ -1,7 +1,10 @@
 import classNames from "classnames/bind";
 
 import { AUTHORITY_STATUS_CHIP_TEXT } from "@/constants/authorityStatusChipText";
-import useToast from "@/hooks/useToast";
+import {
+  useRequestAuthorityApprove,
+  useRequestAuthorityReject,
+} from "@/services/queries/notification-controller/useRequestAuthorities";
 import { REQUEST_AUTHORITY_STATUS, RequestAuthorityStatus } from "@/types/enums/authority.enum";
 
 import styles from "./StatusChip.module.scss";
@@ -14,15 +17,14 @@ interface StatusChipProps {
 }
 
 const StatusChip = ({ status, requestAuthorityId }: StatusChipProps) => {
-  const { showToast } = useToast();
-
-  // TODO) 승인 & 거절 API 연동
+  const { mutate: approveRequest } = useRequestAuthorityApprove();
+  const { mutate: rejectRequest } = useRequestAuthorityReject();
   const handleClickApprove = () => {
-    showToast(`승인됨 (requestAuthorityId: ${requestAuthorityId})`);
+    approveRequest(requestAuthorityId);
   };
 
   const handleClickReject = () => {
-    showToast(`거절됨 (requestAuthorityId: ${requestAuthorityId})`);
+    rejectRequest(requestAuthorityId);
   };
 
   if (status !== REQUEST_AUTHORITY_STATUS.PENDING) {
