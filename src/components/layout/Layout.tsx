@@ -16,7 +16,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <GNB
-        role={userInfo.role}
+        role={userInfo.role as "SUPER_ADMIN" | "ADMIN" | "ARTIST"}
         loginId={userInfo.loginId}
         profileImage={userInfo.profileImage}
         onClickMenu={setIsOpen}
@@ -25,7 +25,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <SideNav
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          role={userInfo.role}
+          role={userInfo.role as "SUPER_ADMIN" | "ADMIN" | "ARTIST"}
           memberId={userInfo.memberId}
         />
         <div className={cx("content")}>
