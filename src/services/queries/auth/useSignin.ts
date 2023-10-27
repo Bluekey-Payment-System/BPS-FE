@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
@@ -34,11 +35,15 @@ const useAdminSignin = () => {
           // secure: true,
           // httpOnly: true,
         });
-        // eslint-disable-next-line no-void, @typescript-eslint/no-floating-promises
-        getArtistNames();
         dispatch(setUser(data.member));
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        router.push(`/admin/dashboard/${getLatestYearMonthString()}`);
+        if (data.member.role === "PENDING") {
+          router.push("/admin/signin/pending");
+        } else {
+          // eslint-disable-next-line no-void, @typescript-eslint/no-floating-promises
+          getArtistNames();
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          router.push(`/admin/dashboard/${getLatestYearMonthString()}`);
+        }
       },
       onError: () => {
         showAlertModal({
