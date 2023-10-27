@@ -17,19 +17,19 @@ import { isCommonError } from "@/utils/type.predicates";
 
 /* 권한 요청 리스트 가져오기 */
 export const useRequestAuthoritiesList = () => {
-  const query = useQuery<IGetRequestAuthorities>([MEMBER_ROLE.SUPER_ADMIN, "request-authorities-list"], requestAuthoritiesList);
+  const query = useQuery<IGetRequestAuthorities>([MEMBER_ROLE.SUPER_ADMIN, "request-authority-list"], requestAuthoritiesList);
   return query;
 };
 
 /* 권한 요청 승인 */
-export const useRequestAuthorityApprove = () => {
+export const useRequestAuthorityApprove = (requestAuthorityId: number) => {
   const { showToast } = useToast();
   const { showAlertModal } = useAlertModal();
   const queryClient = useQueryClient();
-  const mutation = useMutation<IPatchAuthorizationResponse, unknown, number, unknown>([MEMBER_ROLE.SUPER_ADMIN, "request-authority-approve"], (data) => { return authorityRequestApprove(data); }, {
+  const mutation = useMutation<IPatchAuthorizationResponse, unknown, number, unknown>([MEMBER_ROLE.SUPER_ADMIN, "request-authority-approve", requestAuthorityId], (data) => { return authorityRequestApprove(data); }, {
     onSuccess: (data) => {
       showToast(`${data.nickName}(${data.loginId})님을 승인하였습니다`);
-      void queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "request-authorities-list"]);
+      void queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "request-authority-list"]);
       void queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "check-pending-status"]);
     },
     onError: (err) => {
@@ -48,14 +48,14 @@ export const useRequestAuthorityApprove = () => {
 };
 
 /* 권한 요청 거절 */
-export const useRequestAuthorityReject = () => {
+export const useRequestAuthorityReject = (requestAuthorityId: number) => {
   const { showToast } = useToast();
   const { showAlertModal } = useAlertModal();
   const queryClient = useQueryClient();
-  const mutation = useMutation<IPatchAuthorizationResponse, unknown, number, unknown>([MEMBER_ROLE.SUPER_ADMIN, "request-authority-reject"], (data) => { return authorityRequestReject(data); }, {
+  const mutation = useMutation<IPatchAuthorizationResponse, unknown, number, unknown>([MEMBER_ROLE.SUPER_ADMIN, "request-authority-reject", requestAuthorityId], (data) => { return authorityRequestReject(data); }, {
     onSuccess: (data) => {
       showToast(`${data.nickName}(${data.loginId})님을 거절하였습니다`);
-      void queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "requestAuthoritiesList"]);
+      void queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "request-authority-list"]);
       void queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "check-pending-status"]);
     },
     onError: (err) => {

@@ -17,8 +17,8 @@ interface StatusChipProps {
 }
 
 const StatusChip = ({ status, requestAuthorityId }: StatusChipProps) => {
-  const { mutate: approveRequest } = useRequestAuthorityApprove();
-  const { mutate: rejectRequest } = useRequestAuthorityReject();
+  const { mutate: approveRequest } = useRequestAuthorityApprove(requestAuthorityId);
+  const { mutate: rejectRequest } = useRequestAuthorityReject(requestAuthorityId);
   const handleClickApprove = () => {
     approveRequest(requestAuthorityId);
   };
