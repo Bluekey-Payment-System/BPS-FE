@@ -1,4 +1,4 @@
-/* eslint-disable no-void */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
@@ -29,8 +29,8 @@ export const useRequestAuthorityApprove = (requestAuthorityId: number) => {
   const mutation = useMutation<IPatchAuthorizationResponse, unknown, number, unknown>([MEMBER_ROLE.SUPER_ADMIN, "request-authority-approve", requestAuthorityId], (data) => { return authorityRequestApprove(data); }, {
     onSuccess: (data) => {
       showToast(`${data.nickName}(${data.loginId})님을 승인하였습니다`);
-      void queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "request-authority-list"]);
-      void queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "check-pending-status"]);
+      queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "request-authority-list"]);
+      queryClient.invalidateQueries(["check-pending-status"]);
     },
     onError: (err) => {
       if (isAxiosError<ICommonErrorResponse>(err)) {
@@ -55,8 +55,8 @@ export const useRequestAuthorityReject = (requestAuthorityId: number) => {
   const mutation = useMutation<IPatchAuthorizationResponse, unknown, number, unknown>([MEMBER_ROLE.SUPER_ADMIN, "request-authority-reject", requestAuthorityId], (data) => { return authorityRequestReject(data); }, {
     onSuccess: (data) => {
       showToast(`${data.nickName}(${data.loginId})님을 거절하였습니다`);
-      void queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "request-authority-list"]);
-      void queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "check-pending-status"]);
+      queryClient.invalidateQueries([MEMBER_ROLE.SUPER_ADMIN, "request-authority-list"]);
+      queryClient.invalidateQueries(["check-pending-status"]);
     },
     onError: (err) => {
       if (isAxiosError<ICommonErrorResponse>(err)) {
