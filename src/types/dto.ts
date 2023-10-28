@@ -1,6 +1,6 @@
 import {
   AdminRole,
-  AdminType, ArtistRole, UserType,
+  AdminType, ArtistRole, UnknownRole, UserType,
 } from "@/types/enums/user.enum";
 
 import { RequestAuthorityStatus } from "./enums/authority.enum";
@@ -156,7 +156,7 @@ export interface IProfile {
 export interface IAdminProfile extends IProfile {
   email: string,
   type: AdminType,
-  role: AdminRole,
+  role: AdminRole | UnknownRole,
   nickname: string
 }
 

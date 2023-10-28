@@ -8,9 +8,10 @@ export const MEMBER_ROLE = {
 
 export type MemberRole = (typeof MEMBER_ROLE)[keyof typeof MEMBER_ROLE];
 export type SuperAdminRole = (typeof MEMBER_ROLE)["SUPER_ADMIN"];
-export type AdminRole = (typeof MEMBER_ROLE)["ADMIN" | "SUPER_ADMIN"] | Omit<RequestAuthorityStatus, "APPROVED">;
+export type AdminRole = (typeof MEMBER_ROLE)["ADMIN" | "SUPER_ADMIN"];
 export type ArtistRole = (typeof MEMBER_ROLE)["ARTIST"];
-export type UserRole = MemberRole & Omit<RequestAuthorityStatus, "APPROVED">;
+
+export type UnknownRole = Omit<RequestAuthorityStatus, "APPROVED">;
 
 export const MEMBER_TYPE = {
   USER: "USER",

@@ -6,6 +6,7 @@ import { useQueries } from "@tanstack/react-query";
 import { useAppSelector } from "@/redux/hooks";
 import { getAlbumDashboardLine, getAlbumTracks } from "@/services/api/requests/albums/albums.get.api";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
+import { MemberRole } from "@/types/enums/user.enum";
 import subtractMonths from "@/utils/subtractMonths";
 
 import { getDashboardCards } from "./queryFns/cards";
@@ -24,7 +25,7 @@ const useAlbumDashboard = (
       {
         queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "card", albumId, { month }],
         queryFn: () => {
-          return getDashboardCards(DASHBOARD_TYPE.ALBUM, month, undefined, albumId, memberRole);
+          return getDashboardCards(DASHBOARD_TYPE.ALBUM, month, undefined, albumId, memberRole as MemberRole);
         },
       },
       {
