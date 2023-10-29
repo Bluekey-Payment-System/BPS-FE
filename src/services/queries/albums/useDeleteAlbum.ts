@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 
 import useAlertModal from "@/hooks/useAlertModal";
@@ -7,15 +7,19 @@ import { deleteAlbum } from "@/services/api/requests/albums/albums.delete.api";
 import { IDeleteAlbumResponse } from "@/services/api/types/albums";
 import { ICommonErrorResponse } from "@/services/api/types/global";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
+import { MEMBER_ROLE, MEMBER_TYPE } from "@/types/enums/user.enum";
 import { isCommonError } from "@/utils/type.predicates";
 
 const useDeleteAlbum = () => {
   const { showToast } = useToast();
   const { showAlertModal } = useAlertModal();
+  const queryClient = useQueryClient();
 
   // eslint-disable-next-line max-len
   const mutation = useMutation<IDeleteAlbumResponse, unknown, number, unknown>((id) => { return deleteAlbum(id); }, {
     onSuccess: (data) => {
+      // eslint-disable-next-line no-void
+      void queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "albums"]);
       showToast(`${data.name} 앨범을 삭제하였습니다.`);
     },
     onError: (err) => {
