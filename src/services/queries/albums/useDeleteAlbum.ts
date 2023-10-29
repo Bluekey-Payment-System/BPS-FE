@@ -7,7 +7,7 @@ import { deleteAlbum } from "@/services/api/requests/albums/albums.delete.api";
 import { IDeleteAlbumResponse } from "@/services/api/types/albums";
 import { ICommonErrorResponse } from "@/services/api/types/global";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
-import { MEMBER_ROLE, MEMBER_TYPE } from "@/types/enums/user.enum";
+import { MEMBER_TYPE } from "@/types/enums/user.enum";
 import { isCommonError } from "@/utils/type.predicates";
 
 const useDeleteAlbum = () => {
