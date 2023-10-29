@@ -1,10 +1,7 @@
 import classNames from "classnames/bind";
 
 import { AUTHORITY_STATUS_CHIP_TEXT } from "@/constants/authorityStatusChipText";
-import {
-  useRequestAuthorityApprove,
-  useRequestAuthorityReject,
-} from "@/services/queries/notification-controller/useRequestAuthorities";
+import { useApproveRequestAuthority, useRejectRequestAuthority } from "@/services/queries/notification-controller/useRequestAuthorities";
 import { REQUEST_AUTHORITY_STATUS, RequestAuthorityStatus } from "@/types/enums/authority.enum";
 
 import styles from "./StatusChip.module.scss";
@@ -17,8 +14,8 @@ interface StatusChipProps {
 }
 
 const StatusChip = ({ status, requestAuthorityId }: StatusChipProps) => {
-  const { mutate: approveRequest } = useRequestAuthorityApprove(requestAuthorityId);
-  const { mutate: rejectRequest } = useRequestAuthorityReject(requestAuthorityId);
+  const { mutate: approveRequest } = useApproveRequestAuthority(requestAuthorityId);
+  const { mutate: rejectRequest } = useRejectRequestAuthority(requestAuthorityId);
   const handleClickApprove = () => {
     approveRequest(requestAuthorityId);
   };

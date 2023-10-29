@@ -33,7 +33,7 @@ const PCGNB = ({
   const profileURL = (type === MEMBER_TYPE.ADMIN)
     ? "/admin/my-profile"
     : `/artists/${memberId}/my-profile`;
-  const { data: checkPendingStatus } = useCheckPendingStatus();
+  const { data: hasCheckPendingStatus } = useCheckPendingStatus();
 
   return (
     <div className={cx("container")}>
@@ -45,7 +45,7 @@ const PCGNB = ({
           && (
             <div className={cx("notificationSection")}>
               <button type="button" onClick={onClickNotification}>
-                {checkPendingStatus?.hasPendingRequestAuthority
+                {hasCheckPendingStatus?.hasPendingRequestAuthority
                   ? <Image src="/images/bell-on.svg" width={23} height={23} alt="새로운 알림" />
                   : <Image src="/images/bell.svg" width={20} height={20} alt="알림" />}
               </button>

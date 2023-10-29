@@ -9,11 +9,11 @@ export interface IGetPendingRequestAuthority {
   hasPendingRequestAuthority: boolean
 }
 
-export interface IPatchAuthorizationRequest {
+export interface IPatchAuthorityRequest {
   requestAuthorityId: number
 }
 
-export interface IPatchAuthorizationResponse {
+export interface IPatchAuthorityResponse {
   nickName: string
   loginId: string
 }
