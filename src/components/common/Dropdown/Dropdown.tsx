@@ -28,7 +28,7 @@ const Dropdown = <T extends string | IHasSearchBarData>({
   const [toggle, setToggle] = useState<boolean>(false);
   const dropdownContainerRef = useRef<HTMLDivElement>(null);
 
-  const initialSelectedDropdownValue = hasSearchBar ? "대표 아티스트를 지정해주세요." : initialValue ?? dropdownListData[0];
+  const initialSelectedDropdownValue = initialValue ?? (hasSearchBar ? "대표 아티스트를 지정해주세요." : dropdownListData[0]);
 
   // eslint-disable-next-line max-len
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<string | IHasSearchBarData>(initialSelectedDropdownValue);
@@ -77,6 +77,10 @@ const Dropdown = <T extends string | IHasSearchBarData>({
       document.removeEventListener("click", handleClick);
     };
   });
+
+  useEffect(() => {
+    setSelectedDropdownValue(initialSelectedDropdownValue);
+  }, [initialSelectedDropdownValue]);
 
   return (
     <DropdownUI
