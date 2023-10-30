@@ -5,13 +5,15 @@ export interface IGetRequestAuthorities {
   contents: IRequestAuthority[]
 }
 
-export interface IGetHasPendingRequestAuthority {
-  hasPendingRequestAuthority: boolean;
+export interface IGetPendingRequestAuthority {
+  hasPendingRequestAuthority: boolean
 }
 
-export interface IPatchApproveRequestAuthority {
-  nickName: string,
-  loginId: string,
+export interface IPatchAuthorityRequest {
+  requestAuthorityId: number
 }
 
-export interface IPatchRejectRequestAuthority extends IPatchApproveRequestAuthority {}
+export interface IPatchAuthorityResponse {
+  nickName: string
+  loginId: string
+}

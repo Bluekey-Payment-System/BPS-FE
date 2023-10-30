@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import DefaultProfileImage from "@/components/common/DefaultProfileImage/DefaultProfileImage";
 import { useAppSelector } from "@/redux/hooks";
+import useCheckPendingStatus from "@/services/queries/notification-controller/useCheckPendingStatus";
 import { MEMBER_TYPE, MemberRole } from "@/types/enums/user.enum";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 
@@ -32,8 +33,7 @@ const PCGNB = ({
   const profileURL = (type === MEMBER_TYPE.ADMIN)
     ? "/admin/my-profile"
     : `/artists/${memberId}/my-profile`;
-  // TODO) [GET] Pending 상태 권한 요청 여부에 따른 boolean 값 가져오기
-  const hasPendingRequestAuthority = true;
+  const { data: hasCheckPendingStatus } = useCheckPendingStatus();
 
   return (
     <div className={cx("container")}>
@@ -45,7 +45,7 @@ const PCGNB = ({
           && (
             <div className={cx("notificationSection")}>
               <button type="button" onClick={onClickNotification}>
-                {hasPendingRequestAuthority
+                {hasCheckPendingStatus?.hasPendingRequestAuthority
                   ? <Image src="/images/bell-on.svg" width={23} height={23} alt="새로운 알림" />
                   : <Image src="/images/bell.svg" width={20} height={20} alt="알림" />}
               </button>
