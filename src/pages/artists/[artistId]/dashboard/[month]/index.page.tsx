@@ -5,6 +5,7 @@ import { QueryClient, dehydrate } from "@tanstack/react-query";
 import classNames from "classnames/bind";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 
+import { IFilterOptions } from "@/components/common/Filter/Filter.type";
 import MainLayoutWithDropdown from "@/components/common/Layouts/MainLayoutWithDropdown";
 import Orbit from "@/components/common/Loading/Orbit";
 import { convertToYearMonthFormat } from "@/components/common/MonthPicker/MonthPicker.util";
@@ -34,13 +35,14 @@ interface ArtistDashboardPageProps {
   searchBy: string,
   keyword: string,
   artistId: number,
+  filterOptions: IFilterOptions,
 }
 
 const ArtistDashboardPage = ({
-  month, page, sortBy, searchBy, keyword, artistId,
+  month, page, sortBy, searchBy, keyword, artistId, filterOptions,
 }: InferGetServerSidePropsType<GetServerSideProps<ArtistDashboardPageProps>>) => {
   const memberRole = useAppSelector((state) => { return state.user.member.role; });
-  const queries = useArtistDashboard(month, page, sortBy, searchBy, keyword, artistId);
+  const queries = useArtistDashboard(month, page, sortBy, searchBy, keyword, artistId, filterOptions);
   const [cardQuery, trendsChartQuery, topFiveChartQuery, tableQuery] = queries;
 
   const isLoading = queries.some((query, idx) => {
@@ -90,23 +92,17 @@ const ArtistDashboardPage = ({
 
 interface ArtistDashboardPageQuery extends ParsedUrlQuery {
   month: string,
-  page?: string,
-  sortBy?: string,
-  searchBy?: string,
-  keyword?: string
   artistId: string,
+  [params: string]: string
 }
 
 export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = async ({ query, req }) => {
   const {
-    month, page, sortBy, searchBy, keyword, artistId,
+    month, page, sortBy = "", searchBy = "trackName", keyword = "", artistId, ...filterOptions
   } = query as ArtistDashboardPageQuery;
 
   const pageNum = convertPageParamToNum(page || null);
   const artistIdNum = Number(artistId);
-  const sortByString = sortBy || "";
-  const searchByString = searchBy || "trackName";
-  const keywordString = keyword || "";
 
   const isCSR = req.url?.startsWith("/_next");
   if (isCSR) {
@@ -114,10 +110,11 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
       props: {
         month,
         page: pageNum,
-        sortBy: sortByString,
-        searchBy: searchByString,
-        keyword: keywordString,
+        sortBy,
+        searchBy,
+        keyword,
         artistId: artistIdNum,
+        filterOptions,
       },
     };
   }
@@ -141,16 +138,17 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
       ),
       queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "table", artistId, {
-          month, page: pageNum, sortBy: sortByString, searchBy: searchByString, keyword: keywordString,
+          month, page: pageNum, sortBy, searchBy, keyword, filterOptions,
         }],
         () => {
           return getDashboardTable(
             DASHBOARD_TYPE.ARTIST,
             month,
             pageNum,
-            sortByString,
-            searchByString,
-            keywordString,
+            sortBy,
+            searchBy,
+            keyword,
+            filterOptions,
             artistIdNum,
           );
         },
@@ -162,10 +160,11 @@ export const getServerSideProps: GetServerSideProps<ArtistDashboardPageProps> = 
         dehydratedState: dehydrate(queryClient),
         month,
         page: pageNum,
-        sortBy: sortByString,
-        searchBy: searchByString,
-        keyword: keywordString,
+        sortBy,
+        searchBy,
+        keyword,
         artistId: artistIdNum,
+        filterOptions,
       },
     };
   } catch (e) {
