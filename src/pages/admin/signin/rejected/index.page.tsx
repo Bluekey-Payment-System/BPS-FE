@@ -23,8 +23,7 @@ const AdminRejectedPage = () => {
   return (
     <FallbackPageLayout
       pageType="approvalRejected"
-      description={`권한을 재요청하여 일주일 내로 승인되지 않을 시,
-    자동으로 회원정보가 삭제됩니다.`}
+      description="권한 재요청은 최대 5회까지 가능합니다."
       buttonElements={(
         <>
           <Button size="medium" theme="dark" onClick={requestAuthority}>권한 재요청하기</Button>
