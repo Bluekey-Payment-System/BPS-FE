@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 import { useQueries, useQueryClient } from "@tanstack/react-query";
 
+import { IFilterOptions } from "@/components/common/Filter/Filter.type";
 import { PAGES_PER_PAGINATION } from "@/constants/pagination";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
@@ -19,6 +20,7 @@ const useAdminDashboard = (
   sortBy: string,
   searchBy: string,
   keyword: string,
+  filterOptions: IFilterOptions,
 ) => {
   const queries = useQueries({
     queries: [
@@ -42,10 +44,10 @@ const useAdminDashboard = (
       },
       {
         queryKey: [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
-          month, page, sortBy, searchBy, keyword,
+          month, page, sortBy, searchBy, keyword, filterOptions,
         }],
         queryFn: () => {
-          return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, page, sortBy, searchBy, keyword);
+          return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, page, sortBy, searchBy, keyword, filterOptions);
         },
       },
     ],
@@ -59,18 +61,18 @@ const useAdminDashboard = (
     if (endPage) {
       void queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
-          month, page: endPage, sortBy, searchBy, keyword,
+          month, page: endPage, sortBy, searchBy, keyword, filterOptions,
         }],
-        () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, endPage, sortBy, searchBy, keyword); },
+        () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, endPage, sortBy, searchBy, keyword, filterOptions); },
       );
     }
 
     // 2. 1페이지
     void queryClient.prefetchQuery(
       [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
-        month, page: 1, sortBy, searchBy, keyword,
+        month, page: 1, sortBy, searchBy, keyword, filterOptions,
       }],
-      () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, 1, sortBy, searchBy, keyword); },
+      () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, 1, sortBy, searchBy, keyword, filterOptions); },
     );
 
     const curPaginationStartPage = Math.floor((page - 1) / PAGES_PER_PAGINATION) * PAGES_PER_PAGINATION + 1;
@@ -81,9 +83,9 @@ const useAdminDashboard = (
     for (let i = curPaginationStartPage; i <= Math.min(endPage, nextPaginationStartPage); i += 1) {
       void queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
-          month, page: i, sortBy, searchBy, keyword,
+          month, page: i, sortBy, searchBy, keyword, filterOptions,
         }],
-        () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, i, sortBy, searchBy, keyword); },
+        () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, i, sortBy, searchBy, keyword, filterOptions); },
       );
     }
 
@@ -91,12 +93,12 @@ const useAdminDashboard = (
     if (prevPaginationstartPage >= 1) {
       void queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ADMIN, "dashboard", "table", {
-          month, page: prevPaginationstartPage, sortBy, searchBy, keyword,
+          month, page: prevPaginationstartPage, sortBy, searchBy, keyword, filterOptions,
         }],
-        () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, prevPaginationstartPage, sortBy, searchBy, keyword); },
+        () => { return getDashboardTable(DASHBOARD_TYPE.ADMIN, month, prevPaginationstartPage, sortBy, searchBy, keyword, filterOptions); },
       );
     }
-  }, [keyword, month, page, queries, queryClient, searchBy, sortBy]);
+  }, [keyword, month, page, queries, queryClient, searchBy, sortBy, filterOptions]);
 
   return queries;
 };

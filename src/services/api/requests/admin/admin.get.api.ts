@@ -1,3 +1,5 @@
+import { IFilterOptions } from "@/components/common/Filter/Filter.type";
+
 import {
   IGetAdminAccountsResponse,
   IGetAdminDashboardResponse,
@@ -41,10 +43,22 @@ export const getAdminDashboardTable = async (
   sortBy: string | null,
   searchBy: string,
   keyword: string | null,
+  filterOptions: IFilterOptions,
 ) => {
-  const response = await getRequest<IGetAdminTrackTransactionResponse>(
-    `/admin/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${keyword ?? ""}`,
-  );
+  let response;
+  if (Object.keys(filterOptions).length) {
+    const {
+      mId, revFr, revTo, netFr, netTo, setFr, setTo, comFr, comTo,
+    } = filterOptions;
+    response = await getRequest<IGetAdminTrackTransactionResponse>(
+      `/admin/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${keyword}`
+      + `&memberId=${mId}&revenueFrom=${revFr}&revenueTo=${revTo}&netIncomeFrom=${netFr}0&netIncomeTo=${netTo}&settlementFrom=${setFr}&settlementTo=${setTo}&commissionRateFrom=${comFr}&commissionRateTo=${comTo}`,
+    );
+  } else {
+    response = await getRequest<IGetAdminTrackTransactionResponse>(
+      `/admin/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${keyword}`,
+    );
+  }
   return response;
 };
 
