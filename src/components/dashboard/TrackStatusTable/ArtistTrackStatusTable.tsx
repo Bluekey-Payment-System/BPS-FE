@@ -1,3 +1,5 @@
+/* eslint-disable function-call-argument-newline */
+/* eslint-disable function-paren-newline */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable max-len */
 import { useState, useRef } from "react";
@@ -7,6 +9,7 @@ import { useRouter } from "next/router";
 
 import Dropdown from "@/components/common/Dropdown/Dropdown";
 import Filter from "@/components/common/Filter/Filter";
+import { IFilterOptions } from "@/components/common/Filter/Filter.type";
 import Spacing from "@/components/common/Layouts/Spacing";
 import ProgressBar from "@/components/common/ProgressBar/ProgressBar";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
@@ -73,6 +76,24 @@ const ArtistTrackStatusTable = ({
     ), undefined, { scroll: false });
   };
 
+  const handleSubmitFilter = (options: IFilterOptions) => {
+    const {
+      mId, revFr, revTo, netFr, netTo, setFr, setTo, comFr, comTo,
+    } = options;
+    router.push(updateQueryParam(
+      router.query,
+      "mId", mId,
+      "revFr", revFr,
+      "revTo", revTo,
+      "netFr", netFr,
+      "netTo", netTo,
+      "setFr", setFr,
+      "setTo", setTo,
+      "comFr", comFr,
+      "comTo", comTo,
+      "page", 1), undefined, { scroll: false });
+  };
+
   return (
     <section className={cx("container")}>
       <div className={cx("titleContainer")}>
@@ -84,7 +105,7 @@ const ArtistTrackStatusTable = ({
             onClick={handleClickSortByDropdown}
           />
           <Spacing direction="horizontal" size={18} />
-          <Filter />
+          <Filter onSubmit={handleSubmitFilter} />
           <Spacing direction="horizontal" size={32} />
           <Dropdown
             theme="withSearchBar"

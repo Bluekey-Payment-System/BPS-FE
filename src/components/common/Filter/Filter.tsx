@@ -9,10 +9,11 @@ import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import Modal from "../Modals/Modal";
 
 import styles from "./Filter.module.scss";
+import { IFilterOptions } from "./Filter.type";
 
 const cx = classNames.bind(styles);
 
-const Filter = () => {
+const Filter = ({ onSubmit }: { onSubmit: (options: IFilterOptions) => void }) => {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -22,7 +23,7 @@ const Filter = () => {
       </button>
       <Modal type={MODAL_TYPE.FORM} open={open} onClose={() => { setOpen(false); }}>
         <div style={{ position: "relative" }}>
-          <FilterForm onSubmitSuccess={() => { setOpen(false); }} />
+          <FilterForm onSubmit={onSubmit} onSubmitSuccess={() => { setOpen(false); }} />
           <button
             className={cx("closeBtn")}
             onClick={() => { setOpen(false); }}
