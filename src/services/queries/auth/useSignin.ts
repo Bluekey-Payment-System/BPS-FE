@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { useMutation } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
 import { useRouter } from "next/router";
 
-import useAlertModal from "@/hooks/useAlertModal";
+import useAlertModal, { IShowAlertModalParam } from "@/hooks/useAlertModal";
 import useLazyQuery from "@/hooks/useLazyQuery";
 import { useAppDispatch } from "@/redux/hooks";
 import { setUser } from "@/redux/slices/userSlice";
@@ -14,10 +15,20 @@ import {
   IPostArtistSignInRequest,
   IPostArtistSignInResponse,
 } from "@/services/api/types/auth";
+import { ICommonErrorResponse } from "@/services/api/types/global";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_ROLE, MEMBER_TYPE, MemberType } from "@/types/enums/user.enum";
 import { setCookie } from "@/utils/cookies";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
+import { isCommonError } from "@/utils/type.predicates";
+
+const getErrorModalInfo = (message: string, title = "권한 요청 에러"): IShowAlertModalParam => {
+  return {
+    type: MODAL_TYPE.ERROR,
+    title,
+    message,
+  };
+};
 
 const useAdminSignin = () => {
   const dispatch = useAppDispatch();
@@ -47,12 +58,13 @@ const useAdminSignin = () => {
           router.push(`/admin/dashboard/${getLatestYearMonthString()}`);
         }
       },
-      onError: () => {
-        showAlertModal({
-          type: MODAL_TYPE.ERROR,
-          title: "로그인 실패",
-          message: "아이디와 비밀번호를 확인하세요",
-        });
+      onError: (err) => {
+        if (isAxiosError<ICommonErrorResponse>(err)) {
+          if (isCommonError(err.response?.data)) {
+            const errMessage = err.response?.data.code === "AU_002" ? err.response?.data.message : "아이디와 비밀번호를 확인하세요.";
+            showAlertModal(getErrorModalInfo(errMessage, "로그인 실패"));
+          }
+        } else console.error(err);
       },
     },
   );
@@ -79,12 +91,12 @@ const useArtistSignin = () => {
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         router.push(`/artists/${data.member.memberId}/dashboard/${getLatestYearMonthString()}`);
       },
-      onError: () => {
-        showAlertModal({
-          type: MODAL_TYPE.ERROR,
-          title: "로그인 실패",
-          message: "아이디와 비밀번호를 확인하세요",
-        });
+      onError: (err) => {
+        if (isAxiosError<ICommonErrorResponse>(err)) {
+          if (isCommonError(err.response?.data)) {
+            showAlertModal(getErrorModalInfo(err.response?.data.message ?? "알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도하세요.", "로그인 실패"));
+          }
+        } else console.error(err);
       },
     },
   );
