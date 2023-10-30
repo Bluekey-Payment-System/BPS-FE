@@ -6,7 +6,7 @@ import Button from "@/components/common/CommonBtns/Button/Button";
 import FallbackPageLayout from "@/components/layout/FallbackPageLayout";
 import useToast from "@/hooks/useToast";
 import { resetUser } from "@/redux/slices/userSlice";
-import { useRequestAuthority } from "@/services/queries/notification-controller/useRequestAuthority";
+import { useRequestAuthority } from "@/services/queries/notification-controller/useRequestAuthorities";
 import { removeCookie } from "@/utils/cookies";
 
 const AdminRejectedPage = () => {
