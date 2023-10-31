@@ -33,7 +33,7 @@ const PCGNB = ({
   const profileURL = (type === MEMBER_TYPE.ADMIN)
     ? "/admin/my-profile"
     : `/artists/${memberId}/my-profile`;
-  const { data: hasCheckPendingStatus } = useCheckPendingStatus();
+  const { data: hasCheckPendingStatus } = useCheckPendingStatus(role);
 
   return (
     <div className={cx("container")}>
