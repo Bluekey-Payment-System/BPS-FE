@@ -5,6 +5,7 @@ import React, {
 import classNames from "classnames/bind";
 
 import styles from "./MultiRangeSlider.module.scss";
+import { ISliderRefsObj } from "./MultiRangeSlider.type";
 import { getPercent } from "./MultiRangeSlider.util";
 
 const cx = classNames.bind(styles);
@@ -14,16 +15,17 @@ interface MultiRangeSliderProps {
   max: number;
   initialMinValue?: number;
   initialMaxValue?: number;
-  onChangeValue: (min: number, max: number) => void;
 }
 
-const MultiRangeSlider = ({
-  min, max, initialMinValue, initialMaxValue, onChangeValue,
-}: MultiRangeSliderProps) => {
+const MultiRangeSlider = (
+  {
+    min, max, initialMinValue, initialMaxValue,
+  }: MultiRangeSliderProps,
+  ref: React.ForwardedRef<ISliderRefsObj>,
+) => {
   const [minVal, setMinVal] = useState(initialMinValue || min);
   const [maxVal, setMaxVal] = useState(initialMaxValue || max);
-  const minValRef = useRef(min);
-  const maxValRef = useRef(max);
+  const { current } = ref as React.MutableRefObject<ISliderRefsObj>;
   const range = useRef<HTMLDivElement>(null);
   const leftValRef = useRef<HTMLDivElement>(null);
   const rightValRef = useRef<HTMLDivElement>(null);
@@ -48,10 +50,6 @@ const MultiRangeSlider = ({
     }
   }, [minVal, maxVal, min, max]);
 
-  useEffect(() => {
-    onChangeValue(minVal, maxVal);
-  }, [minVal, maxVal, onChangeValue]);
-
   return (
     <div className={cx("container")}>
       <input
@@ -62,10 +60,12 @@ const MultiRangeSlider = ({
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
           const value = Math.min(Number(e.target.value), maxVal - 1);
           setMinVal(value);
-          minValRef.current = value;
         }}
         className={cx("thumb", "left")}
         style={{ zIndex: minVal > max - 100 ? "5" : "3" }}
+        ref={(el) => {
+          current.comFrRef = el;
+        }}
       />
       <input
         type="range"
@@ -75,9 +75,11 @@ const MultiRangeSlider = ({
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
           const value = Math.max(Number(e.target.value), minVal + 1);
           setMaxVal(value);
-          maxValRef.current = value;
         }}
         className={cx("thumb", "right")}
+        ref={(el) => {
+          current.comToRef = el;
+        }}
       />
       <div className={cx("slider")}>
         <div className={cx("track")} />
@@ -89,4 +91,4 @@ const MultiRangeSlider = ({
   );
 };
 
-export default MultiRangeSlider;
+export default React.forwardRef<ISliderRefsObj, MultiRangeSliderProps>(MultiRangeSlider);
