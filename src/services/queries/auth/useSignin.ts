@@ -16,6 +16,7 @@ import {
   IPostArtistSignInResponse,
 } from "@/services/api/types/auth";
 import { ICommonErrorResponse } from "@/services/api/types/global";
+import { REQUEST_AUTHORITY_STATUS } from "@/types/enums/authority.enum";
 import { MEMBER_ROLE, MEMBER_TYPE, MemberType } from "@/types/enums/user.enum";
 import { setCookie } from "@/utils/cookies";
 import getErrorModalInfo from "@/utils/getErrorModalInfo";
@@ -39,9 +40,9 @@ const useAdminSignin = () => {
           // httpOnly: true,
         });
         dispatch(setUser(data.member));
-        if (data.member.role === "PENDING") {
+        if (data.member.role === REQUEST_AUTHORITY_STATUS.PENDING) {
           router.push("/admin/signin/pending");
-        } else if (data.member.role === "REJECTED") {
+        } else if (data.member.role === REQUEST_AUTHORITY_STATUS.REJECTED) {
           router.push("/admin/signin/rejected");
         } else {
           // eslint-disable-next-line no-void, @typescript-eslint/no-floating-promises
