@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState, useCallback } from "react";
+import { useState, useRef } from "react";
 
 import classNames from "classnames/bind";
 import { useRouter } from "next/router";
@@ -14,6 +14,7 @@ import { IFilterOptions } from "../Filter.type";
 
 import styles from "./FilterForm.module.scss";
 import MultiRangeSlider from "./MultiRangeSlider";
+import { ISliderRefsObj } from "./MultiRangeSlider.type";
 
 const cx = classNames.bind(styles);
 
@@ -48,61 +49,80 @@ const FilterForm = ({ onSubmit, onSubmitSuccess }: FilterFormProps) => {
   } = router.query;
   const initialOptions = {
     mId, revFr, revTo, netFr, netTo, setFr, setTo, comFr, comTo,
-  };
-  const [options, setOptions] = useState(initialOptions as IFilterOptions);
+  } as IFilterOptions;
+  const [mIdValue, setMIdValue] = useState(initialOptions.mId);
+  const revFrRef = useRef<HTMLInputElement>(null);
+  const revToRef = useRef<HTMLInputElement>(null);
+  const netFrRef = useRef<HTMLInputElement>(null);
+  const netToRef = useRef<HTMLInputElement>(null);
+  const setFrRef = useRef<HTMLInputElement>(null);
+  const setToRef = useRef<HTMLInputElement>(null);
+  const comRefs = useRef<ISliderRefsObj>({
+    comFrRef: null,
+    comToRef: null,
+  });
 
-  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOptions((prevOptions) => { return { ...prevOptions, [e.target.name]: e.target.value }; });
+  const handleSubmitFilterForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const options = {
+      mId: mIdValue,
+      revFr: revFrRef.current?.value ?? "",
+      revTo: revToRef.current?.value ?? "",
+      netFr: netFrRef.current?.value ?? "",
+      netTo: netToRef.current?.value ?? "",
+      setFr: setFrRef.current?.value ?? "",
+      setTo: setToRef.current?.value ?? "",
+      comFr: comRefs.current.comFrRef?.value ?? "",
+      comTo: comRefs.current.comToRef?.value ?? "",
+    };
+    onSubmit(options);
+    onSubmitSuccess();
   };
-
-  const handleChangeComRatioRange = useCallback((min: number, max: number) => {
-    setOptions((prevOptions) => { return { ...prevOptions, comFr: String(min), comTo: String(max) }; });
-  }, []);
 
   return (
-    <form className={cx("container")} onSubmit={(e) => { e.preventDefault(); onSubmit(options); onSubmitSuccess(); }}>
+    <form className={cx("container")} onSubmit={handleSubmitFilterForm}>
       <h2 className={cx("formHeading")}>
         필터
       </h2>
       <div className={cx("formBody")}>
         <div className={cx("row")}>
           <label htmlFor="memberId">
-            <input type="hidden" name="memberId" />
+            <input type="hidden" name="memberId" value={mIdValue} />
             아티스트명
           </label>
           <div className={cx("inputArea")}>
             <Dropdown
               hasSearchBar
               dropdownListData={artistList}
-              onClick={(value) => { setOptions((prevOptions) => { return { ...prevOptions, mId: String(value.id) }; }); }}
-              initialValue={artistList.find((artist) => { return artist.id === Number(options.mId); })}
+              onClick={(value) => { return setMIdValue(String(value.id)); }}
+              initialValue={artistList.find((artist) => { return artist.id === Number(initialOptions.mId); })}
             />
           </div>
         </div>
         <div className={cx("row")}>
           <label>매출액</label>
           <div className={cx("inputArea")}>
-            <input type="number" className={cx("rangeField")} placeholder="최소 금액" name="revFr" value={options.revFr} onChange={handleChangeInput} />
+            <input type="number" className={cx("rangeField")} placeholder="최소 금액" ref={revFrRef} defaultValue={initialOptions.revFr} />
             <span>원 ~</span>
-            <input type="number" className={cx("rangeField")} placeholder="최대 금액" name="revTo" value={options.revTo} onChange={handleChangeInput} />
+            <input type="number" className={cx("rangeField")} placeholder="최대 금액" ref={revToRef} defaultValue={initialOptions.revTo} />
             <span>원</span>
           </div>
         </div>
         <div className={cx("row")}>
           <label>회사이익</label>
           <div className={cx("inputArea")}>
-            <input type="number" className={cx("rangeField")} placeholder="최소 금액" name="netFr" value={options.netFr} onChange={handleChangeInput} />
+            <input type="number" className={cx("rangeField")} placeholder="최소 금액" ref={netFrRef} defaultValue={initialOptions.netFr} />
             <span>원 ~</span>
-            <input type="number" className={cx("rangeField")} placeholder="최대 금액" name="netTo" value={options.netTo} onChange={handleChangeInput} />
+            <input type="number" className={cx("rangeField")} placeholder="최대 금액" ref={netToRef} defaultValue={initialOptions.netTo} />
             <span>원</span>
           </div>
         </div>
         <div className={cx("row")}>
           <label>정산액</label>
           <div className={cx("inputArea")}>
-            <input type="number" className={cx("rangeField")} placeholder="최소 금액" name="setFr" value={options.setFr} onChange={handleChangeInput} />
+            <input type="number" className={cx("rangeField")} placeholder="최소 금액" ref={setFrRef} defaultValue={initialOptions.setFr} />
             <span>원 ~</span>
-            <input type="number" className={cx("rangeField")} placeholder="최대 금액" name="setTo" value={options.setTo} onChange={handleChangeInput} />
+            <input type="number" className={cx("rangeField")} placeholder="최대 금액" ref={setToRef} defaultValue={initialOptions.setTo} />
             <span>원</span>
           </div>
         </div>
@@ -110,7 +130,7 @@ const FilterForm = ({ onSubmit, onSubmitSuccess }: FilterFormProps) => {
           <label>요율</label>
           <div className={cx("inputArea", "commissionRate")}>
             <div className={cx("sliderContainer")}>
-              <MultiRangeSlider min={0} max={100} initialMinValue={Number(options.comFr)} initialMaxValue={Number(options.comTo)} onChangeValue={handleChangeComRatioRange} />
+              <MultiRangeSlider min={0} max={100} initialMinValue={Number(initialOptions.comFr)} initialMaxValue={Number(initialOptions.comTo)} ref={comRefs} />
             </div>
           </div>
         </div>
