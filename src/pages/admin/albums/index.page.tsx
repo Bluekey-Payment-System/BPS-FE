@@ -11,7 +11,7 @@ import styles from "./index.module.scss";
 
 interface ServerSidePageProps {
   page: number,
-  keyword: string | null,
+  keyword: string,
 }
 
 const cx = classNames.bind(styles);
@@ -34,18 +34,24 @@ const AdminAlbumListPage = (
   }
 
   return (
-    <AlbumListSection albumList={albumsData!.contents} userType={MEMBER_TYPE.ADMIN} page={page} keyword={keyword ?? ""} totalAlbumItems={albumsData!.totalItems} />
+    <AlbumListSection
+      albumList={albumsData!.contents}
+      userType={MEMBER_TYPE.ADMIN}
+      page={page}
+      keyword={keyword}
+      totalAlbumItems={albumsData!.totalItems}
+    />
   );
 };
 
 // eslint-disable-next-line @typescript-eslint/require-await
 const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { page, keyword } = query;
+  const { page, keyword = "" } = query;
 
   return {
     props: {
       page: convertPageParamToNum(page as string || null),
-      keyword: keyword || null,
+      keyword,
     },
   };
 };

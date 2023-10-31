@@ -12,7 +12,7 @@ import styles from "./index.module.scss";
 interface ServerSidePageProps {
   memberId: number,
   page: number,
-  keyword: string | null,
+  keyword: string,
 }
 
 const cx = classNames.bind(styles);
@@ -35,19 +35,25 @@ const ArtistAlbumListPage = (
   }
 
   return (
-    <AlbumListSection albumList={albumsData!.contents} userType={MEMBER_TYPE.USER} page={page} keyword={keyword ?? ""} totalAlbumItems={albumsData!.totalItems} />
+    <AlbumListSection
+      albumList={albumsData!.contents}
+      userType={MEMBER_TYPE.USER}
+      page={page}
+      keyword={keyword}
+      totalAlbumItems={albumsData!.totalItems}
+    />
   );
 };
 
 // eslint-disable-next-line @typescript-eslint/require-await
 const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { artistId, page, keyword } = query;
+  const { artistId, page, keyword = "" } = query;
 
   return {
     props: {
       memberId: Number(artistId),
       page: convertPageParamToNum(page as string || null),
-      keyword: keyword || null,
+      keyword,
     },
   };
 };

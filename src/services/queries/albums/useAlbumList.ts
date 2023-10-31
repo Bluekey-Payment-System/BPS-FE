@@ -8,7 +8,7 @@ import { ITEMS_PER_ALBUM_LIST, PAGES_PER_PAGINATION } from "@/constants/paginati
 import { getAlbums } from "@/services/api/requests/albums/albums.get.api";
 import { MemberType } from "@/types/enums/user.enum";
 
-const useAlbums = (type: MemberType, page: number, keyword: string | null, memberId?: number) => {
+const useAlbums = (type: MemberType, page: number, keyword: string, memberId?: number) => {
   const query = useQuery(
     [type, "albums", `memberId=${memberId}`, { page, keyword }],
     () => { return getAlbums(page, ITEMS_PER_ALBUM_LIST, keyword); },
