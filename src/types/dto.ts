@@ -86,7 +86,7 @@ export interface ITrackParticipantInfo {
 }
 
 export interface ITrackInfo extends ITrack {
-  isOriginalTrack: boolean,
+  originalTrack: boolean,
   artists: ITrackParticipantInfo[],
 }
 
