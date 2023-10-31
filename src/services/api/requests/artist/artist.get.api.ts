@@ -17,10 +17,10 @@ export const getArtistsStatus = async (
   month: string,
   page: number,
   size: number,
-  keyword: string | null,
+  keyword: string,
 ) => {
   const response = await getRequest<IGetArtistsResponse>(
-    `/artists?page=${page - 1}&size=${size}&monthly=${month}&keyword=${keyword ?? ""}`,
+    `/artists?page=${page - 1}&size=${size}&monthly=${month}&keyword=${encodeURIComponent(keyword)}`,
   );
   return response;
 };
@@ -29,11 +29,11 @@ export const getArtistsStatus = async (
 export const getArtistAlbums = async (
   page: number,
   size: number,
-  keyword: string | null,
+  keyword: string,
   memberId: number,
 ) => {
   const response = await getRequest<IGetArtistAlbumsResponse>(
-    `/artists/${memberId}/albums?page=${page - 1}&size=${size}&keyword=${keyword ?? ""}`,
+    `/artists/${memberId}/albums?page=${page - 1}&size=${size}&keyword=${encodeURIComponent(keyword)}`,
   );
   return response;
 };
@@ -65,9 +65,9 @@ export const getArtistDashboardTable = async (
   month: string,
   page: number,
   size: number,
-  sortBy: string | null,
+  sortBy: string,
   searchBy: string,
-  keyword: string | null,
+  keyword: string,
   filterOptions: IFilterOptions,
   artistId: number,
 ) => {
@@ -77,12 +77,12 @@ export const getArtistDashboardTable = async (
       mId, revFr, revTo, netFr, netTo, setFr, setTo, comFr, comTo,
     } = filterOptions;
     response = await getRequest<IGetArtistTrackTransactionResponse>(
-      `/artists/${artistId}/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${keyword}`
+      `/artists/${artistId}/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${encodeURIComponent(keyword)}`
       + `&memberId=${mId}&revenueFrom=${revFr}&revenueTo=${revTo}&netIncomeFrom=${netFr}0&netIncomeTo=${netTo}&settlementFrom=${setFr}&settlementTo=${setTo}&commissionRateFrom=${comFr}&commissionRateTo=${comTo}`,
     );
   } else {
     response = await getRequest<IGetArtistTrackTransactionResponse>(
-      `/artists/${artistId}/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${keyword}`,
+      `/artists/${artistId}/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${encodeURIComponent(keyword)}`,
     );
   }
   return response;

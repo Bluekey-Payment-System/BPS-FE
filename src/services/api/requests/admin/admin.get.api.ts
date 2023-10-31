@@ -40,9 +40,9 @@ export const getAdminDashboardTable = async (
   month: string,
   page: number,
   size: number,
-  sortBy: string | null,
+  sortBy: string,
   searchBy: string,
-  keyword: string | null,
+  keyword: string,
   filterOptions: IFilterOptions,
 ) => {
   let response;
@@ -51,12 +51,12 @@ export const getAdminDashboardTable = async (
       mId, revFr, revTo, netFr, netTo, setFr, setTo, comFr, comTo,
     } = filterOptions;
     response = await getRequest<IGetAdminTrackTransactionResponse>(
-      `/admin/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${keyword}`
+      `/admin/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${encodeURIComponent(keyword)}`
       + `&memberId=${mId}&revenueFrom=${revFr}&revenueTo=${revTo}&netIncomeFrom=${netFr}0&netIncomeTo=${netTo}&settlementFrom=${setFr}&settlementTo=${setTo}&commissionRateFrom=${comFr}&commissionRateTo=${comTo}`,
     );
   } else {
     response = await getRequest<IGetAdminTrackTransactionResponse>(
-      `/admin/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${keyword}`,
+      `/admin/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${encodeURIComponent(keyword)}`,
     );
   }
   return response;
