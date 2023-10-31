@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { useRouter } from "next/router";
 
-import useAlertModal, { IShowAlertModalParam } from "@/hooks/useAlertModal";
+import useAlertModal from "@/hooks/useAlertModal";
 import useLazyQuery from "@/hooks/useLazyQuery";
 import { useAppDispatch } from "@/redux/hooks";
 import { setUser } from "@/redux/slices/userSlice";
@@ -16,19 +16,11 @@ import {
   IPostArtistSignInResponse,
 } from "@/services/api/types/auth";
 import { ICommonErrorResponse } from "@/services/api/types/global";
-import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_ROLE, MEMBER_TYPE, MemberType } from "@/types/enums/user.enum";
 import { setCookie } from "@/utils/cookies";
+import getErrorModalInfo from "@/utils/getErrorModalInfo";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
 import { isCommonError } from "@/utils/type.predicates";
-
-const getErrorModalInfo = (message: string, title = "권한 요청 에러"): IShowAlertModalParam => {
-  return {
-    type: MODAL_TYPE.ERROR,
-    title,
-    message,
-  };
-};
 
 const useAdminSignin = () => {
   const dispatch = useAppDispatch();

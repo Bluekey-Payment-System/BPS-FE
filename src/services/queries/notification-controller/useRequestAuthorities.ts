@@ -3,24 +3,16 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 
-import useAlertModal, { IShowAlertModalParam } from "@/hooks/useAlertModal";
+import useAlertModal from "@/hooks/useAlertModal";
 import useToast from "@/hooks/useToast";
 import { getRequestAuthoritiesList } from "@/services/api/requests/notification-controller/notification-controller.get.api";
 import { patchApproveAuthorityRequest, patchRejectAuthorityRequest } from "@/services/api/requests/notification-controller/notification-controller.patch.api";
 import { postRequestAuthority } from "@/services/api/requests/notification-controller/notification-controller.post.api";
 import { ICommonErrorResponse } from "@/services/api/types/global";
 import { IGetRequestAuthorities, IPatchAuthorityResponse } from "@/services/api/types/notification-contoller";
-import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_ROLE } from "@/types/enums/user.enum";
+import getErrorModalInfo from "@/utils/getErrorModalInfo";
 import { isCommonError } from "@/utils/type.predicates";
-
-const getErrorModalInfo = (message: string, title = "권한 요청 에러"): IShowAlertModalParam => {
-  return {
-    type: MODAL_TYPE.ERROR,
-    title,
-    message,
-  };
-};
 
 /* 권한 요청 리스트 가져오기 */
 export const useRequestAuthoritiesList = () => {
