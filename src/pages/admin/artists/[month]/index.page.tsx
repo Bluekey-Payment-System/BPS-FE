@@ -23,7 +23,7 @@ import styles from "./index.module.scss";
 interface ArtistsStatusPageProps {
   month: string,
   page: number,
-  keyword: string | null,
+  keyword: string,
 }
 
 const cx = classNames.bind(styles);
@@ -107,13 +107,13 @@ interface ArtistsStatusPageQuery extends ParsedUrlQuery {
 
 // eslint-disable-next-line @typescript-eslint/require-await
 const getServerSideProps: GetServerSideProps<ArtistsStatusPageProps> = async ({ query }) => {
-  const { month, page, keyword } = query as ArtistsStatusPageQuery;
+  const { month, page, keyword = "" } = query as ArtistsStatusPageQuery;
 
   return {
     props: {
       month,
       page: convertPageParamToNum(page || null),
-      keyword: keyword || null,
+      keyword,
     },
   };
 };
