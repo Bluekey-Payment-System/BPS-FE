@@ -9,8 +9,8 @@ import {
 import { getRequest } from "../requests.api";
 
 /* 앨범 리스트 조회 */
-export const getAlbums = async (page: number, size: number, keyword: string | null) => {
-  const response = getRequest<IGetAlbumsResponse>(`/albums?page=${page - 1}&size=${size}&keyword=${keyword ?? ""}`);
+export const getAlbums = async (page: number, size: number, keyword: string) => {
+  const response = getRequest<IGetAlbumsResponse>(`/albums?page=${page - 1}&size=${size}&keyword=${encodeURIComponent(keyword)}`);
   return response;
 };
 
