@@ -2,7 +2,7 @@ import {
   IAdminProfile, IAdminSignup, IProfile, ISignIn,
 } from "@/types/dto";
 import {
-  AdminRole, AdminType, ArtistRole, UserType,
+  AdminRole, AdminType, ArtistRole, UnknownRole, UserType,
 } from "@/types/enums/user.enum";
 
 export interface IPostAdminSignInRequest extends ISignIn {
@@ -33,7 +33,7 @@ interface IAdminSignInInfo extends ICommonSignInInfo {
   email: string,
   nickname: string,
   type: AdminType, // 기존의 MEMBER_TYPE과의 관계가 불분명한 것 같고 사용하는 쪽이 아직 없어 enum 처리 안함
-  role: AdminRole,
+  role: AdminRole | UnknownRole,
 }
 
 interface IArtistSignInInfo extends ICommonSignInInfo {

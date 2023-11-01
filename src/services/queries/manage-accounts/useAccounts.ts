@@ -6,9 +6,11 @@ import { useQueries, useQueryClient } from "@tanstack/react-query";
 
 import { ITEMS_PER_ACCOUNTS_TABLE, PAGES_PER_PAGINATION } from "@/constants/pagination";
 import { getAdminAccounts, getArtistAccounts } from "@/services/api/requests/admin/admin.get.api";
-import { MEMBER_ROLE, MEMBER_TYPE, MemberRole } from "@/types/enums/user.enum";
+import {
+  MEMBER_ROLE, MEMBER_TYPE, MemberRole, UnknownRole,
+} from "@/types/enums/user.enum";
 
-const useAccounts = (artistPage: number, adminPage: number, memberRole: MemberRole) => {
+const useAccounts = (artistPage: number, adminPage: number, memberRole: MemberRole | UnknownRole) => {
   const queries = useQueries({
     queries: [
       {

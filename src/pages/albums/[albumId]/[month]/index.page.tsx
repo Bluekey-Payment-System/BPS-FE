@@ -16,7 +16,7 @@ import MonthlyTrendChart from "@/components/dashboard/MonthlyTrendsChart/Monthly
 import TopFiveRevenueChart from "@/components/dashboard/TopFiveRevenueChart/TopFiveRevenueChart";
 import { useAppSelector } from "@/redux/hooks";
 import useAlbumDashboard from "@/services/queries/dashboard/useAlbumDashboard";
-import { MEMBER_ROLE } from "@/types/enums/user.enum";
+import { MEMBER_ROLE, MemberRole } from "@/types/enums/user.enum";
 
 import styles from "./index.module.scss";
 
@@ -57,12 +57,12 @@ const AlbumDashboardPage = ({ month, albumId }: InferGetServerSidePropsType<GetS
       </div>
       <DashboardCardList data={cardQuery.data!.cards} />
       <div className={cx("chartContainer")}>
-        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={memberRole} />
+        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={memberRole as MemberRole} />
         <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
       </div>
       <AlbumTrendsChart
         albumTrendsChartData={albumTrendsChartQuery.data!}
-        memberRole={memberRole}
+        memberRole={memberRole as MemberRole}
       />
       <AlbumInfoModal
         data={albumInfoQuery.data!}

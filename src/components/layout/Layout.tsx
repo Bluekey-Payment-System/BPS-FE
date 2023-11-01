@@ -3,6 +3,7 @@ import { useState } from "react";
 import classNames from "classnames/bind";
 
 import { useAppSelector } from "@/redux/hooks";
+import { MemberRole } from "@/types/enums/user.enum";
 
 import GNB from "./GNB/GNB";
 import styles from "./Layout.module.scss";
@@ -16,7 +17,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <GNB
-        role={userInfo.role}
+        role={userInfo.role as MemberRole}
         loginId={userInfo.loginId}
         profileImage={userInfo.profileImage}
         onClickMenu={setIsOpen}
@@ -25,7 +26,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <SideNav
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          role={userInfo.role}
+          role={userInfo.role as MemberRole}
           memberId={userInfo.memberId}
         />
         <div className={cx("content")}>

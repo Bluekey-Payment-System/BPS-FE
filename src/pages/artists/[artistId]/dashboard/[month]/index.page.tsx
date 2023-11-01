@@ -22,6 +22,7 @@ import { getDashboardTopFiveRevenueChart } from "@/services/queries/dashboard/qu
 import { getDashboardTrendsChart } from "@/services/queries/dashboard/queryFns/trendsChart";
 import useArtistDashboard from "@/services/queries/dashboard/useArtistDashboard";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
+import { MemberRole } from "@/types/enums/user.enum";
 import convertPageParamToNum from "@/utils/convertPageParamToNum";
 
 import styles from "./index.module.scss";
@@ -63,7 +64,7 @@ const ArtistDashboardPage = ({
     <MainLayoutWithDropdown title={cardQuery.data!.artistName} dropdownElement={<MonthPickerDropdown />}>
       <DashboardCardList data={cardQuery.data!.cards} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={memberRole} />
+        <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={memberRole as MemberRole} />
         <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
       </div>
       {isTableLoading

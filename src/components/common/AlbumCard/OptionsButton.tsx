@@ -5,20 +5,19 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import Popover from "@/components/common/Popover/Popover";
-import useToast from "@/hooks/useToast";
+import useDeleteAlbum from "@/services/queries/albums/useDeleteAlbum";
 
 import styles from "./OptionsButton.module.scss";
 
 interface OptionsButtonProps {
   albumId: number,
-  albumTitle: string
 }
 
 const cx = classNames.bind(styles);
 
-const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
+const OptionsButton = ({ albumId }: OptionsButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { showToast } = useToast();
+  const { mutate: deleteAlbum } = useDeleteAlbum();
 
   const router = useRouter();
 
@@ -41,8 +40,7 @@ const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
     e.stopPropagation();
     e.preventDefault();
 
-    /* 테스트 */
-    showToast(`"(${albumId}): ${albumTitle}" 앨범 삭제 확인 모달 띄우기`);
+    deleteAlbum(albumId);
     setIsOpen(false);
   };
 
