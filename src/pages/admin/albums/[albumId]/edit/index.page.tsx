@@ -28,7 +28,7 @@ const AlbumEditPage = () => {
   const router = useRouter();
   const albumId = parseInt(router.query.albumId as string, 10);
   const { data, isLoading: isAlbumInfoLoading } = useAlbumInfo(albumId);
-  const { mutate, mutateAsync, isLoading: isUpdateLoading } = useUpdateAlbumInfo();
+  const { mutate, mutateAsync, isLoading: isUpdateLoading } = useUpdateAlbumInfo(albumId);
   const methods = useForm<IAlbumFieldValues>({
     mode: "onBlur",
     defaultValues: {
@@ -58,6 +58,7 @@ const AlbumEditPage = () => {
   const handleUploadImage = async (file: File) => {
     await mutateAsync({ ...methods.getValues(), albumImage: file });
   };
+
   return (
     <section className={ml("container")}>
       <h1 className={ml("title")}>앨범 수정</h1>
