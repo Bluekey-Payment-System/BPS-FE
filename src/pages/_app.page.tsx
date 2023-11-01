@@ -44,6 +44,11 @@ const App = ({ Component, ...rest }: AppProps<{ dehydratedState: DehydratedState
       || ["/admin/signup"].includes(rest.router.pathname)
       || ["/signin"].includes(rest.router.pathname)) { return <AuthPageLayout><Component {...rest.pageProps} /></AuthPageLayout>; }
 
+    if (["/admin/signin/pending"].includes(rest.router.pathname)
+    || ["/admin/signin/rejected"].includes(rest.router.pathname)) {
+      return <Component {...rest.pageProps} />;
+    }
+
     return (
       <Layout>
         <Component {...rest.pageProps} />

@@ -1,25 +1,17 @@
 /* eslint-disable no-void */
 import { useMutation } from "@tanstack/react-query";
 
-import useAlertModal, { IShowAlertModalParam } from "@/hooks/useAlertModal";
+import useAlertModal from "@/hooks/useAlertModal";
 import useToast from "@/hooks/useToast";
 import { useAppDispatch } from "@/redux/hooks";
 import { setUser } from "@/redux/slices/userSlice";
 import { patchAdminProfile } from "@/services/api/requests/admin/admin.patch.api";
 import { IPatchAdminProfileData, IPatchAdminProfileResponse } from "@/services/api/types/admin";
 import { IPatchArtistProfileData, IPatchArtistProfileResponse } from "@/services/api/types/artist";
-import { MODAL_TYPE } from "@/types/enums/modal.enum";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
+import getErrorModalInfo from "@/utils/getErrorModalInfo";
 
 import { patchArtistProfile } from "../../api/requests/artist/artist.patch.api";
-
-const getErrorModalInfo = (message: string, title = "프로필 수정 에러"): IShowAlertModalParam => {
-  return {
-    type: MODAL_TYPE.ERROR,
-    title,
-    message,
-  };
-};
 
 export const useUpdateAdminMyProfileInfo = () => {
   const dispatch = useAppDispatch();
@@ -39,7 +31,7 @@ export const useUpdateAdminMyProfileInfo = () => {
         dispatch(setUser({ ...data, type: MEMBER_TYPE.ADMIN }));
       },
       onError: () => {
-        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요."));
+        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요.", "프로필 업데이트 에러"));
       },
     },
   );
@@ -64,7 +56,7 @@ export const useUpdateAdminProfileImage = () => {
         dispatch(setUser({ ...data, type: MEMBER_TYPE.ADMIN }));
       },
       onError: () => {
-        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요."));
+        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요.", "프로필 이미지 업데이트 에러"));
       },
     },
   );
@@ -89,7 +81,7 @@ export const useUpdateArtistMyProfileInfo = () => {
         dispatch(setUser({ ...data, type: MEMBER_TYPE.USER }));
       },
       onError: () => {
-        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요."));
+        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요.", "프로필 업데이트 에러"));
       },
     },
   );
@@ -114,7 +106,7 @@ export const useUpdateArtistMyProfileImage = () => {
         dispatch(setUser({ ...data, type: MEMBER_TYPE.USER }));
       },
       onError: () => {
-        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요."));
+        showAlertModal(getErrorModalInfo("알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도해 주세요.", "프로필 이미지 업데이트 에러"));
       },
     },
   );
