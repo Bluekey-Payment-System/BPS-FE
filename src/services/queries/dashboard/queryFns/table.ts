@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { IFilterOptions } from "@/components/common/Filter/Filter.type";
 import { MOCK_ADMIN_TABLE, MOCK_ARTIST_TABLE } from "@/constants/mock";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
 import { getAdminDashboardTable } from "@/services/api/requests/admin/admin.get.api";
@@ -14,6 +15,7 @@ export const getDashboardTable = async (
   sortBy: string,
   searchBy: string,
   keyword: string,
+  filterOptions: IFilterOptions,
   artistId?: number,
 ) => {
   const data = (type === DASHBOARD_TYPE.ADMIN)
@@ -24,6 +26,7 @@ export const getDashboardTable = async (
       sortBy,
       searchBy,
       keyword,
+      filterOptions,
     )
     : await getArtistDashboardTable(
       month,
@@ -32,6 +35,7 @@ export const getDashboardTable = async (
       sortBy,
       searchBy,
       keyword,
+      filterOptions,
       artistId!,
     );
   return data;

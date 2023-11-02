@@ -1,6 +1,7 @@
+/* eslint-disable function-call-argument-newline */
+/* eslint-disable function-paren-newline */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useRef } from "react";
 
 import classNames from "classnames/bind";
@@ -8,6 +9,7 @@ import { useRouter } from "next/router";
 
 import Dropdown from "@/components/common/Dropdown/Dropdown";
 import Filter from "@/components/common/Filter/Filter";
+import { IFilterOptions } from "@/components/common/Filter/Filter.type";
 import Spacing from "@/components/common/Layouts/Spacing";
 import ProgressBar from "@/components/common/ProgressBar/ProgressBar";
 import SearchBar from "@/components/common/SearchBar/SearchBar";
@@ -17,6 +19,9 @@ import TableContainerUI from "@/components/common/Table/Composition/TableContain
 import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
+import {
+  REVERSE_SEARCH_BY_OPTIONS_MAP, REVERSE_SORT_BY_OPTIONS_MAP, SEARCH_BY_OPTIONS_MAP, SORT_BY_OPTIONS_MAP,
+} from "@/constants/trackStatusTable";
 import { ITrackTransaction } from "@/types/dto";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 import formatMoney from "@/utils/formatMoney";
@@ -33,21 +38,29 @@ interface AdminTrackStatusTableProps {
   data: ITrackTransaction[]
   isEmpty?: boolean
   paginationElement?: React.ReactNode
+  searchBy: string
+  sortBy: string
 }
 
 const AdminTrackStatusTable = ({
-  title, data, isEmpty = false, paginationElement,
+  title, data, isEmpty = false, paginationElement, searchBy, sortBy,
 }: AdminTrackStatusTableProps) => {
   const router = useRouter();
-  const [selectedValue, setSelectedValue] = useState(router.query?.searchBy === "albumName" ? "albumName" : "trackName");
+  const [searchByValue, setSearchByValue] = useState(SEARCH_BY_OPTIONS_MAP[searchBy] ?? "곡 명");
   const searchBarRef = useRef<HTMLInputElement>(null);
 
   const handleClickSortByDropdown = (value: string) => {
-    // TODO: 정렬 순서 쿼리 파람 변경
+    router.push(updateQueryParam(
+      router.query,
+      "sortBy",
+      REVERSE_SORT_BY_OPTIONS_MAP[value],
+      "page",
+      1,
+    ), undefined, { scroll: false });
   };
 
   const handleClickSearchByDropdown = (value: string) => {
-    setSelectedValue(value === "곡 명" ? "trackName" : "albumName");
+    setSearchByValue(value);
   };
 
   const handleClickSearchBar = (event: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
@@ -55,10 +68,30 @@ const AdminTrackStatusTable = ({
     router.push(updateQueryParam(
       router.query,
       "searchBy",
-      selectedValue,
+      REVERSE_SEARCH_BY_OPTIONS_MAP[searchByValue],
       "keyword",
       searchBarRef.current?.value ?? "",
+      "page",
+      1,
     ), undefined, { scroll: false });
+  };
+
+  const handleSubmitFilter = (options: IFilterOptions) => {
+    const {
+      mId, revFr, revTo, netFr, netTo, setFr, setTo, comFr, comTo,
+    } = options;
+    router.push(updateQueryParam(
+      router.query,
+      "mId", mId,
+      "revFr", revFr,
+      "revTo", revTo,
+      "netFr", netFr,
+      "netTo", netTo,
+      "setFr", setFr,
+      "setTo", setTo,
+      "comFr", comFr,
+      "comTo", comTo,
+      "page", 1), undefined, { scroll: false });
   };
 
   return (
@@ -67,14 +100,16 @@ const AdminTrackStatusTable = ({
         <h2 className={cx("title")}>{title}</h2>
         <div className={cx("utilContainer")}>
           <Dropdown
-            dropdownListData={["매출순", "회사 이익순", "정산액순", "요율순"]}
+            dropdownListData={Object.values(SORT_BY_OPTIONS_MAP)}
+            initialValue={SORT_BY_OPTIONS_MAP[sortBy] ?? "매출순"}
             onClick={handleClickSortByDropdown}
           />
           <Spacing direction="horizontal" size={18} />
-          <Filter />
+          <Filter onSubmit={handleSubmitFilter} />
           <Spacing direction="horizontal" size={32} />
           <Dropdown
-            dropdownListData={selectedValue === "albumName" ? ["앨범 명", "곡 명"] : ["곡 명", "앨범 명"]}
+            dropdownListData={Object.values(SEARCH_BY_OPTIONS_MAP)}
+            initialValue={searchByValue}
             theme="withSearchBar"
             onClick={handleClickSearchByDropdown}
           />
