@@ -38,7 +38,7 @@ interface AlbumFormProps {
 const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
   const artistList = useArtistList();
   const {
-    register, formState: { errors }, handleSubmit, setValue,
+    register, formState: { errors }, handleSubmit, setValue, watch,
   } = useFormContext<IAlbumFieldValues>();
 
   return (
@@ -73,6 +73,9 @@ const AlbumForm = ({ submitBtnText, onSubmit }: AlbumFormProps) => {
             onClick={(value) => {
               setValue("memberId", (value.id));
             }}
+            initialValue={artistList.find((item) => {
+              return item.id === watch("memberId");
+            })}
           />
           <input {...register("memberId")} type="hidden" />
           <Spacing size={14} />
