@@ -1,3 +1,5 @@
+import { IFilterOptions } from "@/components/common/Filter/Filter.type";
+
 import {
   IGetArtistAlbumsResponse,
   IGetArtistDashboardResponse,
@@ -66,11 +68,23 @@ export const getArtistDashboardTable = async (
   sortBy: string | null,
   searchBy: string,
   keyword: string | null,
-  memberId: number,
+  filterOptions: IFilterOptions,
+  artistId: number,
 ) => {
-  const response = await getRequest<IGetArtistTrackTransactionResponse>(
-    `/artists/${memberId}/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy ?? ""}&searchType=${searchBy}&keyword=${keyword ?? ""}`,
-  );
+  let response;
+  if (Object.keys(filterOptions).length) {
+    const {
+      mId, revFr, revTo, netFr, netTo, setFr, setTo, comFr, comTo,
+    } = filterOptions;
+    response = await getRequest<IGetArtistTrackTransactionResponse>(
+      `/artists/${artistId}/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${keyword}`
+      + `&memberId=${mId}&revenueFrom=${revFr}&revenueTo=${revTo}&netIncomeFrom=${netFr}0&netIncomeTo=${netTo}&settlementFrom=${setFr}&settlementTo=${setTo}&commissionRateFrom=${comFr}&commissionRateTo=${comTo}`,
+    );
+  } else {
+    response = await getRequest<IGetArtistTrackTransactionResponse>(
+      `/artists/${artistId}/dashboard/track?monthly=${month}&page=${page - 1}&size=${size}&sortBy=${sortBy}&searchType=${searchBy}&keyword=${keyword}`,
+    );
+  }
   return response;
 };
 

@@ -18,6 +18,15 @@ const useCreateArtist = () => {
           queryKey: [MEMBER_TYPE.ADMIN, "artists-status"],
           refetchType: "all",
         });
+        void queryClient.invalidateQueries({
+          predicate: (query) => {
+            const { queryKey } = query;
+            return (queryKey[0] === MEMBER_TYPE.ADMIN
+              && queryKey[1] === "manage-accounts"
+              && "artistPage" in (queryKey[2] as object));
+          },
+          refetchType: "all",
+        });
         const staleData = queryClient.getQueryData<IGetArtistsSimpleResponse>([MEMBER_ROLE.ARTIST, "names"]);
         if (staleData) {
           queryClient.setQueryData(

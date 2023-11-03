@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 import { useQueries, useQueryClient } from "@tanstack/react-query";
 
+import { IFilterOptions } from "@/components/common/Filter/Filter.type";
 import { PAGES_PER_PAGINATION } from "@/constants/pagination";
 import { DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
@@ -20,6 +21,7 @@ const useArtistDashboard = (
   searchBy: string,
   keyword: string,
   artistId: number,
+  filterOptions: IFilterOptions,
 ) => {
   const queries = useQueries({
     queries: [
@@ -43,10 +45,10 @@ const useArtistDashboard = (
       },
       {
         queryKey: [DASHBOARD_TYPE.ARTIST, "dashboard", "table", artistId, {
-          month, page, sortBy, searchBy, keyword,
+          month, page, sortBy, searchBy, keyword, filterOptions,
         }],
         queryFn: () => {
-          return getDashboardTable(DASHBOARD_TYPE.ARTIST, month, page, sortBy, searchBy, keyword, artistId);
+          return getDashboardTable(DASHBOARD_TYPE.ARTIST, month, page, sortBy, searchBy, keyword, filterOptions, artistId);
         },
       },
     ],
@@ -60,18 +62,18 @@ const useArtistDashboard = (
     if (endPage) {
       void queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "table", artistId, {
-          month, page: endPage, sortBy, searchBy, keyword,
+          month, page: endPage, sortBy, searchBy, keyword, filterOptions,
         }],
-        () => { return getDashboardTable(DASHBOARD_TYPE.ARTIST, month, endPage, sortBy, searchBy, keyword, artistId); },
+        () => { return getDashboardTable(DASHBOARD_TYPE.ARTIST, month, endPage, sortBy, searchBy, keyword, filterOptions, artistId); },
       );
     }
 
     // 2. 1페이지
     void queryClient.prefetchQuery(
       [DASHBOARD_TYPE.ARTIST, "dashboard", "table", artistId, {
-        month, page: 1, sortBy, searchBy, keyword,
+        month, page: 1, sortBy, searchBy, keyword, filterOptions,
       }],
-      () => { return getDashboardTable(DASHBOARD_TYPE.ARTIST, month, 1, sortBy, searchBy, keyword, artistId); },
+      () => { return getDashboardTable(DASHBOARD_TYPE.ARTIST, month, 1, sortBy, searchBy, keyword, filterOptions, artistId); },
     );
 
     const curPaginationStartPage = Math.floor((page - 1) / PAGES_PER_PAGINATION) * PAGES_PER_PAGINATION + 1;
@@ -82,9 +84,9 @@ const useArtistDashboard = (
     for (let i = curPaginationStartPage; i <= Math.min(endPage, nextPaginationStartPage); i += 1) {
       void queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "table", artistId, {
-          month, page: i, sortBy, searchBy, keyword,
+          month, page: i, sortBy, searchBy, keyword, filterOptions,
         }],
-        () => { return getDashboardTable(DASHBOARD_TYPE.ARTIST, month, i, sortBy, searchBy, keyword, artistId); },
+        () => { return getDashboardTable(DASHBOARD_TYPE.ARTIST, month, i, sortBy, searchBy, keyword, filterOptions, artistId); },
       );
     }
 
@@ -92,12 +94,12 @@ const useArtistDashboard = (
     if (prevPaginationstartPage >= 1) {
       void queryClient.prefetchQuery(
         [DASHBOARD_TYPE.ARTIST, "dashboard", "table", artistId, {
-          month, page: prevPaginationstartPage, sortBy, searchBy, keyword,
+          month, page: prevPaginationstartPage, sortBy, searchBy, keyword, filterOptions,
         }],
-        () => { return getDashboardTable(DASHBOARD_TYPE.ARTIST, month, prevPaginationstartPage, sortBy, searchBy, keyword, artistId); },
+        () => { return getDashboardTable(DASHBOARD_TYPE.ARTIST, month, prevPaginationstartPage, sortBy, searchBy, keyword, filterOptions, artistId); },
       );
     }
-  }, [artistId, keyword, month, page, queries, queryClient, searchBy, sortBy]);
+  }, [artistId, keyword, month, page, queries, queryClient, searchBy, sortBy, filterOptions]);
 
   return queries;
 };

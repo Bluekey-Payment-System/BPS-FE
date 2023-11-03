@@ -1,3 +1,5 @@
+/* eslint-disable no-void */
+/* eslint-disable @typescript-eslint/indent */
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 
@@ -15,29 +17,29 @@ const useWithdrawMember = () => {
   const { showAlertModal } = useAlertModal();
   const { showToast } = useToast();
   const mutation = useMutation<
-  IDeleteMemberResponse,
-  unknown,
-  IDeleteMemberReqeust,
-  unknown>((data) => {
-    return withdrawMember(data.memberId);
-  }, {
-    onSuccess: (_, variables) => {
-      showToast(`“${variables.name}” 계정이 삭제되었습니다.`);
-      // eslint-disable-next-line no-void
-      void queryClient.refetchQueries({ queryKey: [MEMBER_TYPE.ADMIN, "manage-accounts"], type: "all" });
-    },
-    onError: (err) => {
-      if (isAxiosError<ICommonErrorResponse>(err)) {
-        if (isCommonError(err.response?.data)) {
-          showAlertModal({
-            type: MODAL_TYPE.ERROR,
-            title: "계정 탈퇴 에러",
-            message: err.response?.data.message ?? "알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도하세요.",
-          });
-        }
-      } else console.error(err);
-    },
-  });
+    IDeleteMemberResponse,
+    unknown,
+    IDeleteMemberReqeust,
+    unknown>((data) => {
+      return withdrawMember(data.memberId);
+    }, {
+      onSuccess: (_, variables) => {
+        showToast(`“${variables.name}” 계정이 삭제되었습니다.`);
+        void queryClient.refetchQueries({ queryKey: [MEMBER_TYPE.ADMIN, "manage-accounts"], type: "all" });
+        void queryClient.invalidateQueries({ queryKey: [MEMBER_TYPE.ADMIN, "artists-status"], refetchType: "all" });
+      },
+      onError: (err) => {
+        if (isAxiosError<ICommonErrorResponse>(err)) {
+          if (isCommonError(err.response?.data)) {
+            showAlertModal({
+              type: MODAL_TYPE.ERROR,
+              title: "계정 탈퇴 에러",
+              message: err.response?.data.message ?? "알 수 없는 에러가 발생했습니다. 잠시 후에 다시 시도하세요.",
+            });
+          }
+        } else console.error(err);
+      },
+    });
 
   return mutation;
 };
