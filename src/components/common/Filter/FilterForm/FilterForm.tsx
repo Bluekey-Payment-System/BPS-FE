@@ -79,6 +79,9 @@ const FilterForm = ({ onSubmit, onSubmitSuccess }: FilterFormProps) => {
     onSubmitSuccess();
   };
 
+  const handleClickResetButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+  };
+
   return (
     <form className={cx("container")} onSubmit={handleSubmitFilterForm}>
       <h2 className={cx("formHeading")}>
@@ -138,6 +141,7 @@ const FilterForm = ({ onSubmit, onSubmitSuccess }: FilterFormProps) => {
         <div className={cx("hr")} />
       </div>
       <div className={cx("formFooter")}>
+        <button className={cx("resetButton")} onClick={handleClickResetButton}>필터 초기화</button>
         <Button theme="dark" size="small" type="submit">적용</Button>
       </div>
     </form>
