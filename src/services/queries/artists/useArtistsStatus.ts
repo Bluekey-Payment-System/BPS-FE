@@ -8,7 +8,7 @@ import { ITEMS_PER_ARTISTS_TABLE, PAGES_PER_PAGINATION } from "@/constants/pagin
 import { getArtistsStatus } from "@/services/api/requests/artist/artist.get.api";
 import { MEMBER_TYPE } from "@/types/enums/user.enum";
 
-const useArtistsStatus = (month: string, page: number, keyword: string | null) => {
+const useArtistsStatus = (month: string, page: number, keyword: string) => {
   const query = useQuery(
     [MEMBER_TYPE.ADMIN, "artists-status", month, { page, keyword }],
     () => { return getArtistsStatus(month, page, ITEMS_PER_ARTISTS_TABLE, keyword); },

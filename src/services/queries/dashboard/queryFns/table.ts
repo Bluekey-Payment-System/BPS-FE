@@ -1,11 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IFilterOptions } from "@/components/common/Filter/Filter.type";
-import { MOCK_ADMIN_TABLE, MOCK_ARTIST_TABLE } from "@/constants/mock";
 import { ITEMS_PER_DASHBOARD_TABLE } from "@/constants/pagination";
 import { getAdminDashboardTable } from "@/services/api/requests/admin/admin.get.api";
 import { getArtistDashboardTable } from "@/services/api/requests/artist/artist.get.api";
-import { IGetAdminTrackTransactionResponse } from "@/services/api/types/admin";
-import { IGetArtistTrackTransactionResponse } from "@/services/api/types/artist";
 import { AdminDashboardType, ArtistDashboardType, DASHBOARD_TYPE } from "@/types/enums/dashboard.enum";
 
 export const getDashboardTable = async (
