@@ -9,7 +9,7 @@ const useAlbumInfo = (albumId: number) => {
   unknown,
   IGetAlbumTracksResponse
   >(
-    ["albums", `${albumId}`],
+    ["albums", albumId],
     () => { return getAlbumTracks(albumId); },
   );
 
