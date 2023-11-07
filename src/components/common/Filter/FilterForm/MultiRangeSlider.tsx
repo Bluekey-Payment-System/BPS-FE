@@ -1,6 +1,4 @@
-import React, {
-  ChangeEvent, useEffect, useState, useRef,
-} from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import classNames from "classnames/bind";
 
@@ -15,11 +13,13 @@ interface MultiRangeSliderProps {
   max: number;
   initialMinValue?: number;
   initialMaxValue?: number;
+  isReset: boolean;
+  setIsReset: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const MultiRangeSlider = (
   {
-    min, max, initialMinValue, initialMaxValue,
+    min, max, initialMinValue, initialMaxValue, isReset = false, setIsReset,
   }: MultiRangeSliderProps,
   ref: React.ForwardedRef<ISliderRefsObj>,
 ) => {
@@ -31,6 +31,8 @@ const MultiRangeSlider = (
   const rightValRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsReset(false);
+
     const minPercent = getPercent(minVal, min, max);
     const maxPercent = getPercent(maxVal, min, max);
     const distance = maxPercent - minPercent;
@@ -48,7 +50,14 @@ const MultiRangeSlider = (
       rightValRef.current.style.left = `${maxPercent}%`;
       rightValRef.current.style.marginTop = distance < 10 ? "-20px" : "20px";
     }
-  }, [minVal, maxVal, min, max]);
+  }, [minVal, maxVal, min, max, setIsReset]);
+
+  useEffect(() => {
+    if (isReset) {
+      setMinVal(min);
+      setMaxVal(max);
+    }
+  }, [isReset, max, min]);
 
   return (
     <div className={cx("container")}>
@@ -57,7 +66,7 @@ const MultiRangeSlider = (
         min={min}
         max={max}
         value={minVal}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           const value = Math.min(Number(e.target.value), maxVal - 1);
           setMinVal(value);
         }}
@@ -72,7 +81,7 @@ const MultiRangeSlider = (
         min={min}
         max={max}
         value={maxVal}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           const value = Math.max(Number(e.target.value), minVal + 1);
           setMaxVal(value);
         }}

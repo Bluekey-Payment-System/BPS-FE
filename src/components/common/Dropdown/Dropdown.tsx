@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useState, useRef, useEffect } from "react";
 
 import { IHasSearchBarData } from "./Dropdown.type";
@@ -9,6 +10,7 @@ interface DropdownProps<T> {
   hasSearchBar?: boolean;
   onClick: (value: T) => void;
   initialValue?: T
+  isReset?: boolean;
 }
 /**
  * @author 임병욱
@@ -21,18 +23,17 @@ interface DropdownProps<T> {
  * @param hasSearchBar 드롭다운 리스트에 검색창이 필요하다면 이 속성을 true로 설정해주세요.
  * @param onClick 드롭다운에 클릭된 값을 알기위해 event.currentTarget.value를 받는 함수를 넣어주면 됩니다.
  * @param initialValue 드롭다운에 들어갈 초기값입니다. 값을 설정하지 않으면 dropdownListData[0]이 설정됩니다.
+ * @param isReset 선택적으로 드롭다운 값의 초기화 여부를 선택하는 옵션입니다. 기본 값은 false입니다.
 */
 const Dropdown = <T extends string | IHasSearchBarData>({
-  dropdownListData, theme = "bright", hasSearchBar = false, onClick, initialValue,
+  dropdownListData, theme = "bright", hasSearchBar = false, onClick, initialValue, isReset = false,
 }: DropdownProps<T>) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const dropdownContainerRef = useRef<HTMLDivElement>(null);
 
   const initialSelectedDropdownValue = initialValue ?? (hasSearchBar ? "대표 아티스트를 지정해주세요." : dropdownListData[0]);
 
-  // eslint-disable-next-line max-len
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<string | IHasSearchBarData>(initialSelectedDropdownValue);
-
   const handleToggle = (event: React.MouseEvent<HTMLImageElement | HTMLButtonElement>) => {
     event.preventDefault();
     setToggle(!toggle);
@@ -46,7 +47,6 @@ const Dropdown = <T extends string | IHasSearchBarData>({
     setToggle(false);
 
     if (hasSearchBar) {
-      // eslint-disable-next-line max-len
       const selectedDropdownItemWithhasSearchBar: IHasSearchBarData | undefined = (dropdownListData as IHasSearchBarData[]).find(
         (dropdownData: IHasSearchBarData) => {
           return dropdownData.name === event.currentTarget.value;
@@ -81,6 +81,12 @@ const Dropdown = <T extends string | IHasSearchBarData>({
   useEffect(() => {
     setSelectedDropdownValue(initialSelectedDropdownValue);
   }, [initialSelectedDropdownValue]);
+
+  useEffect(() => {
+    if (isReset) {
+      setSelectedDropdownValue(hasSearchBar ? "대표 아티스트를 지정해주세요." : dropdownListData[0]);
+    }
+  }, [dropdownListData, hasSearchBar, isReset]);
 
   return (
     <DropdownUI

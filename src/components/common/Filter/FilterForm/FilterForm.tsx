@@ -42,6 +42,8 @@ interface FilterFormProps {
  */
 const FilterForm = ({ onSubmit, onSubmitSuccess }: FilterFormProps) => {
   const artistList = useArtistList();
+  const [isDropdownReset, setIsDropdownReset] = useState(false);
+  const [isSliderReset, setIsSliderReset] = useState(false);
 
   const router = useRouter();
   const {
@@ -79,6 +81,24 @@ const FilterForm = ({ onSubmit, onSubmitSuccess }: FilterFormProps) => {
     onSubmitSuccess();
   };
 
+  const handleClickResetButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsDropdownReset(true);
+    setMIdValue("");
+    setIsSliderReset(true);
+    if (revFrRef.current && revToRef.current
+      && netFrRef.current && netToRef.current
+      && setFrRef.current && setToRef.current
+      && comRefs.current.comFrRef && comRefs.current.comToRef) {
+      revFrRef.current.value = "";
+      revToRef.current.value = "";
+      netFrRef.current.value = "";
+      netToRef.current.value = "";
+      setFrRef.current.value = "";
+      setToRef.current.value = "";
+    }
+  };
+
   return (
     <form className={cx("container")} onSubmit={handleSubmitFilterForm}>
       <h2 className={cx("formHeading")}>
@@ -94,8 +114,9 @@ const FilterForm = ({ onSubmit, onSubmitSuccess }: FilterFormProps) => {
             <Dropdown
               hasSearchBar
               dropdownListData={artistList}
-              onClick={(value) => { return setMIdValue(String(value.id)); }}
+              onClick={(value) => { setIsDropdownReset(false); setMIdValue(String(value.id)); }}
               initialValue={artistList.find((artist) => { return artist.id === Number(initialOptions.mId); })}
+              isReset={isDropdownReset}
             />
           </div>
         </div>
@@ -130,7 +151,15 @@ const FilterForm = ({ onSubmit, onSubmitSuccess }: FilterFormProps) => {
           <label>요율</label>
           <div className={cx("inputArea", "commissionRate")}>
             <div className={cx("sliderContainer")}>
-              <MultiRangeSlider min={0} max={100} initialMinValue={Number(initialOptions.comFr)} initialMaxValue={Number(initialOptions.comTo)} ref={comRefs} />
+              <MultiRangeSlider
+                min={0}
+                max={100}
+                initialMinValue={Number(initialOptions.comFr)}
+                initialMaxValue={Number(initialOptions.comTo)}
+                isReset={isSliderReset}
+                setIsReset={setIsSliderReset}
+                ref={comRefs}
+              />
             </div>
           </div>
         </div>
@@ -138,6 +167,7 @@ const FilterForm = ({ onSubmit, onSubmitSuccess }: FilterFormProps) => {
         <div className={cx("hr")} />
       </div>
       <div className={cx("formFooter")}>
+        <button className={cx("resetButton")} onClick={handleClickResetButton}>필터 초기화</button>
         <Button theme="dark" size="small" type="submit">적용</Button>
       </div>
     </form>
