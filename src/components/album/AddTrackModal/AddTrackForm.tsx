@@ -1,5 +1,7 @@
 import { ChangeEvent } from "react";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import {
+  SubmitHandler, useFieldArray, useForm,
+} from "react-hook-form";
 
 import classNames from "classnames/bind";
 
@@ -140,7 +142,9 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                             onClick={(value) => {
                               setValue(`artists.${index}.memberId`, value.id);
                               setValue(`artists.${index}.name`, value.name);
-                              setValue(`artists.${index}.commissionRate`, value.commissionRate || 0);
+                              if (!watch("isOriginalTrack")) {
+                                setValue(`artists.${index}.commissionRate`, value.commissionRate || 0);
+                              }
                             }}
                           />
                           <input

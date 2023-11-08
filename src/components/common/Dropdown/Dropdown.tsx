@@ -31,7 +31,7 @@ const Dropdown = <T extends string | IHasSearchBarData>({
   const [toggle, setToggle] = useState<boolean>(false);
   const dropdownContainerRef = useRef<HTMLDivElement>(null);
 
-  const initialSelectedDropdownValue = initialValue ?? (hasSearchBar ? "대표 아티스트를 지정해주세요." : dropdownListData[0]);
+  const initialSelectedDropdownValue = initialValue ?? hasSearchBar ? "대표 아티스트를 지정해주세요." : initialValue ?? dropdownListData[0];
 
   const [selectedDropdownValue, setSelectedDropdownValue] = useState<string | IHasSearchBarData>(initialSelectedDropdownValue);
   const handleToggle = (event: React.MouseEvent<HTMLImageElement | HTMLButtonElement>) => {
@@ -79,8 +79,10 @@ const Dropdown = <T extends string | IHasSearchBarData>({
   });
 
   useEffect(() => {
-    setSelectedDropdownValue(initialSelectedDropdownValue);
-  }, [initialSelectedDropdownValue]);
+    if (initialValue) {
+      setSelectedDropdownValue(initialValue);
+    }
+  }, [initialValue]);
 
   useEffect(() => {
     if (isReset) {

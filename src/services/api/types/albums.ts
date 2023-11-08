@@ -53,4 +53,5 @@ export type IPatchAlbumData = AtLeastOne<{
 }>;
 
 export interface IPatchAlbumResponse extends IAlbumCard {
+  memberId: number | null;
 }
