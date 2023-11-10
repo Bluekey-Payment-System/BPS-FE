@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 
 import classNames from "classnames/bind";
@@ -13,18 +13,19 @@ import Spacing from "@/components/common/Layouts/Spacing";
 import useAddAlbumTrack from "@/services/queries/albums/useAddAlbumTrack";
 import useArtistList from "@/services/queries/artists/useArtistList";
 import { ITrackFieldValues } from "@/types/album.types";
-import { IAlbumInfo } from "@/types/dto";
+import { ITrackInfo } from "@/types/dto";
 
 import styles from "./AddTrackForm.module.scss";
 
 const cx = classNames.bind(styles);
 
 interface AddTrackFormProps {
-  albumInfo: IAlbumInfo;
+  albumId: number;
   onClose: () => void;
+  trackInfo?: ITrackInfo;
 }
 
-const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
+const AddTrackForm = ({ albumId, onClose, trackInfo }: AddTrackFormProps) => {
   const artistList = useArtistList();
   const {
     register,
@@ -36,20 +37,24 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
     setValue,
     clearErrors,
     reset,
+    getValues,
   } = useForm<ITrackFieldValues>({
     mode: "onBlur",
     reValidateMode: "onBlur",
     defaultValues: {
-      artists: [{ name: "", memberId: -1, commissionRate: null }],
+      name: trackInfo?.name ?? "",
+      enName: trackInfo?.enName ?? "",
+      artists: trackInfo?.artists ?? [{ name: "", memberId: -1, commissionRate: null }],
+      isOriginalTrack: trackInfo?.originalTrack ?? false,
     },
   });
   const {
-    fields, append, remove,
+    fields, append, remove, replace,
   } = useFieldArray<ITrackFieldValues>({
     control,
     name: "artists",
   });
-  const { mutateAsync: addTrack, isLoading, isError } = useAddAlbumTrack(albumInfo.albumId);
+  const { mutateAsync: addTrack, isLoading, isError } = useAddAlbumTrack(albumId);
   const onSubmit: SubmitHandler<ITrackFieldValues> = async (data) => {
     await addTrack(data);
     if (!isError) {
@@ -57,6 +62,31 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
       onClose();
     }
   };
+
+  // 트랙 수정 모드인 경우 인풋 값들을 세팅하기 위한 Effect
+  useEffect(() => {
+    reset({
+      name: trackInfo?.name ?? "",
+      enName: trackInfo?.enName ?? "",
+      artists: trackInfo?.artists ?? [{ name: "", memberId: -1, commissionRate: null }],
+      isOriginalTrack: trackInfo?.originalTrack ?? false,
+    });
+  }, [trackInfo, reset, getValues]);
+
+  // 트랙 수정 모드인 경우 기존 아티스트로 다이나믹 인풋값들을 최초 세팅하기 위한 Effect
+  useEffect(() => {
+    if (trackInfo) {
+      replace(trackInfo.artists.map((artist) => {
+        return {
+          memberId: artist.memberId,
+          name: artist.name,
+          enName: artist.enName,
+          commissionRate: watch("isOriginalTrack") === true ? null : artist.commissionRate,
+        };
+      }));
+    }
+  }, [append, trackInfo, watch, replace]);
+
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form className={cx("container")} onSubmit={handleSubmit(onSubmit)}>
@@ -67,6 +97,7 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onChange: async (e: ChangeEvent<HTMLInputElement>) => {
               if (e.target.checked) {
+                setValue("isOriginalTrack", true);
                 fields.forEach((_, index) => {
                   setValue(`artists.${index}.commissionRate`, null);
                 });
@@ -74,6 +105,7 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
               }
             },
           })}
+          defaultValue={trackInfo?.originalTrack.toString()}
         />
       </div>
       <div className={cx("trackNameSection")}>
@@ -142,6 +174,11 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                               setValue(`artists.${index}.name`, value.name);
                               setValue(`artists.${index}.commissionRate`, value.commissionRate || 0);
                             }}
+                            initialValue={
+                              trackInfo ? artistList.find((item) => {
+                                return item.id === trackInfo.artists[index]?.memberId;
+                              }) : undefined
+                            }
                           />
                           <input
                             {...register(`artists.${index}.memberId`, {
@@ -205,7 +242,7 @@ const AddTrackForm = ({ albumInfo, onClose }: AddTrackFormProps) => {
                             ? "계약 외 아티스트는 요율을 지정할 수 없습니다"
                             : "요율을 입력하세요."
                       }
-                      disabled={watch("isOriginalTrack") === true || watch(`artists.${index}.memberId`) === null}
+                      disabled={watch("isOriginalTrack") || watch(`artists.${index}.memberId`) === null}
                       errors={errors}
                       isError={!!errors.artists?.[index]?.commissionRate}
                       bottomText={errors.artists?.[index]?.commissionRate?.message}

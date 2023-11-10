@@ -38,11 +38,9 @@ const AlbumEditPage = () => {
     },
   });
   const [isAddTrackModalOpen, setIsAddTrackModalOpen] = useState(false);
-  const [albumInfo, setAlbumInfo] = useState(data);
 
   useEffect(() => {
     if (data) {
-      setAlbumInfo(data);
       methods.reset({
         name: data?.name ?? "",
         enName: data?.enName ?? "",
@@ -104,7 +102,7 @@ const AlbumEditPage = () => {
       <AddTrackModal
         open={isAddTrackModalOpen}
         onClose={() => { setIsAddTrackModalOpen(false); }}
-        albumInfo={albumInfo}
+        albumId={albumId}
       />
     </section>
   );

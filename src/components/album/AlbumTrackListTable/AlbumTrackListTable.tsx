@@ -1,6 +1,9 @@
+import { useState } from "react";
+
 import classNames from "classnames/bind";
 import Image from "next/image";
 
+import AddTrackModal from "@/components/album/AddTrackModal/AddTrackModal";
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
 import TableBodyUI from "@/components/common/Table/Composition/TableBodyUI";
 import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
@@ -21,6 +24,8 @@ interface AlbumTrackListTableProps {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
+  const [isEditTrackModalOpen, setIsEditTrackModalOpen] = useState(false);
+  const [selectedTrackInfo, setSelectedTrackInfo] = useState<ITrackInfo>();
   return (
     <TableContainerUI
       stickyLastCol
@@ -72,10 +77,17 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
                   );
                 })}
               </TableCellUI>
-              <TableCellUI>{item.isOriginalTrack ? "-" : <Image src="/images/selected.svg" width={10.34} height={8.36} alt="체크" />}</TableCellUI>
+              <TableCellUI>{item.originalTrack ? "-" : <Image src="/images/selected.svg" width={10.34} height={8.36} alt="체크" />}</TableCellUI>
               <TableCellUI>
                 <div className={cx("buttonContainer")}>
-                  <ChipButton onClick={() => { }}>수정</ChipButton>
+                  <ChipButton
+                    onClick={() => {
+                      setIsEditTrackModalOpen(true);
+                      setSelectedTrackInfo(item);
+                    }}
+                  >
+                    수정
+                  </ChipButton>
                   <ChipButton onClick={() => { }}>삭제</ChipButton>
                 </div>
               </TableCellUI>
@@ -83,6 +95,12 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
           );
         })}
       </TableBodyUI>
+      <AddTrackModal
+        open={isEditTrackModalOpen}
+        onClose={() => { setIsEditTrackModalOpen(false); }}
+        albumId={albumId}
+        trackInfo={selectedTrackInfo}
+      />
     </TableContainerUI>
   );
 };
