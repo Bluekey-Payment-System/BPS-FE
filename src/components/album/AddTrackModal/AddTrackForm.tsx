@@ -10,8 +10,8 @@ import Checkbox from "@/components/common/Inputs/Checkbox/Checkbox";
 import TextField from "@/components/common/Inputs/TextField/TextField";
 import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/TextFieldWithUnit";
 import Spacing from "@/components/common/Layouts/Spacing";
-import useAddAlbumTrack from "@/services/queries/albums/useAddAlbumTrack";
 import useArtistList from "@/services/queries/artists/useArtistList";
+import useAddAlbumTrack from "@/services/queries/tracks/useAddAlbumTrack";
 import { ITrackFieldValues } from "@/types/album.types";
 import { ITrackInfo } from "@/types/dto";
 
