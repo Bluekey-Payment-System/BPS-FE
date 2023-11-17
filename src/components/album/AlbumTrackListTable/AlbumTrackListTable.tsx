@@ -77,7 +77,7 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
                   );
                 })}
               </TableCellUI>
-              <TableCellUI>{item.originalTrack ? "-" : <Image src="/images/selected.svg" width={10.34} height={8.36} alt="체크" />}</TableCellUI>
+              <TableCellUI>{!item.originalTrack ? "-" : <Image src="/images/selected.svg" width={10.34} height={8.36} alt="체크" />}</TableCellUI>
               <TableCellUI>
                 <div className={cx("buttonContainer")}>
                   <ChipButton
