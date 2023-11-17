@@ -29,7 +29,7 @@ const useUpdateAlbumInfo = () => {
     {
       onSuccess: (data) => {
         showToast("앨범 수정이 완료되었습니다.");
-        queryClient.setQueryData(["albums", `${data.albumId}`], data);
+        queryClient.setQueryData(["albums", data.albumId], data);
       },
     },
   );
