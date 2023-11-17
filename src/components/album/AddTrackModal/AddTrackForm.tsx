@@ -12,6 +12,7 @@ import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/Text
 import Spacing from "@/components/common/Layouts/Spacing";
 import useArtistList from "@/services/queries/artists/useArtistList";
 import useAddAlbumTrack from "@/services/queries/tracks/useAddAlbumTrack";
+import useUpdateAlbumTrack from "@/services/queries/tracks/useUpdateAlbumTrack";
 import { ITrackFieldValues } from "@/types/album.types";
 import { ITrackInfo } from "@/types/dto";
 
@@ -55,9 +56,18 @@ const AddTrackForm = ({ albumId, onClose, trackInfo }: AddTrackFormProps) => {
     name: "artists",
   });
   const { mutateAsync: addTrack, isLoading, isError } = useAddAlbumTrack(albumId);
+  const {
+    mutateAsync: updateTrack,
+    isLoading: isUpdateLoading,
+    isError: isUpdateError,
+  } = useUpdateAlbumTrack();
   const onSubmit: SubmitHandler<ITrackFieldValues> = async (data) => {
-    await addTrack(data);
-    if (!isError) {
+    if (trackInfo) {
+      await updateTrack({ trackId: trackInfo.trackId, body: data });
+    } else {
+      await addTrack(data);
+    }
+    if (!isError && !isUpdateError) {
       reset();
       onClose();
     }
@@ -172,7 +182,9 @@ const AddTrackForm = ({ albumId, onClose, trackInfo }: AddTrackFormProps) => {
                             onClick={(value) => {
                               setValue(`artists.${index}.memberId`, value.id);
                               setValue(`artists.${index}.name`, value.name);
-                              setValue(`artists.${index}.commissionRate`, value.commissionRate || 0);
+                              if (!watch("isOriginalTrack")) {
+                                setValue(`artists.${index}.commissionRate`, value.commissionRate || 0);
+                              }
                             }}
                             initialValue={
                               trackInfo ? artistList.find((item) => {
@@ -236,7 +248,7 @@ const AddTrackForm = ({ albumId, onClose, trackInfo }: AddTrackFormProps) => {
                       })}
                       placeholder={
                         // eslint-disable-next-line no-nested-ternary
-                        watch("isOriginalTrack") === true
+                        watch("isOriginalTrack")
                           ? "블루키 오리지널 트랙은 요율을 설정할 수 없습니다."
                           : watch(`artists.${index}.memberId`) === null
                             ? "계약 외 아티스트는 요율을 지정할 수 없습니다"
@@ -284,7 +296,8 @@ const AddTrackForm = ({ albumId, onClose, trackInfo }: AddTrackFormProps) => {
       <Spacing size={26} />
       <div className={cx("buttonSection")}>
         <Button size="medium" theme="dark" type="submit">
-          {isLoading ? "추가하는 중..." : "추가하기"}
+          {!trackInfo && (isLoading ? "추가하는 중..." : "추가하기")}
+          {trackInfo && (isUpdateLoading ? "수정하는 중..." : "수정하기")}
         </Button>
         <Button size="medium" theme="bright" type="button" onClick={onClose}>창 닫기</Button>
       </div>
