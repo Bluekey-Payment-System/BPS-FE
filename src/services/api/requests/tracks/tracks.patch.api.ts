@@ -7,7 +7,7 @@ export const patchTrack = async (
   patchData: IPatchTrackRequest,
 ) => {
   const response = patchRequest<IPatchTrackResponse, IPatchTrackRequest>(
-    `tracks/albums/${trackId}`,
+    `tracks/${trackId}`,
     patchData,
   );
   return response;
