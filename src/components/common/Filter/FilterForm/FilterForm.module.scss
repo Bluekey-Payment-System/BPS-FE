@@ -89,6 +89,19 @@
   }
 
   .formFooter {
-    @include flexbox(row, flex-end);
+    @include flexbox(row, flex-end, center);
+
+    gap: 30px;
+
+    .resetButton {
+      @include typo(14);
+
+      height: fit-content;
+      color: $sub-color3;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
