@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import { useDispatch } from "react-redux";
 
 import AlertModal from "@/components/common/Modals/AlertModal/AlertModal";
@@ -15,9 +16,9 @@ const AlertModalRoot = () => {
       dispatch(resetAll());
     }, 500);
   };
-  const onClickProceedWithClose = () => {
+  const onClickProceedWithClose:MouseEventHandler = (e) => {
     // eslint-disable-next-line no-void
-    void alertModalProps?.onClickProceed!();
+    void alertModalProps?.onClickProceed!(e);
     onClose();
   };
 

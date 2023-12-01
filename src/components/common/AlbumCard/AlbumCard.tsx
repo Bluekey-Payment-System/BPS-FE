@@ -50,7 +50,7 @@ const AlbumCard = ({
           <h3 className={cx("albumTitle")}>{albumTitle}</h3>
           {hasOptionsButton
           && (
-            <OptionsButton albumId={albumId} />
+            <OptionsButton albumId={albumId} albumTitle={albumTitle} />
           )}
         </div>
       </div>

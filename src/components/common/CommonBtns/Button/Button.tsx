@@ -1,3 +1,5 @@
+import { MouseEventHandler } from "react";
+
 import classNames from "classnames/bind";
 
 import styles from "./Button.module.scss";
@@ -7,7 +9,7 @@ const cx = classNames.bind(styles);
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: "large" | "medium" | "small";
   theme: "bright" | "dark";
-  onClick?: () => void;
+  onClick?: (() => void) | MouseEventHandler;
   onSubmit?: () => void;
   isTextEmphasis?: boolean;
   children: React.ReactNode;

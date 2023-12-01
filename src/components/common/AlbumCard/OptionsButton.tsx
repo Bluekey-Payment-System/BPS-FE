@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 
 import classNames from "classnames/bind";
 import Image from "next/image";
@@ -6,17 +6,22 @@ import { useRouter } from "next/router";
 
 import Popover from "@/components/common/Popover/Popover";
 import useDeleteAlbum from "@/services/queries/albums/useDeleteAlbum";
+import { MODAL_TYPE } from "@/types/enums/modal.enum";
+
+import AlertModal from "../Modals/AlertModal/AlertModal";
 
 import styles from "./OptionsButton.module.scss";
 
 interface OptionsButtonProps {
   albumId: number,
+  albumTitle: string,
 }
 
 const cx = classNames.bind(styles);
 
-const OptionsButton = ({ albumId }: OptionsButtonProps) => {
+const OptionsButton = ({ albumId, albumTitle }: OptionsButtonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { mutate: deleteAlbum } = useDeleteAlbum();
 
   const router = useRouter();
@@ -36,12 +41,18 @@ const OptionsButton = ({ albumId }: OptionsButtonProps) => {
     router.push(`/admin/albums/${albumId}/edit`);
   };
 
-  const handleClickDeleteButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickDeleteButton:MouseEventHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     e.preventDefault();
 
-    deleteAlbum(albumId);
+    setIsDeleteModalOpen(true);
     setIsOpen(false);
+  };
+
+  const handleDeleteAlbum: MouseEventHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    deleteAlbum(albumId);
+    setIsDeleteModalOpen(false);
   };
 
   return (
@@ -68,6 +79,16 @@ const OptionsButton = ({ albumId }: OptionsButtonProps) => {
             </ul>
           </Popover>
           )}
+      <AlertModal
+        open={isDeleteModalOpen}
+        type={MODAL_TYPE.CONFIRM}
+        title="앨범 삭제"
+        message={`[${albumTitle}] 앨범을 삭제 하시겠습니까?`}
+        onClose={() => { setIsDeleteModalOpen(false); }}
+        onClickProceed={handleDeleteAlbum}
+        proceedBtnText="네, 삭제할게요"
+        closeBtnText="취소"
+      />
     </div>
   );
 };

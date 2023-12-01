@@ -1,3 +1,5 @@
+import { MouseEventHandler } from "react";
+
 import classNames from "classnames/bind";
 
 import { MODAL_TYPE, ModalType } from "@/types/enums/modal.enum";
@@ -14,7 +16,7 @@ export interface AlertModalProps {
   type: Extract<ModalType, (typeof MODAL_TYPE)["ERROR"] | (typeof MODAL_TYPE)["CONFIRM"]>;
   title: string;
   message: string;
-  onClickProceed?: (() => void) | (() => Promise<void>);
+  onClickProceed?: (() => void) | (() => Promise<void>) | MouseEventHandler;
   proceedBtnText?: string;
   closeBtnText?: string;
   onClose: () => void;

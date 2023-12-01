@@ -17,10 +17,10 @@ const useDeleteAlbum = () => {
 
   // eslint-disable-next-line max-len
   const mutation = useMutation<IDeleteAlbumResponse, unknown, number, unknown>((id) => { return deleteAlbum(id); }, {
-    onSuccess: (data) => {
+    onSuccess: () => {
+      showToast("앨범을 삭제하였습니다.");
       // eslint-disable-next-line no-void
       void queryClient.invalidateQueries([MEMBER_TYPE.ADMIN, "albums"]);
-      showToast(`${data.name} 앨범을 삭제하였습니다.`);
     },
     onError: (err) => {
       if (isAxiosError<ICommonErrorResponse>(err)) {
