@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import classNames from "classnames/bind";
 import Image from "next/image";
@@ -14,7 +14,7 @@ import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
 import useToast from "@/hooks/useToast";
 import useDeleteAlbumTrack from "@/services/queries/tracks/useDeleteAlbumTrack";
-import { ITrackInfo } from "@/types/dto";
+import { ITrackInfo, ITrackParticipantInfo } from "@/types/dto";
 import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
 import styles from "./AlbumTrackListTable.module.scss";
@@ -33,6 +33,24 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
   const [selectedTrackInfo, setSelectedTrackInfo] = useState<ITrackInfo>(tracks[0]);
   const { mutateAsync: deleteTrack } = useDeleteAlbumTrack(albumId);
   const { showToast } = useToast();
+
+  const getCompanyCommissionRate = useCallback((artists:ITrackParticipantInfo[]) => {
+    const sum = artists.reduce((accumulator, artist) => {
+      return accumulator + (artist.commissionRate || 0);
+    }, 0);
+    return 100 - sum;
+  }, []);
+
+  const getArtistNames = useCallback((artists: ITrackParticipantInfo[]) => {
+    if (artists.length === 1) return artists[0].name;
+    return artists.reduce((accumulator, artist, idx) => {
+      if (idx === 0) {
+        return artist.name;
+      }
+      return `${accumulator}, ${artist.name}`;
+    }, "");
+  }, []);
+
   return (
     <TableContainerUI
       stickyLastCol
@@ -43,7 +61,7 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
         <TableCellUI isHeader>트랙명 (한글)</TableCellUI>
         <TableCellUI isHeader>트랙명 (영문)</TableCellUI>
         <TableCellUI isHeader>아티스트</TableCellUI>
-        <TableCellUI isHeader>요율</TableCellUI>
+        <TableCellUI isHeader>사측 요율</TableCellUI>
         <TableCellUI isHeader>블루키 오리지널 트랙</TableCellUI>
         <TableCellUI isHeader>비고</TableCellUI>
       </TableHeaderUI>
@@ -63,26 +81,10 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
                 </TooltipRoot>
               </TableCellUI>
               <TableCellUI>
-                {item.artists.map((participant) => {
-                  return (
-                    <>
-                      <TooltipRoot
-                        message={participant.name}
-                        key={participant.name}
-                      >
-                        <p className={cx("ellipsis")}>{participant.name}</p>
-                      </TooltipRoot>
-                      <br />
-                    </>
-                  );
-                })}
+                <p>{`${getArtistNames(item.artists)}`}</p>
               </TableCellUI>
               <TableCellUI>
-                {item.artists.map((participant) => {
-                  return (
-                    <p key={participant.name}>{`${participant.commissionRate}%`}</p>
-                  );
-                })}
+                <p>{`${getCompanyCommissionRate(item.artists)}%`}</p>
               </TableCellUI>
               <TableCellUI>{!item.originalTrack ? "-" : <Image src="/images/selected.svg" width={10.34} height={8.36} alt="체크" />}</TableCellUI>
               <TableCellUI>
