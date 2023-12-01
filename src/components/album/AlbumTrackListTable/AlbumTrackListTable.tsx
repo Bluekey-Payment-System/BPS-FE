@@ -5,13 +5,17 @@ import Image from "next/image";
 
 import AddTrackModal from "@/components/album/AddTrackModal/AddTrackModal";
 import ChipButton from "@/components/common/CommonBtns/ChipButton/ChipButton";
+import AlertModal from "@/components/common/Modals/AlertModal/AlertModal";
 import TableBodyUI from "@/components/common/Table/Composition/TableBodyUI";
 import TableCellUI from "@/components/common/Table/Composition/TableCellUI";
 import TableContainerUI from "@/components/common/Table/Composition/TableContainerUI";
 import TableHeaderUI from "@/components/common/Table/Composition/TableHeaderUI";
 import TableRowUI from "@/components/common/Table/Composition/TableRowUI";
 import TooltipRoot from "@/components/common/Tooltip/TooltipRoot";
+import useToast from "@/hooks/useToast";
+import useDeleteAlbumTrack from "@/services/queries/tracks/useDeleteAlbumTrack";
 import { ITrackInfo } from "@/types/dto";
+import { MODAL_TYPE } from "@/types/enums/modal.enum";
 
 import styles from "./AlbumTrackListTable.module.scss";
 
@@ -25,7 +29,10 @@ interface AlbumTrackListTableProps {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
   const [isEditTrackModalOpen, setIsEditTrackModalOpen] = useState(false);
-  const [selectedTrackInfo, setSelectedTrackInfo] = useState<ITrackInfo>();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedTrackInfo, setSelectedTrackInfo] = useState<ITrackInfo>(tracks[0]);
+  const { mutateAsync: deleteTrack } = useDeleteAlbumTrack(albumId);
+  const { showToast } = useToast();
   return (
     <TableContainerUI
       stickyLastCol
@@ -88,7 +95,13 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
                   >
                     수정
                   </ChipButton>
-                  <ChipButton onClick={() => { }}>삭제</ChipButton>
+                  <ChipButton onClick={() => {
+                    setIsDeleteModalOpen(true);
+                    setSelectedTrackInfo(item);
+                  }}
+                  >
+                    삭제
+                  </ChipButton>
                 </div>
               </TableCellUI>
             </TableRowUI>
@@ -100,6 +113,25 @@ const AlbumTrackListTable = ({ albumId, tracks }: AlbumTrackListTableProps) => {
         onClose={() => { setIsEditTrackModalOpen(false); }}
         albumId={albumId}
         trackInfo={selectedTrackInfo}
+      />
+      <AlertModal
+        open={isDeleteModalOpen}
+        type={MODAL_TYPE.CONFIRM}
+        title="수록곡 삭제"
+        message={`수록곡 "${selectedTrackInfo?.name}"을 삭제 하시겠습니까?`}
+        closeBtnText="취소"
+        proceedBtnText="삭제"
+        onClickProceed={async () => {
+          try {
+            await deleteTrack(selectedTrackInfo?.trackId);
+            showToast(`수록곡 "${selectedTrackInfo.name}"이(가)) 삭제되었습니다.`);
+          } catch (err) {
+            showToast("일시적인 오류가 발생했습니다. 잠시 뒤에 다시 시도해주세요.", "toast-root", "FAIL");
+          } finally {
+            setIsDeleteModalOpen(false);
+          }
+        }}
+        onClose={() => { setIsDeleteModalOpen(false); }}
       />
     </TableContainerUI>
   );

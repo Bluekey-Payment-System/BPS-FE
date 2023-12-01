@@ -14,7 +14,7 @@ export interface AlertModalProps {
   type: Extract<ModalType, (typeof MODAL_TYPE)["ERROR"] | (typeof MODAL_TYPE)["CONFIRM"]>;
   title: string;
   message: string;
-  onClickProceed?: ()=>void;
+  onClickProceed?: (() => void) | (() => Promise<void>);
   proceedBtnText?: string;
   closeBtnText?: string;
   onClose: () => void;
@@ -78,9 +78,9 @@ const AlertModal = ({
           {proceedBtnText ?? closeBtnText}
         </Button>
         {onClickProceed && (
-          <button className={cx("closeBtnWithProceed")} onClick={onClose}>
+          <Button size="large" theme="bright" className={cx("closeBtnWithProceed")} onClick={onClose}>
             {closeBtnText}
-          </button>
+          </Button>
         )}
       </div>
     </Modal>
