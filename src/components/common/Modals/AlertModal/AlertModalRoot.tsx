@@ -16,7 +16,8 @@ const AlertModalRoot = () => {
     }, 500);
   };
   const onClickProceedWithClose = () => {
-    alertModalProps?.onClickProceed!();
+    // eslint-disable-next-line no-void
+    void alertModalProps?.onClickProceed!();
     onClose();
   };
 
