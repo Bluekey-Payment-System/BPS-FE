@@ -20,6 +20,7 @@ const useUpdateAlbumInfo = (albumId: number) => {
     {
       onSuccess: (data) => {
         showToast("앨범 수정이 완료되었습니다.");
+        queryClient.setQueryData(["albums", data.albumId], data);
         void queryClient.invalidateQueries({ queryKey: ["albums", data.albumId] });
         void queryClient.invalidateQueries({ queryKey: [DASHBOARD_TYPE.ALBUM, "dashboard", "albumInfo", data.albumId] });
       },

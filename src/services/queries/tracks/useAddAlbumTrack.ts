@@ -17,7 +17,7 @@ const useAddAlbumTrack = (albumId: number) => {
     {
       onSuccess: (data) => {
         // eslint-disable-next-line no-void
-        void queryClient.invalidateQueries({ queryKey: ["albums", `${data.albumId}`] });
+        void queryClient.invalidateQueries({ queryKey: ["albums", data.albumId] });
         showToast("수록곡 추가가 완료되었습니다.");
       },
     },
