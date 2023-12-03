@@ -44,7 +44,7 @@ const createNoopStorage = () => {
 
 const storage = typeof window === "undefined"
   ? createNoopStorage()
-  : createWebStorage("session");
+  : createWebStorage("local");
 
 const rootReducer = (state: IState | undefined, action: AnyAction): IState => {
   switch (action.type) {
