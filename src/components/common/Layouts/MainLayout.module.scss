@@ -10,4 +10,8 @@
 
     color: $primary-black;
   }
+
+  @include mobile {
+    width: fit-content;
+  }
 }
