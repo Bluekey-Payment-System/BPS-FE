@@ -48,6 +48,7 @@ const AlertDataTable = ({ fileName, data }: AlertDataTableProps) => {
           <TableCellUI isHeader colWidth={80}>행</TableCellUI>
           <TableCellUI isHeader colWidth={120}>분류</TableCellUI>
           <TableCellUI isHeader>값</TableCellUI>
+          <TableCellUI isHeader>비고</TableCellUI>
         </TableHeaderUI>
         <TableBodyUI>
           {data.map((item) => {
@@ -59,6 +60,13 @@ const AlertDataTable = ({ fileName, data }: AlertDataTableProps) => {
                   <ModalTooltipRoot message={item.cellValue}>
                     <p className={cx("ellipsis")}>
                       {item.cellValue}
+                    </p>
+                  </ModalTooltipRoot>
+                </TableCellUI>
+                <TableCellUI>
+                  <ModalTooltipRoot message={item.message}>
+                    <p className={cx("ellipsis")}>
+                      {item.message}
                     </p>
                   </ModalTooltipRoot>
                 </TableCellUI>
