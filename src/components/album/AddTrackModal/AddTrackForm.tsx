@@ -10,6 +10,7 @@ import Checkbox from "@/components/common/Inputs/Checkbox/Checkbox";
 import TextField from "@/components/common/Inputs/TextField/TextField";
 import TextFieldWithUnit from "@/components/common/Inputs/TextFieldWithUnit/TextFieldWithUnit";
 import Spacing from "@/components/common/Layouts/Spacing";
+import useAlbumInfo from "@/services/queries/albums/useAlbumInfo";
 import useArtistList from "@/services/queries/artists/useArtistList";
 import useAddAlbumTrack from "@/services/queries/tracks/useAddAlbumTrack";
 import useUpdateAlbumTrack from "@/services/queries/tracks/useUpdateAlbumTrack";
@@ -56,6 +57,8 @@ const AddTrackForm = ({ albumId, onClose, trackInfo }: AddTrackFormProps) => {
     name: "artists",
   });
   const { mutateAsync: addTrack, isLoading, isError } = useAddAlbumTrack(albumId);
+  const { data: albumInfo } = useAlbumInfo(albumId);
+  // const [artist, setArtist] = useState(albumInfo?.artist || undefined);
   const {
     mutateAsync: updateTrack,
     isLoading: isUpdateLoading,
@@ -86,6 +89,7 @@ const AddTrackForm = ({ albumId, onClose, trackInfo }: AddTrackFormProps) => {
   // 트랙 수정 모드인 경우 기존 아티스트로 다이나믹 인풋값들을 최초 세팅하기 위한 Effect
   useEffect(() => {
     if (trackInfo) {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
       replace(trackInfo.artists.map((artist) => {
         return {
           memberId: artist.memberId,
@@ -96,6 +100,19 @@ const AddTrackForm = ({ albumId, onClose, trackInfo }: AddTrackFormProps) => {
       }));
     }
   }, [append, trackInfo, watch, replace]);
+
+  // 대표 아티스트가 있는 경우 setting하기 위함 Effect
+  useEffect(() => {
+    if (!trackInfo) {
+      if (albumInfo?.artist) {
+        setValue(`artists.${0}.memberId`, albumInfo.artist.memberId);
+        setValue(`artists.${0}.name`, albumInfo.artist.name);
+        setValue(`artists.${0}.commissionRate`, artistList.findLast((item) => {
+          return item.id === albumInfo.artist?.memberId;
+        })?.commissionRate ?? null);
+      }
+    }
+  }, [albumInfo, artistList, setValue, trackInfo]);
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -187,8 +204,11 @@ const AddTrackForm = ({ albumId, onClose, trackInfo }: AddTrackFormProps) => {
                               }
                             }}
                             initialValue={
+                              // eslint-disable-next-line no-nested-ternary
                               trackInfo ? artistList.find((item) => {
                                 return item.id === trackInfo.artists[index]?.memberId;
+                              }) : albumInfo ? artistList.find((item) => {
+                                return item.id === albumInfo.artist?.memberId;
                               }) : undefined
                             }
                           />
@@ -200,7 +220,10 @@ const AddTrackForm = ({ albumId, onClose, trackInfo }: AddTrackFormProps) => {
                             })}
                             type="hidden"
                           />
-                          <input {...register(`artists.${index}.name`)} type="hidden" />
+                          <input
+                            {...register(`artists.${index}.name`)}
+                            type="hidden"
+                          />
                           <span className={cx("dropdownError")}>
                             {errors.artists?.[index]?.memberId?.message
                               ?? errors.artists?.[index]?.name?.message ?? ""}
