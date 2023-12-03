@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import DefaultProfileImage from "@/components/common/DefaultProfileImage/DefaultProfileImage";
+import Notification from "@/components/layout/Notification/Notification";
 import { useAppSelector } from "@/redux/hooks";
 import { MEMBER_ROLE, MEMBER_TYPE } from "@/types/enums/user.enum";
 import getLatestYearMonthString from "@/utils/getLatestYearMonthString";
@@ -49,7 +50,17 @@ const MobileGNB = ({
           )
         }
         {
-          openNotification && (<div>팝업창</div>)
+          openNotification && (
+            <dialog
+              open
+              style={{
+                left: "50%",
+              }}
+            >
+              <Notification onClickNotification={onClickNotification} />
+            </dialog>
+
+          )
         }
         <Link href={profileURL}>
           {profileImage
