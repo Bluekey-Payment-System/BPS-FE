@@ -57,6 +57,8 @@ const SigninForm = ({ title, type }:SigninFormProps) => {
             {" "}
             <Link href="/admin/signup">회원가입</Link>
           </p>
+          <Spacing size={24} />
+          <p><Link href="/signin">아티스트로 로그인</Link></p>
         </>
       )}
     </form>
