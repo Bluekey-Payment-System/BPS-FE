@@ -29,7 +29,6 @@ import updateQueryParam from "@/utils/updateQueryParam";
 
 import EmptyTrackTableData from "./EmptyTrackTableData";
 import styles from "./TrackStatusTable.module.scss";
-import { formatArtistCell } from "./TrackStatusTable.utils";
 
 const cx = classNames.bind(styles);
 
@@ -129,10 +128,7 @@ const ArtistTrackStatusTable = ({
             <TableHeaderUI>
               <TableCellUI isHeader>곡명</TableCellUI>
               <TableCellUI isHeader>앨범명</TableCellUI>
-              <TableCellUI isHeader>아티스트명</TableCellUI>
-              <TableCellUI isHeader>매출액</TableCellUI>
-              <TableCellUI isHeader>정산액</TableCellUI>
-              <TableCellUI isHeader>원천세</TableCellUI>
+              <TableCellUI isHeader>정산액(세후)</TableCellUI>
               <TableCellUI isHeader align="left">요율</TableCellUI>
             </TableHeaderUI>
             <TableBodyUI>
@@ -149,15 +145,13 @@ const ArtistTrackStatusTable = ({
                         <p className={cx("ellipsis")}>{item.album.name}</p>
                       </TooltipRoot>
                     </TableCellUI>
-                    <TableCellUI>
+                    {/* <TableCellUI>
                       <TooltipRoot message={formatArtistCell(item.artists)}>
                         <p className={cx("artistName", "ellipsis")}>{formatArtistCell(item.artists)}</p>
                         <p className={cx("artistName", "enName", "ellipsis")}>{item.artists[0].enName}</p>
                       </TooltipRoot>
-                    </TableCellUI>
-                    <TableCellUI>{formatMoney(item.revenue, "table")}</TableCellUI>
+                    </TableCellUI> */}
                     <TableCellUI>{formatMoney(item.settlementAmount, "table")}</TableCellUI>
-                    <TableCellUI>3.3%</TableCellUI>
                     <TableCellUI align="left"><ProgressBar value={item.commissionRate} /></TableCellUI>
                   </TableRowUI>
                 );

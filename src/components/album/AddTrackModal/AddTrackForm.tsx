@@ -231,7 +231,7 @@ const AddTrackForm = ({ albumId, onClose, trackInfo }: AddTrackFormProps) => {
                         </div>
                       )}
                     <TextFieldWithUnit
-                      label="요율"
+                      label="아티스트측 요율"
                       {...register(`artists.${index}.commissionRate`, {
                         setValueAs: (v: string) => {
                           const val = parseInt(v, 10);
