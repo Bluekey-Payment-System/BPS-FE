@@ -132,7 +132,7 @@ const AdminTrackStatusTable = ({
               <TableCellUI isHeader>아티스트명</TableCellUI>
               <TableCellUI isHeader>매출액</TableCellUI>
               <TableCellUI isHeader>회사 이익</TableCellUI>
-              <TableCellUI isHeader>정산액</TableCellUI>
+              <TableCellUI isHeader>아티스트 정산액(세후)</TableCellUI>
               <TableCellUI isHeader align="left">요율</TableCellUI>
             </TableHeaderUI>
             <TableBodyUI>
