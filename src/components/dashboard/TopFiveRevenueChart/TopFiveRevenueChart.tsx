@@ -6,20 +6,24 @@ import { useRouter } from "next/router";
 import DoughnutChart from "@/components/common/Chart/DoughnutChart/DoughnutChart";
 import { IGetAdminEarningsTopArtistResponse } from "@/services/api/types/admin";
 import { IGetAlbumRevenueTopTrackResponse } from "@/services/api/types/albums";
+import { MemberRole } from "@/types/enums/user.enum";
 
 import styles from "./TopFiveRevenueChart.module.scss";
-import routeBasedOnPath from "./TopFiveRevenueChart.utils";
+import getHeaderText from "./TopFiveRevenueChart.utils";
 import TopFiveRevenueChartLegend from "./TopFiveRevenueChartLegend";
 
 const cx = classNames.bind(styles);
 
-type TopFiveRevenueChartProps = IGetAdminEarningsTopArtistResponse | IGetAlbumRevenueTopTrackResponse;
+interface TopFiveRevenueChartProps {
+  topFiveChartData: IGetAdminEarningsTopArtistResponse | IGetAlbumRevenueTopTrackResponse;
+  type: MemberRole
+}
 
 /**
  * @author 임병욱
  * @param topFiveChartData - 차트 데이터 contents 값 포함해서 가져오면 됩니다
 */
-const TopFiveRevenueChart = ({ topFiveChartData }: { topFiveChartData: TopFiveRevenueChartProps }) => {
+const TopFiveRevenueChart = ({ topFiveChartData, type }: TopFiveRevenueChartProps) => {
   const router = useRouter();
 
   if (topFiveChartData.contents.length === 0) {
@@ -41,7 +45,7 @@ const TopFiveRevenueChart = ({ topFiveChartData }: { topFiveChartData: TopFiveRe
   return (
     <div className={cx("topFiveChartContainer")}>
       <div className={cx("description")}>
-        <span>{routeBasedOnPath(router.asPath)}</span>
+        <span>{getHeaderText(router.asPath, type)}</span>
       </div>
       <div className={cx("contentContainer")}>
         <div style={{ width: "300px", height: "300px" }}>
