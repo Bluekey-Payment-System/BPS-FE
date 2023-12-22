@@ -58,7 +58,7 @@ const AlbumDashboardPage = ({ month, albumId }: InferGetServerSidePropsType<GetS
       <DashboardCardList data={cardQuery.data!.cards} />
       <div className={cx("chartContainer")}>
         <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={memberRole as MemberRole} />
-        <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
+        <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} type={memberRole as MemberRole} />
       </div>
       <AlbumTrendsChart
         albumTrendsChartData={albumTrendsChartQuery.data!}

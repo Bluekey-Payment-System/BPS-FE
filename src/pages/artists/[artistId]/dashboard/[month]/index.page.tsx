@@ -67,7 +67,7 @@ const ArtistDashboardPage = ({
       <DashboardCardList data={cardQuery.data!.cards} />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <MonthlyTrendChart barChartData={trendsChartQuery.data!} type={memberRole as MemberRole} />
-        <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} />
+        <TopFiveRevenueChart topFiveChartData={topFiveChartQuery.data!} type={memberRole as MemberRole} />
       </div>
       {isTableLoading
         ? <div className={cx("loading", "table")}><Orbit /></div>

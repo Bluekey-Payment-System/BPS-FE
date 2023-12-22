@@ -31,7 +31,6 @@ export const mapChartDataToMonthlySummary = (
     if (type === MEMBER_ROLE.ARTIST) {
       return {
         month: getMonthName(data.month),
-        revenue: data.revenue,
         settlement: data.settlement,
       };
     }
@@ -52,18 +51,14 @@ export const getMaxValue = (
   let maxValue = 0;
 
   for (let i = 0; i < chartData.contents.length; i += 1) {
-    let valueToCompare = 0;
     const content = chartData.contents[i];
 
     if (type === MEMBER_ROLE.ARTIST) {
-      valueToCompare = Math.max(content.settlement || 0, content.revenue as number);
+      maxValue = Math.max(maxValue, content.settlement || 0);
     } else {
-      valueToCompare = Math.max(content.netIncome || 0, content.revenue as number);
-    }
-
-    if (valueToCompare > maxValue) {
-      maxValue = valueToCompare;
+      maxValue = Math.max(maxValue, content.netIncome || 0, content.revenue || 0);
     }
   }
+
   return maxValue;
 };

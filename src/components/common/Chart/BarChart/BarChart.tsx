@@ -1,5 +1,3 @@
-import { useCallback } from "react";
-
 import { ResponsiveBar } from "@nivo/bar";
 import classNames from "classnames/bind";
 
@@ -49,18 +47,9 @@ const BarChart = ({ barChartData, type }: {
   barChartData: IGetAdminMonthlyTrendsResponse,
   type: MemberRole
 }) => {
-  const checkAllZeros = useCallback(
-    (chartData: IGetAdminMonthlyTrendsResponse): boolean => {
-      return chartData.contents.every((entry) => {
-        return entry.revenue === 0 && entry.netIncome === 0 && entry.settlement === 0;
-      });
-    },
-    [],
-  );
-
   const maxValue: number = getMaxValue(barChartData, type);
   const formattedData = mapChartDataToMonthlySummary(barChartData, type);
-  const keyType = type === MEMBER_ROLE.ARTIST ? ["revenue", "settlement"] : ["revenue", "netIncome"];
+  const keyType = type === MEMBER_ROLE.ARTIST ? ["settlement"] : ["revenue", "netIncome"];
 
   return (
     <ResponsiveBar
@@ -73,7 +62,8 @@ const BarChart = ({ barChartData, type }: {
           },
         },
       }}
-      maxValue={checkAllZeros(barChartData) ? 10000 : maxValue * 1.2}
+      // maxValue={checkAllZeros(barChartData) ? 10000 : maxValue * 1.2}
+      maxValue={maxValue === 0 ? 10000 : maxValue * 1.2}
       barComponent={BarItem}
       borderRadius={7}
       data={formattedData}
@@ -83,7 +73,7 @@ const BarChart = ({ barChartData, type }: {
       margin={{
         top: 60, right: -35, bottom: 20, left: 45,
       }}
-      padding={0.7}
+      padding={type === MEMBER_ROLE.ARTIST ? 0.87 : 0.7}
       innerPadding={3}
       groupMode="grouped"
       valueScale={{ type: "linear" }}
